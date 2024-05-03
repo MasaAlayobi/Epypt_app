@@ -1,0 +1,76 @@
+
+import 'package:flutter/material.dart';
+
+class NotificationPage extends StatelessWidget {
+  const NotificationPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.red,
+          title: const Text(
+            'الإشعارات',
+            // style: Styles.textStyle24,
+          ),
+          centerTitle: true,
+        ),
+        body: ListView.builder(
+          itemCount: 8,
+          itemBuilder: (context, index) {
+            return const NotifcationViewBodyItem();
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class NotifcationViewBodyItem extends StatelessWidget {
+  const NotifcationViewBodyItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String formattedDate =
+        '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+    String period = now.hour < 12 ? 'AM' : 'PM';
+    String dayPeriod = period == 'AM' ? 'ص' : 'م';
+    String formattedTime =
+        '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 2),
+      child: Container(
+        color: const Color.fromARGB(136, 224, 214, 214),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListTile(
+              title: const Text(
+                'تم استلام الطلبية',
+                // style: Styles.textStyleDate,
+              ),
+              subtitle: Text(
+                'اطلبهم من فاتورة بأسعار في معقول باقوى كاش باك',
+                // style: Styles.textStyleDate.copyWith(fontSize: 20),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  '$formattedDate – $formattedTime $dayPeriod',
+                  // style: Styles.textStyleDate,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
