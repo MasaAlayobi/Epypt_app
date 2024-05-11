@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mufraty_app/Core/Resourse/color_app.dart';
+import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Home/Discounts/view/Discounts_page.dart';
 import 'package:mufraty_app/feature/Home/Notification/view/notification_page.dart';
 import 'package:mufraty_app/feature/Home/Reports/view/reports_page.dart';

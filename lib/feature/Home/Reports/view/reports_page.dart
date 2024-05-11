@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_listTile.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_text.dart';
-import 'package:mufraty_app/Core/Resourse/color_app.dart';
+import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Home/Discounts/view/Discounts_page.dart';
 
 class ReportsPage extends StatefulWidget {

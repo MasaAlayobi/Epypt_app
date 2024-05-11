@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:mufraty_app/Core/Resourse/color_app.dart';
+import 'package:mufraty_app/Core/Resourse/color.dart';
 
 
 class Style{

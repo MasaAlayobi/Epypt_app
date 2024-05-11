@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_text.dart';
-import 'package:mufraty_app/Core/Resourse/color_app.dart';
+import 'package:mufraty_app/Core/Resourse/color.dart';
 
 class CustomListTile extends StatelessWidget {
   const CustomListTile({super.key, required this.icon, required this.iconColor, required this.title, required this.subtitle});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mufraty_app/Core/Resourse/color_app.dart';
-import 'package:mufraty_app/Core/Resourse/string_app.dart';
+import 'package:mufraty_app/Core/Resourse/color.dart';
+import 'package:mufraty_app/Core/Resourse/string.dart';
 import 'package:mufraty_app/Core/Resourse/style.dart';
 import 'package:mufraty_app/feature/Home/Stock/Available/view/available_page.dart';
 import 'package:mufraty_app/feature/Home/Stock/NotAvailable/view/not_available_page.dart';
