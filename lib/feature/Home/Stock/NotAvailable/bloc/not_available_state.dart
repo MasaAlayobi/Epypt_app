@@ -18,3 +18,28 @@ class NoConnectionWithProduct extends NotAvailableState {}
 class LoadingProduct extends NotAvailableState {}
 
 class NotFound extends NotAvailableState {}
+class successAddAvailable extends NotAvailableState {
+  
+  String message;
+  successAddAvailable({
+    required this.message,
+  });}
+class LoadingUpdate extends NotAvailableState {
+    String message;
+  LoadingUpdate({
+    required this.message,
+  });
+  }
+  class InformationError extends NotAvailableState {
+  String message;
+  InformationError({
+    required this.message,
+  });
+}
+class NoConnectionAddProduct extends NotAvailableState {
+  String message;
+  NoConnectionAddProduct({
+    required this.message,
+  });
+
+}

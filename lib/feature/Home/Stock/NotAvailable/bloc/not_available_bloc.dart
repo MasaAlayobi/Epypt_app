@@ -26,5 +26,25 @@ class NotAvailableBloc extends Bloc<NotAvailableEvent, NotAvailableState> {
       
     }
     });
+     on<AddToAvailable>(
+      (event, emit) async {
+         emit(LoadingUpdate(message: 'جاري التحديث .....'));
+        try {
+          String message = await StockServicImp()
+              .addAvailableOrNot(event.id, event.is_available);
+          print(message);
+          if (message == 'true') {
+            // print('true');
+            //  emit(SuccessFetchAvailableProducts(allProduct: temp));
+             emit(successAddAvailable(message: "تم نقل المنتج إلى المتاح"));
+            //  print(message);
+          } else if (message == "Validation error") {
+            emit(InformationError(message: message));
+          }
+        } catch (e) {
+          emit(NoConnectionAddProduct(message: 'خطأ في الاتصال'));
+        }
+      },
+    );
   }
 }

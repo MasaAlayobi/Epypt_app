@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import 'package:mufraty_app/Core/Data/info_available_product_model.dart';
-import 'package:mufraty_app/Core/Resourse/string.dart';
 
 class AvailableProductsModel {
   num id;
@@ -65,7 +64,7 @@ class AvailableProductsModel {
       size: map['size'] as num,
       size_of: map['size_of'] as String,
       image: List<dynamic>.from((map['image'] as List<dynamic>)),
-      pivot: InfoAvailableProductModel.fromMap(map['pivot'] as Map<String,dynamic>),
+      pivot: InfoAvailableProductModel.fromMap(map['pivot'] as Map<dynamic,dynamic>),
     );
   }
 
@@ -103,4 +102,3 @@ class AvailableProductsModel {
       pivot.hashCode;
   }
 }
-

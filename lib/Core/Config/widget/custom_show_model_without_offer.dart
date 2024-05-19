@@ -123,51 +123,85 @@ class CustomShowModelWithoutOffer extends StatelessWidget {
                       BlocListener<ProductsBloc, ProductsState>(
                         listener: (context, state) {
                           if (state is successAddProduct) {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) {
-                    //       return HomePage();
-                    //     },
-                    //   ),
-                    // );
-                    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                      content: Text(state.message),
-                      backgroundColor: colorApp.basicColor,
-                    ));
-                     Navigator.pop(context);
-                  } else if (state is InformationError) {
-                    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                      content: Text(state.message),
-                      backgroundColor: colorApp.basicColor,
-                    ));
-                     Navigator.pop(context);
-                  } else if (state is NoConnectionAddProduct) {
-                    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                      content: Text(state.message),
-                      backgroundColor: colorApp.basicColor,
-                    ));
-                     Navigator.pop(context);
-                  }
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return HomePage();
+                            //     },
+                            //   ),
+                            // );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(new SnackBar(
+                              content: Text(state.message),
+                              backgroundColor: colorApp.basicColor,
+                            ));
+                            Navigator.pop(context);
+                          } else if (state is InformationError) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(new SnackBar(
+                              content: Text(state.message),
+                              backgroundColor: colorApp.basicColor,
+                            ));
+                            Navigator.pop(context);
+                          } else if (state is NoConnectionAddProduct) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(new SnackBar(
+                              content: Text(state.message),
+                              backgroundColor: colorApp.basicColor,
+                            ));
+                            Navigator.pop(context);
+                          }
                         },
                         child: InkWell(
                           onTap: () {
                             print('${quantity.text}+${price.text}+${id}');
 
-                           if(quantity.text==""&&price.text==""){
-                             BlocProvider.of<ProductsBloc>(context).add(
-                                addProductWithoutOffer(
-                                    product: AddProductModel(
-                                        price: int.parse(price.text),
-                                        product_id: id,
-                                        max_selling_quantity:
-                                            int.parse(quantity.text))));
-                           }
-                           else{
-                           showDialog(context: context, builder: (context) {
-                             return Dialog(child: Text(''''''''''''''''''''''''''),);
-                           },);
-                           }
+                            if (quantity.text != "" && price.text != "") {
+                              BlocProvider.of<ProductsBloc>(context).add(
+                                  addProductWithoutOffer(
+                                      product: AddProductModel(
+                                          price: int.parse(price.text),
+                                          product_id: id,
+                                          max_selling_quantity:
+                                              int.parse(quantity.text))));}
+                             else {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                    backgroundColor: Color.fromARGB(235, 224, 214, 214),
+                                    child: Container(
+                                      width: 200,
+                                      height: 100,
+                                      child: Center(
+                                          child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          CustomText(
+                                              text:
+                                                  "أملا كامل الحقول قبل الإضافة",
+                                              size: 13,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500,
+                                              maxLines: 3),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                               style: ButtonStyle(
+                                                backgroundColor:WidgetStateProperty.all<Color>(colorApp.basicColor),
+                                                fixedSize: WidgetStateProperty.all<Size>(Size(70, 30)),),
+                                              child:
+                                                  Center(child: Text('إغلاق',style: TextStyle(color: colorApp.whiteColor),)))
+                                        ],
+                                      )),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(

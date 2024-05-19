@@ -1,9 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:image_picker/image_picker.dart';
 
 class RegisterModel {
   String first_name;
@@ -18,7 +16,6 @@ class RegisterModel {
   num city_id;
   num supplier_category_id;
   List<num> to_sites;
-  XFile? image;
   RegisterModel({
     required this.first_name,
     required this.middle_name,
@@ -32,8 +29,8 @@ class RegisterModel {
     required this.city_id,
     required this.supplier_category_id,
     required this.to_sites,
-    this.image,
   });
+  
 
   RegisterModel copyWith({
     String? first_name,
@@ -65,8 +62,8 @@ class RegisterModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+  Map<dynamic, dynamic> toMap() {
+    return <dynamic, dynamic>{
       'first_name': first_name,
       'middle_name': middle_name,
       'last_name': last_name,
@@ -78,7 +75,7 @@ class RegisterModel {
       'min_bill_price': min_bill_price,
       'city_id': city_id,
       'supplier_category_id': supplier_category_id,
-      'to_sites': to_sites,
+      'to_sites[]': to_sites,
     };
   }
 

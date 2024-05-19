@@ -7,44 +7,43 @@ class ProductsModel {
   num id;
   String name;
   String discription;
-  num size;
   String size_of;
+  num size;
   List<dynamic> image;
   ProductsModel({
     required this.id,
     required this.name,
     required this.discription,
-    required this.size,
     required this.size_of,
+    required this.size,
     required this.image,
   });
-  
 
   ProductsModel copyWith({
     num? id,
     String? name,
     String? discription,
-    num? size,
     String? size_of,
+    num? size,
     List<dynamic>? image,
   }) {
     return ProductsModel(
       id: id ?? this.id,
       name: name ?? this.name,
       discription: discription ?? this.discription,
-      size: size ?? this.size,
       size_of: size_of ?? this.size_of,
+      size: size ?? this.size,
       image: image ?? this.image,
     );
   }
 
   Map<dynamic, dynamic> toMap() {
-    return <dynamic, dynamic>{
+    return <String, dynamic>{
       'id': id,
       'name': name,
       'discription': discription,
-      'size': size,
       'size_of': size_of,
+      'size': size,
       'image': image,
     };
   }
@@ -54,8 +53,8 @@ class ProductsModel {
       id: map['id'] as num,
       name: map['name'] as String,
       discription: map['discription'] as String,
-      size: map['size'] as num,
       size_of: map['size_of'] as String,
+      size: map['size'] as num,
       image: List<dynamic>.from((map['image'] as List<dynamic>)),
     );
   }
@@ -66,7 +65,7 @@ class ProductsModel {
 
   @override
   String toString() {
-    return 'ProductsModel(id: $id, name: $name, discription: $discription, size: $size, size_of: $size_of, image: $image)';
+    return 'ProductsModel(id: $id, name: $name, discription: $discription, size_of: $size_of, size: $size, image: $image)';
   }
 
   @override
@@ -77,8 +76,8 @@ class ProductsModel {
       other.id == id &&
       other.name == name &&
       other.discription == discription &&
-      other.size == size &&
       other.size_of == size_of &&
+      other.size == size &&
       listEquals(other.image, image);
   }
 
@@ -87,9 +86,8 @@ class ProductsModel {
     return id.hashCode ^
       name.hashCode ^
       discription.hashCode ^
-      size.hashCode ^
       size_of.hashCode ^
+      size.hashCode ^
       image.hashCode;
   }
 }
-

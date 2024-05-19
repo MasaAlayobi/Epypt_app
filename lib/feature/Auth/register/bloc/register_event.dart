@@ -3,12 +3,14 @@ part of 'register_bloc.dart';
 
 @immutable
 sealed class RegisterEvent {}
+
 class CreateUser extends RegisterEvent {
   RegisterModel User;
-  XFile image;
+  File image;
   CreateUser({
     required this.User,
     required this.image,
   });
- 
 }
+
+class getCities extends RegisterEvent {}

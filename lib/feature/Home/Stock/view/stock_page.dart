@@ -8,8 +8,9 @@ import 'package:mufraty_app/feature/Home/Stock/Warehouse/view/warehouse_page.dar
 
 
 class StockPage extends StatefulWidget {
-  const StockPage({super.key});
-
+   StockPage({super.key,this.storeName,this.isName});
+String? storeName;
+bool? isName=false;
   @override
   State<StockPage> createState() => _StockPageState();
 }
@@ -35,7 +36,9 @@ class _StockPageState extends State<StockPage> {
           appBar: AppBar(
             backgroundColor: colorApp.basicColor,
             title: Text(
-              'الفحام للتجارة',
+              widget.storeName!=null?
+              widget.storeName!
+              :'',
               textAlign: TextAlign.right,
               // textDirection: TextDirection.rtl,
               style: Style.textStyle19900,),

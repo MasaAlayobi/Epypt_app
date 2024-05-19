@@ -8,6 +8,8 @@ class InfoAvailableProductModel {
   num offer_price;
   num max_offer_quantity;
   num max_selling_quantity;
+  num is_available;
+  String offer_expires_at;
   InfoAvailableProductModel({
     required this.id,
     required this.price,
@@ -15,8 +17,10 @@ class InfoAvailableProductModel {
     required this.offer_price,
     required this.max_offer_quantity,
     required this.max_selling_quantity,
+    required this.is_available,
+    required this.offer_expires_at,
   });
- 
+  
 
   InfoAvailableProductModel copyWith({
     num? id,
@@ -25,6 +29,8 @@ class InfoAvailableProductModel {
     num? offer_price,
     num? max_offer_quantity,
     num? max_selling_quantity,
+    num? is_available,
+    String? offer_expires_at,
   }) {
     return InfoAvailableProductModel(
       id: id ?? this.id,
@@ -33,6 +39,8 @@ class InfoAvailableProductModel {
       offer_price: offer_price ?? this.offer_price,
       max_offer_quantity: max_offer_quantity ?? this.max_offer_quantity,
       max_selling_quantity: max_selling_quantity ?? this.max_selling_quantity,
+      is_available: is_available ?? this.is_available,
+      offer_expires_at: offer_expires_at ?? this.offer_expires_at,
     );
   }
 
@@ -44,6 +52,8 @@ class InfoAvailableProductModel {
       'offer_price': offer_price,
       'max_offer_quantity': max_offer_quantity,
       'max_selling_quantity': max_selling_quantity,
+      'is_available': is_available,
+      'offer_expires_at': offer_expires_at,
     };
   }
 
@@ -55,6 +65,8 @@ class InfoAvailableProductModel {
       offer_price: map['offer_price'] as num,
       max_offer_quantity: map['max_offer_quantity'] as num,
       max_selling_quantity: map['max_selling_quantity'] as num,
+      is_available: map['is_available'] as num,
+      offer_expires_at: map['offer_expires_at'] as String,
     );
   }
 
@@ -64,7 +76,7 @@ class InfoAvailableProductModel {
 
   @override
   String toString() {
-    return 'InfoAvailableProductModel(id: $id, price: $price, has_offer: $has_offer, offer_price: $offer_price, max_offer_quantity: $max_offer_quantity, max_selling_quantity: $max_selling_quantity)';
+    return 'InfoAvailableProductModel(id: $id, price: $price, has_offer: $has_offer, offer_price: $offer_price, max_offer_quantity: $max_offer_quantity, max_selling_quantity: $max_selling_quantity, is_available: $is_available, offer_expires_at: $offer_expires_at)';
   }
 
   @override
@@ -77,7 +89,9 @@ class InfoAvailableProductModel {
       other.has_offer == has_offer &&
       other.offer_price == offer_price &&
       other.max_offer_quantity == max_offer_quantity &&
-      other.max_selling_quantity == max_selling_quantity;
+      other.max_selling_quantity == max_selling_quantity &&
+      other.is_available == is_available &&
+      other.offer_expires_at == offer_expires_at;
   }
 
   @override
@@ -87,6 +101,8 @@ class InfoAvailableProductModel {
       has_offer.hashCode ^
       offer_price.hashCode ^
       max_offer_quantity.hashCode ^
-      max_selling_quantity.hashCode;
+      max_selling_quantity.hashCode ^
+      is_available.hashCode ^
+      offer_expires_at.hashCode;
   }
 }

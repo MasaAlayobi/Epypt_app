@@ -34,3 +34,11 @@ class NoConnectionAddProduct extends ProductsState {
   });
 
 }
+class successAddProductWithOffer extends ProductsState {
+  String message;
+  successAddProductWithOffer({
+    required this.message,
+  });
+
+}
+

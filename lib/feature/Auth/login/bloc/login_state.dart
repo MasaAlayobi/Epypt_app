@@ -15,6 +15,11 @@ class InformationError extends LoginState {
   });
 }
 
-class NoConnection extends LoginState {}
+class NoConnection extends LoginState {
+  String message;
+  NoConnection({
+    required this.message,
+  });
+}
 
 class loading extends LoginState {}

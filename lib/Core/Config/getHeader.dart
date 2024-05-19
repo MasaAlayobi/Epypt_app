@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
 
-getHeader({bool useToken = true}) {
-  if (useToken) {
-    return Options(headers: {
-      "authorization":
-          "Bearer 52|6Wnf6KNIN4A68N9li4b43w7K8tgDu110nJ56ToCtc6fecc58",
+// getHeader({bool useToken = true}) {
+//   if (useToken) {
+//     return Options(headers: {
+//       "authorization":
+//           "Bearer 192|qJ8uosbBPSIWdPVrzEwGXR663O5JnszMMbE1K7rJ8df32c9a",
       
-    });
-  }else {
-      return Options(headers: {
+//     });
+//   }else {
+//       return Options(headers: {
      
-    });
-   }
-}
+//     });
+//    }
+// }

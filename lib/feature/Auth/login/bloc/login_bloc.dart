@@ -10,6 +10,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
     on<loginUser>((event, emit) async{
         emit(loading());
+        try{
+
       String temp = await AuthServiceTmp().login(event.User);
       if(temp=='true'){
         emit(successcreatedUser());
@@ -17,9 +19,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       else if(temp=='your provided credentials cannot be verified.'){
          emit (InformationError(message:'يرجى التأكد من المعلومات إعادة المحاولة' ));
       }
-      else{
-        emit(NoConnection());
-      }
+        }catch(e){
+          emit(NoConnection(message: e.toString()));
+        }
+      
     });
   }
 }

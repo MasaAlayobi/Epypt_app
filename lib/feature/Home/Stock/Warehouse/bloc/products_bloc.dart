@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:mufraty_app/Core/Data/add_product_model.dart';
+import 'package:mufraty_app/Core/Data/add_product_with_offer_model.dart';
 import 'package:mufraty_app/Core/Data/products_model.dart';
 import 'package:mufraty_app/Core/Domain/stock_servic.dart';
 import 'package:mufraty_app/feature/Auth/login/bloc/login_bloc.dart';
@@ -27,27 +28,42 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     });
     on<addProductWithoutOffer>(
       (event, emit) async {
-         emit(LoadingProduct());
-        //  try{
-
-        String message = await StockServicImp()
-            .addProductWithoutOffer( event.product);
-            print(message);
-            if(message=='true'){
-              // print('true');
-              emit(successAddProduct(message: "تم اضافة المنتج بنجاح"));
-              //  print(message);
-            }
-            else if(message=="Validation error"){
-              emit(InformationError(message: message));
-            }
-        //  }
-            // catch (e){
-
-            //   emit (NoConnectionAddProduct(message: 'خطأ في الاتصال'));
-            // }
-            
+        emit(LoadingProduct());
+        try {
+          String message =
+              await StockServicImp().addProductWithoutOffer(event.product);
+          print(message);
+          if (message == 'true') {
+            // print('true');
+            emit(successAddProduct(message: "تم اضافة المنتج بنجاح"));
+            //  print(message);
+          } else if (message == "Validation error") {
+            emit(InformationError(message: message));
+          }
+        } catch (e) {
+          emit(NoConnectionAddProduct(message: 'خطأ في الاتصال'));
+        }
       },
     );
+    on<addProductWithOffer>(
+      (event, emit) async {
+        emit(LoadingProduct());
+        try {
+          String message =
+              await StockServicImp().addProductWithOffer(event.product);
+          print(message);
+          if (message == 'true') {
+            // print('true');
+            emit(successAddProductWithOffer(message: "تم اضافة المنتج بنجاح"));
+            //  print(message);
+          } else if (message == "Validation error") {
+            emit(InformationError(message: message));
+          }
+        } catch (e) {
+          emit(NoConnectionAddProduct(message: 'خطأ في الاتصال'));
+        }
+      },
+    );
+   
   }
 }

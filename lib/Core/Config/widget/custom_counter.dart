@@ -12,23 +12,23 @@ class _CustomCounterState extends State<CustomCounter> {
   @override
   int number = 0;
   
-  void increment() {
-    setState(() {
-      number++;
-      widget.controller!.text = number.toString();
-    });
-  }
+  // void increment() {
+  //   setState(() {
+  //     number++;
+  //     widget.controller!.text = number.toString();
+  //   });
+  // }
 
-  void decrement() {
-    setState(() {
-      number--;
-      widget.controller!.text = number.toString();
-    });
-  }
+  // void decrement() {
+  //   setState(() {
+  //     number--;
+  //     widget.controller!.text = number.toString();
+  //   });
+  // }
 
   Widget build(BuildContext context) {
     return Container(
-      width: 140,
+      width: MediaQuery.of(context).size.width /2.5,
       height: 35,
       color: colorApp.whiteColor,
       child: Row(

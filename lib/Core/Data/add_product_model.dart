@@ -2,40 +2,40 @@
 import 'dart:convert';
 
 class AddProductModel {
-  num price;
-  num product_id;
   num max_selling_quantity;
+  num product_id;
+  num price;
   AddProductModel({
-    required this.price,
-    required this.product_id,
     required this.max_selling_quantity,
+    required this.product_id,
+    required this.price,
   });
 
   AddProductModel copyWith({
-    num? price,
-    num? product_id,
     num? max_selling_quantity,
+    num? product_id,
+    num? price,
   }) {
     return AddProductModel(
-      price: price ?? this.price,
-      product_id: product_id ?? this.product_id,
       max_selling_quantity: max_selling_quantity ?? this.max_selling_quantity,
+      product_id: product_id ?? this.product_id,
+      price: price ?? this.price,
     );
   }
 
   Map<dynamic, dynamic> toMap() {
     return <dynamic, dynamic>{
-      'price': price,
-      'product_id': product_id,
       'max_selling_quantity': max_selling_quantity,
+      'product_id': product_id,
+      'price': price,
     };
   }
 
   factory AddProductModel.fromMap(Map<String, dynamic> map) {
     return AddProductModel(
-      price: map['price'] as num,
-      product_id: map['product_id'] as num,
       max_selling_quantity: map['max_selling_quantity'] as num,
+      product_id: map['product_id'] as num,
+      price: map['price'] as num,
     );
   }
 
@@ -44,18 +44,18 @@ class AddProductModel {
   factory AddProductModel.fromJson(String source) => AddProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'AddProductModel(price: $price, product_id: $product_id, max_selling_quantity: $max_selling_quantity)';
+  String toString() => 'AddProductModel(max_selling_quantity: $max_selling_quantity, product_id: $product_id, price: $price)';
 
   @override
   bool operator ==(covariant AddProductModel other) {
     if (identical(this, other)) return true;
   
     return 
-      other.price == price &&
+      other.max_selling_quantity == max_selling_quantity &&
       other.product_id == product_id &&
-      other.max_selling_quantity == max_selling_quantity;
+      other.price == price;
   }
 
   @override
-  int get hashCode => price.hashCode ^ product_id.hashCode ^ max_selling_quantity.hashCode;
+  int get hashCode => max_selling_quantity.hashCode ^ product_id.hashCode ^ price.hashCode;
 }

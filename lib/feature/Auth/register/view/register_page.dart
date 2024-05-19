@@ -1,16 +1,29 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mufraty_app/Core/Config/widget/Titles.dart';
+import 'package:mufraty_app/Core/Config/widget/changeSign.dart';
+import 'package:mufraty_app/Core/Config/widget/myButton.dart';
+import 'package:mufraty_app/Core/Config/widget/myTextField.dart';
+import 'package:mufraty_app/Core/Config/widget/myTextFieldNumber.dart';
 import 'package:mufraty_app/Core/Config/widget/my_expansion_tile.dart';
+import 'package:mufraty_app/Core/Config/widget/my_expansion_tile_cities.dart';
 import 'package:mufraty_app/Core/Data/register_model.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
+import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
 import 'package:mufraty_app/feature/Auth/register/bloc/register_bloc.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 
 class SignUp extends StatefulWidget {
-  SignUp({super.key});
+  // final num cityId;
+  // final List<num> cititesId; 
+  const SignUp({super.key, 
+  // this.cityId = 0,  
+  // this.cititesId = const []
+  });
   @override
   State<SignUp> createState() => _SignUpState();
 }
@@ -31,7 +44,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
   TextEditingController deliveryTime = TextEditingController();
-
+final TextEditingController _controller = TextEditingController();
   final imagePicker = ImagePicker();
    File? image;
    XFile? pickedFile;
@@ -46,7 +59,30 @@ class _SignUpState extends State<SignUp> {
     } else {}
     print(image);
   }
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.addListener(() {
+      final text = _controller.text;
+      // if (text.length < 3) {
+      //   // _controller.text = '+20';
+      //   _controller.selection = TextSelection.fromPosition(TextPosition(offset: _controller.text.length));
+      // }
+    });
+  }
+  List<num> cititesId1=[]; 
+  num? cityId;
+   void updateDataCities(num citiesId) {
+    setState(() {
+     cityId=citiesId;
+    });
+  }
+   void updateData(List<num> citiesId) {
+    setState(() {
+     cititesId1=citiesId;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     bool isCheckedCheckBox = false;
@@ -128,11 +164,40 @@ class _SignUpState extends State<SignUp> {
                                 validatorText: "مطلوب",
                               ),
                             ),
-                            myTextFieldNumber(
-                              phoneController: phone,
-                              phoneText: "رقم الهاتف",
-                              validatorText: "مطلوب",
-                            ),
+                           Padding(
+        padding: const EdgeInsets.all(9.0),
+        child: TextFormField(
+          controller: _controller,
+          keyboardType: TextInputType.number,
+          inputFormatters: [
+             FilteringTextInputFormatter.digitsOnly,
+            LengthLimitingTextInputFormatter(10), // +20 و 10 أرقام
+          ],
+         cursorColor: ColorManager().red,
+      decoration: InputDecoration(
+        errorStyle: TextStyle(color: ColorManager().red),
+        errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ColorManager().red),
+            borderRadius: BorderRadius.circular(12)),
+        focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ColorManager().red),
+            borderRadius: BorderRadius.circular(12)),
+        fillColor: Colors.grey[200],
+        filled: true,
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ColorManager().red),
+            borderRadius: BorderRadius.circular(12)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ColorManager().red),
+            borderRadius: BorderRadius.circular(12)),
+        border: OutlineInputBorder(
+            borderSide: BorderSide(color: ColorManager().red)),
+         hintText: 'رقم الهاتف ',
+             suffixText: '20+',
+        labelStyle: TextStyle(fontSize: 14, color: ColorManager().red),
+      ),
+        ),
+      ),
                             Padding(
                               padding: const EdgeInsets.all(9),
                               child: TextFormField(
@@ -312,34 +377,40 @@ class _SignUpState extends State<SignUp> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 12, vertical: 18),
                                 child: myExpansionTile(
+                                  onDataChanged: updateDataCities,
                                   widget: Text(""),
                                   text1: "اختر مدينتك",
-                                  text2: "دمشق",
-                                  text3: "ركن الدين",
+                                  // text2: "دمشق",
+                                  // text3: "ركن الدين",
+                                  
                                 )),
                             Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 12),
-                                child: myExpansionTile(
+                                child: MyExpansionTileCities(
+                                      onDataChanged: updateData,
                                     text1: "اختر المدن للتوصيل",
-                                    widget: StatefulBuilder(
-                                      builder: (context, setState) => Checkbox(
-                                        activeColor: ColorManager().red,
-                                        value: isCheckedCheckBox2,
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            isCheckedCheckBox2 = value!;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    text2: "دمشق",
-                                    text3: "ركن الدين",
+                                    widget: Text(""),
+                                    // widget: StatefulBuilder(
+                                    //   builder: (context, setState) => Checkbox(
+                                    //     activeColor: ColorManager().red,
+                                    //     value: isCheckedCheckBox2,
+                                    //     onChanged: (bool? value) {
+                                    //       setState(() {
+                                    //         isCheckedCheckBox2 = value!;
+                                    //       });
+                                    //     },
+                                    //   ),
+                                     
+                                    // text2: "دمشق",
+                                    // text3: "ركن الدين",
                                     variable: isCheckedCheckBox2)),
                             ChangeSign(
                               text: "لديك حساب؟",
                               textbutton: "تسجيل دخول",
-                              onPress: () {},
+                              onPress: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginView(),));
+                              },
                             ),
                             SizedBox(
                               height: 11,
@@ -351,55 +422,67 @@ class _SignUpState extends State<SignUp> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return HomePage();
+                                return HomePage(storNamr:state.storeName ,);
                               },
                             ),
                           );
                           ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                            content: Text('Done'),
+                            content: Text(state.message),
                             backgroundColor: colorApp.basicColor,
                           ));
                         }
                         else if(state is NoConnection){
-                          print('-------------------------------');
+                          ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+                            content: Text(state.message),
+                            backgroundColor: colorApp.basicColor,
+                          ));
                         }
                               },
                               child: MyButton(
                                 title: "إنشاء حساب",
                                 onpress: () async {
-                                  // RegisterModel user = RegisterModel(
-                                  //     first_name: firstName.text,
-                                  //     middle_name: secondName.text,
-                                  //     last_name: lastName.text,
-                                  //     phone_number: phone.text,
-                                  //     store_name: marketName.text,
-                                  //     password: password.text,
-                                  //     delivery_duration: deliveryTime.text,
-                                  //     min_selling_quantity:
-                                  //         int.parse(quantity.text),
-                                  //     min_bill_price: int.parse(priceBill.text),
-                                  //     city_id: 1,
-                                  //     supplier_category_id:
-                                  //         int.parse(catorgy.text),
-                                  //     to_sites: [1]);
+                                  print( '+20${_controller.text.toString()}');
+                                  if(firstName.text != null && lastName.text != null && secondName.text != null && password.text != null && marketName.text != null && deliveryTime.text != null && quantity.text != null && priceBill.text != null && catorgy.text != null&& cititesId1.isNotEmpty && cityId!=null ){
+
                                   RegisterModel user = RegisterModel(
-                                      first_name:'fhdb',
-                                      middle_name: 'gdnb',
-                                      last_name: 'dnbg',
-                                      phone_number: '0912345678',
-                                      store_name: 'rtsbhntr',
-                                      password:'12345678',
-                                      delivery_duration:'66',
+                                      first_name: firstName.text,
+                                      middle_name: secondName.text,
+                                      last_name: lastName.text,
+                                      phone_number:'+20${_controller.text.toString()}',
+                                      store_name: marketName.text,
+                                      password: password.text,
+                                      delivery_duration: deliveryTime.text,
                                       min_selling_quantity:
-                                          77,
-                                      min_bill_price: 888,
-                                      city_id: 1,
+                                          int.parse(quantity.text),
+                                      min_bill_price: int.parse(priceBill.text),
+                                      city_id: cityId!,
                                       supplier_category_id:
-                                          1,
-                                      to_sites: [1]);
+                                          int.parse(catorgy.text),
+                                      to_sites:cititesId1);
+                                  // RegisterModel user = RegisterModel(
+                                      // first_name:'fhdb',
+                                      // middle_name: 'gdnb',
+                                      // last_name: 'dnbg',
+                                      // phone_number: '+20${_controller.text.toString()}',
+                                      // store_name: 'rtsbhntr',
+                                      // password:'123456788',
+                                      // delivery_duration:'657',
+                                      // min_selling_quantity:
+                                      //     77,
+                                      // min_bill_price: 888,
+                                      // city_id: 1,
+                                      // supplier_category_id:
+                                      //     1,
+                                      // to_sites: [1]);
                                       context
                                 .read<RegisterBloc>()
-                                .add(CreateUser(User: user, image: pickedFile!));
+                                .add(CreateUser(User: user, image:image!));
+                                  }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+                            content: Text('إملاء كامل الحقول'),
+                            backgroundColor: colorApp.basicColor,
+                          ));
+                                  }
                                 },
                                 colors: ColorManager().red,
                                 width: 333,
@@ -423,284 +506,3 @@ class _SignUpState extends State<SignUp> {
   }
 }
 
-class ColorManager {
-  Color red = Colors.red;
-  Color grey1 = Color.fromARGB(255, 90, 84, 84);
-  Color grey2 = Colors.grey;
-  Color blue = Colors.blue;
-  Color white = Colors.white;
-  Color green = Color.fromARGB(255, 66, 149, 69);
-}
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
-class myTextFieldNumber extends StatelessWidget {
-  final String? validatorText;
-  final String? phoneText;
-  final int? maxLength;
-
-  myTextFieldNumber({
-    Key? key,
-    this.validatorText,
-    this.phoneText,
-    this.maxLength,
-    required this.phoneController,
-  }) : super(key: key);
-
-  final TextEditingController phoneController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 9),
-      child: TextFormField(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        maxLength: maxLength,
-        keyboardType: TextInputType.phone,
-        cursorColor: ColorManager().red,
-        decoration: InputDecoration(
-          errorStyle: TextStyle(color: ColorManager().red),
-          errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager().red),
-              borderRadius: BorderRadius.circular(12)),
-          focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager().red),
-              borderRadius: BorderRadius.circular(12)),
-          fillColor: Colors.grey[200],
-          filled: true,
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager().red),
-              borderRadius: BorderRadius.circular(12)),
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager().red),
-              borderRadius: BorderRadius.circular(12)),
-          border: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager().red)),
-          hintText: phoneText,
-          labelStyle: TextStyle(fontSize: 77, color: ColorManager().red),
-        ),
-        controller: phoneController,
-        validator: (text) {
-          if (text!.isEmpty) {
-            return validatorText;
-          }
-        },
-      ),
-    );
-  }
-}
-
-class ChangeSign extends StatelessWidget {
-  VoidCallback? onPress;
-  final String text;
-  final String textbutton;
-  ChangeSign({
-    Key? key,
-    this.onPress,
-    required this.text,
-    required this.textbutton,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          text,
-          style: TextStyle(fontSize: 18, color: Colors.grey[600]),
-        ),
-        TextButton(
-            onPressed: onPress,
-            child: Text(
-              textbutton,
-              style: TextStyle(color: ColorManager().red, fontSize: 18),
-            ))
-      ],
-    );
-  }
-}
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
-class MyButton extends StatelessWidget {
-  MyButton({
-    super.key,
-    required this.title,
-    required this.onpress,
-    required this.colors,
-    required this.width,
-    required this.height,
-    required this.radius,
-    this.textcolor,
-    this.fontsize,
-  });
-
-  final String title;
-  final VoidCallback onpress;
-  final Color? colors;
-  final Color? textcolor;
-  final double width;
-  final double height;
-  final double radius;
-  final double? fontsize;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-      child: InkWell(
-        onTap: onpress,
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(radius), color: colors),
-          margin: EdgeInsets.only(left: 6),
-          width: width,
-          height: height,
-          child: Center(
-            child: Text(
-              title,
-              style: TextStyle(
-                  fontSize: fontsize,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
-class myTextFieldName extends StatelessWidget {
-  final String? validatorText;
-  String nameText;
-  myTextFieldName({
-    Key? key,
-    this.validatorText,
-    required this.nameText,
-    required this.nameController,
-  }) : super(key: key);
-
-  final TextEditingController nameController;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: TextInputType.name,
-      cursorColor: ColorManager().red,
-      decoration: InputDecoration(
-        errorStyle: TextStyle(color: ColorManager().red),
-        errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager().red),
-            borderRadius: BorderRadius.circular(12)),
-        focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager().red),
-            borderRadius: BorderRadius.circular(12)),
-        fillColor: Colors.grey[200],
-        filled: true,
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager().red),
-            borderRadius: BorderRadius.circular(12)),
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager().red),
-            borderRadius: BorderRadius.circular(12)),
-        border: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager().red)),
-        hintText: nameText,
-        labelStyle: TextStyle(fontSize: 77, color: ColorManager().red),
-      ),
-      validator: (text) {
-        if (text!.isEmpty) {
-          return validatorText;
-        }
-      },
-      controller: nameController,
-    );
-  }
-}
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
-class TitleText extends StatelessWidget {
-  String text;
-  FontWeight fontWeight;
-  TitleText({
-    Key? key,
-    required this.text,
-    required this.fontWeight,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-    );
-  }
-}
-
-// ignore: must_be_immutable
-class SubTitle3 extends StatelessWidget {
-  String text;
-
-  Color? color;
-
-  SubTitle3({
-    Key? key,
-    required this.text,
-    this.color,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: color),
-    );
-  }
-}
-
-class SubTitle2 extends StatelessWidget {
-  final String? text;
-
-  SubTitle2({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text ?? "",
-      style: TextStyle(
-        fontSize: 15,
-        fontWeight: FontWeight.w600,
-      ),
-      maxLines: 3,
-      overflow: TextOverflow.ellipsis,
-    );
-  }
-}
-
-class HeaderText extends StatelessWidget {
-  String text;
-  Color? textcolor;
-  double fontSize;
-  FontWeight fontWeight;
-  HeaderText({
-    Key? key,
-    required this.text,
-    this.textcolor,
-    required this.fontSize,
-    required this.fontWeight,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-          color: textcolor, fontSize: fontSize, fontWeight: fontWeight),
-    );
-  }
-}

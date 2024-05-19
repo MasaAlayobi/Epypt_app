@@ -19,8 +19,8 @@ class LoginModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+  Map<dynamic, dynamic> toMap() {
+    return <dynamic, dynamic>{
       'phone_number': phone_number,
       'password': password,
     };
@@ -51,4 +51,4 @@ class LoginModel {
 
   @override
   int get hashCode => phone_number.hashCode ^ password.hashCode;
-}
+  }

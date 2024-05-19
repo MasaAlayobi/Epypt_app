@@ -27,7 +27,18 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                 backgroundColor: colorApp.BackgroundColor,
                 body: BlocConsumer<NotAvailableBloc, NotAvailableState>(
                   listener: (context, state) {
-                    // TODO: implement listener
+                     if(state is successAddAvailable){
+                  ScaffoldMessenger.of(context) .showSnackBar(new SnackBar(
+                              content: Text(state.message),
+                              backgroundColor: colorApp.basicColor,
+                            ));
+                }
+                else if (state is LoadingUpdate){
+                   ScaffoldMessenger.of(context) .showSnackBar(new SnackBar(
+                              content: Text(state.message),
+                              backgroundColor: colorApp.basicColor,
+                            ));
+                }
                   },
                   builder: (context, state) {
                     if (state is SuccessGetNotAvailableProducts) {
@@ -37,9 +48,11 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                           itemBuilder: (context, index) {
                             isChecked2.add(true);
                             return Card(
+                              color: colorApp.whiteColor,
                               elevation: 2,
                               child: Container(
-                                  height: 190,
+                                  height: 170,
+                                  
                                   // color: Colors.blueGrey,
                                   child: Row(
                                     children: [
@@ -50,21 +63,21 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                             ? Image.network(
                                                 state
                                                     .allProduct[index].image[0],
-                                                width: 95,
-                                                height: 170,
+                                                 width: MediaQuery.of(context).size.width /3,
+                                                height:MediaQuery.of(context).size.height /4,
                                                 errorBuilder: (context, error,
                                                     stackTrace) {
                                                   return Image.asset(
                                                     'asstes/images/لقطة شاشة 2024-05-07 130659.png',
-                                                    width: 95,
-                                                    height: 170,
+                                                     width: MediaQuery.of(context).size.width /3,
+                                                height:MediaQuery.of(context).size.height /4,
                                                   );
                                                 },
                                               )
                                             : Image.asset(
                                                 'asstes/images/لقطة شاشة 2024-05-07 130659.png',
-                                                width: 95,
-                                                height: 170,
+                                                width: MediaQuery.of(context).size.width /3,
+                                                height:MediaQuery.of(context).size.height /4,
                                               ),
                                       ),
                                       Expanded(
@@ -87,13 +100,13 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                             CustomContainerWithText(
                                                 text: state.allProduct[index]
                                                     .discription),
-                                            CustomText(
-                                                text: '${state.allProduct[index].size_of} x ' +
-                                                    '${state.allProduct[index].size}',
-                                                size: 13,
-                                                color: colorApp.greyColor,
-                                                fontWeight: FontWeight.w600,
-                                                maxLines: 2),
+                                            // CustomText(
+                                            //     text: '${state.allProduct[index].size_of} x ' +
+                                            //         '${state.allProduct[index].size}',
+                                            //     size: 13,
+                                            //     color: colorApp.greyColor,
+                                            //     fontWeight: FontWeight.w600,
+                                            //     maxLines: 2),
                                             Row(
                                               children: [
                                                 CustomText(
@@ -103,68 +116,69 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                     color: colorApp.greenColor,
                                                     fontWeight: FontWeight.w600,
                                                     maxLines: 2),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 10),
-                                                  child: Expanded(
-                                                    child: Container(
-                                                      // width: 70,
-                                                      height: 22,
-                                                      color: Color.fromARGB(
-                                                          255, 255, 218, 215),
-                                                      child: Center(
-                                                          child: CustomText(
-                                                              text: 'عرض التاجر',
-                                                              size: 12,
-                                                              color: colorApp
-                                                                  .basicColor,
-                                                              fontWeight:
-                                                                  FontWeight.w800,
-                                                              maxLines: 2)),
-                                                    ),
-                                                  ),
-                                                )
+                                                // Expanded(
+                                                //   child: Padding(
+                                                //     padding:
+                                                //         const EdgeInsets.only(
+                                                //             right: 10),
+                                                //     child: Container(
+                                                //       // width: 70,
+                                                //       height: 22,
+                                                //       color: Color.fromARGB(
+                                                //           255, 255, 218, 215),
+                                                //       child: Center(
+                                                //           child: CustomText(
+                                                //               text: 'عرض التاجر',
+                                                //               size: 12,
+                                                //               color: colorApp
+                                                //                   .basicColor,
+                                                //               fontWeight:
+                                                //                   FontWeight.w800,
+                                                //               maxLines: 2)),
+                                                //     ),
+                                                //   ),
+                                                // )
                                               ],
                                             ),
                                             Row(
                                               // mainAxisAlignment: MainAxisAlignment.center,
-
+                      
                                               children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    // width: 80,
-                                                     height: 28,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4),
-                                                      color: colorApp.greenColor,
-                                                    ),
-                                                    child: Center(
-                                                        child: CustomText(
-                                                            text: 'تعديل',
-                                                            size: 13,
-                                                            color: colorApp
-                                                                .whiteColor,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            maxLines: 2)),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
+                                                // Expanded(
+                                                //   child: Container(
+                                                //     // width: 80,
+                                                //      height: 28,
+                                                //     decoration: BoxDecoration(
+                                                //       borderRadius:
+                                                //           BorderRadius.circular(
+                                                //               4),
+                                                //       color: colorApp.greenColor,
+                                                //     ),
+                                                //     child: Center(
+                                                //         child: CustomText(
+                                                //             text: 'تعديل',
+                                                //             size: 13,
+                                                //             color: colorApp
+                                                //                 .whiteColor,
+                                                //             fontWeight:
+                                                //                 FontWeight.w700,
+                                                //             maxLines: 2)),
+                                                //   ),
+                                                // ),
+                                                // SizedBox(
+                                                //   width: 5,
+                                                // ),
                                                 Row(
                                                   children: [
                                                     // Checkbox(value: true, onChanged:),
                                                     Center(
                                                       child: InkWell(
                                                         onTap: () {
-                                                          setState(() {
-                                                            isChecked2[index]!=
-                                                                isChecked2[index];
-                                                          });
+                                                          context.read<NotAvailableBloc>().add(AddToAvailable(id: state.allProduct[index].pivot.id, is_available: 1));
+                                                          // setState(() {
+                                                          //   isChecked2[index]!=
+                                                          //       isChecked2[index];
+                                                          // });
                                                         },
                                                         child: Container(
                                                           width: 18,
@@ -183,13 +197,13 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                                 BorderRadius
                                                                     .circular(
                                                                         2),
-                                                            color: isChecked2[index]
+                                                            color: state.allProduct[index].pivot.is_available==0
                                                                 ? colorApp
                                                                     .basicColor
                                                                 : colorApp
                                                                     .whiteColor,
                                                           ),
-                                                          child: isChecked2[index]
+                                                          child: state.allProduct[index].pivot.is_available==0
                                                               ? Icon(
                                                                   Icons.check,
                                                                   size: 16,
@@ -236,7 +250,10 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                         },
                         child: ListView(
                           children: [
-                            Text('there is no internet'),
+                             SizedBox(
+                            height: MediaQuery.of(context).size.height /3,
+                          ),
+                            Center(child: Text('تأكد من اتصالك بالأنترنت')),
                           ],
                         ),
                       );
@@ -249,11 +266,21 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                         },
                         child: ListView(
                           children: [
-                            Text('لا يوجد منتجات غير متاحة'),
+                             SizedBox(
+                            height: MediaQuery.of(context).size.height /3,
+                          ),
+                            Center(child: Text('لا يوجد منتجات غير متاحة')),
                           ],
                         ),
                       );
                     }
+                      else if(state is successAddAvailable){
+                  context.read<NotAvailableBloc>().add(getNotAvailableProducts());
+                  return SizedBox();
+                } 
+                else if(state is LoadingUpdate){
+                   return SizedBox();
+                }
                      else {
                       return RefreshIndicator(
                         onRefresh: ()async{
@@ -263,7 +290,10 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                         },
                         child: ListView(
                           children: [
-                            Text('there is no internet'),
+                             SizedBox(
+                            height: MediaQuery.of(context).size.height /3,
+                          ),
+                            Center(child: Text('خطأ في السيرفر')),
                           ],
                         ),
                       );

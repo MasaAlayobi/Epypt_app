@@ -12,3 +12,10 @@ class addProductWithoutOffer extends ProductsEvent {
     required this.product,
   });
 }
+class addProductWithOffer extends ProductsEvent {
+  AddProductWithOfferModel product;
+  addProductWithOffer({
+    required this.product,
+  });
+}
+

@@ -4,24 +4,28 @@ import 'package:mufraty_app/feature/Home/Discounts/view/Discounts_page.dart';
 import 'package:mufraty_app/feature/Home/Notification/view/notification_page.dart';
 import 'package:mufraty_app/feature/Home/Reports/view/reports_page.dart';
 import 'package:mufraty_app/feature/Home/Stock/view/stock_page.dart';
+import 'package:mufraty_app/feature/fatora/fatora.dart';
 
 class HomePage  extends StatefulWidget {
-  const HomePage ({super.key});
-
+ HomePage ({super.key,this.storNamr});
+String? storNamr;
   @override
   State<HomePage> createState() => _HomePageState();
 }
-List Pages=[
-StockPage(),
-StockPage(),
-ReportsPage(),
-DiscountsPage(),
-NotificationPage(),
-];
+
 int currentIndex = 0;
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    List Pages=[
+Fatora(
+          initIndex: 0,
+        ),
+StockPage(storeName:widget.storNamr,),
+ReportsPage(),
+DiscountsPage(),
+NotificationPage(),
+];
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(

@@ -40,6 +40,8 @@ dependencies:
   image_picker: ^1.1.1
   flutter_bloc: ^8.1.5
   readmore: ^3.0.0
+  file_picker: ^8.0.3
+  get_it: ^7.7.0
 
 dev_dependencies:
   flutter_test:
