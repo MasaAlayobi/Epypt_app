@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myContainer.dart';
+import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/comblete_accept/bloc/comblete_delivery_bloc.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
 
@@ -23,8 +24,9 @@ onRefresh: ()async{
     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Fatora(
-                            initIndex: 2,
+                          builder: (context) => HomePage(
+                            init: 2,
+                            currentIndex: 0,
                           ),
                         ),
                       );
@@ -146,25 +148,26 @@ onRefresh: ()async{
                     ],
                   );
                 } else if (state is NoConnection) {
-                  return Column(
-                    children: [
-                      Center(
-                        child: Image.asset(
-                          "assets/images/internet.png",
-                          width: MediaQuery.of(context).size.width / 2,
-                          height: MediaQuery.of(context).size.height / 2,
+                 return Column(
+                      children: [
+                        Center(
+                          child: Image.asset(
+                            "asstes/images/internet.png",
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: MediaQuery.of(context).size.height / 2,
+                          ),
                         ),
-                      ),
-                      Center(
-                          child: Text(
-                        "لقد انقطع الاتصال بالانترنت",
-                        style: TextStyle(
-                            color: ColorManager().red,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700),
-                      ))
-                    ],
-                  );
+                        Center(
+                            child: Text(
+                         state.message=='Null check operator used on a null value'?
+                        "لقد انقطع الاتصال بالانترنت"
+                          :state.message,
+                          style: TextStyle(
+                              color: ColorManager().red,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700),
+                        ))
+                      ]);
                 } else {
                   return Center(
                     child: CircularProgressIndicator(

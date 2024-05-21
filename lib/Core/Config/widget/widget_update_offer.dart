@@ -231,8 +231,8 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                               content: Text(state.message),
                               backgroundColor: colorApp.basicColor,
                             ));
-                            Navigator.push(context, MaterialPageRoute(builder: 
-                            (context) => HomePage(),));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: 
+                            (context) => HomePage(currentIndex: 1,init: 0,),));
                           } else if (state is InformationError) {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(new SnackBar(

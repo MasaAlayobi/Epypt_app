@@ -12,7 +12,12 @@ class SuccessFetchProducts extends ProductsState {
   });
   
 }
-class NoConnectionWithProduct extends ProductsState{}
+class NoConnectionWithProduct extends ProductsState {
+  String message;
+  NoConnectionWithProduct({
+    required this.message,
+  });
+}
 class LoadingProduct extends ProductsState{}
 class NotFound extends ProductsState{}
 class successAddProduct extends ProductsState {

@@ -24,20 +24,22 @@ abstract class BillService extends DioClient {
 class BillServiceImpl extends BillService {
   @override
   Newbill() async {
+    try {
      response =
         await dio.get("${baseUrl}bills?status=جديد", );
 
-    try {
       if (response.statusCode == 200) {
         return response.data["body"];
       } else {
         return "no connetion";
       }
-    } on DioException catch (e) {
-      Text(e.message.toString());
-    } catch (e) {
-      throw e;
-    }
+    } on DioException catch(e){
+      throw e.response!;
+   }
+  //  on Error catch(e){
+  //   throw e;
+  //  }
+  
   }
 
   @override
@@ -111,75 +113,75 @@ class BillServiceImpl extends BillService {
 
   @override
   brebaring() async {
+    try {
     response = await dio.get("${baseUrl}bills?status=قيد التحضير",
         );
 
-    try {
       if (response.statusCode == 200) {
         return response.data["body"];
       } else {
         print("object");
       }
-    } on DioException catch (e) {
-      Text(e.message.toString());
-    } catch (e) {
-      print(e);
-    }
+    } on DioException catch(e){
+      throw e.response!;
+   }on Error catch(e){
+    throw e;
+   }
   }
 
   @override
   cancel() async {
+    try {
     response =
         await dio.get("${baseUrl}bills?status=ملغية",);
 
-    try {
       if (response.statusCode == 200) {
         return response.data["body"];
       } else {
         print("object");
       }
-    } on DioException catch (e) {
-      Text(e.message.toString());
-    } catch (e) {
-      throw e;
-    }
+    } on DioException catch(e){
+      throw e.response!;
+   }on Error catch(e){
+    throw e;
+   }
   }
 
   @override
   accept() async {
+    try {
      response = await dio.get("${baseUrl}bills?status=تم التوصيل",
         );
 
-    try {
       if (response.statusCode == 200) {
         return response.data["body"];
       } else {
         print("object");
       }
-    } on DioException catch (e) {
-      Text(e.message.toString());
-    } catch (e) {
-      throw e;
-    }
+    } on DioException catch(e){
+      throw e.response!;
+   }on Error catch(e){
+    throw e;
+   }
   }
 
   @override
   refuseRecive() async {
+    try {
     response = await dio.get("${baseUrl}bills?status=رفض الاستلام",
        );
 
-    try {
       if (response.statusCode == 200) {
         print("Eeeee");
         return response.data["body"];
       } else {
         print("object");
       }
-    } on DioException catch (e) {
-      Text(e.message.toString());
-    } catch (e) {
-      throw e;
-    }
+    } on DioException catch(e){
+      throw e.response!;
+   }on Error catch(e){
+    throw e;
+   }
   }
 
   @override

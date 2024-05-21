@@ -19,4 +19,5 @@ abstract class EndPoint{
  static String refreshToken='suppliers/refresh-token';
  static String deleteProduct='suppliers/';
  static String updatePrice="update/";
+ static String CategoriesSupplier="categories";
 }

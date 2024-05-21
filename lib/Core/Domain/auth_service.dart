@@ -11,11 +11,13 @@ import 'package:mufraty_app/Core/Data/login_model.dart';
 import 'package:mufraty_app/Core/Data/register_model.dart';
 import 'package:mufraty_app/Core/Domain/base_service.dart';
 import 'package:mufraty_app/Core/Resourse/URL.dart';
+import 'package:mufraty_app/Core/data/categories_suppler_model.dart';
 
 abstract class AuthService extends DioClient {
   createNewAcouunt(RegisterModel user,File image);
   login(LoginModel user);
   Future<List<CitiesModel>> getCities();
+  Future<List<CategoriesSupplerModel>> getCategorySuppler();
 }
 
 class AuthServiceTmp extends AuthService {
@@ -90,7 +92,8 @@ formData.files.addAll({
                 final expiryTime = DateTime.now().millisecondsSinceEpoch + (3 * 1000);
          await tokenStorage.saveTokens(response.data["access_token"], response.data["refresh_token"]);
         print('${tokenStorage.getAccessToken()}+${tokenStorage.getRefreshToken()}++');
-        return 'true';
+      List<String> successModel=[response.data["message"],response.data["supplier"]["store_name"]];
+        return successModel;
       }
     } on DioException catch(e ) {
       print(e.response);
@@ -112,6 +115,28 @@ formData.files.addAll({
             temp.length, (index) => CitiesModel.fromMap(temp[index]));
             print(allAvailbaleProduct);
         return allAvailbaleProduct;
+      } else {
+        return [];
+      }
+    } on DioException catch (e) {
+      throw response.data;
+    }
+  }
+  
+  @override
+  Future<List<CategoriesSupplerModel>> getCategorySuppler() async{
+    try {
+      response = await dio.get('$baseUrl${entity=EndPoint.CategoriesSupplier}',
+          
+          );
+
+      // print(response.data["Body"]["cities"]);
+      if (response.statusCode == 200) {
+        dynamic temp = response.data["Body"]["categories"];
+        List<CategoriesSupplerModel> allCategore = List.generate(
+            temp.length, (index) => CategoriesSupplerModel.fromMap(temp[index]));
+            print(allCategore);
+        return allCategore;
       } else {
         return [];
       }

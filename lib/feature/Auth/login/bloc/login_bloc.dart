@@ -12,9 +12,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(loading());
         try{
 
-      String temp = await AuthServiceTmp().login(event.User);
-      if(temp=='true'){
-        emit(successcreatedUser());
+      List<String> temp = await AuthServiceTmp().login(event.User);
+      if(temp.isNotEmpty){
+        emit(successcreatedUser(message: temp[0], storeName: temp[1]));
       }
       else if(temp=='your provided credentials cannot be verified.'){
          emit (InformationError(message:'يرجى التأكد من المعلومات إعادة المحاولة' ));

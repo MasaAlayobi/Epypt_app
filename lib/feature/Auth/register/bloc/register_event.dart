@@ -14,3 +14,4 @@ class CreateUser extends RegisterEvent {
 }
 
 class getCities extends RegisterEvent {}
+class getCategoriesSuppler extends RegisterEvent {}

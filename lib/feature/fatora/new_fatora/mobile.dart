@@ -6,6 +6,7 @@ import 'package:mufraty_app/Core/Config/widget/myButton.dart';
 import 'package:mufraty_app/Core/Config/widget/myTextField.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/Core/data/reasonReject.dart';
+import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
 import 'package:mufraty_app/feature/fatora/new_fatora/bloc/new_bill_bloc.dart';
 import 'package:mufraty_app/feature/fatora/orderLayout.dart/orderMobile.dart';
@@ -46,8 +47,9 @@ class Mobile_fatora extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Fatora(
-                            initIndex: 0,
+                          builder: (context) => HomePage(
+                            init: 0,
+                            currentIndex: 0,
                           ),
                         ),
                       );
@@ -135,9 +137,10 @@ class Mobile_fatora extends StatelessWidget {
                                                                       MaterialPageRoute(
                                                                         builder:
                                                                             (context) =>
-                                                                                Fatora(
-                                                                          initIndex:
+                                                                                HomePage(
+                                                                          init:
                                                                               0,
+                                                                              currentIndex: 0,
                                                                         ),
                                                                       ),
                                                                     );
@@ -192,7 +195,7 @@ class Mobile_fatora extends StatelessWidget {
                                                                                 state.allBills[index].id,
                                                                             reason: Reason(rejection_reason: cancelOfSend.text)));
                                                                       }
-                                                                    },
+                                                            },
                                                                     colors:
                                                                         ColorManager()
                                                                             .green,
@@ -280,12 +283,13 @@ class Mobile_fatora extends StatelessWidget {
               //     child: FlutterLogo(),
               //   );
               // }
+              // asstes\images\no_photo.jpg
               else if (state is NoData) {
                 return Column(
                   children: [
                     Center(
                         child: Image.asset(
-                      "assets/images/empty.png",
+                      "asstes/images/empty.png",
                       width: MediaQuery.of(context).size.width / 2,
                       height: MediaQuery.of(context).size.height / 2,
                     )),
@@ -301,25 +305,26 @@ class Mobile_fatora extends StatelessWidget {
                   ],
                 );
               } else if (state is NoInternet) {
-                return Column(
-                  children: [
-                    Center(
-                      child: Image.asset(
-                        "assets/images/internet.png",
-                        width: MediaQuery.of(context).size.width / 2,
-                        height: MediaQuery.of(context).size.height / 2,
-                      ),
-                    ),
-                    Center(
-                        child: Text(
-                      "لقد انقطع الاتصال بالانترنت",
-                      style: TextStyle(
-                          color: ColorManager().red,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700),
-                    ))
-                  ],
-                );
+                 return Column(
+                      children: [
+                        Center(
+                          child: Image.asset(
+                            "asstes/images/internet.png",
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: MediaQuery.of(context).size.height / 2,
+                          ),
+                        ),
+                        Center(
+                            child: Text(
+                         state.message=='Null check operator used on a null value'?
+                        "لقد انقطع الاتصال بالانترنت"
+                          :state.message,
+                          style: TextStyle(
+                              color: ColorManager().red,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700),
+                        ))
+                      ]);
               } else {
                 return Center(
                   child: CircularProgressIndicator(

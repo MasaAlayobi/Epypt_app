@@ -31,3 +31,9 @@ class successFetchCities extends RegisterState{
 class NotFound extends RegisterState{
   
 }
+class successFetchCategories extends RegisterState{
+   List<CategoriesSupplerModel> Suppler;
+  successFetchCategories({
+    required this.Suppler,
+  });
+}

@@ -10,7 +10,15 @@ class SuccessCancel extends BrebaringState {}
 
 class FailedCancel extends BrebaringState {}
 
-class NoConnection extends BrebaringState {}
+class NoConnection extends BrebaringState {
+
+}
+class NoConnectionWithGet extends BrebaringState{
+  String message;
+  NoConnectionWithGet({
+    required this.message,
+  });
+}
 
 class SuccessGetData extends BrebaringState {
   List<BillWithReason> oneBill;

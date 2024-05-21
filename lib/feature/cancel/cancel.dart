@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myContainer.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
+import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/cancel/bloc/cancel_from_supply_bloc.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
 
@@ -27,8 +28,9 @@ class Cancel extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => Fatora(
-                  initIndex: 4,
+                builder: (context) => HomePage(
+                  init: 4,
+                  currentIndex: 0,
                 ),
               ),
             );
@@ -138,7 +140,7 @@ class Cancel extends StatelessWidget {
                       children: [
                         Center(
                             child: Image.asset(
-                          "assets/images/empty.png",
+                          "asstes/images/empty.png",
                           width: MediaQuery.of(context).size.width / 2,
                           height: MediaQuery.of(context).size.height / 2,
                         )),
@@ -158,17 +160,19 @@ class Cancel extends StatelessWidget {
                       children: [
                         Center(
                           child: Image.asset(
-                            "assets/images/internet.png",
+                            "asstes/images/internet.png",
                             width: MediaQuery.of(context).size.width / 2,
                             height: MediaQuery.of(context).size.height / 2,
                           ),
                         ),
                         Center(
                             child: Text(
-                          "لقد انقطع الاتصال بالانترنت",
+                         state.message=='Null check operator used on a null value'?
+                        "لقد انقطع الاتصال بالانترنت"
+                          :state.message,
                           style: TextStyle(
                               color: ColorManager().red,
-                              fontSize: 22,
+                              fontSize: 17,
                               fontWeight: FontWeight.w700),
                         ))
                       ],

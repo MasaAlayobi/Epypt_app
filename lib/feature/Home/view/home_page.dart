@@ -7,19 +7,20 @@ import 'package:mufraty_app/feature/Home/Stock/view/stock_page.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
 
 class HomePage  extends StatefulWidget {
- HomePage ({super.key,this.storNamr});
+int? currentIndex ;
+int init;
+ HomePage ({super.key,this.storNamr, required this.currentIndex,required this.init});
 String? storNamr;
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-int currentIndex = 0;
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     List Pages=[
 Fatora(
-          initIndex: 0,
+          initIndex: widget.init,
         ),
 StockPage(storeName:widget.storNamr,),
 ReportsPage(),
@@ -30,13 +31,13 @@ NotificationPage(),
       textDirection: TextDirection.rtl,
       child: Scaffold(
        
-        body: Pages[currentIndex],
+        body: Pages[widget.currentIndex!],
           bottomNavigationBar:BottomNavigationBar(
             backgroundColor: colorApp.BackgroundColor,
-          currentIndex: currentIndex,
+          currentIndex:widget.currentIndex!,
           onTap: (int index) {
             setState(() {
-              currentIndex = index;
+             widget.currentIndex = index;
             });
           },
           items: <BottomNavigationBarItem>[

@@ -23,7 +23,7 @@ class BrebaringBloc extends Bloc<BrebaringEvent, BrebaringState> {
           emit(FailedCancel());
         }
       } catch (e) {
-        emit(NoConnection());
+        emit(NoConnectionWithGet(message: e.toString()));
       }
     });
     on<CombleteReceive>((event, emit) async {
@@ -56,7 +56,7 @@ class BrebaringBloc extends Bloc<BrebaringEvent, BrebaringState> {
           emit(FailedGetData());
         }
       } catch (e) {
-        emit(NoConnection());
+        emit(NoConnectionWithGet(message: e.toString()));
       }
     });
   }

@@ -4,6 +4,7 @@ import 'package:mufraty_app/Core/Config/widget/custom_container_with_text.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_counter.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_showModalBottomSheet.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_text.dart';
+import 'package:mufraty_app/Core/Config/widget/myTextFieldNumber.dart';
 import 'package:mufraty_app/Core/Config/widget/widget_add_offer.dart';
 import 'package:mufraty_app/Core/Config/widget/widget_update_offer.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
@@ -41,7 +42,9 @@ class _AvailablePageState extends State<AvailablePage> {
         _controller.text = number.toString();
       });
     }
+ double heightSize = MediaQuery.of(context).size.height;
 
+    double widthSize = MediaQuery.of(context).size.width;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: BlocProvider(
@@ -175,6 +178,12 @@ class _AvailablePageState extends State<AvailablePage> {
                                                           FontWeight.w600,
                                                     ),
                                                   ),
+                                                  if(state
+                                                                .allProduct[
+                                                                    index]
+                                                                .pivot
+                                                                .has_offer ==
+                                                            1)
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   right: 10),
@@ -184,21 +193,8 @@ class _AvailablePageState extends State<AvailablePage> {
                                                 color: Color.fromARGB(
                                                     255, 255, 218, 215),
                                                 child: Center(
-                                                    child: state
-                                                                .allProduct[
-                                                                    index]
-                                                                .pivot
-                                                                .has_offer ==
-                                                            0
-                                                        ? CustomText(
-                                                            text: 'عرض التاجر',
-                                                            size: 12,
-                                                            color: colorApp
-                                                                .basicColor,
-                                                            fontWeight:
-                                                                FontWeight.w800,
-                                                            maxLines: 2)
-                                                        : CustomText(
+                                                    child: 
+                                                         CustomText(
                                                             text:
                                                                 '${state.allProduct[index].pivot.offer_price} ج ',
                                                             size: 15,
@@ -516,119 +512,10 @@ class _AvailablePageState extends State<AvailablePage> {
                                                       create: (context) =>
                                                           AvailableProductsBloc(),
                                                       child: Builder(
-                                                          builder: (context) {
-                                                        return BlocListener<
-                                                                AvailableProductsBloc,
-                                                                AvailableProductsState>(
-                                                            listener: (context,
-                                                                state) {
-                                                              if (state
-                                                                  is successUpdatePrice) {
-                                                                ScaffoldMessenger.of(
-                                                                        context)
-                                                                    .showSnackBar(
-                                                                        new SnackBar(
-                                                                  content: Text(
-                                                                      state
-                                                                          .message),
-                                                                  backgroundColor:
-                                                                      colorApp
-                                                                          .basicColor,
-                                                                ));
-                                                                BlocProvider.of<
-                                                                            AvailableProductsBloc>(
-                                                                        context)
-                                                                    .add(
-                                                                        getAvailableProducts());
-                                                              } else if (state
-                                                                  is NoConnectionupdate) {
-                                                                ScaffoldMessenger.of(
-                                                                        context)
-                                                                    .showSnackBar(
-                                                                        new SnackBar(
-                                                                  content: Text(
-                                                                      state
-                                                                          .message),
-                                                                  backgroundColor:
-                                                                      colorApp
-                                                                          .basicColor,
-                                                                ));
-                                                              }
-                                                            },
+                                                        builder: (context) {
+                                                          return Directionality(
+                                                            textDirection: TextDirection.rtl,
                                                             child: AlertDialog(
-                                                              content:
-                                                                  SingleChildScrollView(
-                                                                child: Column(
-                                                                  children: [
-                                                                    Text(
-                                                                        'تعديل سعر المنتج'),
-                                                                    Container(
-                                                                      width:
-                                                                          100,
-                                                                      height:
-                                                                          80,
-                                                                      child:
-                                                                          TextField(
-                                                                        controller:
-                                                                            _updateOffer,
-                                                                        decoration: InputDecoration(
-                                                                            hintText:
-                                                                                'ادخل السعر الجديد',
-                                                                            border:
-                                                                                OutlineInputBorder()),
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              actions: <Widget>[
-                                                                TextButton(
-                                                                  child: Text(
-                                                                      'تعديل'),
-                                                                  onPressed:
-                                                                      () {
-                                                                    if (_updateOffer
-                                                                            .text !=
-                                                                        null) {
-                                                                      context.read<AvailableProductsBloc>().add(UpdatePraice(
-                                                                          id: state
-                                                                              .allProduct[
-                                                                                  index]
-                                                                              .pivot
-                                                                              .id,
-                                                                          price:
-                                                                              int.parse(_updateOffer.text)));
-                                                                    }
-                                                                  },
-                                                                ),
-                                                                TextButton(
-                                                                  child: Text(
-                                                                      'إغلاق'),
-                                                                  onPressed:
-                                                                      () {
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
-                                                                  },
-                                                                ),
-                                                              ],
-                                                            ));
-                                                      }),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              child: InkWell(
-                                                onTap: () {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return BlocProvider(
-                                                        create: (context) =>
-                                                            AvailableProductsBloc(),
-                                                        child: Builder(
-                                                          builder: (context) {
-                                                            return AlertDialog(
                                                               content:
                                                                   SingleChildScrollView(
                                                                 child: BlocListener<
@@ -650,26 +537,38 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                             colorApp
                                                                                 .basicColor,
                                                                       ));
-                                                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
+                                                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(currentIndex: 1,init: 0,),));
+                                                                    }
+                                                                    else if(state is NoConnectionupdate ){
+                                                                                                           ScaffoldMessenger.of(
+                                                                              context)
+                                                                          .showSnackBar(
+                                                                              new SnackBar(
+                                                                        content: Text(
+                                                                            state
+                                                                                .message),
+                                                                        backgroundColor:
+                                                                            colorApp
+                                                                                .basicColor,
+                                                                      ));
+                                                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(currentIndex: 1,init: 0,),));
                                                                     }
                                                                   },
                                                                   child: Column(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                                     children: [
-                                                                      Text(
-                                                                          'تعديل سعر المنتج'),
+                                                                      Padding(
+                                                                        padding: const EdgeInsets.all(10.0),
+                                                                        child: Text(
+                                                                            'تعديل سعر المنتج',style: TextStyle(color: colorApp.basicColor,fontSize: 15,fontWeight: FontWeight.w700)),
+                                                                      ),
                                                                       Container(
-                                                                        width: 100,
-                                                                        height: 80,
+                                                                        width: 200,
+                                                                        height: 50,
                                                                         child:
-                                                                            TextField(
-                                                                          controller:
-                                                                              _updateOffer,
-                                                                          decoration: InputDecoration(
-                                                                              hintText:
-                                                                                  'ادخل السعر الجديد',
-                                                                              border:
-                                                                                  OutlineInputBorder()),
-                                                                        ),
+                                                                           myTextFieldNumber(phoneController: _updateOffer,phoneText:'ادخل السعر الجديد' ,
+                                                                           )
                                                                       )
                                                                     ],
                                                                   ),
@@ -678,7 +577,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                                               actions: <Widget>[
                                                                 TextButton(
                                                                   child:
-                                                                      Text('تعديل'),
+                                                                      Text('تعديل',style: TextStyle(color: colorApp.basicColor)),
                                                                   onPressed: () {
                                                                     if (_updateOffer !=
                                                                         null) {
@@ -696,7 +595,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                 ),
                                                                 TextButton(
                                                                   child:
-                                                                      Text('إغلاق'),
+                                                                      Text('إغلاق',style: TextStyle(color: colorApp.basicColor),),
                                                                   onPressed: () {
                                                                     Navigator.of(
                                                                             context)
@@ -704,19 +603,19 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                   },
                                                                 ),
                                                               ],
-                                                            );
-                                                          }
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 6,bottom: 4),
-                                                  child: Icon(Icons.edit,color: colorApp.basicColor,),
-                                                ),
+                                                            ),
+                                                          );
+                                                        }
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.only(
+                                                        left: 6,bottom: 4),
+                                                child: Icon(Icons.edit,color: colorApp.basicColor,),
                                               ),
                                             )
                                           ],
@@ -735,6 +634,7 @@ class _AvailablePageState extends State<AvailablePage> {
                     ),
                   );
                 } else if (state is NoConnectionWithProduct) {
+                   print(state.message);
                   return RefreshIndicator(
                     onRefresh: () async {
                       context
@@ -743,14 +643,48 @@ class _AvailablePageState extends State<AvailablePage> {
                     },
                     child: ListView(
                       children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 3,
-                        ),
-                        Center(child: Text('تأكد من اتصالك بالأنترنت')),
+                        Center(
+                            child: Image.asset(
+                              "asstes/images/internet.png",
+                              width: widthSize / 2,
+                              height: heightSize / 2,
+                            ),
+                          ),
+                          Center(
+                              child: Text(
+                           state.message=='Null check operator used on a null value'?
+                        "لقد انقطع الاتصال بالانترنت"
+                          :state.message ,
+                            style: TextStyle(
+                                color: ColorManager().red,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w700),
+                          ))
+
                       ],
                     ),
                   );
-                } else if (state is NotFound) {
+                }
+                // else if (state is dioException) {
+                //   print(state.message);
+                //   return RefreshIndicator(
+                //     onRefresh: () async {
+                //       context
+                //           .read<AvailableProductsBloc>()
+                //           .add(getAvailableProducts());
+                //     },
+                //     child: ListView(
+                //       children: [
+                //         SizedBox(
+                //           height: MediaQuery.of(context).size.height / 9,
+                //         ),
+                //         Center(child: Text(state.message)),
+
+                //       ],
+                //     ),
+                //   );
+                // }  
+                else if (state is NotFound) {
                   return RefreshIndicator(
                     onRefresh: () async {
                       context
@@ -759,11 +693,21 @@ class _AvailablePageState extends State<AvailablePage> {
                     },
                     child: ListView(
                       children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 3,
-                        ),
-                        Center(
-                            child: Text('قم بإضافة منتجات إلى المخزون لعرضها')),
+                         Center(
+                        child: Image.asset(
+                      "asstes/images/empty.png",
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: MediaQuery.of(context).size.height / 2,
+                    )),
+                    Center(
+                      child: Text(
+                        "فارغ",
+                        style: TextStyle(
+                            color: ColorManager().red,
+                            fontSize: 33,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    )
                       ],
                     ),
                   );

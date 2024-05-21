@@ -9,6 +9,7 @@ import 'package:mufraty_app/Core/Config/widget/myTextField.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/Core/data/reasonReject.dart';
 import 'package:mufraty_app/Core/data/recivePrice.dart';
+import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/brebaring/bloc/brebaring_bloc.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
 
@@ -32,8 +33,8 @@ class Brebaring extends StatelessWidget {
               Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Fatora(
-                            initIndex: 1,
+                          builder: (context) => HomePage(
+                            init: 1,currentIndex: 0,
                           ),
                         ),
                       );
@@ -45,8 +46,9 @@ class Brebaring extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Fatora(
-                      initIndex: 1,
+                    builder: (context) => HomePage(
+                      init: 1,
+                      currentIndex: 0,
                     ),
                   ),
                 );
@@ -214,8 +216,9 @@ class Brebaring extends StatelessWidget {
                                                                                 .pushReplacement(
                                                                               context,
                                                                               MaterialPageRoute(
-                                                                                builder: (context) => Fatora(
-                                                                                  initIndex: 1,
+                                                                                builder: (context) => HomePage(
+                                                                                  init: 1,
+                                                                                  currentIndex: 1,
                                                                                 ),
                                                                               ),
                                                                             );
@@ -334,8 +337,9 @@ class Brebaring extends StatelessWidget {
                                                                                 .pushReplacement(
                                                                               context,
                                                                               MaterialPageRoute(
-                                                                                builder: (context) => Fatora(
-                                                                                  initIndex: 1,
+                                                                                builder: (context) => HomePage(
+                                                                                  init: 1,
+                                                                                  currentIndex: 0,
                                                                                 ),
                                                                               ),
                                                                             );
@@ -477,7 +481,31 @@ class Brebaring extends StatelessWidget {
                           ))
                         ],
                       );
-                    } else {
+                    }else if(state is NoConnectionWithGet){
+                        return Column(
+                        children: [
+                          Center(
+                            child: Image.asset(
+                              "asstes/images/internet.png",
+                              width: widthSize / 2,
+                              height: heightSize / 2,
+                            ),
+                          ),
+                          Center(
+                              child: Text(
+                           state.message=='Null check operator used on a null value'?
+                        "لقد انقطع الاتصال بالانترنت"
+                          :state.message ,
+                            style: TextStyle(
+                                color: ColorManager().red,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w700),
+                          ))
+                        ],
+                      );
+                    }
+
+                     else {
                       return Center(
                         child: CircularProgressIndicator(
                           color: ColorManager().red,

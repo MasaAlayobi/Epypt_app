@@ -227,11 +227,15 @@ class _LoginViewState extends State<LoginView> {
                       BlocListener<LoginBloc, LoginState>(
                         listener: (context, state) {
                            if (state is successcreatedUser) {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return HomePage();
+                                return HomePage(
+                                          storNamr: state.storeName,
+                                          currentIndex: 1,
+                                          init: 0,
+                                        );
                               },
                             ),
                           );
@@ -251,7 +255,9 @@ class _LoginViewState extends State<LoginView> {
                         }
                          else if(state is NoConnection){
                           ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                            content: Text(state.message),
+                            content: Text(state.message=='Null check operator used on a null value'?
+                        "لقد انقطع الاتصال بالانترنت"
+                          :state.message,),
                             backgroundColor: colorApp.basicColor,
                           ));
                         }

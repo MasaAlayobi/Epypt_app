@@ -22,7 +22,7 @@ class NotAvailableBloc extends Bloc<NotAvailableEvent, NotAvailableState> {
          }
               } 
               catch (e) {
-        emit(NoConnectionWithProduct());
+        emit(NoConnectionWithProduct(message: e.toString()));
       
     }
     });

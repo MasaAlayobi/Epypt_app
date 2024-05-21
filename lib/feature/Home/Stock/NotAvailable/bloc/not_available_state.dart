@@ -13,7 +13,12 @@ class SuccessGetNotAvailableProducts extends NotAvailableState {
  
 }
 
-class NoConnectionWithProduct extends NotAvailableState {}
+class NoConnectionWithProduct extends NotAvailableState {
+  String message;
+  NoConnectionWithProduct({
+    required this.message,
+  });
+}
 
 class LoadingProduct extends NotAvailableState {}
 

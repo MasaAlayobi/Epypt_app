@@ -3,6 +3,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+
 import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Resourse/URL.dart';
 import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
@@ -27,7 +28,9 @@ abstract class DioClient {
   late Response response;
   final TokenStorage tokenStorage = TokenStorage();
 
-  DioClient() {
+  DioClient(
+   
+  ) {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -122,8 +125,8 @@ print('111111111111${response.data}');
   
 }
 }
-class BaseService {
-  Dio dio = Dio();
-  String url="https://backend.almowafraty.com/api/v1/";
-  Response? response;
-}
+// lass BaseService {
+//   Dio dio = Dio();
+//   String url="https://backend.almowafraty.com/api/v1/";
+//   Response? response;
+// }

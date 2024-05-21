@@ -14,7 +14,12 @@ class SuccessGetNewBill extends NewBillState {
   });
 }
 
-class NoInternet extends NewBillState {}
+class NoInternet extends NewBillState {
+  String message;
+  NoInternet({
+    required this.message,
+  });
+}
 
 class NoData extends NewBillState {}
 

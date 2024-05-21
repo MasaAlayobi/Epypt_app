@@ -24,7 +24,7 @@ class RefuseReciveBloc extends Bloc<RefuseReciveEvent, RefuseReciveState> {
           emit(FailedGetData());
         }
       } catch (e) {
-        emit(NoConnection());
+        emit(NoConnection(message: e.toString()));
       }
     });
   }

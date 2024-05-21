@@ -18,6 +18,9 @@ List<bool> isChecked2 =[];
 class _NotAvailablePageState extends State<NotAvailablePage> {
   @override
   Widget build(BuildContext context) {
+     double heightSize = MediaQuery.of(context).size.height;
+
+    double widthSize = MediaQuery.of(context).size.width;
     return BlocProvider(
       create: (context) => NotAvailableBloc()..add(getNotAvailableProducts()),
       child: Builder(builder: (context) {
@@ -63,8 +66,8 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                             ? Image.network(
                                                 state
                                                     .allProduct[index].image[0],
-                                                 width: MediaQuery.of(context).size.width /3,
-                                                height:MediaQuery.of(context).size.height /4,
+                                                 width: MediaQuery.of(context).size.width /4,
+                                                height:MediaQuery.of(context).size.height /2,
                                                 errorBuilder: (context, error,
                                                     stackTrace) {
                                                   return Image.asset(
@@ -111,10 +114,10 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                               children: [
                                                 CustomText(
                                                     text:
-                                                        '${state.allProduct[index].pivot.price} ج ',
-                                                    size: 13,
+                                                        'السعر ${state.allProduct[index].pivot.price} ج ',
+                                                    size: 15,
                                                     color: colorApp.greenColor,
-                                                    fontWeight: FontWeight.w600,
+                                                    fontWeight: FontWeight.w800,
                                                     maxLines: 2),
                                                 // Expanded(
                                                 //   child: Padding(
@@ -239,7 +242,9 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                           });
                     } else if (state is LoadingProduct) {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          color: colorApp.basicColor,
+                        ),
                       );
                     } else if (state is NoConnectionWithProduct) {
                       return RefreshIndicator(
@@ -250,10 +255,23 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                         },
                         child: ListView(
                           children: [
-                             SizedBox(
-                            height: MediaQuery.of(context).size.height /3,
+                             Center(
+                            child: Image.asset(
+                              "asstes/images/internet.png",
+                              width: widthSize / 2,
+                              height: heightSize / 2,
+                            ),
                           ),
-                            Center(child: Text('تأكد من اتصالك بالأنترنت')),
+                          Center(
+                              child: Text(
+                           state.message=='Null check operator used on a null value'?
+                        "لقد انقطع الاتصال بالانترنت"
+                          :state.message ,
+                            style: TextStyle(
+                                color: ColorManager().red,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w700),
+                          ))
                           ],
                         ),
                       );
@@ -266,10 +284,21 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                         },
                         child: ListView(
                           children: [
-                             SizedBox(
-                            height: MediaQuery.of(context).size.height /3,
-                          ),
-                            Center(child: Text('لا يوجد منتجات غير متاحة')),
+                              Center(
+                        child: Image.asset(
+                      "asstes/images/empty.png",
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: MediaQuery.of(context).size.height / 2,
+                    )),
+                    Center(
+                      child: Text(
+                        "فارغ",
+                        style: TextStyle(
+                            color: ColorManager().red,
+                            fontSize: 33,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    )
                           ],
                         ),
                       );

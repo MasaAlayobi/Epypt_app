@@ -25,7 +25,7 @@ class CancelFromSupplyBloc extends Bloc<CancelFromSupplyEvent, CancelFromSupplyS
           emit(FailedGetData());
         }
       } catch (e) {
-        emit(NoConnection());
+        emit(NoConnection(message: e.toString()));
       }
     });
  

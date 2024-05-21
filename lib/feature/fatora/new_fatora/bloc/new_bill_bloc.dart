@@ -27,7 +27,7 @@ class NewBillBloc extends Bloc<NewBillEvent, NewBillState> {
           emit(NoData());
         }
       } catch (e) {
-        emit(NoInternet());
+        emit(NoInternet(message:e.toString()));
       }
     });
     on<SendReason>((event, emit) async {

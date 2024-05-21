@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/changeSign.dart';
+import 'package:mufraty_app/Core/Config/widget/custom_widget_categories.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
 import 'package:mufraty_app/Core/Config/widget/myTextField.dart';
 import 'package:mufraty_app/Core/Config/widget/myTextFieldNumber.dart';
@@ -19,10 +20,11 @@ import 'package:mufraty_app/feature/Home/view/home_page.dart';
 
 class SignUp extends StatefulWidget {
   // final num cityId;
-  // final List<num> cititesId; 
-  const SignUp({super.key, 
-  // this.cityId = 0,  
-  // this.cititesId = const []
+  // final List<num> cititesId;
+  const SignUp({
+    super.key,
+    // this.cityId = 0,
+    // this.cititesId = const []
   });
   @override
   State<SignUp> createState() => _SignUpState();
@@ -44,14 +46,14 @@ class _SignUpState extends State<SignUp> {
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
   TextEditingController deliveryTime = TextEditingController();
-final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   final imagePicker = ImagePicker();
-   File? image;
-   XFile? pickedFile;
+  File? image;
+  XFile? pickedFile;
+
   uploadImage() async {
-     pickedFile =
-        await imagePicker.pickImage(source: ImageSource.gallery);
-        print(pickedFile);
+    pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+    print(pickedFile);
     if (pickedFile != null) {
       setState(() {
         image = File(pickedFile!.path);
@@ -59,7 +61,8 @@ final TextEditingController _controller = TextEditingController();
     } else {}
     print(image);
   }
-@override
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -71,18 +74,28 @@ final TextEditingController _controller = TextEditingController();
       // }
     });
   }
-  List<num> cititesId1=[]; 
+
+  List<num> cititesId1 = [];
   num? cityId;
-   void updateDataCities(num citiesId) {
+  num? categoryId;
+  void updateDataCities(num citiesId) {
     setState(() {
-     cityId=citiesId;
+      cityId = citiesId;
     });
   }
-   void updateData(List<num> citiesId) {
+
+  void updateDataCategory(num categoriesId) {
     setState(() {
-     cititesId1=citiesId;
+      categoryId = categoriesId;
     });
   }
+
+  void updateData(List<num> citiesId) {
+    setState(() {
+      cititesId1 = citiesId;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isCheckedCheckBox = false;
@@ -164,40 +177,48 @@ final TextEditingController _controller = TextEditingController();
                                 validatorText: "مطلوب",
                               ),
                             ),
-                           Padding(
-        padding: const EdgeInsets.all(9.0),
-        child: TextFormField(
-          controller: _controller,
-          keyboardType: TextInputType.number,
-          inputFormatters: [
-             FilteringTextInputFormatter.digitsOnly,
-            LengthLimitingTextInputFormatter(10), // +20 و 10 أرقام
-          ],
-         cursorColor: ColorManager().red,
-      decoration: InputDecoration(
-        errorStyle: TextStyle(color: ColorManager().red),
-        errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager().red),
-            borderRadius: BorderRadius.circular(12)),
-        focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager().red),
-            borderRadius: BorderRadius.circular(12)),
-        fillColor: Colors.grey[200],
-        filled: true,
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager().red),
-            borderRadius: BorderRadius.circular(12)),
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager().red),
-            borderRadius: BorderRadius.circular(12)),
-        border: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager().red)),
-         hintText: 'رقم الهاتف ',
-             suffixText: '20+',
-        labelStyle: TextStyle(fontSize: 14, color: ColorManager().red),
-      ),
-        ),
-      ),
+                            Padding(
+                              padding: const EdgeInsets.all(9.0),
+                              child: TextFormField(
+                                controller: _controller,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  LengthLimitingTextInputFormatter(
+                                      10), // +20 و 10 أرقام
+                                ],
+                                cursorColor: ColorManager().red,
+                                decoration: InputDecoration(
+                                  errorStyle:
+                                      TextStyle(color: ColorManager().red),
+                                  errorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: ColorManager().red),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: ColorManager().red),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  fillColor: Colors.grey[200],
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: ColorManager().red),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: ColorManager().red),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: ColorManager().red)),
+                                  hintText: 'رقم الهاتف ',
+                                  suffixText: '20+',
+                                  labelStyle: TextStyle(
+                                      fontSize: 14, color: ColorManager().red),
+                                ),
+                              ),
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(9),
                               child: TextFormField(
@@ -343,13 +364,15 @@ final TextEditingController _controller = TextEditingController();
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(9),
-                              child: myTextFieldName(
-                                nameText: "التصنيف",
-                                nameController: catorgy,
-                                validatorText: "مطلوب",
-                              ),
-                            ),
+                                padding: const EdgeInsets.all(9),
+                                child: CustomWidgetCategories(
+                                  onDataChanged: updateDataCategory,
+                                  // variable: true,
+                                  widget: Text(""),
+                                  text1: " أختر التصنيف",
+                                  // text2: "دمشق",
+                                  // text3: "ركن الدين",
+                                )),
                             myTextFieldNumber(
                               phoneController: priceBill,
                               phoneText: "أقل سعر للفاتورة",
@@ -378,17 +401,17 @@ final TextEditingController _controller = TextEditingController();
                                     horizontal: 12, vertical: 18),
                                 child: myExpansionTile(
                                   onDataChanged: updateDataCities,
+                                  variable: true,
                                   widget: Text(""),
                                   text1: "اختر مدينتك",
                                   // text2: "دمشق",
                                   // text3: "ركن الدين",
-                                  
                                 )),
                             Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 12),
                                 child: MyExpansionTileCities(
-                                      onDataChanged: updateData,
+                                    onDataChanged: updateData,
                                     text1: "اختر المدن للتوصيل",
                                     widget: Text(""),
                                     // widget: StatefulBuilder(
@@ -401,7 +424,7 @@ final TextEditingController _controller = TextEditingController();
                                     //       });
                                     //     },
                                     //   ),
-                                     
+
                                     // text2: "دمشق",
                                     // text3: "ركن الدين",
                                     variable: isCheckedCheckBox2)),
@@ -409,7 +432,11 @@ final TextEditingController _controller = TextEditingController();
                               text: "لديك حساب؟",
                               textbutton: "تسجيل دخول",
                               onPress: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginView(),));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginView(),
+                                    ));
                               },
                             ),
                             SizedBox(
@@ -418,70 +445,90 @@ final TextEditingController _controller = TextEditingController();
                             BlocListener<RegisterBloc, RegisterState>(
                               listener: (context, state) {
                                 if (state is successcreatedUser) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return HomePage(storNamr:state.storeName ,);
-                              },
-                            ),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                            content: Text(state.message),
-                            backgroundColor: colorApp.basicColor,
-                          ));
-                        }
-                        else if(state is NoConnection){
-                          ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                            content: Text(state.message),
-                            backgroundColor: colorApp.basicColor,
-                          ));
-                        }
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return HomePage(
+                                          storNamr: state.storeName,
+                                          currentIndex: 1,
+                                          init: 0,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(new SnackBar(
+                                    content: Text(state.message),
+                                    backgroundColor: colorApp.basicColor,
+                                  ));
+                                } else if (state is NoConnection) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(new SnackBar(
+                                    content: Text(state.message=='Null check operator used on a null value'?
+                        "لقد انقطع الاتصال بالانترنت"
+                          :state.message,),
+                                    backgroundColor: colorApp.basicColor,
+                                  ));
+                                }
                               },
                               child: MyButton(
                                 title: "إنشاء حساب",
                                 onpress: () async {
-                                  print( '+20${_controller.text.toString()}');
-                                  if(firstName.text != null && lastName.text != null && secondName.text != null && password.text != null && marketName.text != null && deliveryTime.text != null && quantity.text != null && priceBill.text != null && catorgy.text != null&& cititesId1.isNotEmpty && cityId!=null ){
-
-                                  RegisterModel user = RegisterModel(
-                                      first_name: firstName.text,
-                                      middle_name: secondName.text,
-                                      last_name: lastName.text,
-                                      phone_number:'+20${_controller.text.toString()}',
-                                      store_name: marketName.text,
-                                      password: password.text,
-                                      delivery_duration: deliveryTime.text,
-                                      min_selling_quantity:
-                                          int.parse(quantity.text),
-                                      min_bill_price: int.parse(priceBill.text),
-                                      city_id: cityId!,
-                                      supplier_category_id:
-                                          int.parse(catorgy.text),
-                                      to_sites:cititesId1);
-                                  // RegisterModel user = RegisterModel(
-                                      // first_name:'fhdb',
-                                      // middle_name: 'gdnb',
-                                      // last_name: 'dnbg',
-                                      // phone_number: '+20${_controller.text.toString()}',
-                                      // store_name: 'rtsbhntr',
-                                      // password:'123456788',
-                                      // delivery_duration:'657',
-                                      // min_selling_quantity:
-                                      //     77,
-                                      // min_bill_price: 888,
-                                      // city_id: 1,
-                                      // supplier_category_id:
-                                      //     1,
-                                      // to_sites: [1]);
-                                      context
-                                .read<RegisterBloc>()
-                                .add(CreateUser(User: user, image:image!));
-                                  }else{
-                                    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                            content: Text('إملاء كامل الحقول'),
-                            backgroundColor: colorApp.basicColor,
-                          ));
+                                  print('+20${_controller.text.toString()}');
+                                  if (firstName.text != null &&
+                                      lastName.text != null &&
+                                      secondName.text != null &&
+                                      password.text != null &&
+                                      marketName.text != null &&
+                                      deliveryTime.text != null &&
+                                      quantity.text != null &&
+                                      priceBill.text != null &&
+                                      catorgy.text != null &&
+                                      cititesId1.isNotEmpty &&
+                                      cityId != null &&
+                                      image != null&&
+                                      categoryId!=null) {
+                                    RegisterModel user = RegisterModel(
+                                        first_name: firstName.text,
+                                        middle_name: secondName.text,
+                                        last_name: lastName.text,
+                                        phone_number:
+                                            '+20${_controller.text.toString()}',
+                                        store_name: marketName.text,
+                                        password: password.text,
+                                        delivery_duration: deliveryTime.text,
+                                        min_selling_quantity:
+                                            int.parse(quantity.text),
+                                        min_bill_price:
+                                            int.parse(priceBill.text),
+                                        city_id: cityId!,
+                                        supplier_category_id:
+                                            categoryId!,
+                                        to_sites: cititesId1);
+                                    // RegisterModel user = RegisterModel(
+                                    // first_name:'fhdb',
+                                    // middle_name: 'gdnb',
+                                    // last_name: 'dnbg',
+                                    // phone_number: '+20${_controller.text.toString()}',
+                                    // store_name: 'rtsbhntr',
+                                    // password:'123456788',
+                                    // delivery_duration:'657',
+                                    // min_selling_quantity:
+                                    //     77,
+                                    // min_bill_price: 888,
+                                    // city_id: 1,
+                                    // supplier_category_id:
+                                    //     1,
+                                    // to_sites: [1]);
+                                    context.read<RegisterBloc>().add(
+                                        CreateUser(User: user, image: image!));
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(new SnackBar(
+                                      content: Text('إملاء كامل الحقول'),
+                                      backgroundColor: colorApp.basicColor,
+                                    ));
                                   }
                                 },
                                 colors: ColorManager().red,
@@ -505,4 +552,3 @@ final TextEditingController _controller = TextEditingController();
     );
   }
 }
-

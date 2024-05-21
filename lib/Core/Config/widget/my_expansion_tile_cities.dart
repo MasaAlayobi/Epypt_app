@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -151,11 +152,25 @@ class _myExpansionTileState extends State<MyExpansionTileCities> {
                                     activeColor: ColorManager().red,
                                     value: isCheckedCheckBox2,
                                     onChanged: (bool? value) {
+                                      print(value);
+                                      if(value==true){
+
                                       citiesId.add(state.Cities[ind].childrens[index].id);
                             print(citiesId);
                                       setState(() {
-                                        isCheckedCheckBox2 = value!;
+                                        isCheckedCheckBox2= value!;
+                                        // isCheckedCheckBox2=
+
                                       });
+                                      }
+                                      else{ 
+                                        citiesId.remove(state.Cities[ind].childrens[index].id);
+                                        setState(() {
+                                        isCheckedCheckBox2= value!;
+                                        // isCheckedCheckBox2=
+
+                                      });
+                                      }
                                     },
                                   ),
                                 ),

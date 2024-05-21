@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:mufraty_app/Core/Data/add_offer_model.dart';
 import 'package:mufraty_app/Core/Data/available_products_model.dart';
@@ -15,7 +16,7 @@ class AvailableProductsBloc extends Bloc<AvailableProductsEvent, AvailableProduc
       late List<AvailableProductsModel> temp;
     on<getAvailableProducts>((event, emit) async{
       emit(LoadingProduct());
-        try {
+         try {
          temp = await StockServicImp().getAvailableProduct();
         print(temp);
         if (temp.isEmpty) {
@@ -25,8 +26,11 @@ class AvailableProductsBloc extends Bloc<AvailableProductsEvent, AvailableProduc
            emit(SuccessFetchAvailableProducts(allProduct: temp));
          }
               } 
+            // on DioException catch(e){
+            //   emit(dioException(message: e.toString()));
+            // }
               catch (e) {
-        emit(NoConnectionWithProduct());
+        emit(NoConnectionWithProduct(message:e.toString()));
       
     }
     });
@@ -46,7 +50,10 @@ class AvailableProductsBloc extends Bloc<AvailableProductsEvent, AvailableProduc
             else if(message=="Validation error"){
               emit(InformationError(message: message));
             }
-         }
+          }
+        //on DioException catch(e){
+        //   emit(No)
+        //  }
             catch (e){
 
               emit (NoConnectionAddProduct(message: 'خطأ في الاتصال'));
@@ -136,7 +143,7 @@ class AvailableProductsBloc extends Bloc<AvailableProductsEvent, AvailableProduc
          }
             catch (e){
 
-              emit (NoConnectionupdate(message: 'خطأ في الاتصال'));
+              emit (NoConnectionupdate(message: ' لم يتم تعديل السعر'));
             }
             
       },

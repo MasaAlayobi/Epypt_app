@@ -23,7 +23,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
           emit(SuccessFetchProducts(allProduct: temp));
         }
       } catch (e) {
-        emit(NoConnectionWithProduct());
+        emit(NoConnectionWithProduct(message: e.toString()));
       }
     });
     on<addProductWithoutOffer>(

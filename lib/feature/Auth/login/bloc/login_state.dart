@@ -6,7 +6,14 @@ sealed class LoginState {}
 
 final class LoginInitial extends LoginState {}
 
-class successcreatedUser extends LoginState {}
+class successcreatedUser extends LoginState {
+   String message;
+  String storeName;
+  successcreatedUser({
+    required this.message,
+    required this.storeName,
+  });
+}
 
 class InformationError extends LoginState {
   String message;

@@ -12,8 +12,19 @@ class SuccessFetchAvailableProducts extends AvailableProductsState {
     required this.allProduct,
   });
 }
+class dioException extends AvailableProductsState {
+  String message;
+  dioException({
+    required this.message,
+  });
+}
 
-class NoConnectionWithProduct extends AvailableProductsState {}
+class NoConnectionWithProduct extends AvailableProductsState {
+  String message;
+  NoConnectionWithProduct({
+    required this.message,
+  });
+}
 
 class LoadingProduct extends AvailableProductsState {}
 

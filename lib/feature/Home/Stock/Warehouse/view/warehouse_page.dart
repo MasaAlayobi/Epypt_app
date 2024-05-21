@@ -25,6 +25,9 @@ bool isChecked2 = false;
 class _WarehousePageState extends State<WarehousePage> {
   @override
   Widget build(BuildContext context) {
+     double heightSize = MediaQuery.of(context).size.height;
+
+    double widthSize = MediaQuery.of(context).size.width;
     return BlocProvider(
       create: (context) => ProductsBloc()..add(getProducts()),
       child: Builder(builder: (context) {
@@ -265,7 +268,21 @@ class _WarehousePageState extends State<WarehousePage> {
                       },
                       child: ListView(
                         children: [
-                          Center(child: Text('لا يوجد منجات في المخزون')),
+                            Center(
+                        child: Image.asset(
+                      "asstes/images/empty.png",
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: MediaQuery.of(context).size.height / 2,
+                    )),
+                    Center(
+                      child: Text(
+                        "فارغ",
+                        style: TextStyle(
+                            color: ColorManager().red,
+                            fontSize: 33,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    )
                         ],
                       ),
                     );
@@ -277,9 +294,24 @@ class _WarehousePageState extends State<WarehousePage> {
                       },
                       child: ListView(
                         children: [
-                          Center(child: Text('تأكد نت اتصالك بالأنترنت ')),
-                        ],
-                      ),
+                         Center(
+                            child: Image.asset(
+                              "asstes/images/internet.png",
+                              width: widthSize / 2,
+                              height: heightSize / 2,
+                            ),
+                          ),
+                          Center(
+                              child: Text(
+                           state.message=='Null check operator used on a null value'?
+                        "لقد انقطع الاتصال بالانترنت"
+                          :state.message ,
+                            style: TextStyle(
+                                color: ColorManager().red,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w700),
+                          ))
+                     ] )
                     );
                   } else {
                     return RefreshIndicator(

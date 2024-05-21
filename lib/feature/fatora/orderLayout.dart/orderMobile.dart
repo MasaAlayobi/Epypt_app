@@ -8,6 +8,7 @@ import 'package:mufraty_app/Core/Config/widget/myButton.dart';
 import 'package:mufraty_app/Core/Config/widget/myButtonWidget.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/Core/data/bill_with_reason.dart';
+import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
 import 'package:mufraty_app/feature/fatora/orderLayout.dart/with-time-bloc/update_bill_time_bloc.dart';
 
@@ -480,7 +481,7 @@ print('66666666666666666666666666666666');
                                                                                     Navigator.pushReplacement(
                                                                                       context,
                                                                                       MaterialPageRoute(
-                                                                                        builder: (context) => Fatora(initIndex: 0),
+                                                                                        builder: (context) => HomePage(init: 0,currentIndex: 0,),
                                                                                       ),
                                                                                     );
 

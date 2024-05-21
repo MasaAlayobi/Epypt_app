@@ -29,6 +29,7 @@ class StockServicImp extends StockServic {
   @override
   Future<List<ProductsModel>> getAllProduct() async {
     // print('$baseUrl${entity=EndPoint.getProducts}');
+    try{
     response = await dio.get('$baseUrl${entity = EndPoint.getProducts}',
         // options: getHeader()
         );
@@ -43,7 +44,11 @@ class StockServicImp extends StockServic {
     } else {
       print('**************************');
       return [];
-    }
+    }}on DioException catch(e){
+      throw e.response!;
+   }on Error catch(e){
+    throw e;
+   }
   }
 
   @override
@@ -64,7 +69,7 @@ class StockServicImp extends StockServic {
       return [];
     }
    }on DioException catch(e){
-      throw e;
+      throw e.response!;
    }on Error catch(e){
     throw e;
    }
@@ -72,6 +77,7 @@ class StockServicImp extends StockServic {
 
   @override
   Future<List<AvailableProductsModel>> getNotAvailableProduct() async {
+    try{
     response = await dio.get(
         '$baseUrl${entity = EndPoint.getNotAvailableProduct}',
         
@@ -88,7 +94,11 @@ class StockServicImp extends StockServic {
     } else {
       print('**************************');
       return [];
-    }
+    }}on DioException catch(e){
+      throw e.response!;
+   }on Error catch(e){
+    throw e;
+   }
   }
 
   @override

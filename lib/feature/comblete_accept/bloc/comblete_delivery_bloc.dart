@@ -28,7 +28,7 @@ class CombleteDeliveryBloc
           emit(FailedGetData());
         }
       } catch (e) {
-        emit(NoConnection());
+        emit(NoConnection(message: e.toString()));
       }
     });
   }

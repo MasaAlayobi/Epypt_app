@@ -44,8 +44,8 @@ class InfoAvailableProductModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+  Map<dynamic, dynamic> toMap() {
+    return <dynamic, dynamic>{
       'id': id,
       'price': price,
       'has_offer': has_offer,
