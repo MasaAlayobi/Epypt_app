@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/changeSign.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
@@ -227,18 +229,7 @@ class _LoginViewState extends State<LoginView> {
                       BlocListener<LoginBloc, LoginState>(
                         listener: (context, state) {
                            if (state is successcreatedUser) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return HomePage(
-                                          storNamr: state.storeName,
-                                          currentIndex: 1,
-                                          init: 0,
-                                        );
-                              },
-                            ),
-                          );
+                          GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
                           ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
                             content: Text('تم تسجيل الدحول بنجاح'),
                             backgroundColor: colorApp.basicColor,
@@ -255,8 +246,9 @@ class _LoginViewState extends State<LoginView> {
                         }
                          else if(state is NoConnection){
                           ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                            content: Text(state.message=='Null check operator used on a null value'?
+                            content: Text(state.message=='Null check operator used on a null value'||state.message.contains('403 Forbidden')?
                         "لقد انقطع الاتصال بالانترنت"
+
                           :state.message,),
                             backgroundColor: colorApp.basicColor,
                           ));

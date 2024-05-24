@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myContainer.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
@@ -19,16 +21,7 @@ class NotRecieved extends StatelessWidget {
       create: (context) => RefuseReciveBloc()..add(GetAllData()),
       child: RefreshIndicator(
         onRefresh: ()async{
-            Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(
-                            init: 3,
-                            currentIndex: 0,
-
-                          ),
-                        ),
-                      );
+           GoRouter.of(context).pushReplacement(AppRouter.kHomeViewFatoraNotRecieved);
         },
         child: Directionality(
           textDirection: TextDirection.rtl,

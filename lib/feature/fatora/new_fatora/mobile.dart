@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
@@ -44,15 +46,7 @@ class Mobile_fatora extends StatelessWidget {
                   child: RefreshIndicator(
                     onRefresh: () async {
                       context.read<NewBillBloc>().add(GetAllData());
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(
-                            init: 0,
-                            currentIndex: 0,
-                          ),
-                        ),
-                      );
+                      GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
                     },
                     child: StatefulBuilder(
                       builder: ((context, setState) => ListView.builder(
@@ -131,19 +125,7 @@ class Mobile_fatora extends StatelessWidget {
                                                                     //         NewBillBloc>()
                                                                     //     .add(
                                                                     //         GetAllData());
-                                                                    Navigator
-                                                                        .pushReplacement(
-                                                                      context,
-                                                                      MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                HomePage(
-                                                                          init:
-                                                                              0,
-                                                                              currentIndex: 0,
-                                                                        ),
-                                                                      ),
-                                                                    );
+                                                                    GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
 
                                                                     cancelOfSend
                                                                         .clear();

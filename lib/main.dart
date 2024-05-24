@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mufraty_app/Core/Config/observe.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
+import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/Core/Theme/theme.dart';
 import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
 import 'package:mufraty_app/feature/Auth/register/view/register_page.dart';
+import 'package:mufraty_app/feature/Home/Discounts/view/Discounts_page.dart';
 import 'package:mufraty_app/feature/Home/Reports/view/reports_page.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 
 void main() {
-  //  setup();
+  initial();
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
@@ -22,14 +25,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ReportCubit(),
-      child: MaterialApp(
-        navigatorKey: navigatorKey,
-        theme: lightMode,
+    return MultiBlocProvider(
+      providers: [
+      BlocProvider<ReportCubit>(
+  create: (BuildContext context) => ReportCubit(),),
+  
+
+      ],
+      child: MaterialApp.router(
+        //  navigatorKey: navigatorKey,
+         theme: lightMode,
+        routerConfig: AppRouter.routter,
         debugShowCheckedModeBanner: false,
-        home: LoginView(),
-      ),
+        
+      )
     );
   }
 }
+// MaterialApp(
+//         navigatorKey: navigatorKey,
+//         theme: lightMode,
+//         debugShowCheckedModeBanner: false,
+//         home: LoginView(),
+//       ),

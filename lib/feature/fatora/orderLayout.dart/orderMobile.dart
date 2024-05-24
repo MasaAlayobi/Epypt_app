@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/imageProduct.dart';
 import 'package:mufraty_app/Core/Config/widget/listOfOption.dart';
@@ -24,11 +26,9 @@ class Order extends StatefulWidget {
 
   @override
   State<Order> createState() => _OrderState();
-  
 }
 
 class _OrderState extends State<Order> {
-  
   List<Map<String, int>> list = [];
 
   String? selectedValue;
@@ -36,10 +36,8 @@ class _OrderState extends State<Order> {
   String? date = "نفس اليوم";
 
   Widget build(BuildContext context) {
-    
-
     List<int> counter = [];
-    List<int> quantity=[];
+    List<int> quantity = [];
     // int quantity;
     return BlocProvider(
       create: (context) => UpdateBillTimeBloc(),
@@ -84,7 +82,8 @@ class _OrderState extends State<Order> {
                         ),
                         itemBuilder: (context, index) {
                           counter.add(0);
-                          quantity.add(widget.bill.products[index].pivot.quantity);
+                          quantity
+                              .add(widget.bill.products[index].pivot.quantity);
                           list.add({
                             "id": widget.bill.products[index].id,
                             "quantity": quantity[index]
@@ -197,7 +196,8 @@ class _OrderState extends State<Order> {
                                                         child: IconButton(
                                                           onPressed: () {
                                                             setState(() {
-                                                              if ((quantity[index] -
+                                                              if ((quantity[
+                                                                          index] -
                                                                       counter[
                                                                           index]) >=
                                                                   1) {
@@ -205,10 +205,11 @@ class _OrderState extends State<Order> {
                                                                     index]++;
                                                                 print(counter[
                                                                     index]);
-                                                                quantity[index] =
-                                                                    quantity[index] -
-                                                                        counter[
-                                                                            index];
+                                                                quantity[
+                                                                    index] = quantity[
+                                                                        index] -
+                                                                    counter[
+                                                                        index];
 
                                                                 print(quantity);
                                                               }
@@ -231,7 +232,7 @@ class _OrderState extends State<Order> {
                                                       //     .get<
                                                       //         SharedPreferences>()
                                                       //     .getInt("quantity").toString(),
-                                                      quantity.toString(),
+                                                      "777",
 
                                                       textAlign:
                                                           TextAlign.center,
@@ -266,20 +267,24 @@ class _OrderState extends State<Order> {
                                                               //             index]
                                                               //         .pivot
                                                               //         .quantity) {
-                                                              counter[index]==  counter[
-                                                                    index]+1;
-                                                                    print(counter);
-                                                                quantity
-                                                                [index] =
-                                                                    quantity[index] +
-                                                                        counter[
-                                                                            index];
-print('66666666666666666666666666666666');
-                                                                print(quantity[index]);
-                                                              }
-                                                            // }
-                                                            );
-                                                            print('4444444444444444444444444444');
+                                                              counter[index] ==
+                                                                  counter[index] +
+                                                                      1;
+                                                              print(counter);
+                                                              quantity[index] =
+                                                                  quantity[
+                                                                          index] +
+                                                                      counter[
+                                                                          index];
+                                                              print(
+                                                                  '66666666666666666666666666666666');
+                                                              print(quantity[
+                                                                  index]);
+                                                            }
+                                                                // }
+                                                                );
+                                                            print(
+                                                                '4444444444444444444444444444');
                                                             print(list[index]);
                                                           },
                                                           icon: Icon(
@@ -478,12 +483,7 @@ print('66666666666666666666666666666666');
                                                                               BlocListener<UpdateBillTimeBloc, UpdateBillTimeState>(
                                                                                 listener: (context, state) {
                                                                                   if (state is SuccessSendUpdateWithTime) {
-                                                                                    Navigator.pushReplacement(
-                                                                                      context,
-                                                                                      MaterialPageRoute(
-                                                                                        builder: (context) => HomePage(init: 0,currentIndex: 0,),
-                                                                                      ),
-                                                                                    );
+                                                                                   GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
 
                                                                                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                                                                         duration: Duration(seconds: 3),
@@ -525,7 +525,7 @@ print('66666666666666666666666666666666');
                                                                                         height: 55,
                                                                                         radius: 9),
                                                                                     MyButton(
-                                                                                        title: "استكمال بدون معاد",
+                                                                                        title: "بدون معاد",
                                                                                         onpress: () {
                                                                                           print("****************************************************");
                                                                                           context.read<UpdateBillTimeBloc>().add(SendDataWithoutTime(id: widget.bill.id, update: list));

@@ -9,7 +9,7 @@ import 'package:mufraty_app/feature/fatora/fatora.dart';
 class HomePage  extends StatefulWidget {
 int? currentIndex ;
 int init;
- HomePage ({super.key,this.storNamr, required this.currentIndex,required this.init});
+ HomePage ({super.key,required this.storNamr, required this.currentIndex,required this.init});
 String? storNamr;
   @override
   State<HomePage> createState() => _HomePageState();
@@ -18,13 +18,14 @@ String? storNamr;
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    
     List Pages=[
 Fatora(
           initIndex: widget.init,
         ),
 StockPage(storeName:widget.storNamr,),
 ReportsPage(),
-DiscountsPage(),
+StockPage(storeName:widget.storNamr,),
 NotificationPage(),
 ];
     return Directionality(

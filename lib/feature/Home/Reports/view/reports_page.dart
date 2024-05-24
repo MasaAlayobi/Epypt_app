@@ -38,7 +38,7 @@ class _ReportsPageState extends State<ReportsPage> {
 
   void _onStartDateChanged() {
     startDate = _startDateController.text;
-     _getReportData();
+    _getReportData();
   }
 
   void _onEndDateChanged() {
@@ -57,197 +57,196 @@ class _ReportsPageState extends State<ReportsPage> {
 
   @override
   Widget build(BuildContext context) {
-     double heightSize = MediaQuery.of(context).size.height;
+    double heightSize = MediaQuery.of(context).size.height;
 
     double widthSize = MediaQuery.of(context).size.width;
-    return Builder(
-      
-      builder: (context) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: Scaffold(
-            backgroundColor: colorApp.BackgroundColor,
-            appBar: AppBar(
-              backgroundColor: colorApp.basicColor,
-              actions: const [
-                Icon(
-                  Icons.person_outline,
-                  size: 33,
-                  color: colorApp.blackColor,
-                )
-              ],
-              title: CustomText(
-                  text: 'تقاريري',
-                  size: 18,
-                  color: colorApp.blackColor,
-                  fontWeight: FontWeight.w800,
-                  maxLines: 1),
-            ),
-            body: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText(
-                                text: 'من',
-                                size: 15,
-                                color: colorApp.blackColor,
-                                fontWeight: FontWeight.w500,
-                                maxLines: 1),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 3),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width / 2.5,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(3),
-                                    border: Border.all(
-                                        color: colorApp.greyColor, width: 1)),
-                                child: MyCustomForm(
-                                  controller: _startDateController,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    // ElevatedButton(
-                    //   onPressed: _getReportData,
-                    //   child: const Text('جلب التقرير'),
-                    // ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText(
-                                text: 'إلى',
-                                size: 15,
-                                color: colorApp.blackColor,
-                                fontWeight: FontWeight.w500,
-                                maxLines: 1),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 3),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width / 2.5,
-                                height: 35,
-                                decoration: BoxDecoration(
+    return Builder(builder: (context) {
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          backgroundColor: colorApp.BackgroundColor,
+          appBar: AppBar(
+            backgroundColor: colorApp.basicColor,
+            actions: const [
+              Icon(
+                Icons.person_outline,
+                size: 33,
+                color: colorApp.blackColor,
+              )
+            ],
+            title: CustomText(
+                text: 'تقاريري',
+                size: 18,
+                color: colorApp.blackColor,
+                fontWeight: FontWeight.w800,
+                maxLines: 1),
+          ),
+          body: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                              text: 'من',
+                              size: 15,
+                              color: colorApp.blackColor,
+                              fontWeight: FontWeight.w500,
+                              maxLines: 1),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 3),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 2.5,
+                              height: 35,
+                              decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(3),
                                   border: Border.all(
-                                      color: colorApp.greyColor, width: 1),
-                                ),
-                                child: MyCustomForm(
-                                  controller: _endDateController,
-                                ),
+                                      color: colorApp.greyColor, width: 1)),
+                              child: MyCustomForm(
+                                controller: _startDateController,
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: BlocBuilder<ReportCubit, ReportState>(
-                      builder: (context, state) {
-                        if (state is ReportLoaded) {
-                          return ListView(
-                            children: [
-                              CustomListTile(
-                                  icon: Icons.library_books,
-                                  iconColor: colorApp.blueColor,
-                                  title: 'عدد الفواتير المدفوعة',
-                                  subtitle: '${state.report.paidBill}'),
-                              CustomListTile(
-                                  icon: Icons.mark_unread_chat_alt,
-                                  iconColor: colorApp.greenColor,
-                                  title: 'عدد الفواتير المستلمة',
-                                  subtitle: '${state.report.receivedBill}'),
-                              CustomListTile(
-                                  icon: Icons.groups,
-                                  iconColor: colorApp.yellowColor,
-                                  title: 'عدد العملاء',
-                                  subtitle: '${state.report.marketsCount}'),
-                              CustomListTile(
-                                  icon: Icons.payments,
-                                  iconColor: colorApp.greenColor,
-                                  title: 'منوسط قيمة الفاتورة',
-                                  subtitle: '${state.report.averageBills}'),
-                              CustomListTile(
-                                  icon: Icons.event_available,
-                                  iconColor: colorApp.blueColor,
-                                  title: 'إجمالي المبيعات المحققة',
-                                  subtitle: '${state.report.totalPrice}'),
-                              CustomListTile(
-                                  icon: Icons.event_busy,
-                                  iconColor: colorApp.basicColor,
-                                  title: 'قيمة المبيعات المهدرة',
-                                  subtitle: '${state.report.wastedBill}'),
-                            ],
-                          );
-                        } else if (state is ReportLoading) {
-                          return const Center(child: CircularProgressIndicator());
-                        }else if (state is ReportError){
-                            return RefreshIndicator(
-                      onRefresh: () async {
-                        context.read<ReportCubit>().getReport(startDate, endDate);
-                      },
-                      child: ListView(
-                        children: [
-                         Center(
-                            child: Image.asset(
-                              "asstes/images/internet.png",
-                              width: widthSize / 2,
-                              height: heightSize / 2,
-                            ),
-                          ),
-                          Center(
-                              child: Text(
-                           state.message=='Null check operator used on a null value'?
-                        "لقد انقطع الاتصال بالانترنت"
-                          :state.message ,
-                            style: TextStyle(
-                                color: ColorManager().red,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700),
-                          ))
+                          )
                         ],
                       ),
-                    );
-                        }
-                            else{
-                              return SizedBox();
-                            }
-                        
-                      },
                     ),
                   ),
-                )
-              ],
-            ),
+                  // ElevatedButton(
+                  //   onPressed: _getReportData,
+                  //   child: const Text('جلب التقرير'),
+                  // ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                              text: 'إلى',
+                              size: 15,
+                              color: colorApp.blackColor,
+                              fontWeight: FontWeight.w500,
+                              maxLines: 1),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 3),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 2.5,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(3),
+                                border: Border.all(
+                                    color: colorApp.greyColor, width: 1),
+                              ),
+                              child: MyCustomForm(
+                                controller: _endDateController,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: BlocBuilder<ReportCubit, ReportState>(
+                    builder: (context, state) {
+                      if (state is ReportLoaded) {
+                        return ListView(
+                          children: [
+                            CustomListTile(
+                                icon: Icons.library_books,
+                                iconColor: colorApp.blueColor,
+                                title: 'عدد الفواتير المدفوعة',
+                                subtitle: '${state.report.paidBill}'),
+                            CustomListTile(
+                                icon: Icons.mark_unread_chat_alt,
+                                iconColor: colorApp.greenColor,
+                                title: 'عدد الفواتير المستلمة',
+                                subtitle: '${state.report.receivedBill}'),
+                            CustomListTile(
+                                icon: Icons.groups,
+                                iconColor: colorApp.yellowColor,
+                                title: 'عدد العملاء',
+                                subtitle: '${state.report.marketsCount}'),
+                            CustomListTile(
+                                icon: Icons.payments,
+                                iconColor: colorApp.greenColor,
+                                title: 'منوسط قيمة الفاتورة',
+                                subtitle: '${state.report.averageBills}'),
+                            CustomListTile(
+                                icon: Icons.event_available,
+                                iconColor: colorApp.blueColor,
+                                title: 'إجمالي المبيعات المحققة',
+                                subtitle: '${state.report.totalPrice}'),
+                            CustomListTile(
+                                icon: Icons.event_busy,
+                                iconColor: colorApp.basicColor,
+                                title: 'قيمة المبيعات المهدرة',
+                                subtitle: '${state.report.wastedBill}'),
+                          ],
+                        );
+                      } else if (state is ReportLoading) {
+                        return const Center(
+                            child: CircularProgressIndicator());
+                      } else if (state is ReportError) {
+                        return RefreshIndicator(
+                          onRefresh: () async {
+                            context
+                                .read<ReportCubit>()
+                                .getReport(startDate, endDate);
+                          },
+                          child: ListView(
+                            children: [
+                              Center(
+                                child: Image.asset(
+                                  "asstes/images/internet.png",
+                                  width: widthSize / 2,
+                                  height: heightSize / 2,
+                                ),
+                              ),
+                              Center(
+                                  child: Text(
+                                state.message ==
+                                        'Null check operator used on a null value'
+                                    ? "لقد انقطع الاتصال بالانترنت"
+                                    : state.message,
+                                style: TextStyle(
+                                    color: ColorManager().red,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w700),
+                              ))
+                            ],
+                          ),
+                        );
+                      } else {
+                        return SizedBox();
+                      }
+                    },
+                  ),
+                ),
+              )
+            ],
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 }
 
@@ -372,15 +371,13 @@ class _MyCustomFormState extends State<MyCustomForm> {
         ],
       ),
       child: TextFormField(
-      style: TextStyle(fontSize: 13),
+        style: TextStyle(fontSize: 13),
         textAlign: TextAlign.center,
         controller: widget.controller,
         decoration: InputDecoration(
-          
           // labelText: 'ادخل التاريخ',
           isDense: true,
           border: OutlineInputBorder(
-            
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide.none,
           ),
@@ -419,16 +416,16 @@ class ReportError extends ReportState {
 }
 
 class ReportCubit extends Cubit<ReportState> {
-   Dio dio=Dio();
-   String? token;
+  Dio dio = Dio();
+  String? token;
 
-  ReportCubit({  this.token})
-      : super(ReportInitial());
+  ReportCubit({this.token}) : super(ReportInitial());
 
   Future<void> getReport(String startDate, String endDate) async {
     final accessToken = await TokenStorage().getAccessToken();
+    print(accessToken);
     emit(ReportLoading());
-     try {
+    try {
       dio!.options.headers['Authorization'] = 'Bearer $accessToken';
       final response = await dio!.get(
         'https://backend.almowafraty.com/api/v1/reports',
@@ -440,7 +437,7 @@ class ReportCubit extends Cubit<ReportState> {
       print(response.data);
       final report = Report.fromJson(response.data['body']);
       emit(ReportLoaded(report));
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       emit(ReportError(e.response.toString()));
     }
   }

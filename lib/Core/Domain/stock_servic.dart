@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:mufraty_app/Core/Config/getHeader.dart';
+import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Data/add_offer_model.dart';
 import 'package:mufraty_app/Core/Data/add_product_model.dart';
 import 'package:mufraty_app/Core/Data/add_product_with_offer_model.dart';
@@ -23,6 +24,7 @@ abstract class StockServic extends DioClient {
   addAvailableOrNot(num id,num is_available);
   deletProduct(int id);
   updatePrice(num id ,num price);
+  logout();
 }
 
 class StockServicImp extends StockServic {
@@ -69,7 +71,7 @@ class StockServicImp extends StockServic {
       return [];
     }
    }on DioException catch(e){
-      throw e.response!;
+      throw e.response!.data["message"];
    }on Error catch(e){
     throw e;
    }
@@ -233,5 +235,29 @@ class StockServicImp extends StockServic {
     catch(e){
       throw e;
     }
+  }
+  
+  @override
+  logout() async{
+    try{
+    response = await dio.get(
+        '$baseUrl${entity = EndPoint.logout}',
+        
+        // options: getHeader()
+        );
+    print(response.data);
+    if (response.statusCode == 200) {
+      
+      print(response.data);
+      await TokenStorage().clearTokens();
+      return response.data['message'];
+    } else {
+      print('**************************');
+      return [];
+    }}on DioException catch(e){
+      throw e.response!;
+   }on Error catch(e){
+    throw e;
+   }
   }
 }

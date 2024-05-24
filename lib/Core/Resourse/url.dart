@@ -20,4 +20,5 @@ abstract class EndPoint{
  static String deleteProduct='suppliers/';
  static String updatePrice="update/";
  static String CategoriesSupplier="categories";
+ static String logout='suppliers/logout';
 }

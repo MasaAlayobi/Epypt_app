@@ -6,18 +6,21 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mufraty_app/Core/Config/getHeader.dart';
+import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/Core/Data/cities_model.dart';
 import 'package:mufraty_app/Core/Data/login_model.dart';
 import 'package:mufraty_app/Core/Data/register_model.dart';
 import 'package:mufraty_app/Core/Domain/base_service.dart';
 import 'package:mufraty_app/Core/Resourse/URL.dart';
 import 'package:mufraty_app/Core/data/categories_suppler_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AuthService extends DioClient {
   createNewAcouunt(RegisterModel user,File image);
   login(LoginModel user);
   Future<List<CitiesModel>> getCities();
   Future<List<CategoriesSupplerModel>> getCategorySuppler();
+ 
 }
 
 class AuthServiceTmp extends AuthService {
@@ -65,6 +68,7 @@ formData.files.addAll({
          await tokenStorage.saveTokens(response.data['access_token'], response.data['refresh_token']);
         print(response.data);
         List<String> successModel=[response.data["message"],response.data["supplier"]["store_name"]];
+        storage.get<SharedPreferences>().setString('store_name', response.data["supplier"]["store_name"]);
         return successModel;
       } else if (response.statusCode == 422) {
         print(response.data);
@@ -91,8 +95,10 @@ formData.files.addAll({
       if (response.statusCode == 200) {
                 final expiryTime = DateTime.now().millisecondsSinceEpoch + (3 * 1000);
          await tokenStorage.saveTokens(response.data["access_token"], response.data["refresh_token"]);
+         print(response.data["access_token"]);
         print('${tokenStorage.getAccessToken()}+${tokenStorage.getRefreshToken()}++');
       List<String> successModel=[response.data["message"],response.data["supplier"]["store_name"]];
+      storage.get<SharedPreferences>().setString('store_name', response.data["supplier"]["store_name"]);
         return successModel;
       }
     } on DioException catch(e ) {
@@ -144,4 +150,5 @@ formData.files.addAll({
       throw response.data;
     }
   }
+
 }

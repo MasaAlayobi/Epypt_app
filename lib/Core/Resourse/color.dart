@@ -9,6 +9,7 @@ static const Color greenColor= Colors.green;
 static const Color blueColor=Colors.blue;
 static const Color yellowColor=Color.fromARGB(255, 252, 227, 3);
 static const Color BackgroundColor=Color.fromARGB(136, 224, 214, 214);
+static const Color BackgroundColor2=Color.fromARGB(255, 224, 214, 214);
 }
 class ColorManager {
   Color grey1 = Color.fromARGB(255, 90, 84, 84);

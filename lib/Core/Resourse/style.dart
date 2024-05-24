@@ -8,6 +8,7 @@ class Style{
   static const  textStyle19900=TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w800,
+    color: colorApp.BackgroundColor2
     
   );
   static const textStyle= TextStyle(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
@@ -30,28 +32,13 @@ class Brebaring extends StatelessWidget {
       child: Builder(builder: (context) {
         return RefreshIndicator(
           onRefresh: ()async{
-              Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(
-                            init: 1,currentIndex: 0,
-                          ),
-                        ),
-                      );
+             GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
           },
           child: Directionality(
             textDirection: TextDirection.rtl,
             child: RefreshIndicator(
               onRefresh: () async {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(
-                      init: 1,
-                      currentIndex: 0,
-                    ),
-                  ),
-                );
+               GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
               },
               child: Scaffold(
                 backgroundColor: ColorManager().background,
@@ -212,16 +199,7 @@ class Brebaring extends StatelessWidget {
                                                                                   height: 50,
                                                                                   child: Center(child: SubTitle3(text: "تم استلام الفاتورة ")),
                                                                                 )));
-                                                                            Navigator
-                                                                                .pushReplacement(
-                                                                              context,
-                                                                              MaterialPageRoute(
-                                                                                builder: (context) => HomePage(
-                                                                                  init: 1,
-                                                                                  currentIndex: 1,
-                                                                                ),
-                                                                              ),
-                                                                            );
+                                                                           GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
                                                                           } else if (state
                                                                               is FailedCombleteRecieve) {
                                                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -333,18 +311,7 @@ class Brebaring extends StatelessWidget {
                                                                                 state) {
                                                                           if (state
                                                                               is SuccessCancel) {
-                                                                            Navigator
-                                                                                .pushReplacement(
-                                                                              context,
-                                                                              MaterialPageRoute(
-                                                                                builder: (context) => HomePage(
-                                                                                  init: 1,
-                                                                                  currentIndex: 0,
-                                                                                ),
-                                                                              ),
-                                                                            );
-          
-                                                                            print(
+                                                                           GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraBrebaring);                                         print(
                                                                                 "whyyyyyyyyyyyyyy");
                                                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                                                                 duration: Duration(seconds: 3),

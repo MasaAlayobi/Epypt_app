@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myContainer.dart';
@@ -25,15 +27,7 @@ class Cancel extends StatelessWidget {
       child: Builder(builder: (context) {
         return RefreshIndicator(
           onRefresh: () async {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomePage(
-                  init: 4,
-                  currentIndex: 0,
-                ),
-              ),
-            );
+            GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraCancel);
           },
           child: Directionality(
             textDirection: TextDirection.rtl,

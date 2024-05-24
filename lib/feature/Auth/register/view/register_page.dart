@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/changeSign.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_widget_categories.dart';
@@ -445,18 +447,7 @@ class _SignUpState extends State<SignUp> {
                             BlocListener<RegisterBloc, RegisterState>(
                               listener: (context, state) {
                                 if (state is successcreatedUser) {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return HomePage(
-                                          storNamr: state.storeName,
-                                          currentIndex: 1,
-                                          init: 0,
-                                        );
-                                      },
-                                    ),
-                                  );
+                                 GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(new SnackBar(
                                     content: Text(state.message),

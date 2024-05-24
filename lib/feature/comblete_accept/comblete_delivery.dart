@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myContainer.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
@@ -21,15 +23,7 @@ class CombleteDelivery extends StatelessWidget {
       child: Builder(builder: (context) {
         return RefreshIndicator(
 onRefresh: ()async{
-    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(
-                            init: 2,
-                            currentIndex: 0,
-                          ),
-                        ),
-                      );
+   GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraCombleteDelivery);
 },
           child: Directionality(
             textDirection: TextDirection.rtl,
@@ -134,7 +128,7 @@ onRefresh: ()async{
                 } else if (state is FailedGetData) {
                   return Column(
                     children: [
-                      Center(child: Image.asset("assets/images/empty.png",      width: MediaQuery.of(context).size.width / 2,
+                      Center(child: Image.asset("asstes/images/empty.png",      width: MediaQuery.of(context).size.width / 2,
                           height: MediaQuery.of(context).size.height / 2,)),
                       Center(
                         child: Text(

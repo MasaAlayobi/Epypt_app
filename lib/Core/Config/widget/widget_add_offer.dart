@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_counter.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_text.dart';
 import 'package:mufraty_app/Core/Data/add_offer_model.dart';
@@ -173,8 +175,7 @@ class _WidgetAddOfferState extends State<WidgetAddOffer> {
                               backgroundColor: colorApp.basicColor,
                             ));
                            
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: 
-                            (context) => HomePage(currentIndex: 1,init: 0,),));
+                            GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
                           } else if (state is InformationError) {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(new SnackBar(
