@@ -10,8 +10,6 @@ import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/cancel/bloc/cancel_from_supply_bloc.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
 
-
-
 class Cancel extends StatelessWidget {
   Cancel({super.key});
   TextEditingController totalPrice = TextEditingController();
@@ -27,7 +25,8 @@ class Cancel extends StatelessWidget {
       child: Builder(builder: (context) {
         return RefreshIndicator(
           onRefresh: () async {
-            GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraCancel);
+            GoRouter.of(context)
+                .pushReplacement(AppRouter.KHomeViewFatoraCancel);
           },
           child: Directionality(
             textDirection: TextDirection.rtl,
@@ -43,14 +42,14 @@ class Cancel extends StatelessWidget {
                           Center(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: InkWell(
-                                onTap: () {},
-                                child: myContainer(
-                                    width: widthSize / 1.3,
-                                    height: 77,
-                                    color: Color.fromARGB(255, 247, 196, 192),
-                                    borderRaduis: BorderRadius.circular(12),
-                                    myWidget: Center(
+                              child: myContainer(
+                                  width: widthSize / 1.3,
+                                  height: 77,
+                                  color: Color.fromARGB(255, 247, 196, 192),
+                                  borderRaduis: BorderRadius.circular(12),
+                                  myWidget: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Center(
                                       child: Row(
                                         children: [
                                           Icon(
@@ -96,10 +95,10 @@ class Cancel extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    border:
-                                        Border.all(color: ColorManager().grey2),
-                                    widthSize: widthSize),
-                              ),
+                                  ),
+                                  border:
+                                      Border.all(color: ColorManager().grey2),
+                                  widthSize: widthSize),
                             ),
                           ),
                           StatefulBuilder(
@@ -109,13 +108,12 @@ class Cancel extends StatelessWidget {
                                   itemCount: state.oneBill.length,
                                   itemBuilder: (context, index) {
                                     return CardOfFatora(
-                                      text1: state
-                                          .oneBill[index].market.store_name,
+                                      text1:"${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
                                       text2:
                                           state.oneBill[index].market.city_name,
-                                      text3: state.oneBill[index].created_from,
+                                      text3: state.oneBill[index].created_at,
                                       text4:
-                                          state.oneBill[index].market.city_name,
+                                          state.oneBill[index].market.location_details,
                                       text5:
                                           "عدد الأصناف: ${state.oneBill.length}",
                                       text6:
@@ -161,9 +159,10 @@ class Cancel extends StatelessWidget {
                         ),
                         Center(
                             child: Text(
-                         state.message=='Null check operator used on a null value'?
-                        "لقد انقطع الاتصال بالانترنت"
-                          :state.message,
+                          state.message ==
+                                  'Null check operator used on a null value'
+                              ? "لقد انقطع الاتصال بالانترنت"
+                              : state.message,
                           style: TextStyle(
                               color: ColorManager().red,
                               fontSize: 17,

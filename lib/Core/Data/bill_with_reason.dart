@@ -2,10 +2,9 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+
 import 'package:mufraty_app/Core/data/market.dart';
 import 'package:mufraty_app/Core/data/product.dart';
-
-
 
 class BillWithReason {
   int id;
@@ -15,6 +14,10 @@ class BillWithReason {
   int total_price;
   String rejection_reason;
   int recieved_price;
+  int goal_discount;
+  String created_at;
+  String delivery_duration;
+  bool updatable;
   String market_note;
   String created_from;
   String payment_method;
@@ -28,6 +31,10 @@ class BillWithReason {
     required this.total_price,
     required this.rejection_reason,
     required this.recieved_price,
+    required this.goal_discount,
+    required this.created_at,
+    required this.delivery_duration,
+    required this.updatable,
     required this.market_note,
     required this.created_from,
     required this.payment_method,
@@ -43,6 +50,10 @@ class BillWithReason {
     int? total_price,
     String? rejection_reason,
     int? recieved_price,
+    int? goal_discount,
+    String? created_at,
+    String? delivery_duration,
+    bool? updatable,
     String? market_note,
     String? created_from,
     String? payment_method,
@@ -57,6 +68,10 @@ class BillWithReason {
       total_price: total_price ?? this.total_price,
       rejection_reason: rejection_reason ?? this.rejection_reason,
       recieved_price: recieved_price ?? this.recieved_price,
+      goal_discount: goal_discount ?? this.goal_discount,
+      created_at: created_at ?? this.created_at,
+      delivery_duration: delivery_duration ?? this.delivery_duration,
+      updatable: updatable ?? this.updatable,
       market_note: market_note ?? this.market_note,
       created_from: created_from ?? this.created_from,
       payment_method: payment_method ?? this.payment_method,
@@ -74,6 +89,10 @@ class BillWithReason {
       'total_price': total_price,
       'rejection_reason': rejection_reason,
       'recieved_price': recieved_price,
+      'goal_discount': goal_discount,
+      'created_at': created_at,
+      'delivery_duration': delivery_duration,
+      'updatable': updatable,
       'market_note': market_note,
       'created_from': created_from,
       'payment_method': payment_method,
@@ -91,55 +110,71 @@ class BillWithReason {
       total_price: map['total_price'] as int,
       rejection_reason: map['rejection_reason'] as String,
       recieved_price: map['recieved_price'] as int,
+      goal_discount: map['goal_discount'] as int,
+      created_at: map['created_at'] as String,
+      delivery_duration: map['delivery_duration'] as String,
+      updatable: map['updatable'] as bool,
       market_note: map['market_note'] as String,
       created_from: map['created_from'] as String,
       payment_method: map['payment_method'] as String,
-      products: List<Products>.from((map['products'] as List<dynamic>).map<Products>((x) => Products.fromMap(x as Map<String,dynamic>),),),
-      market: Market.fromMap(map['market'] as Map<String,dynamic>),
+      products: List<Products>.from(
+        (map['products'] as List<dynamic>).map<Products>(
+          (x) => Products.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      market: Market.fromMap(map['market'] as Map<String, dynamic>),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory BillWithReason.fromJson(String source) => BillWithReason.fromMap(json.decode(source) as Map<dynamic, dynamic>);
+  factory BillWithReason.fromJson(String source) =>
+      BillWithReason.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'BillWithReason(id: $id, market_id: $market_id, payment_method_id: $payment_method_id, supplier_id: $supplier_id, total_price: $total_price, rejection_reason: $rejection_reason, recieved_price: $recieved_price, market_note: $market_note, created_from: $created_from, payment_method: $payment_method, products: $products, market: $market)';
+    return 'BillWithReason(id: $id, market_id: $market_id, payment_method_id: $payment_method_id, supplier_id: $supplier_id, total_price: $total_price, rejection_reason: $rejection_reason, recieved_price: $recieved_price, goal_discount: $goal_discount, created_at: $created_at, delivery_duration: $delivery_duration, updatable: $updatable, market_note: $market_note, created_from: $created_from, payment_method: $payment_method, products: $products, market: $market)';
   }
 
   @override
   bool operator ==(covariant BillWithReason other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.market_id == market_id &&
-      other.payment_method_id == payment_method_id &&
-      other.supplier_id == supplier_id &&
-      other.total_price == total_price &&
-      other.rejection_reason == rejection_reason &&
-      other.recieved_price == recieved_price &&
-      other.market_note == market_note &&
-      other.created_from == created_from &&
-      other.payment_method == payment_method &&
-      listEquals(other.products, products) &&
-      other.market == market;
+
+    return other.id == id &&
+        other.market_id == market_id &&
+        other.payment_method_id == payment_method_id &&
+        other.supplier_id == supplier_id &&
+        other.total_price == total_price &&
+        other.rejection_reason == rejection_reason &&
+        other.recieved_price == recieved_price &&
+        other.goal_discount == goal_discount &&
+        other.created_at == created_at &&
+        other.delivery_duration == delivery_duration &&
+        other.updatable == updatable &&
+        other.market_note == market_note &&
+        other.created_from == created_from &&
+        other.payment_method == payment_method &&
+        listEquals(other.products, products) &&
+        other.market == market;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      market_id.hashCode ^
-      payment_method_id.hashCode ^
-      supplier_id.hashCode ^
-      total_price.hashCode ^
-      rejection_reason.hashCode ^
-      recieved_price.hashCode ^
-      market_note.hashCode ^
-      created_from.hashCode ^
-      payment_method.hashCode ^
-      products.hashCode ^
-      market.hashCode;
+        market_id.hashCode ^
+        payment_method_id.hashCode ^
+        supplier_id.hashCode ^
+        total_price.hashCode ^
+        rejection_reason.hashCode ^
+        recieved_price.hashCode ^
+        goal_discount.hashCode ^
+        created_at.hashCode ^
+        delivery_duration.hashCode ^
+        updatable.hashCode ^
+        market_note.hashCode ^
+        created_from.hashCode ^
+        payment_method.hashCode ^
+        products.hashCode ^
+        market.hashCode;
   }
 }

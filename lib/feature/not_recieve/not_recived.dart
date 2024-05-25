@@ -9,7 +9,6 @@ import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
 import 'package:mufraty_app/feature/not_recieve/bloc/refuse_recive_bloc.dart';
 
-
 class NotRecieved extends StatelessWidget {
   NotRecieved({super.key});
   TextEditingController totalPrice = TextEditingController();
@@ -20,8 +19,9 @@ class NotRecieved extends StatelessWidget {
     return BlocProvider(
       create: (context) => RefuseReciveBloc()..add(GetAllData()),
       child: RefreshIndicator(
-        onRefresh: ()async{
-           GoRouter.of(context).pushReplacement(AppRouter.kHomeViewFatoraNotRecieved);
+        onRefresh: () async {
+          GoRouter.of(context)
+              .pushReplacement(AppRouter.kHomeViewFatoraNotRecieved);
         },
         child: Directionality(
           textDirection: TextDirection.rtl,
@@ -37,14 +37,14 @@ class NotRecieved extends StatelessWidget {
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {},
-                            child: myContainer(
-                                width: widthSize / 1.3,
-                                height: 77,
-                                color: Color.fromARGB(255, 247, 196, 192),
-                                borderRaduis: BorderRadius.circular(12),
-                                myWidget: Center(
+                          child: myContainer(
+                              width: widthSize / 1.3,
+                              height: 77,
+                              color: Color.fromARGB(255, 247, 196, 192),
+                              borderRaduis: BorderRadius.circular(12),
+                              myWidget: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Center(
                                   child: Row(
                                     children: [
                                       Icon(
@@ -70,7 +70,8 @@ class NotRecieved extends StatelessWidget {
                                                 style: TextStyle(
                                                     color: ColorManager().red,
                                                     fontSize: 19,
-                                                    fontWeight: FontWeight.w700)),
+                                                    fontWeight:
+                                                        FontWeight.w700)),
                                             const TextSpan(
                                                 text: " فاتورة في النظام ",
                                                 style: TextStyle(
@@ -88,9 +89,9 @@ class NotRecieved extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                border: Border.all(color: ColorManager().grey2),
-                                widthSize: widthSize),
-                          ),
+                              ),
+                              border: Border.all(color: ColorManager().grey2),
+                              widthSize: widthSize),
                         ),
                       ),
                       StatefulBuilder(
@@ -100,10 +101,12 @@ class NotRecieved extends StatelessWidget {
                               itemCount: state.oneBill.length,
                               itemBuilder: (context, index) {
                                 return CardOfFatora(
-                                  text1: state.oneBill[index].market.store_name,
+                                  text1:
+                                      "${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
                                   text2: state.oneBill[index].market.city_name,
-                                  text3: state.oneBill[index].created_from,
-                                  text4: state.oneBill[index].market.city_name,
+                                  text3: state.oneBill[index].created_at,
+                                  text4: state
+                                      .oneBill[index].market.location_details,
                                   text5: "عدد الأصناف: ${state.oneBill.length}",
                                   text6:
                                       "طريقة الدفع: ${state.oneBill[index].payment_method}",
@@ -137,26 +140,25 @@ class NotRecieved extends StatelessWidget {
                   ],
                 );
               } else if (state is NoConnection) {
-                 return Column(
-                      children: [
-                        Center(
-                          child: Image.asset(
-                            "asstes/images/internet.png",
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height / 2,
-                          ),
-                        ),
-                        Center(
-                            child: Text(
-                         state.message=='Null check operator used on a null value'?
-                        "لقد انقطع الاتصال بالانترنت"
-                          :state.message,
-                          style: TextStyle(
-                              color: ColorManager().red,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700),
-                        ))
-                      ]);
+                return Column(children: [
+                  Center(
+                    child: Image.asset(
+                      "asstes/images/internet.png",
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: MediaQuery.of(context).size.height / 2,
+                    ),
+                  ),
+                  Center(
+                      child: Text(
+                    state.message == 'Null check operator used on a null value'
+                        ? "لقد انقطع الاتصال بالانترنت"
+                        : state.message,
+                    style: TextStyle(
+                        color: ColorManager().red,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700),
+                  ))
+                ]);
               } else {
                 return Center(
                   child: CircularProgressIndicator(

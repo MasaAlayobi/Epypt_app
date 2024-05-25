@@ -10,7 +10,6 @@ import 'package:mufraty_app/feature/fatora/fatora.dart';
 
 import '../../Core/Resourse/color.dart';
 
-
 class CombleteDelivery extends StatelessWidget {
   CombleteDelivery({super.key});
   TextEditingController totalPrice = TextEditingController();
@@ -22,9 +21,10 @@ class CombleteDelivery extends StatelessWidget {
       create: (context) => CombleteDeliveryBloc()..add(GetAllData()),
       child: Builder(builder: (context) {
         return RefreshIndicator(
-onRefresh: ()async{
-   GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraCombleteDelivery);
-},
+          onRefresh: () async {
+            GoRouter.of(context)
+                .pushReplacement(AppRouter.KHomeViewFatoraCombleteDelivery);
+          },
           child: Directionality(
             textDirection: TextDirection.rtl,
             child: BlocBuilder<CombleteDeliveryBloc, CombleteDeliveryState>(
@@ -40,14 +40,14 @@ onRefresh: ()async{
                           Center(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: InkWell(
-                                onTap: () {},
-                                child: myContainer(
-                                    width: widthSize / 1.3,
-                                    height: 77,
-                                    color: Color.fromARGB(255, 247, 196, 192),
-                                    borderRaduis: BorderRadius.circular(12),
-                                    myWidget: Center(
+                              child: myContainer(
+                                  width: widthSize / 1.3,
+                                  height: 77,
+                                  color: Color.fromARGB(255, 247, 196, 192),
+                                  borderRaduis: BorderRadius.circular(12),
+                                  myWidget: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Center(
                                       child: Row(
                                         children: [
                                           Icon(
@@ -70,7 +70,8 @@ onRefresh: ()async{
                                                     text:
                                                         "${state.allBills.New_bill_count}",
                                                     style: TextStyle(
-                                                        color: ColorManager().red,
+                                                        color:
+                                                            ColorManager().red,
                                                         fontSize: 19,
                                                         fontWeight:
                                                             FontWeight.w700)),
@@ -91,10 +92,10 @@ onRefresh: ()async{
                                         ],
                                       ),
                                     ),
-                                    border:
-                                        Border.all(color: ColorManager().grey2),
-                                    widthSize: widthSize),
-                              ),
+                                  ),
+                                  border:
+                                      Border.all(color: ColorManager().grey2),
+                                  widthSize: widthSize),
                             ),
                           ),
                           StatefulBuilder(
@@ -104,13 +105,12 @@ onRefresh: ()async{
                                   itemCount: state.oneBill.length,
                                   itemBuilder: (context, index) {
                                     return CardOfFatora(
-                                      text1:
-                                         state.oneBill[index].market.store_name,
+                                      text1: "${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
                                       text2:
                                           state.oneBill[index].market.city_name,
-                                      text3: state.oneBill[index].created_from,
+                                      text3: state.oneBill[index].created_at,
                                       text4:
-                                          state.oneBill[index].market.city_name,
+                                          state.oneBill[index].market.location_details,
                                       text5:
                                           "عدد الأصناف: ${state.oneBill.length}",
                                       text6:
@@ -128,8 +128,12 @@ onRefresh: ()async{
                 } else if (state is FailedGetData) {
                   return Column(
                     children: [
-                      Center(child: Image.asset("asstes/images/empty.png",      width: MediaQuery.of(context).size.width / 2,
-                          height: MediaQuery.of(context).size.height / 2,)),
+                      Center(
+                          child: Image.asset(
+                        "asstes/images/empty.png",
+                        width: MediaQuery.of(context).size.width / 2,
+                        height: MediaQuery.of(context).size.height / 2,
+                      )),
                       Center(
                         child: Text(
                           "فارغ",
@@ -142,26 +146,26 @@ onRefresh: ()async{
                     ],
                   );
                 } else if (state is NoConnection) {
-                 return Column(
-                      children: [
-                        Center(
-                          child: Image.asset(
-                            "asstes/images/internet.png",
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height / 2,
-                          ),
-                        ),
-                        Center(
-                            child: Text(
-                         state.message=='Null check operator used on a null value'?
-                        "لقد انقطع الاتصال بالانترنت"
-                          :state.message,
-                          style: TextStyle(
-                              color: ColorManager().red,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700),
-                        ))
-                      ]);
+                  return Column(children: [
+                    Center(
+                      child: Image.asset(
+                        "asstes/images/internet.png",
+                        width: MediaQuery.of(context).size.width / 2,
+                        height: MediaQuery.of(context).size.height / 2,
+                      ),
+                    ),
+                    Center(
+                        child: Text(
+                      state.message ==
+                              'Null check operator used on a null value'
+                          ? "لقد انقطع الاتصال بالانترنت"
+                          : state.message,
+                      style: TextStyle(
+                          color: ColorManager().red,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700),
+                    ))
+                  ]);
                 } else {
                   return Center(
                     child: CircularProgressIndicator(

@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:mufraty_app/Core/Data/bill_with_reason.dart';
+
 import 'package:mufraty_app/Core/Domain/billService.dart';
 import 'package:mufraty_app/Core/data/all_bills_with_reason.dart';
-import 'package:mufraty_app/Core/data/bill_with_reason.dart';
+
 import 'package:mufraty_app/Core/data/reasonReject.dart';
 
 part 'new_bill_event.dart';
@@ -27,7 +29,7 @@ class NewBillBloc extends Bloc<NewBillEvent, NewBillState> {
           emit(NoData());
         }
       } catch (e) {
-        emit(NoInternet(message:e.toString()));
+        emit(NoInternet(message: e.toString()));
       }
     });
     on<SendReason>((event, emit) async {

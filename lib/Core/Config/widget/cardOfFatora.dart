@@ -6,8 +6,6 @@ import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/listOfOption.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 
-
-
 class CardOfFatora extends StatelessWidget {
   final DropdownButton<String>? myDropdownMenu;
   final Widget? fatora;
@@ -88,11 +86,13 @@ class CardOfFatora extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: SubTitle3(
-                        text: text3 ?? "",
-                        color: ColorManager().grey1,
+                    Flexible(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: SubTitle3(
+                          text: text3 ?? "",
+                          color: ColorManager().grey1,
+                        ),
                       ),
                     ),
                     fatora ?? Text(" "),

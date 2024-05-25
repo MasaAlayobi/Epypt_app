@@ -6,7 +6,7 @@ import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AppRouter {
-  static const kLoginView = '/';
+  static const kLoginView = '/loginView';
   static const kRigesterView = '/rigesterView';
   static const kHomeViewStock = '/HomeStock';
   static const KHomeViewFatoraNew = '/HomeViewFatoraNew';

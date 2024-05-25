@@ -13,8 +13,6 @@ import 'package:mufraty_app/feature/fatora/fatora.dart';
 import 'package:mufraty_app/feature/fatora/new_fatora/bloc/new_bill_bloc.dart';
 import 'package:mufraty_app/feature/fatora/orderLayout.dart/orderMobile.dart';
 
-
-
 class Mobile_fatora extends StatelessWidget {
   Mobile_fatora({
     super.key,
@@ -46,7 +44,8 @@ class Mobile_fatora extends StatelessWidget {
                   child: RefreshIndicator(
                     onRefresh: () async {
                       context.read<NewBillBloc>().add(GetAllData());
-                      GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
+                      GoRouter.of(context)
+                          .pushReplacement(AppRouter.KHomeViewFatoraNew);
                     },
                     child: StatefulBuilder(
                       builder: ((context, setState) => ListView.builder(
@@ -101,7 +100,8 @@ class Mobile_fatora extends StatelessWidget {
                                                                 const EdgeInsets
                                                                     .all(18.0),
                                                             child: myTextFieldName(
-                                                                ReadeOnly: false,
+                                                                ReadeOnly:
+                                                                    false,
                                                                 nameText:
                                                                     "أدخل سبب الإلغاء",
                                                                 nameController:
@@ -125,7 +125,10 @@ class Mobile_fatora extends StatelessWidget {
                                                                     //         NewBillBloc>()
                                                                     //     .add(
                                                                     //         GetAllData());
-                                                                    GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
+                                                                    GoRouter.of(
+                                                                            context)
+                                                                        .pushReplacement(
+                                                                            AppRouter.KHomeViewFatoraNew);
 
                                                                     cancelOfSend
                                                                         .clear();
@@ -177,7 +180,7 @@ class Mobile_fatora extends StatelessWidget {
                                                                                 state.allBills[index].id,
                                                                             reason: Reason(rejection_reason: cancelOfSend.text)));
                                                                       }
-                                                            },
+                                                                    },
                                                                     colors:
                                                                         ColorManager()
                                                                             .green,
@@ -243,10 +246,12 @@ class Mobile_fatora extends StatelessWidget {
                                     height:
                                         MediaQuery.of(context).size.height / 15,
                                     radius: 9),
-                                text1: state.allBills[index].market.store_name,
+                                text1:
+                                    "${state.allBills[index].market.store_name}-${state.allBills[index].market.location_details}",
                                 text2: state.allBills[index].market.city_name,
-                                text3: state.allBills[index].created_from,
-                                text4: state.allBills[index].market.city_name,
+                                text3: state.allBills[index].created_at,
+                                text4: state
+                                    .allBills[index].market.location_details,
                                 text5: "عدد الأصناف: ${state.allBills.length}",
                                 text6:
                                     "طريقة الدفع: ${state.allBills[index].payment_method}",
@@ -287,26 +292,25 @@ class Mobile_fatora extends StatelessWidget {
                   ],
                 );
               } else if (state is NoInternet) {
-                 return Column(
-                      children: [
-                        Center(
-                          child: Image.asset(
-                            "asstes/images/internet.png",
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height / 2,
-                          ),
-                        ),
-                        Center(
-                            child: Text(
-                         state.message=='Null check operator used on a null value'?
-                        "لقد انقطع الاتصال بالانترنت"
-                          :state.message,
-                          style: TextStyle(
-                              color: ColorManager().red,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700),
-                        ))
-                      ]);
+                return Column(children: [
+                  Center(
+                    child: Image.asset(
+                      "asstes/images/internet.png",
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: MediaQuery.of(context).size.height / 2,
+                    ),
+                  ),
+                  Center(
+                      child: Text(
+                    state.message == 'Null check operator used on a null value'
+                        ? "لقد انقطع الاتصال بالانترنت"
+                        : state.message,
+                    style: TextStyle(
+                        color: ColorManager().red,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700),
+                  ))
+                ]);
               } else {
                 return Center(
                   child: CircularProgressIndicator(
