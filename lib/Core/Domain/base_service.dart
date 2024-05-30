@@ -3,6 +3,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 
 import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Resourse/URL.dart';
@@ -61,12 +62,12 @@ abstract class DioClient {
               return handler.reject(e);
             }
             }catch(e){
-             navigatorKey.currentState?.pushReplacement(MaterialPageRoute(builder: (context) => LoginView())); 
+             AppRouter.routter.go(AppRouter.kLoginView); 
             }
           }
           else{
             print('Redirecting to login screen...');
-  navigatorKey.currentState?.pushReplacement(MaterialPageRoute(builder: (context) => LoginView()));
+ AppRouter.routter.go(AppRouter.kLoginView); 
   return handler.reject(error);
           }
         }

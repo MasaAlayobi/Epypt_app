@@ -3,7 +3,12 @@ part of 'products_bloc.dart';
 
 @immutable
 sealed class ProductsEvent {}
-class getProducts extends ProductsEvent{}
+class getProducts extends ProductsEvent {
+  String lable;
+  getProducts({
+    required this.lable,
+  });
+}
 class addProductWithoutOffer extends ProductsEvent {
   
   AddProductModel product;

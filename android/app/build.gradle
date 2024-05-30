@@ -1,5 +1,8 @@
 plugins {
     id "com.android.application"
+    // START: FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    // END: FlutterFire Configuration
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
@@ -62,3 +65,11 @@ android {
 flutter {
     source = "../.."
 }
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
+    // Add other dependencies as needed
+    // Example for other Google Play services:
+    implementation 'com.google.android.gms:play-services-auth:20.0.0'
+}
+apply plugin: 'com.google.gms.google-services'

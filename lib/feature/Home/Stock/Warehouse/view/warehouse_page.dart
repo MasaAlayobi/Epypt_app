@@ -6,10 +6,11 @@ import 'package:mufraty_app/Core/Config/widget/custom_show_model_without_offer.d
 import 'package:mufraty_app/Core/Config/widget/custom_text.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Home/Stock/Warehouse/bloc/products_bloc.dart';
+import 'package:mufraty_app/feature/Home/Stock/view/stock_page.dart';
 
 class WarehousePage extends StatefulWidget {
-  const WarehousePage({super.key});
-
+   WarehousePage({super.key,this.Search});
+String? Search;
   @override
   State<WarehousePage> createState() => _WarehousePageState();
 }
@@ -29,7 +30,7 @@ class _WarehousePageState extends State<WarehousePage> {
 
     double widthSize = MediaQuery.of(context).size.width;
     return BlocProvider(
-      create: (context) => ProductsBloc()..add(getProducts()),
+      create: (context) => ProductsBloc()..add(getProducts(lable:searchController.text)),
       child: Builder(builder: (context) {
         return Directionality(
             textDirection: TextDirection.rtl,
@@ -41,7 +42,7 @@ class _WarehousePageState extends State<WarehousePage> {
                   if (state is SuccessFetchProducts) {
                     return RefreshIndicator(
                       onRefresh: () async{
-                         context.read<ProductsBloc>().add(getProducts());
+                         context.read<ProductsBloc>().add(getProducts(lable: searchController.text));
                       },
                       child: ListView.builder(
                           itemCount: state.allProduct.length,
@@ -264,7 +265,7 @@ class _WarehousePageState extends State<WarehousePage> {
                   } else if(state is NotFound){
                         return    RefreshIndicator(
                       onRefresh: () async{
-                        context.read<ProductsBloc>().add(getProducts());
+                        context.read<ProductsBloc>().add(getProducts(lable: searchController.text));
                       },
                       child: ListView(
                         children: [
@@ -290,7 +291,7 @@ class _WarehousePageState extends State<WarehousePage> {
                   else if (state is NoConnectionWithProduct) {
                     return RefreshIndicator(
                       onRefresh: () async {
-                        context.read<ProductsBloc>().add(getProducts());
+                        context.read<ProductsBloc>().add(getProducts(lable: searchController.text));
                       },
                       child: ListView(
                         children: [
@@ -316,7 +317,7 @@ class _WarehousePageState extends State<WarehousePage> {
                   } else {
                     return RefreshIndicator(
                       onRefresh: () async{
-                        context.read<ProductsBloc>().add(getProducts());
+                        context.read<ProductsBloc>().add(getProducts(lable: searchController.text));
                       },
                       child: ListView(
                         children: [

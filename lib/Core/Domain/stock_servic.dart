@@ -14,7 +14,7 @@ import 'package:mufraty_app/Core/Resourse/URL.dart';
 import 'package:mufraty_app/feature/Home/Stock/Warehouse/bloc/products_bloc.dart';
 
 abstract class StockServic extends DioClient {
-  Future<List<ProductsModel>> getAllProduct();
+  Future<List<ProductsModel>> getAllProduct(String lable);
   Future<List<AvailableProductsModel>> getAvailableProduct();
   Future<List<AvailableProductsModel>> getNotAvailableProduct();
   addProductWithoutOffer(AddProductModel product);
@@ -29,10 +29,10 @@ abstract class StockServic extends DioClient {
 
 class StockServicImp extends StockServic {
   @override
-  Future<List<ProductsModel>> getAllProduct() async {
+  Future<List<ProductsModel>> getAllProduct(String label) async {
     // print('$baseUrl${entity=EndPoint.getProducts}');
     try{
-    response = await dio.get('$baseUrl${entity = EndPoint.getProducts}',
+    response = await dio.get('$baseUrl${entity = EndPoint.getProducts}?search=$label',
         // options: getHeader()
         );
     // print(response.data);
@@ -41,7 +41,7 @@ class StockServicImp extends StockServic {
 
       List<ProductsModel> allProduct = List.generate(
           temp.length, (index) => ProductsModel.fromMap(temp[index]));
-      // print(allProduct);
+       print(allProduct);
       return allProduct;
     } else {
       print('**************************');

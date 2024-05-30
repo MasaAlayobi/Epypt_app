@@ -11,6 +11,7 @@ import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Auth/login/bloc/login_bloc.dart';
 import 'package:mufraty_app/feature/Auth/register/view/register_page.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
+import 'package:mufraty_app/main.dart';
 import 'package:readmore/readmore.dart';
 
 class LoginView extends StatefulWidget {
@@ -222,7 +223,11 @@ class _LoginViewState extends State<LoginView> {
                         text: "ليس لديك حساب",
                         textbutton: "إنشاء حساب",
                         onPress: () {
-                           Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp(),));
+
+                          // NavigatorKey.currentState!.pushNamed(
+                          //   AppRouter.KNotification
+                          // );
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp(),));
                         },
                       ),
                         

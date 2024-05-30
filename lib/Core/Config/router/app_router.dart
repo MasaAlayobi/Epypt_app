@@ -1,9 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
 import 'package:mufraty_app/feature/Auth/register/view/register_page.dart';
+import 'package:mufraty_app/feature/Home/Notification/view/notification_page.dart';
+import 'package:mufraty_app/feature/Home/Stock/NotAvailable/view/not_available_page.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
+import 'package:mufraty_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 abstract class AppRouter {
   static const kLoginView = '/loginView';
@@ -14,7 +19,11 @@ abstract class AppRouter {
   static const KHomeViewFatoraCancel='/HomeViewFatoraCancel';
   static const kHomeViewFatoraNotRecieved='/HomeViewFatoraNotRecieved';
   static const KHomeViewFatoraBrebaring='/HomeViewFatoraBrebaring';
-  static final routter = GoRouter(routes: [
+  static const KNotification='/Notification';
+  static final routter = GoRouter(
+    
+    navigatorKey: NavigatorKey ,
+    routes: [
     GoRoute(path: '/', builder: (context, state) => const LoginView()),
     GoRoute(
       path: kRigesterView,
@@ -69,5 +78,15 @@ abstract class AppRouter {
         storNamr: storage.get<SharedPreferences>().getString('store_name'),
       ),
     ),
+     GoRoute(
+      path: KNotification,
+      builder: (context, state) =>HomePage(
+        currentIndex: 4,
+        init: 0,
+        storNamr: storage.get<SharedPreferences>().getString('store_name'),
+      ),
+
+    ),
+   
   ]);
 }

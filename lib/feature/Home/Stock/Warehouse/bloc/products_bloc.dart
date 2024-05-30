@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:mufraty_app/Core/Data/add_product_model.dart';
 import 'package:mufraty_app/Core/Data/add_product_with_offer_model.dart';
@@ -15,8 +16,10 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       late List<ProductsModel> temp;
       emit(LoadingProduct());
       try {
-        temp = await StockServicImp().getAllProduct();
-        print(temp);
+     
+        temp = await StockServicImp().getAllProduct(event.lable);
+        // print(temp);
+        
         if (temp.isEmpty) {
           emit(NotFound());
         } else {
