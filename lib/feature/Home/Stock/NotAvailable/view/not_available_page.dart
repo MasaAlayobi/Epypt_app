@@ -4,6 +4,7 @@ import 'package:mufraty_app/Core/Config/widget/custom_container_with_text.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_text.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Home/Stock/NotAvailable/bloc/not_available_bloc.dart';
+import 'package:mufraty_app/feature/Home/Stock/view/stock_page.dart';
 
 class NotAvailablePage extends StatefulWidget {
   const NotAvailablePage({super.key});
@@ -21,32 +22,37 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
      double heightSize = MediaQuery.of(context).size.height;
 
     double widthSize = MediaQuery.of(context).size.width;
-    return BlocProvider(
-      create: (context) => NotAvailableBloc()..add(getNotAvailableProducts()),
-      child: Builder(builder: (context) {
-        return Directionality(
-            textDirection: TextDirection.rtl,
-            child: Scaffold(
-                backgroundColor: colorApp.BackgroundColor,
-                body: BlocConsumer<NotAvailableBloc, NotAvailableState>(
-                  listener: (context, state) {
-                     if(state is successAddAvailable){
-                  ScaffoldMessenger.of(context) .showSnackBar(new SnackBar(
-                              content: Text(state.message),
-                              backgroundColor: colorApp.basicColor,
-                            ));
-                }
-                else if (state is LoadingUpdate){
-                   ScaffoldMessenger.of(context) .showSnackBar(new SnackBar(
-                              content: Text(state.message),
-                              backgroundColor: colorApp.basicColor,
-                            ));
-                }
-                  },
-                  builder: (context, state) {
-                    if (state is SuccessGetNotAvailableProducts) {
-                      // List<bool?> isChecked2=List.generate(state.allProduct.length, (_)=> true);
-                      return ListView.builder(
+    return Builder(builder: (context) {
+      context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: searchController.text));
+      return Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+              backgroundColor: colorApp.BackgroundColor,
+              body: BlocConsumer<NotAvailableBloc, NotAvailableState>(
+                listener: (context, state) {
+                   if(state is successAddAvailable){
+                ScaffoldMessenger.of(context) .showSnackBar(new SnackBar(
+                            content: Text(state.message),
+                            backgroundColor: colorApp.basicColor,
+                          ));
+              }
+              else if (state is LoadingUpdate){
+                 ScaffoldMessenger.of(context) .showSnackBar(new SnackBar(
+                            content: Text(state.message),
+                            backgroundColor: colorApp.basicColor,
+                          ));
+              }
+                },
+                builder: (context, state) {
+                  if (state is SuccessGetNotAvailableProducts) {
+                    // List<bool?> isChecked2=List.generate(state.allProduct.length, (_)=> true);
+                    return RefreshIndicator(
+                      onRefresh: () async{
+                       context
+                            .read<NotAvailableBloc>()
+                            .add(getNotAvailableProducts(label: searchController.text)); 
+                      },
+                      child: ListView.builder(
                           itemCount: state.allProduct.length,
                           itemBuilder: (context, index) {
                             isChecked2.add(true);
@@ -239,97 +245,97 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                     ],
                                   )),
                             );
-                          });
-                    } else if (state is LoadingProduct) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          color: colorApp.basicColor,
-                        ),
-                      );
-                    } else if (state is NoConnectionWithProduct) {
-                      return RefreshIndicator(
-                        onRefresh: () async {
-                          context
-                              .read<NotAvailableBloc>()
-                              .add(getNotAvailableProducts());
-                        },
-                        child: ListView(
-                          children: [
-                             Center(
-                            child: Image.asset(
-                              "asstes/images/internet.png",
-                              width: widthSize / 2,
-                              height: heightSize / 2,
-                            ),
-                          ),
-                          Center(
-                              child: Text(
-                           state.message=='Null check operator used on a null value'?
-                        "لقد انقطع الاتصال بالانترنت"
-                          :state.message ,
-                            style: TextStyle(
-                                color: ColorManager().red,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700),
-                          ))
-                          ],
-                        ),
-                      );
-                    }else if(state is NotFound){
-                      return  RefreshIndicator(
-                        onRefresh: ()async{
-                           context
-                              .read<NotAvailableBloc>()
-                              .add(getNotAvailableProducts());
-                        },
-                        child: ListView(
-                          children: [
-                              Center(
-                        child: Image.asset(
-                      "asstes/images/empty.png",
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: MediaQuery.of(context).size.height / 2,
-                    )),
-                    Center(
-                      child: Text(
-                        "فارغ",
-                        style: TextStyle(
-                            color: ColorManager().red,
-                            fontSize: 33,
-                            fontWeight: FontWeight.w700),
+                          }),
+                    );
+                  } else if (state is LoadingProduct) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: colorApp.basicColor,
                       ),
-                    )
-                          ],
-                        ),
-                      );
-                    }
-                      else if(state is successAddAvailable){
-                  context.read<NotAvailableBloc>().add(getNotAvailableProducts());
-                  return SizedBox();
-                } 
-                else if(state is LoadingUpdate){
-                   return SizedBox();
-                }
-                     else {
-                      return RefreshIndicator(
-                        onRefresh: ()async{
-                           context
-                              .read<NotAvailableBloc>()
-                              .add(getNotAvailableProducts());
-                        },
-                        child: ListView(
-                          children: [
-                             SizedBox(
-                            height: MediaQuery.of(context).size.height /3,
+                    );
+                  } else if (state is NoConnectionWithProduct) {
+                    return RefreshIndicator(
+                      onRefresh: () async {
+                        context
+                            .read<NotAvailableBloc>()
+                            .add(getNotAvailableProducts(label: searchController.text));
+                      },
+                      child: ListView(
+                        children: [
+                           Center(
+                          child: Image.asset(
+                            "asstes/images/internet.png",
+                            width: widthSize / 2,
+                            height: heightSize / 2,
                           ),
-                            Center(child: Text('خطأ في السيرفر')),
-                          ],
                         ),
-                      );
-                    }
-                  },
-                )));
-      }),
-    );
+                        Center(
+                            child: Text(
+                         state.message=='Null check operator used on a null value'?
+                      "لقد انقطع الاتصال بالانترنت"
+                        :state.message ,
+                          style: TextStyle(
+                              color: ColorManager().red,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700),
+                        ))
+                        ],
+                      ),
+                    );
+                  }else if(state is NotFound){
+                    return  RefreshIndicator(
+                      onRefresh: ()async{
+                         context
+                            .read<NotAvailableBloc>()
+                            .add(getNotAvailableProducts(label: searchController.text));
+                      },
+                      child: ListView(
+                        children: [
+                            Center(
+                      child: Image.asset(
+                    "asstes/images/empty.png",
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: MediaQuery.of(context).size.height / 2,
+                  )),
+                  Center(
+                    child: Text(
+                      "فارغ",
+                      style: TextStyle(
+                          color: ColorManager().red,
+                          fontSize: 33,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  )
+                        ],
+                      ),
+                    );
+                  }
+                    else if(state is successAddAvailable){
+                context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: searchController.text));
+                return SizedBox();
+              } 
+              else if(state is LoadingUpdate){
+                 return SizedBox();
+              }
+                   else {
+                    return RefreshIndicator(
+                      onRefresh: ()async{
+                         context
+                            .read<NotAvailableBloc>()
+                            .add(getNotAvailableProducts(label: searchController.text));
+                      },
+                      child: ListView(
+                        children: [
+                           SizedBox(
+                          height: MediaQuery.of(context).size.height /3,
+                        ),
+                          Center(child: Text('خطأ في السيرفر')),
+                        ],
+                      ),
+                    );
+                  }
+                },
+              )));
+    });
   }
 }

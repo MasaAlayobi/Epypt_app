@@ -52,7 +52,7 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
         return Directionality(
             textDirection: TextDirection.rtl,
             child: SizedBox(
-                height: 600,
+                height: 400,
                 width: double.infinity,
                 child: Directionality(
                   textDirection: TextDirection.rtl,

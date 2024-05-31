@@ -13,6 +13,7 @@ import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/Core/Resourse/style.dart';
 import 'package:mufraty_app/feature/Home/Discounts/view/Discounts_page.dart';
 import 'package:mufraty_app/feature/Home/Stock/Available/bloc/available_products_bloc.dart';
+import 'package:mufraty_app/feature/Home/Stock/view/stock_page.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 
 class AvailablePage extends StatefulWidget {
@@ -49,29 +50,33 @@ class _AvailablePageState extends State<AvailablePage> {
     double widthSize = MediaQuery.of(context).size.width;
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: BlocProvider(
-        create: (context) =>
-            AvailableProductsBloc()..add(getAvailableProducts()),
-        child: Builder(builder: (context) {
-          return Scaffold(
-            backgroundColor: colorApp.BackgroundColor,
-            body: BlocConsumer<AvailableProductsBloc, AvailableProductsState>(
-              listener: (context, state) {
-                if (state is successAddNotAvailable) {
-                  ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: colorApp.basicColor,
-                  ));
-                } else if (state is LoadingUpdate) {
-                  ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: colorApp.basicColor,
-                  ));
-                }
-              },
-              builder: (context, state) {
-                if (state is SuccessFetchAvailableProducts) {
-                  return ListView.builder(
+      child: Builder(builder: (context) {
+        context.read<AvailableProductsBloc>().add(getAvailableProducts(label: searchController.text));
+        return Scaffold(
+          backgroundColor: colorApp.BackgroundColor,
+          body: BlocConsumer<AvailableProductsBloc, AvailableProductsState>(
+            listener: (context, state) {
+              if (state is successAddNotAvailable) {
+                ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: colorApp.basicColor,
+                ));
+              } else if (state is LoadingUpdate) {
+                ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: colorApp.basicColor,
+                ));
+              }
+            },
+            builder: (context, state) {
+              if (state is SuccessFetchAvailableProducts) {
+                return RefreshIndicator(
+                  onRefresh: () async{
+                     context
+                        .read<AvailableProductsBloc>()
+                        .add(getAvailableProducts(label: searchController.text));
+                  },
+                  child: ListView.builder(
                       itemCount: state.allProduct.length,
                       itemBuilder: (context, index) {
                         isChecked2.add(false);
@@ -235,7 +240,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                                 onTap: () {
                                                   bool isImage;
                                                   String image;
-
+                  
                                                   if (state.allProduct[index]
                                                           .pivot.has_offer ==
                                                       0) {
@@ -343,7 +348,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                         ),
                                         Row(
                                           // mainAxisAlignment: MainAxisAlignment.center,
-
+                  
                                           children: [
                                             state.allProduct[index].pivot
                                                         .has_offer ==
@@ -352,7 +357,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                                     onTap: () {
                                                       bool isImage;
                                                       String image;
-
+                  
                                                       if (state
                                                           .allProduct[index]
                                                           .image[0]
@@ -628,129 +633,129 @@ class _AvailablePageState extends State<AvailablePage> {
                                 ],
                               )),
                         );
-                      });
-                } else if (state is LoadingProduct) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: colorApp.basicColor,
-                    ),
-                  );
-                } else if (state is NoConnectionWithProduct) {
-                   print(state.message);
-                  return RefreshIndicator(
-                    onRefresh: () async {
-                      context
-                          .read<AvailableProductsBloc>()
-                          .add(getAvailableProducts());
-                    },
-                    child: ListView(
-                      children: [
-                        Center(
-                            child: Image.asset(
-                              "asstes/images/internet.png",
-                              width: widthSize / 2,
-                              height: heightSize / 2,
-                            ),
+                      }),
+                );
+              } else if (state is LoadingProduct) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: colorApp.basicColor,
+                  ),
+                );
+              } else if (state is NoConnectionWithProduct) {
+                 print(state.message);
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    context
+                        .read<AvailableProductsBloc>()
+                        .add(getAvailableProducts(label: searchController.text));
+                  },
+                  child: ListView(
+                    children: [
+                      Center(
+                          child: Image.asset(
+                            "asstes/images/internet.png",
+                            width: widthSize / 2,
+                            height: heightSize / 2,
                           ),
-                          Center(
-                              child: Text(
-                           state.message=='Null check operator used on a null value'?
-                        "لقد انقطع الاتصال بالانترنت"
-                          :state.message ,
-                            style: TextStyle(
-                                color: ColorManager().red,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700),
-                          ))
-
-                      ],
-                    ),
-                  );
-                }
-                // else if (state is dioException) {
-                //   print(state.message);
-                //   return RefreshIndicator(
-                //     onRefresh: () async {
-                //       context
-                //           .read<AvailableProductsBloc>()
-                //           .add(getAvailableProducts());
-                //     },
-                //     child: ListView(
-                //       children: [
-                //         SizedBox(
-                //           height: MediaQuery.of(context).size.height / 9,
-                //         ),
-                //         Center(child: Text(state.message)),
-
-                //       ],
-                //     ),
-                //   );
-                // }  
-                else if (state is NotFound) {
-                  return RefreshIndicator(
-                    onRefresh: () async {
-                      context
-                          .read<AvailableProductsBloc>()
-                          .add(getAvailableProducts());
-                    },
-                    child: ListView(
-                      children: [
-                         Center(
-                        child: Image.asset(
-                      "asstes/images/empty.png",
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: MediaQuery.of(context).size.height / 2,
-                    )),
-                    Center(
-                      child: Text(
-                        "فارغ",
-                        style: TextStyle(
-                            color: ColorManager().red,
-                            fontSize: 33,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    )
-                      ],
-                    ),
-                  );
-                } else if (state is successAddNotAvailable) {
-                  context
-                      .read<AvailableProductsBloc>()
-                      .add(getAvailableProducts());
-                  return SizedBox();
-                } else if (state is LoadingUpdate) {
-                  return SizedBox();
-                } else {
-                  return RefreshIndicator(
-                    onRefresh: () async {
-                      context
-                          .read<AvailableProductsBloc>()
-                          .add(getAvailableProducts());
-                    },
-                    child: ListView(
-                      children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 3,
                         ),
-                        Center(child: Text('خطأ في السيرفر')),
-                      ],
+                        Center(
+                            child: Text(
+                         state.message=='Null check operator used on a null value'?
+                      "لقد انقطع الاتصال بالانترنت"
+                        :state.message ,
+                          style: TextStyle(
+                              color: ColorManager().red,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700),
+                        ))
+      
+                    ],
+                  ),
+                );
+              }
+              // else if (state is dioException) {
+              //   print(state.message);
+              //   return RefreshIndicator(
+              //     onRefresh: () async {
+              //       context
+              //           .read<AvailableProductsBloc>()
+              //           .add(getAvailableProducts());
+              //     },
+              //     child: ListView(
+              //       children: [
+              //         SizedBox(
+              //           height: MediaQuery.of(context).size.height / 9,
+              //         ),
+              //         Center(child: Text(state.message)),
+      
+              //       ],
+              //     ),
+              //   );
+              // }  
+              else if (state is NotFound) {
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    context
+                        .read<AvailableProductsBloc>()
+                        .add(getAvailableProducts(label: searchController.text));
+                  },
+                  child: ListView(
+                    children: [
+                       Center(
+                      child: Image.asset(
+                    "asstes/images/empty.png",
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: MediaQuery.of(context).size.height / 2,
+                  )),
+                  Center(
+                    child: Text(
+                      "فارغ",
+                      style: TextStyle(
+                          color: ColorManager().red,
+                          fontSize: 33,
+                          fontWeight: FontWeight.w700),
                     ),
-                  );
-                }
-              },
+                  )
+                    ],
+                  ),
+                );
+              } else if (state is successAddNotAvailable) {
+                context
+                    .read<AvailableProductsBloc>()
+                    .add(getAvailableProducts(label: searchController.text));
+                return SizedBox();
+              } else if (state is LoadingUpdate) {
+                return SizedBox();
+              } else {
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    context
+                        .read<AvailableProductsBloc>()
+                        .add(getAvailableProducts(label: searchController.text));
+                  },
+                  child: ListView(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 3,
+                      ),
+                      Center(child: Text('خطأ في السيرفر')),
+                    ],
+                  ),
+                );
+              }
+            },
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: Icon(
+              Icons.add,
+              color: colorApp.whiteColor,
+              size: 33,
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {},
-              child: Icon(
-                Icons.add,
-                color: colorApp.whiteColor,
-                size: 33,
-              ),
-              backgroundColor: colorApp.basicColor,
-            ),
-          );
-        }),
-      ),
+            backgroundColor: colorApp.basicColor,
+          ),
+        );
+      }),
     );
   }
 }

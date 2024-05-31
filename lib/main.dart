@@ -10,27 +10,30 @@ import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
 import 'package:mufraty_app/feature/Auth/register/view/register_page.dart';
 import 'package:mufraty_app/feature/Home/Discounts/view/Discounts_page.dart';
 import 'package:mufraty_app/feature/Home/Reports/view/reports_page.dart';
+import 'package:mufraty_app/feature/Home/Stock/Available/bloc/available_products_bloc.dart';
+import 'package:mufraty_app/feature/Home/Stock/NotAvailable/bloc/not_available_bloc.dart';
+import 'package:mufraty_app/feature/Home/Stock/Warehouse/bloc/products_bloc.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/firebaseApi.dart';
 import 'package:mufraty_app/firebase_options.dart';
 
-void main() async{
+void main() async {
   //  initial();
 
-    WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
-   await FirebaseApi().initNotiification();
-// await FirebaseMessaging.instance.setAutoInitEnabled(true);
-initial();
+  );
+  //  await FirebaseApi().initNotiification();
+//  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+  initial();
   Bloc.observer = MyBlocObserver();
-  
+
   runApp(const MyApp());
 }
 
 // في أعلى مستوى، خارج أي class
-  final GlobalKey<NavigatorState> NavigatorKey = GlobalKey<NavigatorState>();
+// final GlobalKey<NavigatorState> NavigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -39,25 +42,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-      BlocProvider<ReportCubit>(
-  create: (BuildContext context) => ReportCubit(),),
-  
-
-      ],
-      child: MaterialApp.router(
-        //  routerDelegate: AppRouter.routter.routerDelegate,
+        providers: [
+          BlocProvider<ReportCubit>(
+            create: (BuildContext context) => ReportCubit(),
+            lazy: true,
+          ),
+          BlocProvider<ProductsBloc>(
+            create: (BuildContext context) => ProductsBloc(),
+            lazy: true,
+          ),
+          BlocProvider<AvailableProductsBloc>(
+            create: (BuildContext context) => AvailableProductsBloc(),
+            lazy: true,
+          ),
+          BlocProvider<NotAvailableBloc>(
+            create: (BuildContext context) => NotAvailableBloc(),
+            lazy: true,
+          ),
+        ],
+        child: MaterialApp.router(
+          //  routerDelegate: AppRouter.routter.routerDelegate,
           routerConfig: AppRouter.routter,
-        // routeInformationParser:  AppRouter.routter.routeInformationParser,
-      // routeInformationProvider:  AppRouter.routter.routeInformationProvider,
-        // onGenerateTitle: NavigatorKey,
-        
-        //  navigatorKey: navigatorKey,
-         theme: lightMode,
-        debugShowCheckedModeBanner: false,
-        
-      )
-    );
+          // routeInformationParser:  AppRouter.routter.routeInformationParser,
+          // routeInformationProvider:  AppRouter.routter.routeInformationProvider,
+          // onGenerateTitle: NavigatorKey,
+
+          //  navigatorKey: navigatorKey,
+          theme: lightMode,
+          debugShowCheckedModeBanner: false,
+        ));
   }
 }
 // MaterialApp(

@@ -3,7 +3,12 @@ part of 'available_products_bloc.dart';
 
 @immutable
 sealed class AvailableProductsEvent {}
-class getAvailableProducts extends AvailableProductsEvent{}
+class getAvailableProducts extends AvailableProductsEvent {
+  String label;
+  getAvailableProducts({
+    required this.label,
+  });
+}
 class addOffer extends AvailableProductsEvent {
   num id;
   AddOfferModel offer;

@@ -5,7 +5,7 @@ import 'package:mufraty_app/main.dart';
 class FirebaseApi{
  final notificationSettings =  FirebaseMessaging.instance.requestPermission(provisional: true);
   Future  <void> initNotiification()async{ 
-    
+    FirebaseMessaging.instance.requestPermission();
    final apnsToken = await FirebaseMessaging.instance.getToken();
  if (apnsToken != null) {
  print('token+$apnsToken');

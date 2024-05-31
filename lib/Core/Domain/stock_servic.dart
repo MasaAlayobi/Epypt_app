@@ -15,8 +15,8 @@ import 'package:mufraty_app/feature/Home/Stock/Warehouse/bloc/products_bloc.dart
 
 abstract class StockServic extends DioClient {
   Future<List<ProductsModel>> getAllProduct(String lable);
-  Future<List<AvailableProductsModel>> getAvailableProduct();
-  Future<List<AvailableProductsModel>> getNotAvailableProduct();
+  Future<List<AvailableProductsModel>> getAvailableProduct(String label);
+  Future<List<AvailableProductsModel>> getNotAvailableProduct(String label);
   addProductWithoutOffer(AddProductModel product);
   addProductWithOffer(AddProductWithOfferModel product);
   addOffer(AddOfferModel offer, num id);
@@ -54,9 +54,9 @@ class StockServicImp extends StockServic {
   }
 
   @override
-  Future<List<AvailableProductsModel>> getAvailableProduct() async {
+  Future<List<AvailableProductsModel>> getAvailableProduct(String label) async {
    try{
-     response = await dio.get('$baseUrl${entity = EndPoint.getAvailableProduct}',
+     response = await dio.get('$baseUrl${entity = EndPoint.getAvailableProduct}?search=$label',
         // options: getHeader()
         );
     // print(response.data);
@@ -78,10 +78,10 @@ class StockServicImp extends StockServic {
   }
 
   @override
-  Future<List<AvailableProductsModel>> getNotAvailableProduct() async {
+  Future<List<AvailableProductsModel>> getNotAvailableProduct(String label) async {
     try{
     response = await dio.get(
-        '$baseUrl${entity = EndPoint.getNotAvailableProduct}',
+        '$baseUrl${entity = EndPoint.getNotAvailableProduct}?search=$label',
         
         // options: getHeader()
         );

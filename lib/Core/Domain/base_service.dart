@@ -16,6 +16,7 @@ import 'package:mufraty_app/main.dart';
 //   String baseUrl =Url.url;
 //    late Response response;
 // }
+DioClient? fff;
 abstract class DioClient {
    String? entity;
     String baseUrl =Url.url;
