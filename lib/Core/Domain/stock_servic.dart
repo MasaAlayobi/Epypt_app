@@ -7,6 +7,7 @@ import 'package:mufraty_app/Core/Data/add_offer_model.dart';
 import 'package:mufraty_app/Core/Data/add_product_model.dart';
 import 'package:mufraty_app/Core/Data/add_product_with_offer_model.dart';
 import 'package:mufraty_app/Core/Data/available_products_model.dart';
+import 'package:mufraty_app/Core/Data/notfiication_model.dart';
 import 'package:mufraty_app/Core/Data/products_model.dart';
 import 'package:mufraty_app/Core/Data/update_offer_model.dart';
 import 'package:mufraty_app/Core/Domain/base_service.dart';
@@ -25,6 +26,7 @@ abstract class StockServic extends DioClient {
   deletProduct(int id);
   updatePrice(num id ,num price);
   logout();
+  Future<List<NotfiicationModel>> getNotification();
 }
 
 class StockServicImp extends StockServic {
@@ -47,7 +49,7 @@ class StockServicImp extends StockServic {
       print('**************************');
       return [];
     }}on DioException catch(e){
-      throw e.response!;
+      throw e.response!.data["message"];
    }on Error catch(e){
     throw e;
    }
@@ -97,7 +99,7 @@ class StockServicImp extends StockServic {
       print('**************************');
       return [];
     }}on DioException catch(e){
-      throw e.response!;
+      throw e.response!.data["message"];
    }on Error catch(e){
     throw e;
    }
@@ -251,6 +253,30 @@ class StockServicImp extends StockServic {
       print(response.data);
       await TokenStorage().clearTokens();
       return response.data['message'];
+    } else {
+      print('**************************');
+      return [];
+    }}on DioException catch(e){
+      throw e.response!;
+   }on Error catch(e){
+    throw e;
+   }
+  }
+  
+  @override
+  Future<List<NotfiicationModel>> getNotification() async{
+ try{
+    response = await dio.get('$baseUrl${entity = EndPoint.Notification}',
+        // options: getHeader()
+        );
+    // print(response.data);
+    if (response.statusCode == 200) {
+      dynamic temp = response.data["body"];
+
+      List<NotfiicationModel> allProduct = List.generate(
+          temp.length, (index) => NotfiicationModel.fromMap(temp[index]));
+       print(allProduct);
+      return allProduct;
     } else {
       print('**************************');
       return [];

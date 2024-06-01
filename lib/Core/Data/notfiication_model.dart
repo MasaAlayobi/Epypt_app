@@ -5,33 +5,34 @@ import 'package:mufraty_app/Core/Data/data_model.dart';
 
 class NotfiicationModel {
   String type;
-  DataModel message;
+  DataModel data;
   NotfiicationModel({
     required this.type,
-    required this.message,
+    required this.data,
   });
+  
 
   NotfiicationModel copyWith({
     String? type,
-    DataModel? message,
+    DataModel? data,
   }) {
     return NotfiicationModel(
       type: type ?? this.type,
-      message: message ?? this.message,
+      data: data ?? this.data,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'type': type,
-      'message': message.toMap(),
+      'data': data.toMap(),
     };
   }
 
   factory NotfiicationModel.fromMap(Map<dynamic, dynamic> map) {
     return NotfiicationModel(
       type: map['type'] as String,
-      message: DataModel.fromMap(map['message'] as Map<dynamic,dynamic>),
+      data: DataModel.fromMap(map['data'] as Map<dynamic,dynamic>),
     );
   }
 
@@ -40,7 +41,7 @@ class NotfiicationModel {
   factory NotfiicationModel.fromJson(String source) => NotfiicationModel.fromMap(json.decode(source) as Map<dynamic, dynamic>);
 
   @override
-  String toString() => 'NotfiicationModel(type: $type, message: $message)';
+  String toString() => 'NotfiicationModel(type: $type, data: $data)';
 
   @override
   bool operator ==(covariant NotfiicationModel other) {
@@ -48,9 +49,9 @@ class NotfiicationModel {
   
     return 
       other.type == type &&
-      other.message == message;
+      other.data == data;
   }
 
   @override
-  int get hashCode => type.hashCode ^ message.hashCode;
+  int get hashCode => type.hashCode ^ data.hashCode;
 }

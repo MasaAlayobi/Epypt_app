@@ -24,7 +24,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  //  await FirebaseApi().initNotiification();
+    // await FirebaseApi().initNotiification();
 //  await FirebaseMessaging.instance.setAutoInitEnabled(true);
   initial();
   Bloc.observer = MyBlocObserver();
