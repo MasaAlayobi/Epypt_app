@@ -14,8 +14,8 @@ import 'package:mufraty_app/Core/Domain/base_service.dart';
 import 'package:mufraty_app/Core/Resourse/URL.dart';
 import 'package:mufraty_app/Core/data/categories_suppler_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-abstract class AuthService extends DioClient {
+import 'package:mufraty_app/Core/Config/shared_preferences.dart';
+abstract class AuthService extends BaseService {
   createNewAcouunt(RegisterModel user,File image);
   login(LoginModel user);
   Future<List<CitiesModel>> getCities();
@@ -65,7 +65,8 @@ formData.files.addAll({
           data: formData);
       if (response.statusCode == 200) {
         // final expiryTime = DateTime.now().millisecondsSinceEpoch + (response.data['expiresIn'] * 1000);
-         await tokenStorage.saveTokens(response.data['access_token'], response.data['refresh_token']);
+        await TokenStorage().saveTokens(response.data['access_token'], response.data['refresh_token']);
+         
         print(response.data);
         List<String> successModel=[response.data["message"],response.data["supplier"]["store_name"]];
         storage.get<SharedPreferences>().setString('store_name', response.data["supplier"]["store_name"]);
@@ -93,14 +94,15 @@ formData.files.addAll({
           );
 
       if (response.statusCode == 200) {
-                final expiryTime = DateTime.now().millisecondsSinceEpoch + (3 * 1000);
-         await tokenStorage.saveTokens(response.data["access_token"], response.data["refresh_token"]);
+                print("200");
+          await TokenStorage().saveTokens(response.data['access_token'], response.data['refresh_token']);
          print(response.data["access_token"]);
-        print('${tokenStorage.getAccessToken()}+${tokenStorage.getRefreshToken()}++');
+         print('-------------------------------------');
+        print('${TokenStorage().getAccessToken()}+${TokenStorage().getRefreshToken()}++');
       List<String> successModel=[response.data["message"],response.data["supplier"]["store_name"]];
       storage.get<SharedPreferences>().setString('store_name', response.data["supplier"]["store_name"]);
         return successModel;
-      }
+      }else{print("object");}
     } on DioException catch(e ) {
       print(e.response);
     throw e.response!;

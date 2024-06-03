@@ -20,11 +20,13 @@ class LoginView extends StatefulWidget {
   @override
   State<LoginView> createState() => _LoginViewState();
 }
-String textAppear="choose"; 
+
+String textAppear = "choose";
 String? variabl;
 bool showPass = true;
 TextEditingController _controller = TextEditingController();
 TextEditingController passwords = TextEditingController();
+bool isChecked = false;
 
 class _LoginViewState extends State<LoginView> {
   @override
@@ -37,6 +39,7 @@ class _LoginViewState extends State<LoginView> {
         child: Builder(builder: (context) {
           return SafeArea(
             child: Scaffold(
+              backgroundColor: colorApp.BackgroundColor2,
               body: SingleChildScrollView(
                 child: Container(
                   // height: 700,
@@ -57,119 +60,132 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(11),
-                            child: CircleAvatar(
-                                maxRadius: 66,
-                                backgroundColor: Colors.grey[300],
-                                child: Icon(
-                                  Icons.login,
-                                  color: ColorManager().red,
-                                  fill: 0.3,
-                                  size: 55,
-                                )),
+                            child:Image.asset(
+              width: 150,
+              height: 150,
+              'asstes/images/newLogooooooooo.png'),
+                            //  CircleAvatar(
+                            //   maxRadius: 76,
+                            //   backgroundColor: colorApp.BackgroundColor2,
+                            //   // backgroundImage: AssetImage('asstes/images/logooooooo.png'),
+                            //   child:
+                            //       Image.asset('asstes/images/logooooooo.png',width: 100,),
+                            // ),
                           ),
-                          SizedBox(height: 15,),
-                          Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: TextFormField(
-                          controller: _controller,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [
-                 FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(10), // +20 و 10 أرقام
-                          ],
-                       cursorColor: ColorManager().red,
-                    decoration: InputDecoration(
-                      errorStyle: TextStyle(color: ColorManager().red),
-                      errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: ColorManager().red),
-                borderRadius: BorderRadius.circular(12)),
-                      focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: ColorManager().red),
-                borderRadius: BorderRadius.circular(12)),
-                      fillColor: Colors.grey[200],
-                      filled: true,
-                      focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: ColorManager().red),
-                borderRadius: BorderRadius.circular(12)),
-                      enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: ColorManager().red),
-                borderRadius: BorderRadius.circular(12)),
-                      border: OutlineInputBorder(
-                borderSide: BorderSide(color: ColorManager().red)),
-                       hintText: 'رقم الهاتف ',
-                 suffixText: '20+',
-                      labelStyle: TextStyle(fontSize: 14, color: ColorManager().red),
-                    ),
-                      ),
-                    ),
-                                // Padding(
-                                //   padding: const EdgeInsets.all(9),
-                                //   child: TextFormField(
-                                //     autovalidateMode:
-                                //         AutovalidateMode.onUserInteraction,
-                                //     obscureText: showPass,
-                                //     controller: passwords,
-                                //     validator: (text) {
-                                //       if (text!.isEmpty) {
-                                //         return "مطلوب";
-                                //       }
-                                //       if (text.length < 6 && text.length > 0) {
-                                //         return "كلمة السر قصيرة";
-                                //       }
-                                //       return " ";
-                                //     },
-                                //     keyboardType: TextInputType.emailAddress,
-                                //     cursorColor: ColorManager().red,
-                                //     decoration: InputDecoration(
-                                //       suffix: InkWell(
-                                //         onTap: () {
-                                //           setState(() {
-                                //             showPass = !showPass;
-                                //           });
-                                //         },
-                                //         child: Icon(
-                                //           showPass
-                                //               ? Icons.visibility_off
-                                //               : Icons.visibility,
-                                //           color: ColorManager().red,
-                                //         ),
-                                //       ),
-                                //       errorStyle:
-                                //           TextStyle(color: ColorManager().red),
-                                //       errorBorder: OutlineInputBorder(
-                                //           borderSide:
-                                //               BorderSide(color: ColorManager().red),
-                                //           borderRadius: BorderRadius.circular(12)),
-                                //       focusedErrorBorder: OutlineInputBorder(
-                                //           borderSide:
-                                //               BorderSide(color: ColorManager().red),
-                                //           borderRadius: BorderRadius.circular(12)),
-                                //       fillColor: Colors.grey[200],
-                                //       filled: true,
-                                //       focusedBorder: OutlineInputBorder(
-                                //           borderSide:
-                                //               BorderSide(color: ColorManager().red),
-                                //           borderRadius: BorderRadius.circular(12)),
-                                //       enabledBorder: OutlineInputBorder(
-                                //           borderSide:
-                                //               BorderSide(color: ColorManager().red),
-                                //           borderRadius: BorderRadius.circular(12)),
-                                //       border: OutlineInputBorder(
-                                //           borderSide: BorderSide(
-                                //               color: ColorManager().red)),
-                                //       hintText: "كلمة السر",
-                                //       labelStyle: TextStyle(
-                                //           fontSize: 77, color: ColorManager().red),
-                                //     ),
-                                //   ),
-                                // ),
-                                SizedBox(
-                                  height: 15,
-                                ),
+                          SizedBox(
+                            height: 15,
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(12),
                             child: TextFormField(
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              controller: _controller,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(
+                                    10), // +20 و 10 أرقام
+                              ],
+                              cursorColor: ColorManager().red,
+                              decoration: InputDecoration(
+                                errorStyle:
+                                    TextStyle(color: ColorManager().red),
+                                errorBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: ColorManager().red),
+                                    borderRadius: BorderRadius.circular(12)),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: ColorManager().red),
+                                    borderRadius: BorderRadius.circular(12)),
+                                fillColor: Colors.grey[200],
+                                filled: true,
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: ColorManager().red),
+                                    borderRadius: BorderRadius.circular(12)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: ColorManager().red),
+                                    borderRadius: BorderRadius.circular(12)),
+                                border: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: ColorManager().red)),
+                                hintText: 'رقم الهاتف ',
+                                suffixText: '20+',
+                                labelStyle: TextStyle(
+                                    fontSize: 14, color: ColorManager().red),
+                              ),
+                            ),
+                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(9),
+                          //   child: TextFormField(
+                          //     autovalidateMode:
+                          //         AutovalidateMode.onUserInteraction,
+                          //     obscureText: showPass,
+                          //     controller: passwords,
+                          //     validator: (text) {
+                          //       if (text!.isEmpty) {
+                          //         return "مطلوب";
+                          //       }
+                          //       if (text.length < 6 && text.length > 0) {
+                          //         return "كلمة السر قصيرة";
+                          //       }
+                          //       return " ";
+                          //     },
+                          //     keyboardType: TextInputType.emailAddress,
+                          //     cursorColor: ColorManager().red,
+                          //     decoration: InputDecoration(
+                          //       suffix: InkWell(
+                          //         onTap: () {
+                          //           setState(() {
+                          //             showPass = !showPass;
+                          //           });
+                          //         },
+                          //         child: Icon(
+                          //           showPass
+                          //               ? Icons.visibility_off
+                          //               : Icons.visibility,
+                          //           color: ColorManager().red,
+                          //         ),
+                          //       ),
+                          //       errorStyle:
+                          //           TextStyle(color: ColorManager().red),
+                          //       errorBorder: OutlineInputBorder(
+                          //           borderSide:
+                          //               BorderSide(color: ColorManager().red),
+                          //           borderRadius: BorderRadius.circular(12)),
+                          //       focusedErrorBorder: OutlineInputBorder(
+                          //           borderSide:
+                          //               BorderSide(color: ColorManager().red),
+                          //           borderRadius: BorderRadius.circular(12)),
+                          //       fillColor: Colors.grey[200],
+                          //       filled: true,
+                          //       focusedBorder: OutlineInputBorder(
+                          //           borderSide:
+                          //               BorderSide(color: ColorManager().red),
+                          //           borderRadius: BorderRadius.circular(12)),
+                          //       enabledBorder: OutlineInputBorder(
+                          //           borderSide:
+                          //               BorderSide(color: ColorManager().red),
+                          //           borderRadius: BorderRadius.circular(12)),
+                          //       border: OutlineInputBorder(
+                          //           borderSide: BorderSide(
+                          //               color: ColorManager().red)),
+                          //       hintText: "كلمة السر",
+                          //       labelStyle: TextStyle(
+                          //           fontSize: 77, color: ColorManager().red),
+                          //     ),
+                          //   ),
+                          // ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               obscureText: showPass,
                               controller: passwords,
                               validator: (text) {
@@ -197,7 +213,8 @@ class _LoginViewState extends State<LoginView> {
                                     color: ColorManager().red,
                                   ),
                                 ),
-                                errorStyle: TextStyle(color: ColorManager().red),
+                                errorStyle:
+                                    TextStyle(color: ColorManager().red),
                                 errorBorder: OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: ColorManager().red),
@@ -226,73 +243,129 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height/4,
+                            height: MediaQuery.of(context).size.height / 6,
                           ),
                           ChangeSign(
                             text: "ليس لديك حساب",
                             textbutton: "إنشاء حساب",
                             onPress: () {
-                  
                               // NavigatorKey.currentState!.pushNamed(
                               //   AppRouter.KNotification
                               // );
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp(),));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignUp(),
+                                  ));
                             },
                           ),
-                            
+
                           BlocListener<LoginBloc, LoginState>(
                             listener: (context, state) {
-                               if (state is successcreatedUser) {
-                              GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
-                              ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                                content: Text('تم تسجيل الدحول بنجاح'),
-                                backgroundColor: colorApp.basicColor,
-                              ));
-                            }
-                           
-                            else if(state is InformationError){
-                              
-                               ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                                content: Text(state.message),
-                                backgroundColor: colorApp.basicColor,
-                              ));
-                           
-                            }
-                             else if(state is NoConnection){
-                              ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                                content: Text(state.message=='Null check operator used on a null value'||state.message.contains('403 Forbidden')?
-                            "لقد انقطع الاتصال بالانترنت"
-                  
-                              :state.message,),
-                                backgroundColor: colorApp.basicColor,
-                              ));
-                            }
-                            
+                              if (state is successcreatedUser) {
+                                GoRouter.of(context)
+                                    .pushReplacement(AppRouter.kHomeViewStock);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(new SnackBar(
+                                  content: Text('تم تسجيل الدحول بنجاح'),
+                                  backgroundColor: colorApp.basicColor,
+                                ));
+                              } else if (state is InformationError) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(new SnackBar(
+                                  content: Text(state.message),
+                                  backgroundColor: colorApp.basicColor,
+                                ));
+                              } else if (state is NoConnection) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(new SnackBar(
+                                  content: Text(
+                                    state.message ==
+                                                'Null check operator used on a null value' ||
+                                            state.message
+                                                .contains('403 Forbidden')
+                                        ? "لقد انقطع الاتصال بالانترنت"
+                                        : state.message,
+                                  ),
+                                  backgroundColor: colorApp.basicColor,
+                                ));
+                              }
                             },
                             child: MyButton(
                               title: "تسجيل الدخول",
                               onpress: () async {
-                               if(_controller.text!=null&&passwords.text!=null){
-                                 LoginModel user = LoginModel(
-                                    phone_number:'+20${_controller.text}' ,
-                                    password: passwords.text);
-                                context
-                                    .read<LoginBloc>()
-                                    .add(loginUser(User: user));
-                               }
-                               else{
-                                ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                                content: Text('إملاء كامل الحقول'),
-                                backgroundColor: colorApp.basicColor,
-                              ));
-                               }
-                              
+                                if (_controller.text.isNotEmpty &&
+                                    passwords.text.isNotEmpty) {
+                                  print('00000000000000000000000');
+                                  LoginModel user = LoginModel(
+                                      phone_number: '+20${_controller.text}',
+                                      password: passwords.text);
+                                  print(user);
+                                  context
+                                      .read<LoginBloc>()
+                                      .add(loginUser(User: user));
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(new SnackBar(
+                                    content: Text('إملاء كامل الحقول'),
+                                    backgroundColor: colorApp.basicColor,
+                                  ));
+                                }
                               },
                               colors: ColorManager().red,
                               width: 333,
                               height: 55,
                               radius: 33,
                               fontsize: 22,
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        isChecked = !isChecked;
+                                        GoRouter.of(context).pushReplacement(
+                                            AppRouter.KforgetPassword);
+                                      });
+                                    },
+                                    child: Container(
+                                      width: 23,
+                                      height: 23,
+                                      decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: colorApp.basicColor, width: 1.3),
+                                        borderRadius: BorderRadius.circular(3),
+                                        color: isChecked
+                                            ? colorApp.basicColor
+                                            : const Color.fromARGB(255, 198, 193, 193),
+                                      ),
+                                      child: isChecked
+                                          ? Icon(Icons.check,
+                                              size: 20,
+                                              color: colorApp.whiteColor)
+                                          : null,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 17),
+                                  child: Text(
+                                    'هل نسيت كلمة المرور',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ],

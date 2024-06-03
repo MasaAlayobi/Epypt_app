@@ -10,12 +10,12 @@ import 'package:mufraty_app/Core/Resourse/URL.dart';
 import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
 import 'package:mufraty_app/main.dart';
 
-// abstract class BaseService { 
-//   String? entity;
-//   Dio dio = Dio();
-//   String baseUrl =Url.url;
-//    late Response response;
-// }
+abstract class BaseService { 
+  String? entity;
+  Dio dio = Dio();
+  String baseUrl =Url.url;
+   late Response response;
+}
 DioClient? fff;
 abstract class DioClient {
    String? entity;

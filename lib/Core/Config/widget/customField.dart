@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mufraty_app/Core/Resourse/color.dart';
 
 class CustomTextfield extends StatelessWidget {
   final String? hint;
@@ -85,11 +86,11 @@ class CustomTextfield extends StatelessWidget {
             hintText: hintText,
             hintStyle: hintStyle?.copyWith(fontSize: textSize) ??
                 TextStyle(fontSize: textSize),
-            fillColor: Colors.white,
+            fillColor:Colors.grey[200],
             filled: true,
             enabledBorder: buildBorder(),
             border: buildBorder(),
-            focusedBorder: buildBorder(const Color.fromARGB(255, 74, 67, 2)),
+            focusedBorder: buildBorder(colorApp.basicColor),
             suffix: suffix),
       ),
     );
@@ -99,7 +100,7 @@ class CustomTextfield extends StatelessWidget {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
       borderSide:
-          BorderSide(color: color ?? const Color.fromARGB(255, 50, 50, 50)),
+          BorderSide(color: color ??  colorApp.basicColor),
     );
   }
 }

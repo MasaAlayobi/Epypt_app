@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
+import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/changeSign.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_widget_categories.dart';
@@ -19,6 +20,7 @@ import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
 import 'package:mufraty_app/feature/Auth/register/bloc/register_bloc.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
   // final num cityId;
@@ -467,15 +469,15 @@ class _SignUpState extends State<SignUp> {
                                 title: "إنشاء حساب",
                                 onpress: () async {
                                   print('+20${_controller.text.toString()}');
-                                  if (firstName.text != null &&
-                                      lastName.text != null &&
-                                      secondName.text != null &&
-                                      password.text != null &&
-                                      marketName.text != null &&
-                                      deliveryTime.text != null &&
-                                      quantity.text != null &&
-                                      priceBill.text != null &&
-                                      catorgy.text != null &&
+                                  if (firstName.text.isNotEmpty &&
+                                      lastName.text.isNotEmpty &&
+                                      secondName.text .isNotEmpty &&
+                                      password.text.isNotEmpty &&
+                                      marketName.text.isNotEmpty &&
+                                      deliveryTime.text.isNotEmpty &&
+                                      quantity.text.isNotEmpty &&
+                                      priceBill.text.isNotEmpty &&
+                                      catorgy.text.isNotEmpty &&
                                       cititesId1.isNotEmpty &&
                                       cityId != null &&
                                       image != null&&
@@ -496,6 +498,7 @@ class _SignUpState extends State<SignUp> {
                                         city_id: cityId!,
                                         supplier_category_id:
                                             categoryId!,
+                                            deviceToken:storage.get<SharedPreferences>().getString('deviceToken')!,
                                         to_sites: cititesId1);
                                     // RegisterModel user = RegisterModel(
                                     // first_name:'fhdb',

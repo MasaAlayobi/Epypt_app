@@ -156,7 +156,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                         //     color: colorApp.greyColor,
                                         //     fontWeight: FontWeight.w600,
                                         //     maxLines: 2),
-                                        Row(
+                                                                    Row(
                                           children: [
                                             state.allProduct[index].pivot
                                                         .has_offer ==
@@ -174,13 +174,13 @@ class _AvailablePageState extends State<AvailablePage> {
                                                       decoration: TextDecoration
                                                           .lineThrough,
                                                       decorationColor:
-                                                          colorApp.greenColor,
+                                                          colorApp.basicColor,
                                                       decorationStyle:
                                                           TextDecorationStyle
                                                               .solid,
                                                       fontSize: 15,
                                                       color:
-                                                          colorApp.greenColor,
+                                                          colorApp.basicColor,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                     ),
@@ -197,16 +197,14 @@ class _AvailablePageState extends State<AvailablePage> {
                                               child: Container(
                                                 width: 70,
                                                 height: 22,
-                                                color: Color.fromARGB(
-                                                    255, 255, 218, 215),
+                                                color: Color.fromARGB(255, 221, 254, 225),
                                                 child: Center(
                                                     child: 
                                                          CustomText(
                                                             text:
                                                                 '${state.allProduct[index].pivot.offer_price} ج ',
                                                             size: 15,
-                                                            color: colorApp
-                                                                .basicColor,
+                                                            color: colorApp.greenColor,
                                                             fontWeight:
                                                                 FontWeight.w800,
                                                             maxLines: 2)),

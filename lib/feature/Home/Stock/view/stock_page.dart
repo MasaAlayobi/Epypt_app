@@ -152,7 +152,7 @@ class _StockPageState extends State<StockPage> {
                     height: 53,
                     color: colorApp.basicColor,
                     child: Padding(
-                      padding: const EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                       child: Container(
                         width: double.infinity,
                         height: 40,
@@ -160,7 +160,7 @@ class _StockPageState extends State<StockPage> {
                           
                           controller: searchController,
                           // controller: last_name,
-                          onChanged: (value) {
+                          onSubmitted: (value) {
                             searchController.text == value;
                             context
                                 .read<ProductsBloc>()
@@ -170,11 +170,22 @@ class _StockPageState extends State<StockPage> {
                             print('____________________________________');
                              context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: value));
                             print(searchController.text);
-                            // context
-                            //     .read<ProductsBloc>()
-                            //     .add(getProducts(lable: searchController.text));
-                            // context.read<SearchBloc>().add(Search(word: searchModel(name: value)));
                           },
+                          // onChanged: (value) {
+                          //   searchController.text == value;
+                          //   context
+                          //       .read<ProductsBloc>()
+                          //       .add(getProducts(lable: value));
+                          //   print('****************************************');
+                          //     context.read<AvailableProductsBloc>().add(getAvailableProducts(label: value));
+                          //   print('____________________________________');
+                          //    context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: value));
+                          //   print(searchController.text);
+                          //   // context
+                          //   //     .read<ProductsBloc>()
+                          //   //     .add(getProducts(lable: searchController.text));
+                          //   // context.read<SearchBloc>().add(Search(word: searchModel(name: value)));
+                          // },
                           // controller: search,
                           decoration: InputDecoration(
                             hintText: stringApp.search,

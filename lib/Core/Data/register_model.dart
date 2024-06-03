@@ -15,6 +15,7 @@ class RegisterModel {
   num min_bill_price;
   num city_id;
   num supplier_category_id;
+  String deviceToken;
   List<num> to_sites;
   RegisterModel({
     required this.first_name,
@@ -28,9 +29,9 @@ class RegisterModel {
     required this.min_bill_price,
     required this.city_id,
     required this.supplier_category_id,
+    required this.deviceToken,
     required this.to_sites,
   });
-  
 
   RegisterModel copyWith({
     String? first_name,
@@ -44,6 +45,7 @@ class RegisterModel {
     num? min_bill_price,
     num? city_id,
     num? supplier_category_id,
+    String? deviceToken,
     List<num>? to_sites,
   }) {
     return RegisterModel(
@@ -58,6 +60,7 @@ class RegisterModel {
       min_bill_price: min_bill_price ?? this.min_bill_price,
       city_id: city_id ?? this.city_id,
       supplier_category_id: supplier_category_id ?? this.supplier_category_id,
+      deviceToken: deviceToken ?? this.deviceToken,
       to_sites: to_sites ?? this.to_sites,
     );
   }
@@ -75,7 +78,8 @@ class RegisterModel {
       'min_bill_price': min_bill_price,
       'city_id': city_id,
       'supplier_category_id': supplier_category_id,
-      'to_sites[]': to_sites,
+      'deviceToken': deviceToken,
+      'to_sites': to_sites,
     };
   }
 
@@ -92,6 +96,7 @@ class RegisterModel {
       min_bill_price: map['min_bill_price'] as num,
       city_id: map['city_id'] as num,
       supplier_category_id: map['supplier_category_id'] as num,
+      deviceToken: map['deviceToken'] as String,
       to_sites: List<num>.from((map['to_sites'] as List<num>)),
     );
   }
@@ -102,7 +107,7 @@ class RegisterModel {
 
   @override
   String toString() {
-    return 'RegisterModel(first_name: $first_name, middle_name: $middle_name, last_name: $last_name, phone_number: $phone_number, store_name: $store_name, password: $password, delivery_duration: $delivery_duration, min_selling_quantity: $min_selling_quantity, min_bill_price: $min_bill_price, city_id: $city_id, supplier_category_id: $supplier_category_id, to_sites: $to_sites)';
+    return 'RegisterModel(first_name: $first_name, middle_name: $middle_name, last_name: $last_name, phone_number: $phone_number, store_name: $store_name, password: $password, delivery_duration: $delivery_duration, min_selling_quantity: $min_selling_quantity, min_bill_price: $min_bill_price, city_id: $city_id, supplier_category_id: $supplier_category_id, deviceToken: $deviceToken, to_sites: $to_sites)';
   }
 
   @override
@@ -121,6 +126,7 @@ class RegisterModel {
       other.min_bill_price == min_bill_price &&
       other.city_id == city_id &&
       other.supplier_category_id == supplier_category_id &&
+      other.deviceToken == deviceToken &&
       listEquals(other.to_sites, to_sites);
   }
 
@@ -137,6 +143,7 @@ class RegisterModel {
       min_bill_price.hashCode ^
       city_id.hashCode ^
       supplier_category_id.hashCode ^
+      deviceToken.hashCode ^
       to_sites.hashCode;
   }
-}
+  }

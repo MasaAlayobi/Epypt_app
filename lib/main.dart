@@ -6,6 +6,7 @@ import 'package:mufraty_app/Core/Config/observe.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/Core/Theme/theme.dart';
+import 'package:mufraty_app/feature/Auth/forgetPassword/view/forget_password.dart';
 import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
 import 'package:mufraty_app/feature/Auth/register/view/register_page.dart';
 import 'package:mufraty_app/feature/Home/Discounts/view/Discounts_page.dart';
@@ -24,9 +25,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-    // await FirebaseApi().initNotiification();
-//  await FirebaseMessaging.instance.setAutoInitEnabled(true);
   initial();
+     await FirebaseApi().initNotiification();
+//  await FirebaseMessaging.instance.setAutoInitEnabled(true);
   Bloc.observer = MyBlocObserver();
 
   runApp(const MyApp());
@@ -45,6 +46,10 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<ReportCubit>(
             create: (BuildContext context) => ReportCubit(),
+            lazy: true,
+          ),
+           BlocProvider<UserCubitCubit>(
+            create: (BuildContext context) => UserCubitCubit(),
             lazy: true,
           ),
           BlocProvider<ProductsBloc>(

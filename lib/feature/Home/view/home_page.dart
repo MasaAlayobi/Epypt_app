@@ -25,7 +25,7 @@ Fatora(
         ),
 StockPage(storeName:widget.storNamr,),
 ReportsPage(),
-StockPage(storeName:widget.storNamr,),
+Logo(),
 NotificationPage(),
 ];
     return Directionality(

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Config/storage/getit.dart';
+import 'package:mufraty_app/feature/Auth/forgetPassword/view/forget_password.dart';
 import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
 import 'package:mufraty_app/feature/Auth/register/view/register_page.dart';
+import 'package:mufraty_app/feature/Auth/verification/view/veirfy_code_view.dart';
 import 'package:mufraty_app/feature/Home/Notification/view/notification_page.dart';
 import 'package:mufraty_app/feature/Home/Stock/NotAvailable/view/not_available_page.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
@@ -22,6 +24,8 @@ abstract class AppRouter {
   static const kHomeViewFatoraNotRecieved = '/HomeViewFatoraNotRecieved';
   static const KHomeViewFatoraBrebaring = '/HomeViewFatoraBrebaring';
   static const KNotification = '/Notification';
+  static const KforgetPassword='/forgetPassword';
+  static const KVeirfyCodeView='/VeirfyCodeView';
   // final refershToken = TokenStorage().getRefreshToken();
   // print(refershToken);
   static final routter = GoRouter(
@@ -105,5 +109,12 @@ abstract class AppRouter {
             storNamr: storage.get<SharedPreferences>().getString('store_name'),
           ),
         ),
+        GoRoute(
+          path: KforgetPassword,
+          builder: (context, state) =>ForgetpassowrdViewBody()
+        ),
+        GoRoute(path: 
+        KVeirfyCodeView,
+        builder:(context, state) =>VeirfyCodeView() )
       ]);
 }
