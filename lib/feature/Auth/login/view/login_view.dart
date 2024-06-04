@@ -60,10 +60,10 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(11),
-                            child:Image.asset(
-              width: 150,
-              height: 150,
-              'asstes/images/newLogooooooooo.png'),
+                            child: Image.asset(
+                                width: 150,
+                                height: 150,
+                                'asstes/images/newLogooooooooo.png'),
                             //  CircleAvatar(
                             //   maxRadius: 76,
                             //   backgroundColor: colorApp.BackgroundColor2,
@@ -268,7 +268,7 @@ class _LoginViewState extends State<LoginView> {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(new SnackBar(
                                   content: Text('تم تسجيل الدحول بنجاح'),
-                                  backgroundColor: colorApp.basicColor,
+                                  backgroundColor: ColorManager().green,
                                 ));
                               } else if (state is InformationError) {
                                 ScaffoldMessenger.of(context)
@@ -339,12 +339,14 @@ class _LoginViewState extends State<LoginView> {
                                       width: 23,
                                       height: 23,
                                       decoration: BoxDecoration(
-                                        border:
-                                            Border.all(color: colorApp.basicColor, width: 1.3),
+                                        border: Border.all(
+                                            color: colorApp.basicColor,
+                                            width: 1.3),
                                         borderRadius: BorderRadius.circular(3),
                                         color: isChecked
                                             ? colorApp.basicColor
-                                            : const Color.fromARGB(255, 198, 193, 193),
+                                            : const Color.fromARGB(
+                                                255, 198, 193, 193),
                                       ),
                                       child: isChecked
                                           ? Icon(Icons.check,

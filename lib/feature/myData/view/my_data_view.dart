@@ -181,6 +181,7 @@ class _MyDataViewState extends State<MyDataView> {
                                     ),
                                   ),
                                   myTextFieldNumber(
+                                    ReadeOnly: true,
                                     phoneController: phone,
                                     phoneText:
                                         state.response.supplier.phone_number,

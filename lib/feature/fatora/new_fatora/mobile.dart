@@ -101,123 +101,118 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                                       NewBillBloc(),
                                                   child: Builder(
                                                       builder: (context) {
-                                                    return Directionality(
-                                                      textDirection:
-                                                          TextDirection.ltr,
-                                                      child: Container(
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height /
-                                                            3,
-                                                        color: Colors.white,
-                                                        child: Center(
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              SubTitle2(
-                                                                  text:
-                                                                      "هل تريد تأكيد الاختيار؟"),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        18.0),
-                                                                child: myTextFieldName(
-                                                                    readOnly:
-                                                                        false,
-                                                                    nameText:
-                                                                        "أدخل سبب الإلغاء",
-                                                                    nameController:
-                                                                        cancelOfSend),
-                                                              ),
-                                                              Row(
+                                                    return SingleChildScrollView(
+                                                      child: Padding(
+                                                        padding: EdgeInsets.only(
+                                                            bottom:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .viewInsets
+                                                                    .bottom),
+                                                        child: Directionality(
+                                                          textDirection:
+                                                              TextDirection.rtl,
+                                                          child: Container(
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height /
+                                                                3,
+                                                            color: Colors.white,
+                                                            child: Center(
+                                                              child: Column(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
-                                                                        .spaceAround,
-                                                                children: [
-                                                                  BlocListener<
-                                                                      NewBillBloc,
-                                                                      NewBillState>(
-                                                                    listener:
-                                                                        (context,
-                                                                            state) {
-                                                                      if (state
-                                                                          is SuccessRejectBill) {
-                                                                        GoRouter.of(context)
-                                                                            .pushReplacement(AppRouter.KHomeViewFatoraNew);
+                                                                        .center,
+                                                                children: <Widget>[
+                                                                  SubTitle2(
+                                                                      text:
+                                                                          "هل تريد تأكيد الاختيار؟"),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(
+                                                                            18.0),
+                                                                    child: myTextFieldName(
+                                                                        readOnly:
+                                                                            false,
+                                                                        nameText:
+                                                                            "أدخل سبب الإلغاء",
+                                                                        nameController:
+                                                                            cancelOfSend),
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceAround,
+                                                                    children: [
+                                                                      BlocListener<
+                                                                          NewBillBloc,
+                                                                          NewBillState>(
+                                                                        listener:
+                                                                            (context,
+                                                                                state) {
+                                                                          if (state
+                                                                              is SuccessRejectBill) {
+                                                                            GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
 
-                                                                        cancelOfSend
-                                                                            .clear();
-                                                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                            duration: Duration(seconds: 3),
-                                                                            backgroundColor: ColorManager().green,
-                                                                            content: SizedBox(
-                                                                              height: 50,
-                                                                              child: Center(child: SubTitle3(text: "تم إلغاء الفاتورة")),
-                                                                            )));
-                                                                      } else if (state
-                                                                          is FaildSendBill) {
-                                                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                            duration: Duration(seconds: 3),
-                                                                            backgroundColor: ColorManager().green,
-                                                                            content: SizedBox(
-                                                                              height: 50,
-                                                                              child: Center(child: SubTitle3(text: " حقل سبب الإلغاء مطلوب")),
-                                                                            )));
-                                                                      }
-                                                                    },
-                                                                    child: MyButton(
-                                                                        title: "موافق",
-                                                                        onpress: () {
-                                                                          setState(
-                                                                              () {
-                                                                            dropdownValues[index] =
-                                                                                newValue;
-                                                                          });
-                                                                          if (cancelOfSend
-                                                                              .text
-                                                                              .isEmpty) {
-                                                                            Navigator.of(context).pop();
+                                                                            cancelOfSend.clear();
                                                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                                                                 duration: Duration(seconds: 3),
                                                                                 backgroundColor: ColorManager().green,
-                                                                                content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
-                                                                          } else {
-                                                                            context.read<NewBillBloc>().add(SendReason(
-                                                                                idBill: state.allBills[index].id,
-                                                                                reason: Reason(rejection_reason: cancelOfSend.text)));
+                                                                                content: SizedBox(
+                                                                                  height: 50,
+                                                                                  child: Center(child: SubTitle3(text: "تم إلغاء الفاتورة")),
+                                                                                )));
+                                                                          } else if (state
+                                                                              is FaildSendBill) {
+                                                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                duration: Duration(seconds: 3),
+                                                                                backgroundColor: ColorManager().green,
+                                                                                content: SizedBox(
+                                                                                  height: 50,
+                                                                                  child: Center(child: SubTitle3(text: " حقل سبب الإلغاء مطلوب")),
+                                                                                )));
                                                                           }
                                                                         },
-                                                                        colors: ColorManager().green,
-                                                                        width: MediaQuery.of(context).size.width / 3,
-                                                                        height: 55,
-                                                                        radius: 9),
-                                                                  ),
-                                                                  MyButton(
-                                                                      title:
-                                                                          "غير موافق",
-                                                                      onpress:
-                                                                          () {
-                                                                        Navigator.pop(
-                                                                            context);
-                                                                      },
-                                                                      colors:
-                                                                          ColorManager()
+                                                                        child: MyButton(
+                                                                            title: "موافق",
+                                                                            onpress: () {
+                                                                              setState(() {
+                                                                                dropdownValues[index] = newValue;
+                                                                              });
+                                                                              if (cancelOfSend.text.isEmpty) {
+                                                                                Navigator.of(context).pop();
+                                                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().green, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
+                                                                              } else {
+                                                                                context.read<NewBillBloc>().add(SendReason(idBill: state.allBills[index].id, reason: Reason(rejection_reason: cancelOfSend.text)));
+                                                                              }
+                                                                            },
+                                                                            colors: ColorManager().green,
+                                                                            width: MediaQuery.of(context).size.width / 3,
+                                                                            height: 55,
+                                                                            radius: 9),
+                                                                      ),
+                                                                      MyButton(
+                                                                          title:
+                                                                              "غير موافق",
+                                                                          onpress:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          colors: ColorManager()
                                                                               .red,
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width /
-                                                                          3,
-                                                                      height:
-                                                                          55,
-                                                                      radius:
-                                                                          9),
+                                                                          width: MediaQuery.of(context).size.width /
+                                                                              3,
+                                                                          height:
+                                                                              55,
+                                                                          radius:
+                                                                              9),
+                                                                    ],
+                                                                  ),
                                                                 ],
                                                               ),
-                                                            ],
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
