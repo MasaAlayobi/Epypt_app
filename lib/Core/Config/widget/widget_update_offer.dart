@@ -199,7 +199,7 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                         padding: const EdgeInsets.only(left: 8, right: 8),
                         child: Container(
                           width: MediaQuery.of(context).size.width / 1,
-                          height: 30,
+                          height: 40,
                           color: colorApp.whiteColor,
                           child: Center(
                             child: InkWell(

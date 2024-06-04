@@ -147,7 +147,7 @@ class _WidgetAddOfferState extends State<WidgetAddOffer> {
                         padding: const EdgeInsets.only(left: 8, right: 8),
                         child: Container(
                           width: MediaQuery.of(context).size.width / 1,
-                          height: 30,
+                          height: 40,
                           color: colorApp.whiteColor,
                           child: Center(
                             child: InkWell(
@@ -157,6 +157,7 @@ class _WidgetAddOfferState extends State<WidgetAddOffer> {
                                   controller: date,
                                   decoration: InputDecoration(
                                     // labelText: 'Date',
+                                    
                                     hintText: 'أضغط لتحديد التاريخ',
                                   ),
                                 ),
