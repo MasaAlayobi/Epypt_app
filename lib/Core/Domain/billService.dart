@@ -43,7 +43,7 @@ class BillServiceImpl extends BillService {
         return "no connetion";
       }
     } on DioException catch (e) {
-      throw e.response!;
+      throw e.response!.data["message"];
     }
     //  on Error catch(e){
     //   throw e;

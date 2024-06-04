@@ -423,7 +423,7 @@ class ReportCubit extends Cubit<ReportState> {
       final report = Report.fromJson(response.data['body']);
       emit(ReportLoaded(report));
     } on DioException catch (e) {
-      emit(ReportError(e.response.toString()));
+      emit(ReportError(e.response!.data["message"].toString()));
     }
   }
 }

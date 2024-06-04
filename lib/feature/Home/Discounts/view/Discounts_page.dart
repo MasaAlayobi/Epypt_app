@@ -69,7 +69,7 @@ class _LogoState extends State<Logo> {
   Future<void> _confirm() async {
     print(discounts.map((discount) => discount.toJson()).toList());
 
-     final accessToken = await TokenStorage().getAccessToken();
+    final accessToken = await TokenStorage().getAccessToken();
 
     try {
       final response = await Dio().post(
@@ -103,7 +103,7 @@ class _LogoState extends State<Logo> {
       }
     } on DioException catch (e) {
       if (e.response != null) {
-        final response = e.response!;
+        final response = e.response!.data["message"];
         if (response.data != null && response.data is Map<String, dynamic>) {
           final Map<String, dynamic> data = response.data;
           if (data.containsKey('message') && data.containsKey('errors')) {
@@ -176,7 +176,6 @@ class _LogoState extends State<Logo> {
           ),
         ),
         backgroundColor: const Color(0xffE8E2E2),
- 
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -507,7 +506,7 @@ class MyCustomForm extends StatelessWidget {
       String formattedDate =
           '${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}';
       controller.text = formattedDate;
-      
+
       onChanged(formattedDate);
     }
   }
