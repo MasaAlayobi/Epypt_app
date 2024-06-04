@@ -33,11 +33,11 @@ class NotificationPage extends StatelessWidget {
               builder: (context, state) {
                if(state is SuccessFetchNotification){
                  return ListView.builder(
-                  itemCount: state.allProduct.length,
+                  itemCount: state.notification.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        if(state.allProduct[index].type=='preparing-bill'){
+                        if(state.notification[index].type=='preparing-bill'){
                           GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
                         }
                         else {
@@ -58,7 +58,7 @@ class NotificationPage extends StatelessWidget {
                                         style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),
                                         ),
                                 subtitle: Text(
-                                   state.allProduct[index].data.message
+                                   state.notification[index].data.message
                                     // style: Styles.textStyleDate.copyWith(fontSize: 20),
                                     ),
                               ),
@@ -67,7 +67,8 @@ class NotificationPage extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    '$formattedDate – $formattedTime $dayPeriod',
+                                    // '$formattedDate – $formattedTime $dayPeriod',
+                                    state.notification[index].created_at
                                     // style: Styles.textStyleDate,
                                   ),
                                 ),

@@ -5,19 +5,23 @@ import 'package:mufraty_app/Core/Data/data_model.dart';
 
 class NotfiicationModel {
   String type;
+  String created_at;
   DataModel data;
   NotfiicationModel({
     required this.type,
+    required this.created_at,
     required this.data,
   });
   
 
   NotfiicationModel copyWith({
     String? type,
+    String? created_at,
     DataModel? data,
   }) {
     return NotfiicationModel(
       type: type ?? this.type,
+      created_at: created_at ?? this.created_at,
       data: data ?? this.data,
     );
   }
@@ -25,6 +29,7 @@ class NotfiicationModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'type': type,
+      'created_at': created_at,
       'data': data.toMap(),
     };
   }
@@ -32,6 +37,7 @@ class NotfiicationModel {
   factory NotfiicationModel.fromMap(Map<dynamic, dynamic> map) {
     return NotfiicationModel(
       type: map['type'] as String,
+      created_at: map['created_at'] as String,
       data: DataModel.fromMap(map['data'] as Map<dynamic,dynamic>),
     );
   }
@@ -41,7 +47,7 @@ class NotfiicationModel {
   factory NotfiicationModel.fromJson(String source) => NotfiicationModel.fromMap(json.decode(source) as Map<dynamic, dynamic>);
 
   @override
-  String toString() => 'NotfiicationModel(type: $type, data: $data)';
+  String toString() => 'NotfiicationModel(type: $type, created_at: $created_at, data: $data)';
 
   @override
   bool operator ==(covariant NotfiicationModel other) {
@@ -49,9 +55,10 @@ class NotfiicationModel {
   
     return 
       other.type == type &&
+      other.created_at == created_at &&
       other.data == data;
   }
 
   @override
-  int get hashCode => type.hashCode ^ data.hashCode;
+  int get hashCode => type.hashCode ^ created_at.hashCode ^ data.hashCode;
 }

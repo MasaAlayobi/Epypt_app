@@ -22,11 +22,11 @@ void main() async {
   //  initial();
 
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   initial();
-  //   await FirebaseApi().initNotiification();
+     await FirebaseApi().initNotiification();
 //  await FirebaseMessaging.instance.setAutoInitEnabled(true);
   Bloc.observer = MyBlocObserver();
 

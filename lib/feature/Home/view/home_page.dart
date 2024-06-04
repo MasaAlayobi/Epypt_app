@@ -153,6 +153,9 @@ class _HomePageState extends State<HomePage> {
           currentIndex: widget.currentIndex!,
           onTap: (int index) {
             setState(() {
+              if (index==2){
+BlocProvider.of<ReportCubit>(context).getReport( '1-1-2024', '31-12-2024' );
+}
               widget.currentIndex = index;
             });
           },

@@ -15,7 +15,7 @@ class FirebaseApi{
  initPushNotification();
  }
     }catch(e){
-      storage.get<SharedPreferences>().setString('deviceToken','');
+      storage.get<SharedPreferences>().setString('deviceToken','masa');
       print(storage.get<SharedPreferences>().getString('deviceToken'));
        print("Error getting token: $e");
     }

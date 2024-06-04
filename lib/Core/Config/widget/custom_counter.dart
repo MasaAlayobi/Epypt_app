@@ -61,6 +61,7 @@ class _CustomCounterState extends State<CustomCounter> {
               height: 33,
               child: TextField(
                 controller: widget.controller,
+              
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: UnderlineInputBorder(

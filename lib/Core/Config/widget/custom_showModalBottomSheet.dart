@@ -215,11 +215,15 @@ class _CustomShowmodalbottomsheetState
                             child: InkWell(
                               onTap: () => _selectDate(context),
                               child: IgnorePointer(
-                                child: TextFormField(
-                                  controller: date,
-                                  decoration: InputDecoration(
-                                    // labelText: 'Date',
-                                    hintText: 'أضغط لتحديد التاريخ',
+                                child: Center(
+                                  child: TextFormField(
+                                    controller: date,
+                                    style: TextStyle(),
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                      // labelText: 'Date',
+                                      hintText: 'أضغط لتحديد التاريخ',
+                                    ),
                                   ),
                                 ),
                               ),

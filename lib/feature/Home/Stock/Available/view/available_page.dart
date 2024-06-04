@@ -584,8 +584,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                   child:
                                                                       Text('تعديل',style: TextStyle(color: colorApp.basicColor)),
                                                                   onPressed: () {
-                                                                    if (_updateOffer !=
-                                                                        null) {
+                                                                    if (_updateOffer.text.isNotEmpty) {
                                                                       context.read<AvailableProductsBloc>().add(UpdatePraice(
                                                                           id: state
                                                                               .allProduct[
@@ -743,15 +742,7 @@ class _AvailablePageState extends State<AvailablePage> {
               }
             },
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            child: Icon(
-              Icons.add,
-              color: colorApp.whiteColor,
-              size: 33,
-            ),
-            backgroundColor: colorApp.basicColor,
-          ),
+          
         );
       }),
     );

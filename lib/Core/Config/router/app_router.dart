@@ -5,6 +5,7 @@ import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/feature/Auth/forgetPassword/view/forget_password.dart';
 import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
 import 'package:mufraty_app/feature/Auth/register/view/register_page.dart';
+import 'package:mufraty_app/feature/Auth/resetPassword/view/reset_password_view.dart';
 import 'package:mufraty_app/feature/Auth/verification/view/veirfy_code_view.dart';
 import 'package:mufraty_app/feature/Home/Notification/view/notification_page.dart';
 import 'package:mufraty_app/feature/Home/Stock/NotAvailable/view/not_available_page.dart';
@@ -30,6 +31,7 @@ abstract class AppRouter {
   static const KNotification = '/Notification';
   static const KforgetPassword = '/forgetPassword';
   static const KVeirfyCodeView = '/VeirfyCodeView';
+    static const KResetpasswordView='/ResetpasswordView';
 
   static final routter = GoRouter(
 
@@ -99,6 +101,9 @@ abstract class AppRouter {
             builder: (context, state) => ForgetpassowrdViewBody()),
         GoRoute(
             path: KVeirfyCodeView,
-            builder: (context, state) => VeirfyCodeView())
+            builder: (context, state) => VeirfyCodeView()),
+             GoRoute(path: 
+        KResetpasswordView,
+        builder:(context, state) =>ResetpasswordView() ),
       ]);
 }

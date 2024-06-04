@@ -19,7 +19,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         if (temp.isEmpty) {
           emit(NotFound());
         } else {
-          emit(SuccessFetchNotification(allProduct: temp));
+          emit(SuccessFetchNotification(notification: temp));
         }
       } catch (e) {
         emit(NoConnectionWithNotification(message: e.toString()));

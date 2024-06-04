@@ -70,6 +70,7 @@ formData.files.addAll({
         print(response.data);
         List<String> successModel=[response.data["message"],response.data["supplier"]["store_name"]];
         storage.get<SharedPreferences>().setString('store_name', response.data["supplier"]["store_name"]);
+        storage.get<SharedPreferences>().setString('refresh_token', response.data['refresh_token']);
         return successModel;
       } else if (response.statusCode == 422) {
         print(response.data);
@@ -101,6 +102,7 @@ formData.files.addAll({
         print('${TokenStorage().getAccessToken()}+${TokenStorage().getRefreshToken()}++');
       List<String> successModel=[response.data["message"],response.data["supplier"]["store_name"]];
       storage.get<SharedPreferences>().setString('store_name', response.data["supplier"]["store_name"]);
+      storage.get<SharedPreferences>().setString('refresh_token', response.data['refresh_token']);
         return successModel;
       }else{print("object");}
     } on DioException catch(e ) {

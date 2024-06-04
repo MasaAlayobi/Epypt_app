@@ -23,19 +23,26 @@ class StockPage extends StatefulWidget {
   State<StockPage> createState() => _StockPageState();
 }
 
-class _StockPageState extends State<StockPage> {
+class _StockPageState extends State<StockPage> with SingleTickerProviderStateMixin {
   int index = 1;
-  late TabController _tabcontroller;
+ late TabController _tabController;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _tabController = TabController(length: 3, vsync: this);
     //  _tabcontroller.index=index;
   }
-
+ @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
   String? search;
   @override
   Widget build(BuildContext context) {
+    final int _pageToNavigate = 0;
+     final int _targetPageIndex = 1;
     return Builder(builder: (context) {
       return DefaultTabController(
         length: 3,
@@ -127,6 +134,7 @@ class _StockPageState extends State<StockPage> {
                     child: Directionality(
                       textDirection: TextDirection.rtl,
                       child: TabBar(
+                         controller: _tabController,
                           // controller: _tabcontroller,
                           indicator: UnderlineTabIndicator(
                               borderSide: BorderSide(
@@ -150,6 +158,7 @@ class _StockPageState extends State<StockPage> {
                   ),
                   Expanded(
                       child: TabBarView(
+                         controller: _tabController,
                           // controller: _tabcontroller,
                           children: [
                         WarehousePage(),
@@ -159,6 +168,19 @@ class _StockPageState extends State<StockPage> {
                 ],
               ),
             ),
+          
+            floatingActionButton:
+            FloatingActionButton(
+            onPressed: () {
+               _tabController.animateTo(_pageToNavigate);
+            },
+            child: Icon(
+              Icons.add,
+              color: colorApp.whiteColor,
+              size: 28,
+            ),
+            backgroundColor: colorApp.basicColor,
+          ),
           ),
         ),
       );

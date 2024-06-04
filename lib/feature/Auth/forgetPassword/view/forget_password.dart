@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mufraty_app/Core/Config/error_handler.dart';
@@ -14,9 +15,12 @@ class ForgetpassowrdView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      // backgroundColor: colorApp.BackgroundColor2,
-      body: ForgetpassowrdViewBody(),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: const Scaffold(
+        // backgroundColor: colorApp.BackgroundColor2,
+        body: ForgetpassowrdViewBody(),
+      ),
     );
   }
 }
@@ -44,124 +48,157 @@ class _ForgetpassowrdViewBodyState extends State<ForgetpassowrdViewBody> {
   @override
   Widget build(BuildContext context) {
     final forgetCubit = BlocProvider.of<UserCubitCubit>(context);
-    return Scaffold(
-      backgroundColor: colorApp.BackgroundColor2,
-      body: Form(
-        key: formKey,
-        autovalidateMode: autovalidateMode,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          // decoration: buildLinearGradient(),
-          child: ListView(
-            children: [
-              const SizedBox(
-                height: 32,
-              ),
-              const Text(
-                " نسيت كلمه السر ",
-                textAlign: TextAlign.center,
-                style:TextStyle(color: colorApp.basicColor,fontSize: 23,fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              const Divider(
-                thickness: 1.8,
-                indent: 50,
-                endIndent: 50,
-                color: colorApp.basicColor,
-              ),
-
-              const SizedBox(
-                height: 60,
-              ),
-              Padding(
-                            padding: const EdgeInsets.all(11),
-                            child:Image.asset(
-              width: 150,
-              height: 150,
-              'asstes/images/newLogooooooooo.png'),
-                            //  CircleAvatar(
-                            //   maxRadius: 76,
-                            //   backgroundColor: colorApp.BackgroundColor2,
-                            //   // backgroundImage: AssetImage('asstes/images/logooooooo.png'),
-                            //   child:
-                            //       Image.asset('asstes/images/logooooooo.png',width: 100,),
-                            // ),
-                          ),
-              const SizedBox(
-                height: 30,
-              ),
-              // CustomTextfield(
-              //   controller: forgetCubit.forgetPhon,
-              //   validator: checkValidate,
-              //   prefixIcon: const Icon(Icons.call),
-              //   hintText: 'رقم الهاتف',
-              //   label: const Text(
-              //     'ادخل رقم الهاتف',
-              //   ),
-              // ),
-              Directionality(
-                textDirection: TextDirection.ltr,
-                child: CustomTextfield(
-                  onChanged: (value) {},
-                  keyboardType: TextInputType.phone,
-                  controller: forgetCubit.forgetPhon,
-                  validator: checkValidate,
-                  // prefixText: '+20',
-
-                  suffixIcon: const Icon(Icons.phone),
-                  label: const Text(
-                    ' ادخل الرقم',
-                    style: TextStyle(color: colorApp.basicColor),
-                  ),
-
-                  //  hintText: '+20 1111111111',
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: colorApp.BackgroundColor2,
+        body: Form(
+          key: formKey,
+          autovalidateMode: autovalidateMode,
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            // decoration: buildLinearGradient(),
+            child: ListView(
+              children: [
+                Align(
+                alignment: Alignment.centerLeft,
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: InkWell(
+                    onTap: () {
+                      GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
+                    },
+                    child: Icon(Icons.arrow_back,color: colorApp.basicColor,
+                    size: 40,),
+                  ))),
+                const SizedBox(
+                  height: 32,
                 ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              CustomTextfield(
+                const Text(
+                  " نسيت كلمه السر ",
+                  textAlign: TextAlign.center,
+                  style:TextStyle(color: colorApp.basicColor,fontSize: 23,fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const Divider(
+                  thickness: 1.8,
+                  indent: 50,
+                  endIndent: 50,
+                  color: colorApp.basicColor,
+                ),
+      
+                const SizedBox(
+                  height: 60,
+                ),
+                Padding(
+                              padding: const EdgeInsets.all(11),
+                              child:Image.asset(
+                width: 150,
+                height: 150,
+                'asstes/images/newLogooooooooo.png'),
+                              //  CircleAvatar(
+                              //   maxRadius: 76,
+                              //   backgroundColor: colorApp.BackgroundColor2,
+                              //   // backgroundImage: AssetImage('asstes/images/logooooooo.png'),
+                              //   child:
+                              //       Image.asset('asstes/images/logooooooo.png',width: 100,),
+                              // ),
+                            ),
+                const SizedBox(
+                  height: 30,
+                ),
+                // CustomTextfield(
+                //   controller: forgetCubit.forgetPhon,
+                //   validator: checkValidate,
+                //   prefixIcon: const Icon(Icons.call),
+                //   hintText: 'رقم الهاتف',
+                //   label: const Text(
+                //     'ادخل رقم الهاتف',
+                //   ),
+                // ),
+                CustomTextfield(
                 floatingLabelBehavior: FloatingLabelBehavior.always,
-                controller: forgetCubit.forgetfirstname,
+                controller: forgetCubit.forgetPhon,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10), // +20 و 10 أرقام
+                ],
                 validator: checkValidate,
-                prefixIcon: const Icon(Icons.person),
-                hintText: ' الاسم',
+                // obscureText: obscureText,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      // obscureText = !obscureText;
+                      // if (obscureText) {
+                      //   iconpasswrd = const Icon(
+                      //       Icons.visibility_off); // عندما تكون كلمة المرور مخفية
+                      // } else {
+                      //   iconpasswrd = const Icon(
+                      //       Icons.visibility); // عندما تكون كلمة المرور مرئية
+                      // }
+                    });
+                  },
+                  icon: Icon(Icons.phone),
+                ),
+                hintText: 'رقم الهاتف ',
+                suffixText: '20+',
+                labelStyle: TextStyle(fontSize: 14, color: ColorManager().red),
+      
+                // prefixIcon: const Icon(Icons.lock),
+                // hint: 'رقمك ',
+                // hintText: '* * * * * * *',
                 label: const Text(
-                  'ادخل الاسم',
+                  'أدخل الرقم',
                   style: TextStyle(color: colorApp.basicColor),
                 ),
               ),
-              const SizedBox(
-                height: 38,
-              ),
-              BlocConsumer<UserCubitCubit, UserCubitState>(
-                listener: (context, state) {
-                  if (state is ForgetFailure) {
-                    showCustomSnackBar(context, state.errorMessage,
-                        color: Colors.red);
-                  } else if (state is ForgetSuccess) {
-                    showCustomSnackBar(context, state.message,
-                        color: Colors.green);
-                    GoRouter.of(context).push(AppRouter.KVeirfyCodeView);
-                  }
-                },
-                builder: (context, state) {
-                  if (state is ForgetLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(color: Colors.red),
+                const SizedBox(
+                  height: 8,
+                ),
+                CustomTextfield(
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  controller: forgetCubit.forgetfirstname,
+                  validator: checkValidate,
+                  prefixIcon: const Icon(Icons.person),
+                  hintText: ' الاسم',
+                  label: const Text(
+                    'ادخل الاسم',
+                    style: TextStyle(color: colorApp.basicColor),
+                  ),
+                ),
+                const SizedBox(
+                  height: 38,
+                ),
+                BlocConsumer<UserCubitCubit, UserCubitState>(
+                  listener: (context, state) {
+                    if (state is ForgetFailure) {
+                      showCustomSnackBar(context, state.errorMessage,
+                          color: Colors.red);
+                    } else if (state is ForgetSuccess) {
+                      showCustomSnackBar(context, state.message,
+                          color: Colors.green);
+                      GoRouter.of(context).push(AppRouter.KVeirfyCodeView);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is ForgetLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(color: Colors.red),
+                      );
+                    }
+                    return CustomButton(
+                      onTap: () {
+                        validateMethod(forgetCubit);
+                      },
+                      text: 'تحقق',
                     );
-                  }
-                  return CustomButton(
-                    onTap: () {
-                      validateMethod(forgetCubit);
-                    },
-                    text: 'تحقق',
-                  );
-                },
-              ),
-            ],
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -252,7 +289,7 @@ void showCustomSnackBar(BuildContext context, String message,
 
 class UserCubitCubit extends Cubit<UserCubitState> {
   UserCubitCubit() : super(UserInitial());
-  TextEditingController forgetPhon = TextEditingController(text: '+20');
+  TextEditingController forgetPhon = TextEditingController(  );
   TextEditingController forgetfirstname = TextEditingController();
   forget() async {
     emit(ForgetLoading());
@@ -260,7 +297,7 @@ class UserCubitCubit extends Cubit<UserCubitState> {
       final response = await Dio().post(
         'https://backend.almowafraty.com/api/v1/forget/password',
         data: {
-          'phone_number': forgetPhon.text,
+          'phone_number':int.parse( "+20${forgetPhon.text}"),
           'name': forgetfirstname.text,
         },
       );

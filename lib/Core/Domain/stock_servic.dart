@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:mufraty_app/Core/Config/getHeader.dart';
 import 'package:mufraty_app/Core/Config/shared_preferences.dart';
+import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/Core/Data/add_offer_model.dart';
 import 'package:mufraty_app/Core/Data/add_product_model.dart';
 import 'package:mufraty_app/Core/Data/add_product_with_offer_model.dart';
@@ -13,7 +14,7 @@ import 'package:mufraty_app/Core/Data/update_offer_model.dart';
 import 'package:mufraty_app/Core/Domain/base_service.dart';
 import 'package:mufraty_app/Core/Resourse/URL.dart';
 import 'package:mufraty_app/feature/Home/Stock/Warehouse/bloc/products_bloc.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 abstract class StockServic extends DioClient {
   Future<List<ProductsModel>> getAllProduct(String lable);
   Future<List<AvailableProductsModel>> getAvailableProduct(String label);
@@ -252,6 +253,7 @@ class StockServicImp extends StockServic {
       
       print(response.data);
       await TokenStorage().clearTokens();
+      storage.get<SharedPreferences>().setString('refresh_token','');
       return response.data['message'];
     } else {
       print('**************************');
@@ -275,6 +277,7 @@ class StockServicImp extends StockServic {
 
       List<NotfiicationModel> allProduct = List.generate(
           temp.length, (index) => NotfiicationModel.fromMap(temp[index]));
+          
        print(allProduct);
       return allProduct;
     } else {

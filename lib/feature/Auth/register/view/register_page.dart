@@ -111,6 +111,7 @@ class _SignUpState extends State<SignUp> {
         child: Builder(builder: (context) {
           return SafeArea(
             child: Scaffold(
+              backgroundColor: colorApp.BackgroundColor2,
               body: Container(
                 child: Padding(
                   padding: const EdgeInsets.all(11.0),
@@ -469,7 +470,7 @@ class _SignUpState extends State<SignUp> {
                               },
                               child: MyButton(
                                 title: "إنشاء حساب",
-                                onpress: () async {
+                               onpress: () async {
                                   print('+20${_controller.text.toString()}');
                                   if (firstName.text.isNotEmpty &&
                                       lastName.text.isNotEmpty &&
@@ -479,11 +480,13 @@ class _SignUpState extends State<SignUp> {
                                       deliveryTime.text.isNotEmpty &&
                                       quantity.text.isNotEmpty &&
                                       priceBill.text.isNotEmpty &&
-                                      catorgy.text.isNotEmpty &&
+                                      // catorgy.text.isNotEmpty &&
                                       cititesId1.isNotEmpty &&
                                       cityId != null &&
                                       image != null&&
-                                      categoryId!=null) {
+                                      categoryId!=null&&
+                                      storage.get<SharedPreferences>().getString('deviceToken').toString().isNotEmpty
+                                      ) {
                                     RegisterModel user = RegisterModel(
                                         first_name: firstName.text,
                                         middle_name: secondName.text,
@@ -500,26 +503,27 @@ class _SignUpState extends State<SignUp> {
                                         city_id: cityId!,
                                         supplier_category_id:
                                             categoryId!,
-                                            deviceToken:storage.get<SharedPreferences>().getString('deviceToken')!,
+                                            deviceToken:storage.get<SharedPreferences>().getString('deviceToken').toString(),
                                         to_sites: cititesId1);
-                                    // RegisterModel user = RegisterModel(
-                                    // first_name:'fhdb',
-                                    // middle_name: 'gdnb',
-                                    // last_name: 'dnbg',
-                                    // phone_number: '+20${_controller.text.toString()}',
-                                    // store_name: 'rtsbhntr',
-                                    // password:'123456788',
-                                    // delivery_duration:'657',
-                                    // min_selling_quantity:
-                                    //     77,
-                                    // min_bill_price: 888,
-                                    // city_id: 1,
-                                    // supplier_category_id:
-                                    //     1,
-                                    // to_sites: [1]);
+                                  //   RegisterModel user = RegisterModel(
+                                  //   first_name:'fhdb',
+                                  //   middle_name: 'gdnb',
+                                  //   last_name: 'dnbg',
+                                  //   phone_number: '+201383456768',
+                                  //   store_name: 'rtsbhntr',
+                                  //   password:'123456788',
+                                  //   delivery_duration:'657',
+                                  //   min_selling_quantity:
+                                  //       77,
+                                  //   min_bill_price: 888,
+                                  //   city_id: 1,
+                                  //   supplier_category_id:
+                                  //       1,
+                                  //       deviceToken:storage.get<SharedPreferences>().getString('deviceToken')!,
+                                  //   to_sites: [1]);
                                     context.read<RegisterBloc>().add(
                                         CreateUser(User: user, image: image!));
-                                  } else {
+                                   } else {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(new SnackBar(
                                       content: Text('إملاء كامل الحقول'),

@@ -7,7 +7,7 @@ import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Home/Discounts/view/Discounts_page.dart';
 import 'package:mufraty_app/feature/Home/Stock/Warehouse/bloc/products_bloc.dart';
 
-class CustomShowModelWithoutOffer extends StatelessWidget {
+class CustomShowModelWithoutOffer extends StatefulWidget {
   CustomShowModelWithoutOffer(
       {super.key,
       this.onTap,
@@ -22,10 +22,16 @@ class CustomShowModelWithoutOffer extends StatelessWidget {
   final String size_of;
   final bool isImage;
   final num id;
+
   @override
-  Widget build(BuildContext context) {
+  State<CustomShowModelWithoutOffer> createState() => _CustomShowModelWithoutOfferState();
+}
+
+class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffer> {
     TextEditingController price = TextEditingController();
     TextEditingController quantity = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ProductsBloc(),
       child: Builder(builder: (context) {
@@ -47,7 +53,7 @@ class CustomShowModelWithoutOffer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomText(
-                              text: nameProduct,
+                              text: widget.nameProduct,
                               size: 14,
                               color: colorApp.blackColor,
                               fontWeight: FontWeight.bold,
@@ -55,9 +61,9 @@ class CustomShowModelWithoutOffer extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: CircleAvatar(
-                              backgroundImage: isImage
-                                  ? NetworkImage(image)
-                                  : AssetImage(image),
+                              backgroundImage: widget.isImage
+                                  ? NetworkImage(widget.image)
+                                  : AssetImage(widget.image),
                               radius: 30,
                             ),
                           )
@@ -67,7 +73,7 @@ class CustomShowModelWithoutOffer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CustomText(
-                            text: size_of,
+                            text: widget.size_of,
                             size: 13,
                             color: colorApp.blackColor,
                             fontWeight: FontWeight.bold,
@@ -155,14 +161,14 @@ class CustomShowModelWithoutOffer extends StatelessWidget {
                         },
                         child: InkWell(
                           onTap: () {
-                            print('${quantity.text}+${price.text}+${id}');
+                            print('${quantity.text}+${price.text}+${widget.id}');
 
                             if (quantity.text != "" && price.text != "") {
                               BlocProvider.of<ProductsBloc>(context).add(
                                   addProductWithoutOffer(
                                       product: AddProductModel(
                                           price: int.parse(price.text),
-                                          product_id: id,
+                                          product_id: widget.id,
                                           max_selling_quantity:
                                               int.parse(quantity.text))));}
                              else {

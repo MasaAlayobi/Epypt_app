@@ -1,7 +1,8 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
-
+import 'package:mufraty_app/Core/Config/storage/getit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 /// Edit the Directory Programmatically Here
 const directory = "Android/media/matrix/.neo";
 
@@ -30,7 +31,7 @@ class _SpashViewState extends State<SpashView>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 11), // مدة الحركة الكلية
+      duration: const Duration(seconds: 4), // مدة الحركة الكلية
       vsync: this,
     );
 
@@ -311,7 +312,9 @@ class _SpashViewState extends State<SpashView>
         _sizeAnimation.status == AnimationStatus.completed &&
         !allAnimationsCompleted) {
       allAnimationsCompleted = true;
-      AppRouter.routter.go(AppRouter.kLoginView);
+      storage.get<SharedPreferences>().getString('refresh_token') != null||storage.get<SharedPreferences>().getString('refresh_token')==''?
+      AppRouter.routter.go(AppRouter.kHomeViewStock)
+      :AppRouter.routter.go(AppRouter.kLoginView);
     }
   }
 }

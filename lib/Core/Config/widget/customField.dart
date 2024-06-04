@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 
 class CustomTextfield extends StatelessWidget {
@@ -22,7 +23,9 @@ class CustomTextfield extends StatelessWidget {
   final String? labelText;
   final FloatingLabelBehavior? floatingLabelBehavior;
   final Widget? suffix;
-
+  final List<TextInputFormatter>? inputFormatters;
+  final TextStyle? suffixStyle;
+  final String? suffixText;
   const CustomTextfield({
     super.key,
     this.hint,
@@ -44,7 +47,7 @@ class CustomTextfield extends StatelessWidget {
     this.isDense,
     this.labelText,
     this.floatingLabelBehavior,
-    this.suffix,
+    this.suffix, this.inputFormatters, this.suffixStyle, this.suffixText,
   });
 
   @override
@@ -62,6 +65,8 @@ class CustomTextfield extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: TextFormField(
+      
+        inputFormatters:inputFormatters,
         readOnly: readOnly,
         maxLines: maxLines,
         maxLength: maxLength,
@@ -79,6 +84,8 @@ class CustomTextfield extends StatelessWidget {
             ),
             isDense: isDense,
             suffixIcon: suffixIcon,
+            suffixStyle:suffixStyle ,
+            suffixText: suffixText,
             label: label,
             floatingLabelStyle: floatingLabelStyle,
             labelStyle: labelStyle,

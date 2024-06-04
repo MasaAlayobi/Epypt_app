@@ -44,7 +44,7 @@ class _VerifyCodeViewBodyState extends State<VerifyCodeViewBody> {
         if (state is VerifyCodeSuccess) {
           showCustomSnackBar(context, state.massage, color: Colors.green);
           // Navigate to the reset password view
-          GoRouter.of(context).push(AppRouter.kLoginView);
+          GoRouter.of(context).push(AppRouter.KResetpasswordView);
         } else if (state is VerifyCodeFailure) {
           showCustomSnackBar(context, state.errorMessage, color: Colors.red);
         }
@@ -62,47 +62,61 @@ class _VerifyCodeViewBodyState extends State<VerifyCodeViewBody> {
   }
 
   Widget buildBody(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      // decoration: buildLinearGradient(),
-      child: ListView(
-        children: [
-          const SizedBox(height: 32),
-          Text("التحقق من الكود",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: colorApp.basicColor,fontSize: 23,fontWeight: FontWeight.w600)),
-          const SizedBox(height: 16),
-          const Divider(
-            thickness: 1.8,
-            indent: 50,
-            endIndent: 50,
-            color: colorApp.basicColor,
-          ),
-          const SizedBox(
-            height: 60,
-          ),
-           Padding(
-                            padding: const EdgeInsets.all(11),
-                            child:Image.asset(
-              width: 150,
-              height: 150,
-              'asstes/images/newLogooooooooo.png'),
-                            //  CircleAvatar(
-                            //   maxRadius: 76,
-                            //   backgroundColor: colorApp.BackgroundColor2,
-                            //   // backgroundImage: AssetImage('asstes/images/logooooooo.png'),
-                            //   child:
-                            //       Image.asset('asstes/images/logooooooo.png',width: 100,),
-                            // ),
-                          ),
-          const SizedBox(
-            height: 30,
-          ),
-          buildOtpCode(context),
-          const SizedBox(height: 8),
-          const SizedBox(height: 38),
-          buildVerifyButton(context),
-        ],
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        // decoration: buildLinearGradient(),
+        child: ListView(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Directionality(
+                textDirection: TextDirection.ltr,
+                child: InkWell(
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.KforgetPassword);
+                  },
+                  child: Icon(Icons.arrow_back,color: colorApp.basicColor,
+                  size: 40,),
+                ))),
+            const SizedBox(height: 32),
+            Text("التحقق من الكود",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: colorApp.basicColor,fontSize: 23,fontWeight: FontWeight.w600)),
+            const SizedBox(height: 16),
+            const Divider(
+              thickness: 1.8,
+              indent: 50,
+              endIndent: 50,
+              color: colorApp.basicColor,
+            ),
+            const SizedBox(
+              height: 60,
+            ),
+             Padding(
+                              padding: const EdgeInsets.all(11),
+                              child:Image.asset(
+                width: 150,
+                height: 150,
+                'asstes/images/newLogooooooooo.png'),
+                              //  CircleAvatar(
+                              //   maxRadius: 76,
+                              //   backgroundColor: colorApp.BackgroundColor2,
+                              //   // backgroundImage: AssetImage('asstes/images/logooooooo.png'),
+                              //   child:
+                              //       Image.asset('asstes/images/logooooooo.png',width: 100,),
+                              // ),
+                            ),
+            const SizedBox(
+              height: 30,
+            ),
+            buildOtpCode(context),
+            const SizedBox(height: 8),
+            const SizedBox(height: 38),
+            buildVerifyButton(context),
+          ],
+        ),
       ),
     );
   }
@@ -140,15 +154,18 @@ class _VerifyCodeViewBodyState extends State<VerifyCodeViewBody> {
   }
 
   Widget buildVerifyButton(BuildContext context) {
-    return CustomButton(
-      onTap: () {
-        final verifyCodeCubit = context.read<VerifyCodeCubit>();
-        verifyCodeCubit.verifyCode(_verificationCode);
-        setState(() {
-          _verificationCode = '';
-        });
-      },
-      text: 'تحقق',
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: CustomButton(
+        onTap: () {
+          final verifyCodeCubit = context.read<VerifyCodeCubit>();
+          verifyCodeCubit.verifyCode(_verificationCode);
+          setState(() {
+            _verificationCode = '';
+          });
+        },
+        text: 'تحقق',
+      ),
     );
   }
 }
@@ -182,7 +199,7 @@ class VerifyCodeCubit extends Cubit<VerifyCodeState> {
     emit(VerifyCodeLoading());
     try {
       final response = await dio.post(
-        'https://backend.almowafraty.com/api/v1/markets/auth/verify-code',
+        'https://backend.almowafraty.com/api/v1/verifyCode',
         data: {
           'verification_code': code,
         },

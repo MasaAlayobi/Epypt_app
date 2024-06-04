@@ -5,9 +5,9 @@ sealed class NotificationState {}
 
 final class NotificationInitial extends NotificationState {}
 class SuccessFetchNotification extends NotificationState {
-  List<NotfiicationModel> allProduct;
+  List<NotfiicationModel> notification;
   SuccessFetchNotification({
-    required this.allProduct,
+    required this.notification,
   });
   
 }
