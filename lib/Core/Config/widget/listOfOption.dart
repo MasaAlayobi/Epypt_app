@@ -55,9 +55,7 @@ class ListOfOption extends StatelessWidget {
           alignment: Alignment.topRight,
           child: widget1,
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height / 99,
-        ),
+
         Container(
           // color: Colors.pink,
           width: widthOfText2,

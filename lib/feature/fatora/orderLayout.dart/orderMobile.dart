@@ -132,11 +132,10 @@ class Order extends StatelessWidget {
                                                     bill.products[index].name),
                                             text2:
                                                 "العدد: ${bill.products[index].size}",
+
                                             text3:
-                                                " ${bill.products[index].size_of}",
-                                            text4:
                                                 "السعر الفردي: ${bill.products[index].price}",
-                                            text5:
+                                            text4:
                                                 "السعر الإجمالي:${bill.products[index].price * bill.products[index].size}",
                                             // heightOfText1:
                                             //     MediaQuery.of(context)
@@ -148,7 +147,7 @@ class Order extends StatelessWidget {
                                             //             .size
                                             //             .height /
                                             //         29,
-                                            // heightOfText3:
+                                            // // heightOfText3:
                                             //     MediaQuery.of(context)
                                             //             .size
                                             //             .height /
@@ -181,12 +180,12 @@ class Order extends StatelessWidget {
                                                                     context)
                                                                 .size
                                                                 .width /
-                                                            13,
+                                                            12,
                                                         height: MediaQuery.of(
                                                                     context)
                                                                 .size
                                                                 .height /
-                                                            13,
+                                                            12,
                                                         decoration:
                                                             BoxDecoration(
                                                           color: ColorManager()
@@ -229,12 +228,12 @@ class Order extends StatelessWidget {
                                                                     context)
                                                                 .size
                                                                 .width /
-                                                            13,
+                                                            12,
                                                         height: MediaQuery.of(
                                                                     context)
                                                                 .size
                                                                 .height /
-                                                            13,
+                                                            12,
                                                         decoration:
                                                             BoxDecoration(
                                                           color: ColorManager()
