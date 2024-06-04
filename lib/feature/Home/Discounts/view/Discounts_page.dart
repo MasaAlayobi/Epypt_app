@@ -94,11 +94,11 @@ class _LogoState extends State<Logo> {
               content: Text('تم إضافة الخصم بنجاح')),
         );
       } else {
-        print('Error: ${response.data}');
+        print('{response.data}');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               backgroundColor: Colors.red,
-              content: Text('Error: ${response.statusMessage}')),
+              content: Text('{response.statusMessage}')),
         );
       }
     } on DioException catch (e) {
@@ -118,37 +118,37 @@ class _LogoState extends State<Logo> {
                   content: Text(' $message\n$errorMessage')),
             );
           } else {
-            print('Dio error: ${response.statusMessage}');
+            print('{response.statusMessage}');
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                   backgroundColor: const Color(0xffE32020),
-                  content: Text('Error: ${response.statusMessage}')),
+                  content: Text('{response.statusMessage}')),
             );
           }
         } else {
-          print('Dio error: ${response.statusMessage}');
+          print(' ${response.statusMessage}');
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 backgroundColor: const Color(0xffE32020),
                 content: Text(
-                  'Error: ${response.statusMessage}',
+                  ' ${response.statusMessage}',
                 )),
           );
         }
       } else {
-        print('Error sending request: ${e.message}');
+        print(' ${e.message}');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               backgroundColor: const Color(0xffE32020),
-              content: Text('Error sending request: ${e.message}')),
+              content: Text(' ${e.message}')),
         );
       }
     } catch (e) {
-      print('Unexpected error: $e');
+      print(' $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
             backgroundColor: const Color(0xffE32020),
-            content: Text('Unexpected error: $e')),
+            content: Text(' $e')),
       );
     }
   }

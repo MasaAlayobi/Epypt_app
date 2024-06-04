@@ -31,7 +31,7 @@ class _SpashViewState extends State<SpashView>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 4), // مدة الحركة الكلية
+      duration: const Duration(seconds: 8), // مدة الحركة الكلية
       vsync: this,
     );
 
@@ -215,6 +215,9 @@ class _SpashViewState extends State<SpashView>
     });
 
     _controller.forward();
+     Future.delayed(const Duration(seconds: 6), () {
+      _controller.forward(); // لبدء الحركة بعد التأخير
+    });
   }
 
   @override

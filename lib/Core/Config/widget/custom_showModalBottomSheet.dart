@@ -316,7 +316,7 @@ class _CustomShowmodalbottomsheetState
                                                               Color>(
                                                           colorApp.basicColor),
                                                   fixedSize: WidgetStateProperty
-                                                      .all<Size>(Size(80, 30)),
+                                                      .all<Size>(Size(100, 30)),
                                                 ),
                                                 child: Center(
                                                     child: Text(

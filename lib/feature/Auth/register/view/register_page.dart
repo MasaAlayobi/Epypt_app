@@ -170,7 +170,7 @@ class _SignUpState extends State<SignUp> {
                             Padding(
                               padding: const EdgeInsets.all(9),
                               child: myTextFieldName(readOnly: false,
-                                nameText: "الاسم الثاني",
+                                nameText: "الاسم الأوسط",
                                 nameController: secondName,
                                 validatorText: "مطلوب",
                               ),
@@ -417,24 +417,29 @@ class _SignUpState extends State<SignUp> {
                             Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 12),
-                                child: MyExpansionTileCities(
-                                    onDataChanged: updateData,
-                                    text1: "اختر المدن للتوصيل",
-                                    widget: Text(""),
-                                    // widget: StatefulBuilder(
-                                    //   builder: (context, setState) => Checkbox(
-                                    //     activeColor: ColorManager().red,
-                                    //     value: isCheckedCheckBox2,
-                                    //     onChanged: (bool? value) {
-                                    //       setState(() {
-                                    //         isCheckedCheckBox2 = value!;
-                                    //       });
-                                    //     },
-                                    //   ),
-
-                                    // text2: "دمشق",
-                                    // text3: "ركن الدين",
-                                    variable: isCheckedCheckBox2)),
+                                child: InkWell(
+                                  onTap: () {
+                                    context.read<RegisterBloc>().add(getCities());
+                                  },
+                                  child: MyExpansionTileCities(
+                                      onDataChanged: updateData,
+                                      text1: "اختر المدن للتوصيل",
+                                      widget: Text(""),
+                                      // widget: StatefulBuilder(
+                                      //   builder: (context, setState) => Checkbox(
+                                      //     activeColor: ColorManager().red,
+                                      //     value: isCheckedCheckBox2,
+                                      //     onChanged: (bool? value) {
+                                      //       setState(() {
+                                      //         isCheckedCheckBox2 = value!;
+                                      //       });
+                                      //     },
+                                      //   ),
+                                  
+                                      // text2: "دمشق",
+                                      // text3: "ركن الدين",
+                                      variable: isCheckedCheckBox2),
+                                )),
                             ChangeSign(
                               text: "لديك حساب؟",
                               textbutton: "تسجيل دخول",

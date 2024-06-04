@@ -198,7 +198,7 @@ class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffe
                                               },
                                                style: ButtonStyle(
                                                 backgroundColor:WidgetStateProperty.all<Color>(colorApp.basicColor),
-                                                fixedSize: WidgetStateProperty.all<Size>(Size(70, 30)),),
+                                                fixedSize: WidgetStateProperty.all<Size>(Size(100, 30)),),
                                               child:
                                                   Center(child: Text('إغلاق',style: TextStyle(color: colorApp.whiteColor),)))
                                         ],

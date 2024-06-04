@@ -267,7 +267,7 @@ class _LoginViewState extends State<LoginView> {
                                     .pushReplacement(AppRouter.kHomeViewStock);
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(new SnackBar(
-                                  content: Text('تم تسجيل الدحول بنجاح'),
+                                  content: Text('تم تسجيل الدخول بنجاح'),
                                   backgroundColor: ColorManager().green,
                                 ));
                               } else if (state is InformationError) {
