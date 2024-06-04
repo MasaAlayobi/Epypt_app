@@ -32,7 +32,7 @@ class CombleteDelivery extends StatelessWidget {
                 if (state is SuccessGetData) {
                   print(state.oneBill);
                   return Scaffold(
-                    backgroundColor: ColorManager().background,
+                        backgroundColor: ColorManager().background,
                     body: SingleChildScrollView(
                       child: Wrap(
                         // mainAxisSize: MainAxisSize.min,

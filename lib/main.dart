@@ -22,19 +22,16 @@ void main() async {
   //  initial();
 
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
   initial();
-     await FirebaseApi().initNotiification();
+  //   await FirebaseApi().initNotiification();
 //  await FirebaseMessaging.instance.setAutoInitEnabled(true);
   Bloc.observer = MyBlocObserver();
 
   runApp(const MyApp());
 }
-
-// في أعلى مستوى، خارج أي class
-// final GlobalKey<NavigatorState> NavigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -66,21 +63,10 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp.router(
-          //  routerDelegate: AppRouter.routter.routerDelegate,
           routerConfig: AppRouter.routter,
-          // routeInformationParser:  AppRouter.routter.routeInformationParser,
-          // routeInformationProvider:  AppRouter.routter.routeInformationProvider,
-          // onGenerateTitle: NavigatorKey,
 
-          //  navigatorKey: navigatorKey,
           theme: lightMode,
           debugShowCheckedModeBanner: false,
         ));
   }
 }
-// MaterialApp(
-//         navigatorKey: navigatorKey,
-//         theme: lightMode,
-//         debugShowCheckedModeBanner: false,
-//         home: LoginView(),
-//       ),

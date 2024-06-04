@@ -65,22 +65,7 @@ class _ReportsPageState extends State<ReportsPage> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           backgroundColor: colorApp.BackgroundColor,
-          appBar: AppBar(
-            backgroundColor: colorApp.basicColor,
-            actions: const [
-              Icon(
-                Icons.person_outline,
-                size: 33,
-                color: colorApp.blackColor,
-              )
-            ],
-            title: CustomText(
-                text: 'تقاريري',
-                size: 18,
-                color: colorApp.blackColor,
-                fontWeight: FontWeight.w800,
-                maxLines: 1),
-          ),
+        
           body: Column(
             children: [
               Row(

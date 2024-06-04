@@ -36,7 +36,7 @@ class SubTitle3 extends StatelessWidget {
     return Text(
       text,
       maxLines: 4,
-      softWrap: true,
+      // softWrap: true,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: color),
     );
@@ -56,11 +56,11 @@ class SubTitle2 extends StatelessWidget {
     return Text(
       text ?? "",
       style: TextStyle(
-        fontSize: 15,
+        fontSize: 14,
         fontWeight: FontWeight.w600,
       ),
-      maxLines: 3,
-      overflow: TextOverflow.ellipsis,
+      // maxLines: 3,
+      // overflow: TextOverflow.ellipsis,
     );
   }
 }
@@ -82,6 +82,7 @@ class HeaderText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
           color: textcolor, fontSize: fontSize, fontWeight: fontWeight),
     );

@@ -1,6 +1,6 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/brebaring/brebaring.dart';
@@ -21,23 +21,7 @@ class Fatora extends StatelessWidget {
         initialIndex: initIndex,
         length: 5,
         child: Scaffold(
-          appBar: AppBar(
-            leading: Center(
-              child: TitleText(
-                text: "فواتيري",
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            // actions: [
-            //   IconButton(
-            //       onPressed: () {},
-            //       icon: const Icon(
-            //         Icons.person_2_outlined,
-            //         size: 25,
-            //       )),
-            // ],
-            backgroundColor: ColorManager().red,
-          ),
+      
           body: Column(
             children: [
               Container(

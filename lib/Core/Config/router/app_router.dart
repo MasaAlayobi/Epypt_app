@@ -9,44 +9,41 @@ import 'package:mufraty_app/feature/Auth/verification/view/veirfy_code_view.dart
 import 'package:mufraty_app/feature/Home/Notification/view/notification_page.dart';
 import 'package:mufraty_app/feature/Home/Stock/NotAvailable/view/not_available_page.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
+import 'package:mufraty_app/feature/animation_logo.dart';
+import 'package:mufraty_app/feature/myData/view/my_data_view.dart';
 import 'package:mufraty_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AppRouter {
-  final TokenStorage init=TokenStorage();
+  final TokenStorage init = TokenStorage();
   static const kLoginView = '/loginView';
+  static const kSplashScreen = '/kSplashScreen';
   static const kRigesterView = '/rigesterView';
   static const kHomeViewStock = '/HomeStock';
   static const KHomeViewFatoraNew = '/HomeViewFatoraNew';
   static const KHomeViewFatoraCombleteDelivery =
       '/HomeViewFatoraCombleteDelivery';
+  static const KMyDataView = '/MyDataView';
   static const KHomeViewFatoraCancel = '/HomeViewFatoraCancel';
   static const kHomeViewFatoraNotRecieved = '/HomeViewFatoraNotRecieved';
   static const KHomeViewFatoraBrebaring = '/HomeViewFatoraBrebaring';
   static const KNotification = '/Notification';
-  static const KforgetPassword='/forgetPassword';
-  static const KVeirfyCodeView='/VeirfyCodeView';
-  // final refershToken = TokenStorage().getRefreshToken();
-  // print(refershToken);
+  static const KforgetPassword = '/forgetPassword';
+  static const KVeirfyCodeView = '/VeirfyCodeView';
+
   static final routter = GoRouter(
 
       // navigatorKey: NavigatorKey ,
       routes: [
+        GoRoute(path: kLoginView, builder: (context, state) => LoginView()),
         GoRoute(
-            path: '/',
-            builder: (context, state)=>LoginView()
-            //  {
-            //   final refershToken = TokenStorage().getRefreshToken().toString();
-            //   print(refershToken);
-            //   return (refershToken != null)
-            //       ? HomePage(
-            //           currentIndex: 1,
-            //           init: 0,
-            //           storNamr: '', 
-            //         )
-            //       : const LoginView();
-            // }
-            ),
+          path: KMyDataView,
+          builder: (context, state) => const MyDataView(),
+        ),
+        GoRoute(
+          path: "/",
+          builder: (context, state) => const SpashView(),
+        ),
         GoRoute(
             path: kLoginView, builder: (context, state) => const LoginView()),
         GoRoute(
@@ -55,18 +52,15 @@ abstract class AppRouter {
         ),
         GoRoute(
           path: kHomeViewStock,
-          builder: (context, state) => HomePage(
-            currentIndex: 1,
-            init: 0,
-            storNamr: storage.get<SharedPreferences>().getString('store_name'),
-          ),
+          builder: (context, state) =>
+              HomePage(currentIndex: 1, init: 0, storNamr: ""),
         ),
         GoRoute(
           path: KHomeViewFatoraNew,
           builder: (context, state) => HomePage(
             currentIndex: 0,
             init: 0,
-            storNamr: storage.get<SharedPreferences>().getString('store_name'),
+            storNamr: "",
           ),
         ),
         GoRoute(
@@ -74,7 +68,7 @@ abstract class AppRouter {
           builder: (context, state) => HomePage(
             currentIndex: 0,
             init: 2,
-            storNamr: storage.get<SharedPreferences>().getString('store_name'),
+            storNamr: "",
           ),
         ),
         GoRoute(
@@ -82,39 +76,29 @@ abstract class AppRouter {
           builder: (context, state) => HomePage(
             currentIndex: 0,
             init: 4,
-            storNamr: storage.get<SharedPreferences>().getString('store_name'),
+            storNamr: "",
           ),
         ),
         GoRoute(
           path: kHomeViewFatoraNotRecieved,
-          builder: (context, state) => HomePage(
-            currentIndex: 0,
-            init: 3,
-            storNamr: storage.get<SharedPreferences>().getString('store_name'),
-          ),
+          builder: (context, state) =>
+              HomePage(currentIndex: 0, init: 3, storNamr: ""),
         ),
         GoRoute(
           path: KHomeViewFatoraBrebaring,
-          builder: (context, state) => HomePage(
-            currentIndex: 0,
-            init: 1,
-            storNamr: storage.get<SharedPreferences>().getString('store_name'),
-          ),
+          builder: (context, state) =>
+              HomePage(currentIndex: 0, init: 1, storNamr: ""),
         ),
         GoRoute(
           path: KNotification,
-          builder: (context, state) => HomePage(
-            currentIndex: 4,
-            init: 0,
-            storNamr: storage.get<SharedPreferences>().getString('store_name'),
-          ),
+          builder: (context, state) =>
+              HomePage(currentIndex: 4, init: 0, storNamr: ""),
         ),
         GoRoute(
-          path: KforgetPassword,
-          builder: (context, state) =>ForgetpassowrdViewBody()
-        ),
-        GoRoute(path: 
-        KVeirfyCodeView,
-        builder:(context, state) =>VeirfyCodeView() )
+            path: KforgetPassword,
+            builder: (context, state) => ForgetpassowrdViewBody()),
+        GoRoute(
+            path: KVeirfyCodeView,
+            builder: (context, state) => VeirfyCodeView())
       ]);
 }

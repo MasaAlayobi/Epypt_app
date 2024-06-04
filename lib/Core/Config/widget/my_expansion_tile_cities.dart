@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +23,8 @@ class MyExpansionTileCities extends StatefulWidget {
     // required this.text2,
     // required this.text3,
     this.variable,
-    required this.widget, required this.onDataChanged,
+    required this.widget,
+    required this.onDataChanged,
   }) : super(key: key);
 
   @override
@@ -34,11 +35,10 @@ class _myExpansionTileState extends State<MyExpansionTileCities> {
   List<num> citiesId = [];
   String? selectedTitle;
   ExpansionTileController controller = ExpansionTileController();
- void someFunctionThatChangesData(List<num> citiesId ) {
-    
-      
+  void someFunctionThatChangesData(List<num> citiesId) {
     widget.onDataChanged(citiesId);
   }
+
   @override
   void initState() {
     super.initState();
@@ -54,14 +54,13 @@ class _myExpansionTileState extends State<MyExpansionTileCities> {
         onExpansionChanged: (value) {
           if (value == false) {
             someFunctionThatChangesData(citiesId);
-            // Navigator.pushReplacement(
+            // Navigator. cement(
             //     context,
             //     MaterialPageRoute(
             //       builder: (_) => SignUp(
             //         cititesId: citiesId,
             //       ),
             //     ));
-             
           }
           print(value);
         },
@@ -92,7 +91,8 @@ class _myExpansionTileState extends State<MyExpansionTileCities> {
                     onExpansionChanged: (value) {
                       if (state.Cities[ind].childrens.isEmpty) {
                         citiesId.add(state.Cities[ind].id);
-                        print(citiesId);}
+                        print(citiesId);
+                      }
                     },
                     // controller: controller,
                     title: HeaderText(
@@ -132,8 +132,7 @@ class _myExpansionTileState extends State<MyExpansionTileCities> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 33, vertical: 11),
                             child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
                                   child: Container(
@@ -148,28 +147,25 @@ class _myExpansionTileState extends State<MyExpansionTileCities> {
                                 ),
                                 StatefulBuilder(
                                   builder: (context, setState) => Checkbox(
-                                    
                                     activeColor: ColorManager().red,
                                     value: isCheckedCheckBox2,
                                     onChanged: (bool? value) {
                                       print(value);
-                                      if(value==true){
-
-                                      citiesId.add(state.Cities[ind].childrens[index].id);
-                            print(citiesId);
-                                      setState(() {
-                                        isCheckedCheckBox2= value!;
-                                        // isCheckedCheckBox2=
-
-                                      });
-                                      }
-                                      else{ 
-                                        citiesId.remove(state.Cities[ind].childrens[index].id);
+                                      if (value == true) {
+                                        citiesId.add(state
+                                            .Cities[ind].childrens[index].id);
+                                        print(citiesId);
                                         setState(() {
-                                        isCheckedCheckBox2= value!;
-                                        // isCheckedCheckBox2=
-
-                                      });
+                                          isCheckedCheckBox2 = value!;
+                                          // isCheckedCheckBox2=
+                                        });
+                                      } else {
+                                        citiesId.remove(state
+                                            .Cities[ind].childrens[index].id);
+                                        setState(() {
+                                          isCheckedCheckBox2 = value!;
+                                          // isCheckedCheckBox2=
+                                        });
                                       }
                                     },
                                   ),

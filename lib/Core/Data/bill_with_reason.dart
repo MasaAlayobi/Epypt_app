@@ -19,7 +19,7 @@ class BillWithReason {
   String delivery_duration;
   bool updatable;
   String market_note;
-  String created_from;
+
   String payment_method;
   List<Products> products;
   Market market;
@@ -36,7 +36,7 @@ class BillWithReason {
     required this.delivery_duration,
     required this.updatable,
     required this.market_note,
-    required this.created_from,
+
     required this.payment_method,
     required this.products,
     required this.market,
@@ -73,7 +73,7 @@ class BillWithReason {
       delivery_duration: delivery_duration ?? this.delivery_duration,
       updatable: updatable ?? this.updatable,
       market_note: market_note ?? this.market_note,
-      created_from: created_from ?? this.created_from,
+
       payment_method: payment_method ?? this.payment_method,
       products: products ?? this.products,
       market: market ?? this.market,
@@ -94,7 +94,7 @@ class BillWithReason {
       'delivery_duration': delivery_duration,
       'updatable': updatable,
       'market_note': market_note,
-      'created_from': created_from,
+
       'payment_method': payment_method,
       'products': products.map((x) => x.toMap()).toList(),
       'market': market.toMap(),
@@ -115,7 +115,7 @@ class BillWithReason {
       delivery_duration: map['delivery_duration'] as String,
       updatable: map['updatable'] as bool,
       market_note: map['market_note'] as String,
-      created_from: map['created_from'] as String,
+
       payment_method: map['payment_method'] as String,
       products: List<Products>.from(
         (map['products'] as List<dynamic>).map<Products>(
@@ -133,7 +133,7 @@ class BillWithReason {
 
   @override
   String toString() {
-    return 'BillWithReason(id: $id, market_id: $market_id, payment_method_id: $payment_method_id, supplier_id: $supplier_id, total_price: $total_price, rejection_reason: $rejection_reason, recieved_price: $recieved_price, goal_discount: $goal_discount, created_at: $created_at, delivery_duration: $delivery_duration, updatable: $updatable, market_note: $market_note, created_from: $created_from, payment_method: $payment_method, products: $products, market: $market)';
+    return 'BillWithReason(id: $id, market_id: $market_id, payment_method_id: $payment_method_id, supplier_id: $supplier_id, total_price: $total_price, rejection_reason: $rejection_reason, recieved_price: $recieved_price, goal_discount: $goal_discount, created_at: $created_at, delivery_duration: $delivery_duration, updatable: $updatable, market_note: $market_note, payment_method: $payment_method, products: $products, market: $market)';
   }
 
   @override
@@ -152,7 +152,7 @@ class BillWithReason {
         other.delivery_duration == delivery_duration &&
         other.updatable == updatable &&
         other.market_note == market_note &&
-        other.created_from == created_from &&
+
         other.payment_method == payment_method &&
         listEquals(other.products, products) &&
         other.market == market;
@@ -172,7 +172,7 @@ class BillWithReason {
         delivery_duration.hashCode ^
         updatable.hashCode ^
         market_note.hashCode ^
-        created_from.hashCode ^
+
         payment_method.hashCode ^
         products.hashCode ^
         market.hashCode;

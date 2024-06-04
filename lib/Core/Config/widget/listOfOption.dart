@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 
-
 class ListOfOption extends StatelessWidget {
   Widget widget1;
   String? text2;
@@ -59,7 +58,7 @@ class ListOfOption extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height / 99,
         ),
-         Container(
+        Container(
           // color: Colors.pink,
           width: widthOfText2,
           height: heightOfText2,
@@ -98,6 +97,9 @@ class ListOfOption extends StatelessWidget {
         ),
 
         Align(alignment: Alignment.bottomCenter, child: myWidget ?? Text(" ")),
+        SizedBox(
+          height: 11,
+        )
       ],
     );
   }

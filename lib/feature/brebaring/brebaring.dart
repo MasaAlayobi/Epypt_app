@@ -22,7 +22,6 @@ class Brebaring extends StatelessWidget {
   @override
   String? selectedValue;
   Widget build(BuildContext context) {
-    String textDrop = "اختر الحالة";
     double heightSize = MediaQuery.of(context).size.height;
 
     double widthSize = MediaQuery.of(context).size.width;
@@ -118,275 +117,287 @@ class Brebaring extends StatelessWidget {
                                             state.oneBill.length, (_) => null);
 
                                     return CardOfFatora(
-                                      myDropdownMenu: DropdownButton<String>(
-                                        style: TextStyle(
-                                            color: ColorManager().blue,
-                                            fontWeight: FontWeight.w500),
-                                        itemHeight: 66,
-                                        focusColor: ColorManager().blue,
-                                        hint: Text(
-                                          selectedValue ?? "قيد التحضير",
-                                          style: TextStyle(
-                                              color: ColorManager().blue,
-                                              fontWeight: FontWeight.w500),
+                                      myDropdownMenu: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                                255, 250, 174, 169),
+                                            border: Border.all(
+                                                color: Colors.red, width: 2),
+                                            borderRadius:
+                                                BorderRadius.circular(9)),
+                                        child: SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              20,
+                                          child: DropdownButton<String>(
+                                            // iconDisabledColor: Colors.white,
+                                            iconEnabledColor: Colors.white,
+                                            underline: Container(),
+                                            style: TextStyle(
+                                                color: ColorManager().grey1,
+                                                fontWeight: FontWeight.w500),
+                                            itemHeight: 66,
+                                            focusColor: ColorManager().blue,
+                                            hint: Text(
+                                              selectedValue ??
+                                                  "  قيد التحضير  ",
+                                              style: TextStyle(
+                                                  color: ColorManager().white,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            value: dropdownValues[index],
+                                            icon: Icon(Icons.arrow_downward),
+                                            onChanged: (String? newValue) {
+                                              if (newValue == "تم التوصيل") {
+                                                showModalBottomSheet(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return BlocProvider(
+                                                        create: (context) =>
+                                                            BrebaringBloc(),
+                                                        child: Builder(
+                                                            builder: (context) {
+                                                          return Directionality(
+                                                            textDirection:
+                                                                TextDirection
+                                                                    .rtl,
+                                                            child: Container(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height /
+                                                                  3,
+                                                              color:
+                                                                  Colors.white,
+                                                              child: Center(
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <Widget>[
+                                                                    SubTitle2(
+                                                                        text:
+                                                                            "هل تريد تأكيد الاختيار؟"),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets
+                                                                          .all(
+                                                                          18.0),
+                                                                      child: myTextFieldName(
+                                                                          readOnly:
+                                                                              false,
+                                                                          nameText:
+                                                                              "المبلغ المدفوع من مجمل الفاتورة",
+                                                                          nameController:
+                                                                              totalPrice),
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceAround,
+                                                                      children: [
+                                                                        BlocListener<
+                                                                            BrebaringBloc,
+                                                                            BrebaringState>(
+                                                                          listener:
+                                                                              (context, state) {
+                                                                            if (state
+                                                                                is SuccessCombleteRecieve) {
+                                                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                  duration: Duration(seconds: 3),
+                                                                                  backgroundColor: ColorManager().green,
+                                                                                  content: SizedBox(
+                                                                                    height: 50,
+                                                                                    child: Center(child: SubTitle3(text: "تم استلام الفاتورة ")),
+                                                                                  )));
+                                                                              GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
+                                                                            } else if (state
+                                                                                is FailedCombleteRecieve) {
+                                                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                  duration: Duration(seconds: 3),
+                                                                                  backgroundColor: ColorManager().red,
+                                                                                  content: SizedBox(
+                                                                                    height: 50,
+                                                                                    child: Center(child: SubTitle3(text: "تحقق من صحة المعلومات المدخلة")),
+                                                                                  )));
+                                                                            }
+                                                                          },
+                                                                          child: MyButton(
+                                                                              title: "موافق",
+                                                                              onpress: () {
+                                                                                setState(() {
+                                                                                  dropdownValues[index] = newValue;
+                                                                                });
+                                                                                if (totalPrice.text.isEmpty) {
+                                                                                  Navigator.of(context).pop();
+                                                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().green, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
+                                                                                } else {
+                                                                                  BlocProvider.of<BrebaringBloc>(context).add(CombleteReceive(reason: RecivePriceBill(recieved_price: int.parse(totalPrice.text)), id: state.oneBill[index].id));
+                                                                                }
+                                                                              },
+                                                                              colors: ColorManager().green,
+                                                                              width: MediaQuery.of(context).size.width / 3,
+                                                                              height: 55,
+                                                                              radius: 9),
+                                                                        ),
+                                                                        MyButton(
+                                                                            title:
+                                                                                "غير موافق",
+                                                                            onpress:
+                                                                                () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            colors: ColorManager()
+                                                                                .red,
+                                                                            width: MediaQuery.of(context).size.width /
+                                                                                3,
+                                                                            height:
+                                                                                55,
+                                                                            radius:
+                                                                                9),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }),
+                                                      );
+                                                    });
+                                              } else {
+                                                showModalBottomSheet(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return BlocProvider(
+                                                        create: (context) =>
+                                                            BrebaringBloc(),
+                                                        child: Builder(
+                                                            builder: (context) {
+                                                          return Directionality(
+                                                            textDirection:
+                                                                TextDirection
+                                                                    .rtl,
+                                                            child: Container(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height /
+                                                                  3,
+                                                              color:
+                                                                  Colors.white,
+                                                              child: Center(
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <Widget>[
+                                                                    SubTitle2(
+                                                                        text:
+                                                                            "هل تريد تأكيد الاختيار؟"),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets
+                                                                          .all(
+                                                                          18.0),
+                                                                      child: myTextFieldName(
+                                                                          readOnly:
+                                                                              false,
+                                                                          nameText:
+                                                                              "أدخل سبب الإلغاء",
+                                                                          nameController:
+                                                                              reasonOfCancel),
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceAround,
+                                                                      children: [
+                                                                        BlocListener<
+                                                                            BrebaringBloc,
+                                                                            BrebaringState>(
+                                                                          listener:
+                                                                              (context, state) {
+                                                                            if (state
+                                                                                is SuccessCancel) {
+                                                                              GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
+                                                                              print("whyyyyyyyyyyyyyy");
+                                                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                  duration: Duration(seconds: 3),
+                                                                                  backgroundColor: ColorManager().green,
+                                                                                  content: SizedBox(
+                                                                                    height: 50,
+                                                                                    child: Center(child: SubTitle3(text: "تم إلغاء الفاتورة")),
+                                                                                  )));
+                                                                            } else if (state
+                                                                                is FailedCancel) {
+                                                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                  duration: Duration(seconds: 3),
+                                                                                  backgroundColor: ColorManager().red,
+                                                                                  content: SizedBox(
+                                                                                    height: 50,
+                                                                                    child: Center(child: SubTitle3(text: " حقل سبب الإلغاء مطلوب")),
+                                                                                  )));
+                                                                            }
+                                                                          },
+                                                                          child: MyButton(
+                                                                              title: "موافق",
+                                                                              onpress: () {
+                                                                                setState(() {
+                                                                                  dropdownValues[index] = newValue;
+                                                                                });
+                                                                                if (reasonOfCancel.text.isEmpty) {
+                                                                                  Navigator.of(context).pop();
+                                                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().green, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
+                                                                                } else {
+                                                                                  context.read<BrebaringBloc>().add(CancelRecieve(reason: Reason(rejection_reason: reasonOfCancel.text), id: state.oneBill[index].id));
+                                                                                }
+                                                                              },
+                                                                              colors: ColorManager().green,
+                                                                              width: MediaQuery.of(context).size.width / 3,
+                                                                              height: 55,
+                                                                              radius: 9),
+                                                                        ),
+                                                                        MyButton(
+                                                                            title:
+                                                                                "غير موافق",
+                                                                            onpress:
+                                                                                () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            colors: ColorManager()
+                                                                                .red,
+                                                                            width: MediaQuery.of(context).size.width /
+                                                                                3,
+                                                                            height:
+                                                                                55,
+                                                                            radius:
+                                                                                9),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }),
+                                                      );
+                                                    });
+                                              }
+                                            },
+                                            items: <String>[
+                                              "تم التوصيل",
+                                              "رفض الاستلام",
+                                            ].map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                          ),
                                         ),
-                                        value: dropdownValues[index],
-                                        icon: Icon(Icons.arrow_downward),
-                                        onChanged: (String? newValue) {
-                                          if (newValue == "تم التوصيل") {
-                                            showModalBottomSheet(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return BlocProvider(
-                                                    create: (context) =>
-                                                        BrebaringBloc(),
-                                                    child: Builder(
-                                                        builder: (context) {
-                                                      return Directionality(
-                                                        textDirection:
-                                                            TextDirection.rtl,
-                                                        child: Container(
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height /
-                                                              3,
-                                                          color: Colors.white,
-                                                          child: Center(
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: <Widget>[
-                                                                SubTitle2(
-                                                                    text:
-                                                                        "هل تريد تأكيد الاختيار؟"),
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(
-                                                                          18.0),
-                                                                  child: myTextFieldName(
-                                                                      ReadeOnly:
-                                                                          false,
-                                                                      nameText:
-                                                                          "المبلغ المدفوع من مجمل الفاتورة",
-                                                                      nameController:
-                                                                          totalPrice),
-                                                                ),
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceAround,
-                                                                  children: [
-                                                                    BlocListener<
-                                                                        BrebaringBloc,
-                                                                        BrebaringState>(
-                                                                      listener:
-                                                                          (context,
-                                                                              state) {
-                                                                        if (state
-                                                                            is SuccessCombleteRecieve) {
-                                                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                              duration: Duration(seconds: 3),
-                                                                              backgroundColor: ColorManager().green,
-                                                                              content: SizedBox(
-                                                                                height: 50,
-                                                                                child: Center(child: SubTitle3(text: "تم استلام الفاتورة ")),
-                                                                              )));
-                                                                          GoRouter.of(context)
-                                                                              .pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
-                                                                        } else if (state
-                                                                            is FailedCombleteRecieve) {
-                                                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                              duration: Duration(seconds: 3),
-                                                                              backgroundColor: ColorManager().red,
-                                                                              content: SizedBox(
-                                                                                height: 50,
-                                                                                child: Center(child: SubTitle3(text: "تحقق من صحة المعلومات المدخلة")),
-                                                                              )));
-                                                                        }
-                                                                      },
-                                                                      child: MyButton(
-                                                                          title: "موافق",
-                                                                          onpress: () {
-                                                                            setState(() {
-                                                                              dropdownValues[index] = newValue;
-                                                                            });
-                                                                            if (totalPrice.text.isEmpty) {
-                                                                              Navigator.of(context).pop();
-                                                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().green, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
-                                                                            } else {
-                                                                              BlocProvider.of<BrebaringBloc>(context).add(CombleteReceive(reason: RecivePriceBill(recieved_price: int.parse(totalPrice.text)), id: state.oneBill[index].id));
-                                                                            }
-                                                                          },
-                                                                          colors: ColorManager().green,
-                                                                          width: MediaQuery.of(context).size.width / 3,
-                                                                          height: 55,
-                                                                          radius: 9),
-                                                                    ),
-                                                                    MyButton(
-                                                                        title:
-                                                                            "غير موافق",
-                                                                        onpress:
-                                                                            () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        colors: ColorManager()
-                                                                            .red,
-                                                                        width:
-                                                                            MediaQuery.of(context).size.width /
-                                                                                3,
-                                                                        height:
-                                                                            55,
-                                                                        radius:
-                                                                            9),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }),
-                                                  );
-                                                });
-                                          } else {
-                                            showModalBottomSheet(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return BlocProvider(
-                                                    create: (context) =>
-                                                        BrebaringBloc(),
-                                                    child: Builder(
-                                                        builder: (context) {
-                                                      return Directionality(
-                                                        textDirection:
-                                                            TextDirection.rtl,
-                                                        child: Container(
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height /
-                                                              3,
-                                                          color: Colors.white,
-                                                          child: Center(
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: <Widget>[
-                                                                SubTitle2(
-                                                                    text:
-                                                                        "هل تريد تأكيد الاختيار؟"),
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(
-                                                                          18.0),
-                                                                  child: myTextFieldName(
-                                                                      ReadeOnly:
-                                                                          false,
-                                                                      nameText:
-                                                                          "أدخل سبب الإلغاء",
-                                                                      nameController:
-                                                                          reasonOfCancel),
-                                                                ),
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceAround,
-                                                                  children: [
-                                                                    BlocListener<
-                                                                        BrebaringBloc,
-                                                                        BrebaringState>(
-                                                                      listener:
-                                                                          (context,
-                                                                              state) {
-                                                                        if (state
-                                                                            is SuccessCancel) {
-                                                                          GoRouter.of(context)
-                                                                              .pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
-                                                                          print(
-                                                                              "whyyyyyyyyyyyyyy");
-                                                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                              duration: Duration(seconds: 3),
-                                                                              backgroundColor: ColorManager().green,
-                                                                              content: SizedBox(
-                                                                                height: 50,
-                                                                                child: Center(child: SubTitle3(text: "تم إلغاء الفاتورة")),
-                                                                              )));
-                                                                        } else if (state
-                                                                            is FailedCancel) {
-                                                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                              duration: Duration(seconds: 3),
-                                                                              backgroundColor: ColorManager().red,
-                                                                              content: SizedBox(
-                                                                                height: 50,
-                                                                                child: Center(child: SubTitle3(text: " حقل سبب الإلغاء مطلوب")),
-                                                                              )));
-                                                                        }
-                                                                      },
-                                                                      child: MyButton(
-                                                                          title: "موافق",
-                                                                          onpress: () {
-                                                                            setState(() {
-                                                                              dropdownValues[index] = newValue;
-                                                                            });
-                                                                            if (reasonOfCancel.text.isEmpty) {
-                                                                              Navigator.of(context).pop();
-                                                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().green, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
-                                                                            } else {
-                                                                              context.read<BrebaringBloc>().add(CancelRecieve(reason: Reason(rejection_reason: reasonOfCancel.text), id: state.oneBill[index].id));
-                                                                            }
-                                                                          },
-                                                                          colors: ColorManager().green,
-                                                                          width: MediaQuery.of(context).size.width / 3,
-                                                                          height: 55,
-                                                                          radius: 9),
-                                                                    ),
-                                                                    MyButton(
-                                                                        title:
-                                                                            "غير موافق",
-                                                                        onpress:
-                                                                            () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        colors: ColorManager()
-                                                                            .red,
-                                                                        width:
-                                                                            MediaQuery.of(context).size.width /
-                                                                                3,
-                                                                        height:
-                                                                            55,
-                                                                        radius:
-                                                                            9),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }),
-                                                  );
-                                                });
-                                          }
-                                        },
-                                        items: <String>[
-                                          "تم التوصيل",
-                                          "رفض الاستلام",
-                                        ].map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
                                       ),
                                       text1:
                                           "${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",

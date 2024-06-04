@@ -160,6 +160,7 @@ class _SignUpState extends State<SignUp> {
                             Padding(
                               padding: const EdgeInsets.all(9),
                               child: myTextFieldName(
+                                readOnly: false,
                                 nameText: "الاسم الأول",
                                 nameController: firstName,
                                 validatorText: "مطلوب",
@@ -167,7 +168,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(9),
-                              child: myTextFieldName(
+                              child: myTextFieldName(readOnly: false,
                                 nameText: "الاسم الثاني",
                                 nameController: secondName,
                                 validatorText: "مطلوب",
@@ -175,7 +176,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(9),
-                              child: myTextFieldName(
+                              child: myTextFieldName(readOnly: false,
                                 nameText: "الاسم الأخير",
                                 nameController: lastName,
                                 validatorText: "مطلوب",
@@ -361,7 +362,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(9),
-                              child: myTextFieldName(
+                              child: myTextFieldName(readOnly: false,
                                 nameText: "اسم المتجر",
                                 nameController: marketName,
                                 validatorText: "مطلوب",
@@ -393,6 +394,7 @@ class _SignUpState extends State<SignUp> {
                             Padding(
                               padding: const EdgeInsets.all(9),
                               child: myTextFieldName(
+                                readOnly: false,
                                 nameText: "مدة التوصيل",
                                 nameController: deliveryTime,
                                 validatorText: "مطلوب",

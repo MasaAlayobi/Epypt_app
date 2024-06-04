@@ -28,14 +28,7 @@ class NotificationPage extends StatelessWidget {
         create: (context) => NotificationBloc()..add(getNotification()),
         child: Builder(builder: (context) {
           return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.red,
-              title: const Text(
-                'الإشعارات',
-                // style: Styles.textStyle24,
-              ),
-              centerTitle: true,
-            ),
+     
             body: BlocBuilder<NotificationBloc, NotificationState>(
               builder: (context, state) {
                if(state is SuccessFetchNotification){

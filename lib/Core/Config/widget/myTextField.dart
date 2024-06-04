@@ -1,26 +1,28 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
-
-
 
 class myTextFieldName extends StatelessWidget {
   final String? validatorText;
   String nameText;
-  final bool? ReadeOnly;
+  final bool readOnly;
+  final String? label;
   myTextFieldName({
-    Key? key,
+    super.key,
     this.validatorText,
     required this.nameText,
-    required this.nameController,this.ReadeOnly,
-  }) : super(key: key);
+    required this.nameController,
+    required this.readOnly,
+    this.label,
+  });
 
   final TextEditingController nameController;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      readOnly: ReadeOnly??false,
+      readOnly: readOnly,
       keyboardType: TextInputType.name,
       cursorColor: ColorManager().red,
       decoration: InputDecoration(
@@ -42,12 +44,15 @@ class myTextFieldName extends StatelessWidget {
         border: OutlineInputBorder(
             borderSide: BorderSide(color: ColorManager().red)),
         hintText: nameText,
-        labelStyle: TextStyle(fontSize: 77, color: ColorManager().red),
+        labelText: label,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        labelStyle: TextStyle(fontSize: 16, color: ColorManager().red),
       ),
       validator: (text) {
         if (text!.isEmpty) {
           return validatorText;
         }
+        return null;
       },
       controller: nameController,
     );

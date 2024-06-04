@@ -9,37 +9,28 @@ import 'package:mufraty_app/Core/Config/widget/listOfOption.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
 import 'package:mufraty_app/Core/Config/widget/myButtonWidget.dart';
 import 'package:mufraty_app/Core/Data/bill_with_reason.dart';
-
 import 'package:mufraty_app/Core/Resourse/color.dart';
-
-import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
 import 'package:mufraty_app/feature/fatora/orderLayout.dart/with-time-bloc/update_bill_time_bloc.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
-class Order extends StatefulWidget {
+// ignore: must_be_immutable
+class Order extends StatelessWidget {
   BillWithReason bill;
-  // int counter = 0;
+  List<int> counter = [];
+
   Order({
     Key? key,
     required this.bill,
   }) : super(key: key);
 
-  @override
-  State<Order> createState() => _OrderState();
-}
-
-class _OrderState extends State<Order> {
   List<Map<String, int>> list = [];
 
   String? selectedValue;
 
   String? date = "نفس اليوم";
 
+  @override
   Widget build(BuildContext context) {
-    List<int> counter = [];
-    List<int> quantity = [];
     // int quantity;
     return BlocProvider(
       create: (context) => UpdateBillTimeBloc(),
@@ -48,26 +39,34 @@ class _OrderState extends State<Order> {
           onRefresh: () async {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => Order(bill: widget.bill)),
+              MaterialPageRoute(
+                  builder: (context) => Order(
+                        bill: bill,
+                      )),
             );
           },
           child: Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
               appBar: AppBar(
-                backgroundColor: ColorManager().red,
-                title: TitleText(
-                  text: "تفاصيل الطلب",
-                  fontWeight: FontWeight.w600,
-                ),
                 actions: [
                   IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.person_2_outlined,
-                        size: 25,
-                      )),
+                    icon: Icon(Icons.arrow_forward),
+                    onPressed: () {
+                      GoRouter.of(context)
+                          .pushReplacement(AppRouter.KHomeViewFatoraNew);
+                    },
+                    color: ColorManager().white,
+                  )
                 ],
+                leading: Text(""),
+                backgroundColor: ColorManager().red,
+                title: HeaderText(
+                  text: "تفاصيل الطلب",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  textcolor: ColorManager().white,
+                ),
               ),
               body: Column(
                 children: [
@@ -75,7 +74,7 @@ class _OrderState extends State<Order> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListView.separated(
-                        itemCount: widget.bill.products.length,
+                        itemCount: bill.products.length,
                         separatorBuilder: (context, index) => Divider(
                           thickness: 0.4,
                           color: ColorManager().grey2,
@@ -83,26 +82,24 @@ class _OrderState extends State<Order> {
                           endIndent: 33,
                         ),
                         itemBuilder: (context, index) {
-                          counter.add(0);
-                          quantity
-                              .add(widget.bill.products[index].pivot.quantity);
+                          counter = List.generate(bill.products.length,
+                              (ind) => bill.products[ind].pivot.quantity);
+
                           list.add({
-                            "id": widget.bill.products[index].id,
-                            "quantity": quantity[index]
+                            "id": bill.products[index].id,
+                            "quantity": counter[index]
                           });
-                          return widget.bill.products.isNotEmpty
+
+                          return bill.products.isNotEmpty
                               ? Column(
                                   children: [
                                     Row(
                                       children: [
-                                        widget.bill.products[index].image
-                                                .isNotEmpty
+                                        bill.products[index].image.isNotEmpty
                                             ? FittedBox(
                                                 fit: BoxFit.fitHeight,
                                                 child: ImageProduct(
-                                                    image: widget
-                                                        .bill
-                                                        .products[index]
+                                                    image: bill.products[index]
                                                         .image[0]),
                                               )
                                             : Padding(
@@ -131,181 +128,156 @@ class _OrderState extends State<Order> {
                                         Flexible(
                                           child: ListOfOption(
                                             widget1: SubTitle2(
-                                                text: widget
-                                                    .bill.products[index].name),
+                                                text:
+                                                    bill.products[index].name),
                                             text2:
-                                                "العدد: ${widget.bill.products[index].size}",
+                                                "العدد: ${bill.products[index].size}",
                                             text3:
-                                                " ${widget.bill.products[index].size_of}",
+                                                " ${bill.products[index].size_of}",
                                             text4:
-                                                "السعر الفردي: ${widget.bill.products[index].price}",
+                                                "السعر الفردي: ${bill.products[index].price}",
                                             text5:
-                                                "السعر الإجمالي:${widget.bill.products[index].price * widget.bill.products[index].size}",
-                                            heightOfText1:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    29,
-                                            heightOfText2:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    29,
-                                            heightOfText3:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    29,
-                                            heightOfText4:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    29,
-                                            heightOfText5:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    29,
-                                            widthOfText5: 1,
+                                                "السعر الإجمالي:${bill.products[index].price * bill.products[index].size}",
+                                            // heightOfText1:
+                                            //     MediaQuery.of(context)
+                                            //             .size
+                                            //             .height /
+                                            //         29,
+                                            // heightOfText2:
+                                            //     MediaQuery.of(context)
+                                            //             .size
+                                            //             .height /
+                                            //         29,
+                                            // heightOfText3:
+                                            //     MediaQuery.of(context)
+                                            //             .size
+                                            //             .height /
+                                            //         29,
+                                            // heightOfText4:
+                                            //     MediaQuery.of(context)
+                                            //             .size
+                                            //             .height /
+                                            //         29,
+                                            // heightOfText5:
+                                            //     MediaQuery.of(context)
+                                            //             .size
+                                            //             .height /
+                                            //         29,
+                                            // widthOfText5: 1,
                                             myWidget: SizedBox(
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width /
                                                   3.2,
-                                              child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              13,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              13,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            ColorManager().red,
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: FittedBox(
-                                                        fit: BoxFit.fitWidth,
-                                                        child: IconButton(
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              if ((quantity[
-                                                                          index] -
-                                                                      counter[
-                                                                          index]) >=
+                                              child: StatefulBuilder(
+                                                  builder: (context, refresh) {
+                                                return Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            13,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height /
+                                                            13,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: ColorManager()
+                                                              .red,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child: FittedBox(
+                                                          fit: BoxFit.fitWidth,
+                                                          child: IconButton(
+                                                            onPressed: () {
+                                                              if (counter[
+                                                                      index] >=
                                                                   1) {
-                                                                counter[
-                                                                    index]++;
-                                                                print(counter[
-                                                                    index]);
-                                                                quantity[
-                                                                    index] = quantity[
-                                                                        index] -
+                                                                refresh(
+                                                                  () {
                                                                     counter[
-                                                                        index];
-
-                                                                print(quantity);
-                                                              }
-                                                            });
-                                                          },
-                                                          icon: Icon(
-                                                            Icons.minimize,
-                                                            color:
-                                                                ColorManager()
-                                                                    .background,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      // storage
-                                                      //     .get<
-                                                      //         SharedPreferences>()
-                                                      //     .getInt("quantity")==null?widget.bill.products[index].pivot.quantity.toString(): storage
-                                                      //     .get<
-                                                      //         SharedPreferences>()
-                                                      //     .getInt("quantity").toString(),
-                                                      "777",
-
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              13,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              13,
-                                                      decoration: BoxDecoration(
-                                                        color: ColorManager()
-                                                            .green,
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: FittedBox(
-                                                        fit: BoxFit.contain,
-                                                        child: IconButton(
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              // if ((quantity[index] -
-                                                              //         counter[
-                                                              //             index]) <
-                                                              //     widget
-                                                              //         .bill
-                                                              //         .products[
-                                                              //             index]
-                                                              //         .pivot
-                                                              //         .quantity) {
-                                                              counter[index] ==
-                                                                  counter[index] +
-                                                                      1;
-                                                              print(counter);
-                                                              quantity[index] =
-                                                                  quantity[
-                                                                          index] +
-                                                                      counter[
-                                                                          index];
-                                                              print(
-                                                                  '66666666666666666666666666666666');
-                                                              print(quantity[
-                                                                  index]);
-                                                            }
-                                                                // }
+                                                                        index]--;
+                                                                  },
                                                                 );
-                                                            print(
-                                                                '4444444444444444444444444444');
-                                                            print(list[index]);
-                                                          },
-                                                          icon: Icon(
-                                                            Icons.add,
-                                                            color:
-                                                                ColorManager()
-                                                                    .background,
+                                                              }
+                                                            },
+                                                            icon: Icon(
+                                                              Icons.minimize,
+                                                              color:
+                                                                  ColorManager()
+                                                                      .background,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ]),
+                                                      Text(
+                                                        counter[index]
+                                                            .toString(),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                      Container(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            13,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height /
+                                                            13,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: ColorManager()
+                                                              .green,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child: FittedBox(
+                                                          fit: BoxFit.contain,
+                                                          child: IconButton(
+                                                            onPressed: () {
+                                                              if (counter[
+                                                                      index] <
+                                                                  bill
+                                                                      .products[
+                                                                          index]
+                                                                      .pivot
+                                                                      .quantity) {
+                                                                refresh(
+                                                                  () {
+                                                                    counter[
+                                                                        index]++;
+                                                                  },
+                                                                );
+                                                              }
+                                                            },
+                                                            icon: Icon(
+                                                              Icons.add,
+                                                              color:
+                                                                  ColorManager()
+                                                                      .background,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ]);
+                                              }),
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    if (index ==
-                                        widget.bill.products.length - 1)
+                                    if (index == bill.products.length - 1)
                                       SizedBox(
                                         height:
                                             MediaQuery.of(context).size.height /
@@ -323,12 +295,12 @@ class _OrderState extends State<Order> {
                                               ListOfOption(
                                                 widget1: SubTitle3(
                                                   text:
-                                                      "إجمالي الفاتورة:${widget.bill.total_price}",
+                                                      "إجمالي الفاتورة:${bill.total_price}",
                                                 ),
                                                 text2:
-                                                    "طريقة الدفع:${widget.bill.payment_method}",
+                                                    "طريقة الدفع:${bill.payment_method}",
                                                 text3:
-                                                    "ملاحظات:${widget.bill.market_note}",
+                                                    "ملاحظات:${bill.market_note}",
                                                 heightOfText1:
                                                     MediaQuery.of(context)
                                                             .size
@@ -336,9 +308,8 @@ class _OrderState extends State<Order> {
                                                         25,
                                                 widthOfText1:
                                                     MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        2,
+                                                        .size
+                                                        .width,
                                                 widthOfText2:
                                                     MediaQuery.of(context)
                                                         .size
@@ -356,216 +327,224 @@ class _OrderState extends State<Order> {
                                                     MediaQuery.of(context)
                                                             .size
                                                             .height /
-                                                        17,
+                                                        25,
                                                 heightOfText4: 1,
                                                 widthOfText4: 1,
                                                 heightOfText5: 1,
                                                 widthOfText5: 1,
                                               ),
-                                              FittedBox(
-                                                child: Row(
-                                                  children: [
-                                                    MyButtonWidget(
-                                                        widget: const Text(
-                                                          "حفظ التعديلات",
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            fontSize: 16,
-                                                          ),
-                                                        ),
-                                                        onpress: () {
-                                                          showModalBottomSheet(
-                                                            enableDrag: true,
-                                                            scrollControlDisabledMaxHeightRatio:
-                                                                9,
-                                                            context: context,
-                                                            builder: (context) =>
-                                                                BlocProvider(
-                                                              create: (context) =>
-                                                                  UpdateBillTimeBloc(),
-                                                              child: Builder(
-                                                                  builder:
-                                                                      (context) {
-                                                                return SizedBox(
-                                                                  height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height /
-                                                                      1.7,
-                                                                  child:
-                                                                      SizedBox(
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height /
-                                                                        2.2,
+                                              MyButtonWidget(
+                                                  widget: const Text(
+                                                    "حفظ التعديلات",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                  onpress: () {
+                                                    showModalBottomSheet(
+                                                      enableDrag: true,
+                                                      scrollControlDisabledMaxHeightRatio:
+                                                          9,
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          BlocProvider(
+                                                        create: (context) =>
+                                                            UpdateBillTimeBloc(),
+                                                        child: Builder(
+                                                            builder: (context) {
+                                                          return SizedBox(
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height /
+                                                                1.7,
+                                                            child: SizedBox(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height /
+                                                                  2.2,
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        12.0),
+                                                                child: StatefulBuilder(
+                                                                    builder:
+                                                                        (context,
+                                                                            setState) {
+                                                                  return Directionality(
+                                                                    textDirection:
+                                                                        TextDirection
+                                                                            .rtl,
                                                                     child:
                                                                         Padding(
                                                                       padding: const EdgeInsets
                                                                           .all(
                                                                           12.0),
                                                                       child:
-                                                                          Directionality(
-                                                                        textDirection:
-                                                                            TextDirection.rtl,
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: const EdgeInsets
-                                                                              .all(
-                                                                              12.0),
-                                                                          child:
-                                                                              Column(
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceAround,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          Row(
                                                                             mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceAround,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
+                                                                                MainAxisAlignment.spaceBetween,
                                                                             children: [
-                                                                              Row(
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  SubTitle2(
-                                                                                    text: "تأكيد توصيل الفاتورة?",
-                                                                                  ),
-                                                                                  //  IconButton(onPressed: () {}, icon: Icon(Icons.close)),
-                                                                                ],
-                                                                              ),
                                                                               SubTitle2(
-                                                                                text: "الأحد 2020",
-                                                                              ),
-                                                                              RadioListTile(
-                                                                                  activeColor: ColorManager().red,
-                                                                                  title: Text(
-                                                                                    "نفس اليوم",
-                                                                                    style: TextStyle(color: ColorManager().grey1),
-                                                                                  ),
-                                                                                  value: "نفس اليوم",
-                                                                                  groupValue: date,
-                                                                                  onChanged: (val) {
-                                                                                    setState(() {
-                                                                                      date = val;
-                                                                                    });
-                                                                                  }),
-                                                                              RadioListTile(
-                                                                                  activeColor: ColorManager().red,
-                                                                                  title: Text(
-                                                                                    "خلال 24 ساعة",
-                                                                                    style: TextStyle(color: ColorManager().grey1),
-                                                                                  ),
-                                                                                  value: "خلال 24 ساعة",
-                                                                                  groupValue: date,
-                                                                                  onChanged: (val) {
-                                                                                    setState(() {
-                                                                                      date = val;
-                                                                                    });
-                                                                                  }),
-                                                                              RadioListTile(
-                                                                                  activeColor: ColorManager().red,
-                                                                                  title: Text(
-                                                                                    "خلال 48 ساعة",
-                                                                                    style: TextStyle(color: ColorManager().grey1),
-                                                                                  ),
-                                                                                  value: "خلال 48 ساعة",
-                                                                                  groupValue: date,
-                                                                                  onChanged: (val) {
-                                                                                    setState(() {
-                                                                                      date = val;
-                                                                                    });
-                                                                                  }),
-                                                                              RadioListTile(
-                                                                                  title: Text("موعد آخر"),
-                                                                                  activeColor: ColorManager().red,
-                                                                                  value: "موعد آخر",
-                                                                                  groupValue: date,
-                                                                                  onChanged: (val) {
-                                                                                    setState(() {
-                                                                                      date = val;
-                                                                                    });
-                                                                                  }),
-                                                                              BlocListener<UpdateBillTimeBloc, UpdateBillTimeState>(
-                                                                                listener: (context, state) {
-                                                                                  if (state is SuccessSendUpdateWithTime) {
-                                                                                    GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
-
-                                                                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                                        duration: Duration(seconds: 3),
-                                                                                        backgroundColor: ColorManager().green,
-                                                                                        content: SizedBox(
-                                                                                          height: 50,
-                                                                                          child: Center(child: SubTitle3(text: "تم تحديث الفاتورة")),
-                                                                                        )));
-                                                                                  } else if (state is FailedSendUpdateWithTime) {
-                                                                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                                        duration: Duration(seconds: 3),
-                                                                                        backgroundColor: ColorManager().green,
-                                                                                        content: SizedBox(
-                                                                                          height: 50,
-                                                                                          child: Center(child: SubTitle3(text: "لم يتم تحديث الفاتورة")),
-                                                                                        )));
-                                                                                    Navigator.pushReplacement(
-                                                                                      context,
-                                                                                      MaterialPageRoute(
-                                                                                        builder: (context) => Fatora(initIndex: 0),
-                                                                                      ),
-                                                                                    );
-                                                                                  }
-                                                                                },
-                                                                                child: Row(
-                                                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                  children: [
-                                                                                    MyButton(
-                                                                                        title: "تأكيد معاد",
-                                                                                        onpress: () {
-                                                                                          context.read<UpdateBillTimeBloc>().add(SendDate(id: widget.bill.id, update: list, delivery: date.toString()));
-                                                                                          print("_________________________");
-                                                                                          print(widget.bill.id);
-                                                                                          print(list);
-                                                                                          print(date.toString());
-                                                                                        },
-                                                                                        colors: ColorManager().green,
-                                                                                        width: MediaQuery.of(context).size.width / 3,
-                                                                                        height: 55,
-                                                                                        radius: 9),
-                                                                                    MyButton(
-                                                                                        title: "بدون معاد",
-                                                                                        onpress: () {
-                                                                                          print("****************************************************");
-                                                                                          context.read<UpdateBillTimeBloc>().add(SendDataWithoutTime(id: widget.bill.id, update: list));
-                                                                                        },
-                                                                                        colors: ColorManager().red,
-                                                                                        width: MediaQuery.of(context).size.width / 3,
-                                                                                        height: 55,
-                                                                                        radius: 9),
-                                                                                  ],
-                                                                                ),
+                                                                                text: "تأكيد توصيل الفاتورة?",
                                                                               ),
                                                                             ],
                                                                           ),
-                                                                        ),
+                                                                          SubTitle2(
+                                                                            text:
+                                                                                "الأحد 2020",
+                                                                          ),
+                                                                          RadioListTile(
+                                                                              activeColor: ColorManager().red,
+                                                                              title: Text(
+                                                                                "نفس اليوم",
+                                                                                style: TextStyle(color: ColorManager().grey1),
+                                                                              ),
+                                                                              value: "نفس اليوم",
+                                                                              groupValue: date,
+                                                                              onChanged: (val) {
+                                                                                setState(() {
+                                                                                  date = val;
+                                                                                });
+                                                                              }),
+                                                                          RadioListTile(
+                                                                              activeColor: ColorManager().red,
+                                                                              title: Text(
+                                                                                "خلال 24 ساعة",
+                                                                                style: TextStyle(color: ColorManager().grey1),
+                                                                              ),
+                                                                              value: "خلال 24 ساعة",
+                                                                              groupValue: date,
+                                                                              onChanged: (val) {
+                                                                                setState(() {
+                                                                                  date = val;
+                                                                                });
+                                                                              }),
+                                                                          RadioListTile(
+                                                                              activeColor: ColorManager().red,
+                                                                              title: Text(
+                                                                                "خلال 48 ساعة",
+                                                                                style: TextStyle(color: ColorManager().grey1),
+                                                                              ),
+                                                                              value: "خلال 48 ساعة",
+                                                                              groupValue: date,
+                                                                              onChanged: (val) {
+                                                                                setState(() {
+                                                                                  date = val;
+                                                                                });
+                                                                              }),
+                                                                          RadioListTile(
+                                                                              title: Text("موعد آخر"),
+                                                                              activeColor: ColorManager().red,
+                                                                              value: "موعد آخر",
+                                                                              groupValue: date,
+                                                                              onChanged: (val) {
+                                                                                setState(() {
+                                                                                  date = val;
+                                                                                });
+                                                                              }),
+                                                                          BlocListener<
+                                                                              UpdateBillTimeBloc,
+                                                                              UpdateBillTimeState>(
+                                                                            listener:
+                                                                                (context, state) {
+                                                                              if (state is SuccessSendUpdateWithTime) {
+                                                                                GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
+
+                                                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                    duration: Duration(seconds: 3),
+                                                                                    backgroundColor: ColorManager().green,
+                                                                                    content: SizedBox(
+                                                                                      height: 50,
+                                                                                      child: Center(child: SubTitle3(text: "تم تحديث الفاتورة")),
+                                                                                    )));
+                                                                              } else if (state is FailedSendUpdateWithTime) {
+                                                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                    duration: Duration(seconds: 3),
+                                                                                    backgroundColor: ColorManager().green,
+                                                                                    content: SizedBox(
+                                                                                      height: 50,
+                                                                                      child: Center(child: SubTitle3(text: "لم يتم تحديث الفاتورة")),
+                                                                                    )));
+                                                                                Navigator.pushReplacement(
+                                                                                  context,
+                                                                                  MaterialPageRoute(
+                                                                                    builder: (context) => Fatora(initIndex: 0),
+                                                                                  ),
+                                                                                );
+                                                                              }
+                                                                            },
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                              children: [
+                                                                                MyButton(
+                                                                                    title: "تأكيد معاد",
+                                                                                    onpress: () {
+                                                                                      for (var i = 0; i < list.length; i++) {
+                                                                                        list[i]['quantity'] = counter[i];
+                                                                                      }
+                                                                                      print("____________________________________________________");
+
+                                                                                      print(list);
+
+                                                                                      context.read<UpdateBillTimeBloc>().add(SendDate(id: bill.id, update: list, delivery: date.toString()));
+                                                                                    },
+                                                                                    colors: ColorManager().green,
+                                                                                    width: MediaQuery.of(context).size.width / 3,
+                                                                                    height: 55,
+                                                                                    radius: 9),
+                                                                                MyButton(
+                                                                                    title: "بدون معاد",
+                                                                                    onpress: () {
+                                                                                      for (var i = 0; i < list.length; i++) {
+                                                                                        list[i]['quantity'] = counter[i];
+                                                                                      }
+                                                                                      print("____________________________________________________");
+
+                                                                                      print(list);
+                                                                                      context.read<UpdateBillTimeBloc>().add(SendDataWithoutTime(id: bill.id, update: list));
+                                                                                    },
+                                                                                    colors: ColorManager().red,
+                                                                                    width: MediaQuery.of(context).size.width / 3,
+                                                                                    height: 55,
+                                                                                    radius: 9),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ],
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                );
-                                                              }),
+                                                                  );
+                                                                }),
+                                                              ),
                                                             ),
                                                           );
-                                                        },
-                                                        colors: ColorManager()
-                                                            .green,
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            2.4,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height /
-                                                            16,
-                                                        radius: 7),
-                                                  ],
-                                                ),
-                                              ),
+                                                        }),
+                                                      ),
+                                                    );
+                                                  },
+                                                  colors: ColorManager().green,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.4,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      16,
+                                                  radius: 7),
                                             ],
                                           ),
                                         ),

@@ -7,8 +7,9 @@ import 'package:mufraty_app/Core/Config/widget/listOfOption.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 
 class CardOfFatora extends StatelessWidget {
-  final DropdownButton<String>? myDropdownMenu;
+  final DecoratedBox? myDropdownMenu;
   final Widget? fatora;
+  final Widget? print;
   final String? text1;
   final String? text2;
   final String? text3;
@@ -29,6 +30,7 @@ class CardOfFatora extends StatelessWidget {
     this.text8,
     this.myDropdownMenu,
     this.fatora,
+    this.print,
   }) : super(key: key);
 
   @override
@@ -47,56 +49,45 @@ class CardOfFatora extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  //color: Colors.amber,
-                  // width: double
-                  //     .infinity, // MediaQuery.of(context).size.width / 2.3,
-                  height: MediaQuery.of(context).size.height / 22,
-                  alignment: Alignment.topRight,
-                  child: SubTitle2(
-                    text: text1,
+                Flexible(
+                  child: Container(
+                    // height: MediaQuery.of(context).size.height / 22,
+                    alignment: Alignment.topRight,
+                    child: SubTitle2(
+                      text: text1,
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 99,
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height / 23,
-                  alignment: Alignment.topRight,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: ColorManager().grey2,
-                        size: 20,
-                      ),
-                      SubTitle3(
-                        text: text2 ?? "",
-                        color: ColorManager().grey1,
-                      ),
-                    ],
+                Flexible(
+                  child: Container(
+                    // height: MediaQuery.of(context).size.height / 23,
+                    alignment: Alignment.topRight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: ColorManager().grey2,
+                          size: 20,
+                        ),
+                        Flexible(
+                          child: SubTitle3(
+                            text: text2 ?? "",
+                            color: ColorManager().grey1,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                // SizedBox(
-                //   height: MediaQuery.of(context).size.height * 0.002,
-                // ),
-
-                //  width: MediaQuery.of(context).size.width / 2.3,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: SubTitle3(
-                          text: text3 ?? "",
-                          color: ColorManager().grey1,
-                        ),
-                      ),
-                    ),
-                    fatora ?? Text(" "),
-                  ],
+                Flexible(
+                  child: SubTitle3(
+                    text: text3 ?? "",
+                    color: ColorManager().grey1,
+                  ),
                 ),
               ],
             ),
@@ -110,6 +101,7 @@ class CardOfFatora extends StatelessWidget {
           ////////////
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 18.0),
@@ -121,12 +113,23 @@ class CardOfFatora extends StatelessWidget {
                     text3: text6,
                     text4: text7,
                     text5: text8,
-                    heightOfText1: MediaQuery.of(context).size.height / 19,
-                    heightOfText2: MediaQuery.of(context).size.height / 19,
-                    heightOfText3: MediaQuery.of(context).size.height / 25,
-                    heightOfText4: MediaQuery.of(context).size.height / 30,
-                    heightOfText5: 1,
+                    // heightOfText1: MediaQuery.of(context).size.height / 15,
+                    widthOfText1: MediaQuery.of(context).size.width / 1.9,
+                    widthOfText2: MediaQuery.of(context).size.width / 1.8,
+                    widthOfText3: MediaQuery.of(context).size.width / 1.8,
+                    // heightOfText2: MediaQuery.of(context).size.height / 19,
+                    // heightOfText3: MediaQuery.of(context).size.height / 25,
+                    // heightOfText4: MediaQuery.of(context).size.height / 30,
+                    // heightOfText5: 1,
                     myWidget: myDropdownMenu),
+              ),
+              Flexible(
+                child: Column(
+                  children: [
+                    fatora ?? const Text(" "),
+                    print ?? const Text(""),
+                  ],
+                ),
               ),
             ],
           )

@@ -176,18 +176,7 @@ class _LogoState extends State<Logo> {
           ),
         ),
         backgroundColor: const Color(0xffE8E2E2),
-        appBar: AppBar(
-          backgroundColor: const Color(0xffE32020),
-          centerTitle: true,
-          title: const Text(
-            'خصوماتي',
-            style: TextStyle(color: Colors.white),
-          ),
-          leading: const Icon(
-            Icons.person_outlined,
-            color: Colors.white,
-          ),
-        ),
+ 
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
