@@ -187,66 +187,6 @@ class _MyDataViewState extends State<MyDataView> {
                                         state.response.supplier.phone_number,
                                     validatorText: "مطلوب",
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(9),
-                                    child: TextFormField(
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      obscureText: showPass,
-                                      controller: password,
-                                      readOnly: true,
-                                      cursorColor: ColorManager().red,
-                                      decoration: InputDecoration(
-                                        suffix: InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              showPass = !showPass;
-                                            });
-                                          },
-                                          child: Icon(
-                                            showPass
-                                                ? Icons.visibility_off
-                                                : Icons.visibility,
-                                            color: ColorManager().red,
-                                          ),
-                                        ),
-                                        errorStyle: TextStyle(
-                                            color: ColorManager().red),
-                                        errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: ColorManager().red),
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: ColorManager().red),
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                        fillColor: Colors.grey[200],
-                                        filled: true,
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: ColorManager().red),
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                        enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: ColorManager().red),
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                        border: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: ColorManager().red)),
-                                        hintText: "******** ",
-                                        label: const Text('كلمه السر'),
-                                        labelStyle: TextStyle(
-                                            fontSize: 16,
-                                            color: ColorManager().red),
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.always,
-                                      ),
-                                    ),
-                                  ),
 
                                   Align(
                                     alignment: Alignment.centerRight,

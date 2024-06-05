@@ -65,7 +65,6 @@ class _ReportsPageState extends State<ReportsPage> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           backgroundColor: colorApp.BackgroundColor,
-        
           body: Column(
             children: [
               Row(
@@ -188,8 +187,7 @@ class _ReportsPageState extends State<ReportsPage> {
                           ],
                         );
                       } else if (state is ReportLoading) {
-                        return const Center(
-                            child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       } else if (state is ReportError) {
                         return RefreshIndicator(
                           onRefresh: () async {
@@ -206,17 +204,17 @@ class _ReportsPageState extends State<ReportsPage> {
                                   height: heightSize / 2,
                                 ),
                               ),
-                              Center(
-                                  child: Text(
-                                state.message ==
-                                        'Null check operator used on a null value'
-                                    ? "لقد انقطع الاتصال بالانترنت"
-                                    : state.message,
-                                style: TextStyle(
-                                    color: ColorManager().red,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w700),
-                              ))
+                              // Center(
+                              //     child: Text(
+                              //   state.message ==
+                              //           'Null check operator used on a null value'
+                              //       ? "لقد انقطع الاتصال بالانترنت"
+                              //       : state.message,
+                              //   style: TextStyle(
+                              //       color: ColorManager().red,
+                              //       fontSize: 17,
+                              //       fontWeight: FontWeight.w700),
+                              // ))
                             ],
                           ),
                         );
@@ -423,7 +421,7 @@ class ReportCubit extends Cubit<ReportState> {
       final report = Report.fromJson(response.data['body']);
       emit(ReportLoaded(report));
     } on DioException catch (e) {
-      emit(ReportError(e.response!.data["message"].toString()));
+      emit(ReportError(e.response.toString()));
     }
   }
 }

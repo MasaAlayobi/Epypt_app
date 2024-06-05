@@ -64,7 +64,7 @@ class BillServiceImpl extends BillService {
         return "false";
       }
     } on DioException catch (e) {
-      Text(e.message.toString());
+      throw e.response!.data["message"];
     }
   }
 
@@ -83,7 +83,7 @@ class BillServiceImpl extends BillService {
         return "false";
       }
     } on DioException catch (e) {
-      Text(e.message.toString());
+      throw e.response!.data["message"];
     }
   }
 
@@ -103,7 +103,7 @@ class BillServiceImpl extends BillService {
         return "false";
       }
     } on DioException catch (e) {
-      throw e.message.toString();
+      throw e.response!.data["message"];
     }
   }
 
@@ -123,7 +123,7 @@ class BillServiceImpl extends BillService {
         return response.data["message"];
       }
     } on DioException catch (e) {
-      throw e.message.toString();
+      throw e.response!.data["message"];
     }
   }
 
@@ -140,7 +140,7 @@ class BillServiceImpl extends BillService {
         print("object");
       }
     } on DioException catch (e) {
-      throw e.response!;
+      throw e.response!.data["message"];
     } on Error catch (e) {
       throw e;
     }
@@ -159,7 +159,7 @@ class BillServiceImpl extends BillService {
         print("object");
       }
     } on DioException catch (e) {
-      throw e.response!;
+      throw e.response!.data["message"];
     } on Error catch (e) {
       throw e;
     }
@@ -178,7 +178,7 @@ class BillServiceImpl extends BillService {
         print("object");
       }
     } on DioException catch (e) {
-      throw e.response!;
+      throw e.response!.data["message"];
     } on Error catch (e) {
       throw e;
     }
@@ -198,7 +198,7 @@ class BillServiceImpl extends BillService {
         print("object");
       }
     } on DioException catch (e) {
-      throw e.response!;
+      throw e.response!.data["message"];
     } on Error catch (e) {
       throw e;
     }

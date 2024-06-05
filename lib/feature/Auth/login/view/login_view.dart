@@ -73,7 +73,7 @@ class _LoginViewState extends State<LoginView> {
                             // ),
                           ),
                           SizedBox(
-                            height: 15,
+                            height: 9,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(12),
@@ -178,9 +178,9 @@ class _LoginViewState extends State<LoginView> {
                           //     ),
                           //   ),
                           // ),
-                          SizedBox(
-                            height: 15,
-                          ),
+                          // SizedBox(
+                          //   height: 15,
+                          // ),
                           Padding(
                             padding: const EdgeInsets.all(12),
                             child: TextFormField(
@@ -242,22 +242,27 @@ class _LoginViewState extends State<LoginView> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 6,
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 25,
+                                height: 20,
+                              ),
+                              ChangeSign(
+                                text: "ليس لديك حساب ؟",
+                                textbutton: "إنشاء حساب",
+                                onPress: () {
+                                  // NavigatorKey.currentState!.pushNamed(
+                                  //   AppRouter.KNotification
+                                  // );
+                                  GoRouter.of(context)
+                                      .pushReplacement(AppRouter.kRigesterView);
+                                },
+                              ),
+                            ],
                           ),
-                          ChangeSign(
-                            text: "ليس لديك حساب",
-                            textbutton: "إنشاء حساب",
-                            onPress: () {
-                              // NavigatorKey.currentState!.pushNamed(
-                              //   AppRouter.KNotification
-                              // );
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SignUp(),
-                                  ));
-                            },
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 8,
                           ),
 
                           BlocListener<LoginBloc, LoginState>(
@@ -320,53 +325,25 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ),
 
-                          Padding(
-                            padding: const EdgeInsets.all(16),
+                          InkWell(
+                            onTap: () {
+                              GoRouter.of(context)
+                                  .pushReplacement(AppRouter.KforgetPassword);
+                            },
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        isChecked = !isChecked;
-                                        GoRouter.of(context).pushReplacement(
-                                            AppRouter.KforgetPassword);
-                                      });
-                                    },
-                                    child: Container(
-                                      width: 23,
-                                      height: 23,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: colorApp.basicColor,
-                                            width: 1.3),
-                                        borderRadius: BorderRadius.circular(3),
-                                        color: isChecked
-                                            ? colorApp.basicColor
-                                            : const Color.fromARGB(
-                                                255, 198, 193, 193),
-                                      ),
-                                      child: isChecked
-                                          ? Icon(Icons.check,
-                                              size: 20,
-                                              color: colorApp.whiteColor)
-                                          : null,
-                                    ),
+                                SizedBox(
+                                  width: 25,
+                                ),
+                                Text(
+                                  'هل نسيت كلمة المرور؟',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w500,
+                                    color:
+                                        const Color.fromARGB(255, 78, 75, 75),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 17),
-                                  child: Text(
-                                    'هل نسيت كلمة المرور',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.grey[600],
-                                    ),
-                                  ),
-                                )
                               ],
                             ),
                           ),

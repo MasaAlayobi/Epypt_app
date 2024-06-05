@@ -169,7 +169,8 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(9),
-                              child: myTextFieldName(readOnly: false,
+                              child: myTextFieldName(
+                                readOnly: false,
                                 nameText: "الاسم الأوسط",
                                 nameController: secondName,
                                 validatorText: "مطلوب",
@@ -177,7 +178,8 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(9),
-                              child: myTextFieldName(readOnly: false,
+                              child: myTextFieldName(
+                                readOnly: false,
                                 nameText: "الاسم الأخير",
                                 nameController: lastName,
                                 validatorText: "مطلوب",
@@ -363,7 +365,8 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(9),
-                              child: myTextFieldName(readOnly: false,
+                              child: myTextFieldName(
+                                readOnly: false,
                                 nameText: "اسم المتجر",
                                 nameController: marketName,
                                 validatorText: "مطلوب",
@@ -419,7 +422,9 @@ class _SignUpState extends State<SignUp> {
                                     const EdgeInsets.symmetric(horizontal: 12),
                                 child: InkWell(
                                   onTap: () {
-                                    context.read<RegisterBloc>().add(getCities());
+                                    context
+                                        .read<RegisterBloc>()
+                                        .add(getCities());
                                   },
                                   child: MyExpansionTileCities(
                                       onDataChanged: updateData,
@@ -435,7 +440,7 @@ class _SignUpState extends State<SignUp> {
                                       //       });
                                       //     },
                                       //   ),
-                                  
+
                                       // text2: "دمشق",
                                       // text3: "ركن الدين",
                                       variable: isCheckedCheckBox2),
@@ -457,7 +462,8 @@ class _SignUpState extends State<SignUp> {
                             BlocListener<RegisterBloc, RegisterState>(
                               listener: (context, state) {
                                 if (state is successcreatedUser) {
-                                 GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
+                                  GoRouter.of(context).pushReplacement(
+                                      AppRouter.kHomeViewStock);
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(new SnackBar(
                                     content: Text(state.message),
@@ -466,20 +472,23 @@ class _SignUpState extends State<SignUp> {
                                 } else if (state is NoConnection) {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(new SnackBar(
-                                    content: Text(state.message=='Null check operator used on a null value'?
-                        "لقد انقطع الاتصال بالانترنت"
-                          :state.message,),
+                                    content: Text(
+                                      state.message ==
+                                              'Null check operator used on a null value'
+                                          ? "لقد انقطع الاتصال بالانترنت"
+                                          : state.message,
+                                    ),
                                     backgroundColor: colorApp.basicColor,
                                   ));
                                 }
                               },
                               child: MyButton(
                                 title: "إنشاء حساب",
-                               onpress: () async {
+                                onpress: () async {
                                   print('+20${_controller.text.toString()}');
                                   if (firstName.text.isNotEmpty &&
                                       lastName.text.isNotEmpty &&
-                                      secondName.text .isNotEmpty &&
+                                      secondName.text.isNotEmpty &&
                                       password.text.isNotEmpty &&
                                       marketName.text.isNotEmpty &&
                                       deliveryTime.text.isNotEmpty &&
@@ -488,10 +497,13 @@ class _SignUpState extends State<SignUp> {
                                       // catorgy.text.isNotEmpty &&
                                       cititesId1.isNotEmpty &&
                                       cityId != null &&
-                                      image != null&&
-                                      categoryId!=null&&
-                                      storage.get<SharedPreferences>().getString('deviceToken').toString().isNotEmpty
-                                      ) {
+                                      image != null &&
+                                      categoryId != null &&
+                                      storage
+                                          .get<SharedPreferences>()
+                                          .getString('deviceToken')
+                                          .toString()
+                                          .isNotEmpty) {
                                     RegisterModel user = RegisterModel(
                                         first_name: firstName.text,
                                         middle_name: secondName.text,
@@ -506,29 +518,31 @@ class _SignUpState extends State<SignUp> {
                                         min_bill_price:
                                             int.parse(priceBill.text),
                                         city_id: cityId!,
-                                        supplier_category_id:
-                                            categoryId!,
-                                            deviceToken:storage.get<SharedPreferences>().getString('deviceToken').toString(),
+                                        supplier_category_id: categoryId!,
+                                        deviceToken: storage
+                                            .get<SharedPreferences>()
+                                            .getString('deviceToken')
+                                            .toString(),
                                         to_sites: cititesId1);
-                                  //   RegisterModel user = RegisterModel(
-                                  //   first_name:'fhdb',
-                                  //   middle_name: 'gdnb',
-                                  //   last_name: 'dnbg',
-                                  //   phone_number: '+201383456768',
-                                  //   store_name: 'rtsbhntr',
-                                  //   password:'123456788',
-                                  //   delivery_duration:'657',
-                                  //   min_selling_quantity:
-                                  //       77,
-                                  //   min_bill_price: 888,
-                                  //   city_id: 1,
-                                  //   supplier_category_id:
-                                  //       1,
-                                  //       deviceToken:storage.get<SharedPreferences>().getString('deviceToken')!,
-                                  //   to_sites: [1]);
+                                    //   RegisterModel user = RegisterModel(
+                                    //   first_name:'fhdb',
+                                    //   middle_name: 'gdnb',
+                                    //   last_name: 'dnbg',
+                                    //   phone_number: '+201383456768',
+                                    //   store_name: 'rtsbhntr',
+                                    //   password:'123456788',
+                                    //   delivery_duration:'657',
+                                    //   min_selling_quantity:
+                                    //       77,
+                                    //   min_bill_price: 888,
+                                    //   city_id: 1,
+                                    //   supplier_category_id:
+                                    //       1,
+                                    //       deviceToken:storage.get<SharedPreferences>().getString('deviceToken')!,
+                                    //   to_sites: [1]);
                                     context.read<RegisterBloc>().add(
                                         CreateUser(User: user, image: image!));
-                                   } else {
+                                  } else {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(new SnackBar(
                                       content: Text('إملاء كامل الحقول'),

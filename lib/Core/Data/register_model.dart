@@ -79,7 +79,7 @@ class RegisterModel {
       'city_id': city_id,
       'supplier_category_id': supplier_category_id,
       'deviceToken': deviceToken,
-      'to_sites': to_sites,
+      'to_sites[]': to_sites,
     };
   }
 
@@ -103,7 +103,8 @@ class RegisterModel {
 
   String toJson() => json.encode(toMap());
 
-  factory RegisterModel.fromJson(String source) => RegisterModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory RegisterModel.fromJson(String source) =>
+      RegisterModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -113,37 +114,36 @@ class RegisterModel {
   @override
   bool operator ==(covariant RegisterModel other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.first_name == first_name &&
-      other.middle_name == middle_name &&
-      other.last_name == last_name &&
-      other.phone_number == phone_number &&
-      other.store_name == store_name &&
-      other.password == password &&
-      other.delivery_duration == delivery_duration &&
-      other.min_selling_quantity == min_selling_quantity &&
-      other.min_bill_price == min_bill_price &&
-      other.city_id == city_id &&
-      other.supplier_category_id == supplier_category_id &&
-      other.deviceToken == deviceToken &&
-      listEquals(other.to_sites, to_sites);
+
+    return other.first_name == first_name &&
+        other.middle_name == middle_name &&
+        other.last_name == last_name &&
+        other.phone_number == phone_number &&
+        other.store_name == store_name &&
+        other.password == password &&
+        other.delivery_duration == delivery_duration &&
+        other.min_selling_quantity == min_selling_quantity &&
+        other.min_bill_price == min_bill_price &&
+        other.city_id == city_id &&
+        other.supplier_category_id == supplier_category_id &&
+        other.deviceToken == deviceToken &&
+        listEquals(other.to_sites, to_sites);
   }
 
   @override
   int get hashCode {
     return first_name.hashCode ^
-      middle_name.hashCode ^
-      last_name.hashCode ^
-      phone_number.hashCode ^
-      store_name.hashCode ^
-      password.hashCode ^
-      delivery_duration.hashCode ^
-      min_selling_quantity.hashCode ^
-      min_bill_price.hashCode ^
-      city_id.hashCode ^
-      supplier_category_id.hashCode ^
-      deviceToken.hashCode ^
-      to_sites.hashCode;
+        middle_name.hashCode ^
+        last_name.hashCode ^
+        phone_number.hashCode ^
+        store_name.hashCode ^
+        password.hashCode ^
+        delivery_duration.hashCode ^
+        min_selling_quantity.hashCode ^
+        min_bill_price.hashCode ^
+        city_id.hashCode ^
+        supplier_category_id.hashCode ^
+        deviceToken.hashCode ^
+        to_sites.hashCode;
   }
-  }
+}
