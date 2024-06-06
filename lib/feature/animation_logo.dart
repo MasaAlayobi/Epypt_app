@@ -254,7 +254,7 @@ class _SpashViewState extends State<SpashView>
               opacity: _animationFadeOut,
               child: SlideTransition(
                 position: _animationRightToCenter,
-                child: Image.asset('asstes\images\p1.svg'),
+                child: SvgPicture.asset('asstes/images/p1.svg'),
               ),
             ),
           ),
@@ -263,7 +263,7 @@ class _SpashViewState extends State<SpashView>
               opacity: _animationFadeOut,
               child: SlideTransition(
                 position: _animationLefttToCenter,
-                child: Image.asset('asstes\images\p2.svg'),
+                child: SvgPicture.asset('asstes/images/p2.svg'),
               ),
             ),
           ),
@@ -274,7 +274,7 @@ class _SpashViewState extends State<SpashView>
                 opacity: _animationFadeOut,
                 child: SlideTransition(
                   position: _animationBottom,
-                  child: SvgPicture.asset('asstes\images\p3.svg'),
+                  child: SvgPicture.asset('asstes/images/p3.svg'),
                 ),
               ),
             ),
