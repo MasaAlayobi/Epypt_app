@@ -268,6 +268,7 @@ class Brebaring extends StatelessWidget {
                                               } else {
                                                 showModalBottomSheet(
                                                     context: context,
+                                                    isScrollControlled: true,
                                                     builder:
                                                         (BuildContext context) {
                                                       return BlocProvider(

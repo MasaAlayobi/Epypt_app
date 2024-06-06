@@ -252,27 +252,35 @@ class _AvailablePageState extends State<AvailablePage> {
                                                     }
                                                     showModalBottomSheet(
                                                       // isDismissible: false,
+                                                      isScrollControlled: true,
                                                       backgroundColor:
                                                           Color.fromARGB(255,
                                                               232, 232, 234),
                                                       context: context,
                                                       builder: (context) {
-                                                        return WidgetAddOffer(
-                                                            nameProduct: state
-                                                                .allProduct[
-                                                                    index]
-                                                                .name,
-                                                            image: image,
-                                                            size_of: state
-                                                                .allProduct[
-                                                                    index]
-                                                                .size_of,
-                                                            isImage: isImage,
-                                                            id: state
-                                                                .allProduct[
-                                                                    index]
-                                                                .pivot
-                                                                .id);
+                                                        return Padding(
+                                                          padding: EdgeInsets.only(
+                                                              bottom: MediaQuery
+                                                                      .of(context)
+                                                                  .viewInsets
+                                                                  .bottom),
+                                                          child: WidgetAddOffer(
+                                                              nameProduct: state
+                                                                  .allProduct[
+                                                                      index]
+                                                                  .name,
+                                                              image: image,
+                                                              size_of: state
+                                                                  .allProduct[
+                                                                      index]
+                                                                  .size_of,
+                                                              isImage: isImage,
+                                                              id: state
+                                                                  .allProduct[
+                                                                      index]
+                                                                  .pivot
+                                                                  .id),
+                                                        );
                                                       },
                                                     );
                                                   }
@@ -367,24 +375,33 @@ class _AvailablePageState extends State<AvailablePage> {
                                                             'asstes/images/no_photo.jpg';
                                                       }
                                                       showModalBottomSheet(
-                                                        // isDismissible: false,
+                                                        isScrollControlled:
+                                                            true,
                                                         backgroundColor:
                                                             Color.fromARGB(255,
                                                                 232, 232, 234),
                                                         context: context,
                                                         builder: (context) {
-                                                          return WidgetUpdateOffer(
-                                                              nameProduct: state
-                                                                  .allProduct[
-                                                                      index]
-                                                                  .name,
-                                                              image: image,
-                                                              isImage: isImage,
-                                                              id: state
-                                                                  .allProduct[
-                                                                      index]
-                                                                  .pivot
-                                                                  .id);
+                                                          return Padding(
+                                                            padding: EdgeInsets.only(
+                                                                bottom: MediaQuery.of(
+                                                                        context)
+                                                                    .viewInsets
+                                                                    .bottom),
+                                                            child: WidgetUpdateOffer(
+                                                                nameProduct: state
+                                                                    .allProduct[
+                                                                        index]
+                                                                    .name,
+                                                                image: image,
+                                                                isImage:
+                                                                    isImage,
+                                                                id: state
+                                                                    .allProduct[
+                                                                        index]
+                                                                    .pivot
+                                                                    .id),
+                                                          );
                                                         },
                                                       );
                                                     },

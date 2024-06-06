@@ -10,8 +10,8 @@ import 'package:mufraty_app/feature/Home/Stock/Warehouse/bloc/products_bloc.dart
 import 'package:mufraty_app/feature/Home/Stock/view/stock_page.dart';
 
 class WarehousePage extends StatefulWidget {
-   WarehousePage({super.key,this.Search});
-String? Search;
+  WarehousePage({super.key, this.Search});
+  String? Search;
   @override
   State<WarehousePage> createState() => _WarehousePageState();
 }
@@ -27,11 +27,13 @@ bool isChecked2 = false;
 class _WarehousePageState extends State<WarehousePage> {
   @override
   Widget build(BuildContext context) {
-     double heightSize = MediaQuery.of(context).size.height;
+    double heightSize = MediaQuery.of(context).size.height;
 
     double widthSize = MediaQuery.of(context).size.width;
     return Builder(builder: (context) {
-      context.read<ProductsBloc>().add(getProducts(lable: searchController.text));
+      context
+          .read<ProductsBloc>()
+          .add(getProducts(lable: searchController.text));
       return Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
@@ -42,8 +44,10 @@ class _WarehousePageState extends State<WarehousePage> {
               builder: (context, state) {
                 if (state is SuccessFetchProducts) {
                   return RefreshIndicator(
-                    onRefresh: () async{
-                       context.read<ProductsBloc>().add(getProducts(lable: searchController.text));
+                    onRefresh: () async {
+                      context
+                          .read<ProductsBloc>()
+                          .add(getProducts(lable: searchController.text));
                     },
                     child: ListView.builder(
                         itemCount: state.allProduct.length,
@@ -65,23 +69,43 @@ class _WarehousePageState extends State<WarehousePage> {
                                               child: Image.network(
                                                 state
                                                     .allProduct[index].image[0],
-                                                width: MediaQuery.of(context).size.width /3,
-                                                height:MediaQuery.of(context).size.height /4,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    3,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    4,
                                                 fit: BoxFit.scaleDown,
                                                 errorBuilder: (context, error,
                                                     stackTrace) {
                                                   return Image.asset(
                                                     'asstes/images/no_photo.jpg',
-                                                    width: MediaQuery.of(context).size.width /3,
-                                                height:MediaQuery.of(context).size.height /4,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            3,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            4,
                                                   );
                                                 },
                                               ),
                                             )
                                           : Image.asset(
                                               'asstes/images/no_photo.jpg',
-                                               width: MediaQuery.of(context).size.width /3,
-                                                height:MediaQuery.of(context).size.height /4,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  3,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  4,
                                             ), // أو أي ويدجت بديلة عندما تكون القائمة فارغة
                                     ),
                                     Expanded(
@@ -97,19 +121,22 @@ class _WarehousePageState extends State<WarehousePage> {
                                           // Container(
                                           //     width: 210,
                                           //     height: 50,
-                                              // child: 
-                                              Padding(
-                                                padding: const EdgeInsets.only(left: 6,bottom: 9),
-                                                child: CustomText(
-                                                    text: state
-                                                        .allProduct[index].name+" "+state.allProduct[index]
-                                                    .discription,
-                                                    size: 15,
-                                                    color: colorApp.blackColor,
-                                                    fontWeight: FontWeight.w600,
-                                                    maxLines: 3),
-                                              ),
-                                                  // ),
+                                          // child:
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 6, bottom: 9),
+                                            child: CustomText(
+                                                text: state.allProduct[index]
+                                                        .name +
+                                                    " " +
+                                                    state.allProduct[index]
+                                                        .discription,
+                                                size: 15,
+                                                color: colorApp.blackColor,
+                                                fontWeight: FontWeight.w600,
+                                                maxLines: 3),
+                                          ),
+                                          // ),
                                           // CustomContainerWithText(
                                           //     text: state.allProduct[index]
                                           //         .discription),
@@ -121,10 +148,11 @@ class _WarehousePageState extends State<WarehousePage> {
                                           //     fontWeight: FontWeight.w600,
                                           //     maxLines: 2),
                                           Padding(
-                                            padding: const EdgeInsets.only(bottom: 0),
+                                            padding: const EdgeInsets.only(
+                                                bottom: 0),
                                             child: Row(
-                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
@@ -143,23 +171,34 @@ class _WarehousePageState extends State<WarehousePage> {
                                                     }
                                                     showModalBottomSheet(
                                                       // isDismissible: false,
+                                                      isScrollControlled: true,
                                                       backgroundColor:
-                                                          Color.fromARGB(
-                                                              255, 232, 232, 234),
+                                                          Color.fromARGB(255,
+                                                              232, 232, 234),
                                                       context: context,
                                                       builder: (context) {
-                                                        return CustomShowmodalbottomsheet(
-                                                            nameProduct: state
-                                                                .allProduct[index]
-                                                                .name,
-                                                            image: image,
-                                                            size_of: state
-                                                                .allProduct[index]
-                                                                .size_of,
-                                                            isImage: isImage,
-                                                            id: state
-                                                                .allProduct[index]
-                                                                .id);
+                                                        return Padding(
+                                                          padding: EdgeInsets.only(
+                                                              bottom: MediaQuery
+                                                                      .of(context)
+                                                                  .viewInsets
+                                                                  .bottom),
+                                                          child: CustomShowmodalbottomsheet(
+                                                              nameProduct: state
+                                                                  .allProduct[
+                                                                      index]
+                                                                  .name,
+                                                              image: image,
+                                                              size_of: state
+                                                                  .allProduct[
+                                                                      index]
+                                                                  .size_of,
+                                                              isImage: isImage,
+                                                              id: state
+                                                                  .allProduct[
+                                                                      index]
+                                                                  .id),
+                                                        );
                                                       },
                                                     );
                                                   },
@@ -183,14 +222,15 @@ class _WarehousePageState extends State<WarehousePage> {
                                                             maxLines: 2)),
                                                   ),
                                                 ),
-                                                                
                                                 Align(
                                                   child: InkWell(
                                                     onTap: () {
                                                       bool isImage;
                                                       String image;
-                                                      if (state.allProduct[index]
-                                                          .image.isNotEmpty) {
+                                                      if (state
+                                                          .allProduct[index]
+                                                          .image
+                                                          .isNotEmpty) {
                                                         isImage = true;
                                                         image = state
                                                             .allProduct[index]
@@ -200,31 +240,41 @@ class _WarehousePageState extends State<WarehousePage> {
                                                         image =
                                                             'asstes/images/no_photo.jpg';
                                                       }
-                                                      print(state.allProduct[index]
+                                                      print(state
+                                                          .allProduct[index]
                                                           .image[0]);
                                                       showModalBottomSheet(
                                                         // isDismissible: false,
-                                                                      
+                                                        isScrollControlled:
+                                                            true,
                                                         backgroundColor:
-                                                            Color.fromARGB(
-                                                                255, 232, 232, 234),
+                                                            Color.fromARGB(255,
+                                                                232, 232, 234),
                                                         context: context,
                                                         builder: (context) {
                                                           return SingleChildScrollView(
                                                             child: Padding(
-                                                              padding: const EdgeInsets.only(bottom: 0
-                                                                   ),
-                                                              child: CustomShowModelWithoutOffer(
-                                                                isImage: isImage,
+                                                              padding: EdgeInsets.only(
+                                                                  bottom: MediaQuery.of(
+                                                                          context)
+                                                                      .viewInsets
+                                                                      .bottom),
+                                                              child:
+                                                                  CustomShowModelWithoutOffer(
+                                                                isImage:
+                                                                    isImage,
                                                                 id: state
-                                                                    .allProduct[index]
+                                                                    .allProduct[
+                                                                        index]
                                                                     .id,
                                                                 nameProduct: state
-                                                                    .allProduct[index]
+                                                                    .allProduct[
+                                                                        index]
                                                                     .name,
                                                                 image: image,
                                                                 size_of: state
-                                                                    .allProduct[index]
+                                                                    .allProduct[
+                                                                        index]
                                                                     .size_of,
                                                                 // onTap: () {
                                                                 //   //  (context) => ProductsBloc().add(addProductWithoutOffer(id: , product: product));
@@ -240,9 +290,10 @@ class _WarehousePageState extends State<WarehousePage> {
                                                       height: 28,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                4),
-                                                        color: colorApp.greenColor,
+                                                            BorderRadius
+                                                                .circular(4),
+                                                        color:
+                                                            colorApp.greenColor,
                                                       ),
                                                       child: Center(
                                                           child: CustomText(
@@ -252,7 +303,8 @@ class _WarehousePageState extends State<WarehousePage> {
                                                               color: colorApp
                                                                   .whiteColor,
                                                               fontWeight:
-                                                                  FontWeight.w700,
+                                                                  FontWeight
+                                                                      .w700,
                                                               maxLines: 2)),
                                                     ),
                                                   ),
@@ -280,40 +332,42 @@ class _WarehousePageState extends State<WarehousePage> {
                       color: colorApp.basicColor,
                     ),
                   );
-                } else if(state is NotFound){
-                      return    RefreshIndicator(
-                    onRefresh: () async{
-                      context.read<ProductsBloc>().add(getProducts(lable: searchController.text));
+                } else if (state is NotFound) {
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      context
+                          .read<ProductsBloc>()
+                          .add(getProducts(lable: searchController.text));
                     },
                     child: ListView(
                       children: [
-                          Center(
-                      child: Image.asset(
-                    "asstes/images/empty.png",
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.height / 2,
-                  )),
-                  Center(
-                    child: Text(
-                      "فارغ",
-                      style: TextStyle(
-                          color: ColorManager().red,
-                          fontSize: 33,
-                          fontWeight: FontWeight.w700),
-                    ),
-                  )
+                        Center(
+                            child: Image.asset(
+                          "asstes/images/empty.png",
+                          width: MediaQuery.of(context).size.width / 2,
+                          height: MediaQuery.of(context).size.height / 2,
+                        )),
+                        Center(
+                          child: Text(
+                            "فارغ",
+                            style: TextStyle(
+                                color: ColorManager().red,
+                                fontSize: 33,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        )
                       ],
                     ),
                   );
-                }
-                else if (state is NoConnectionWithProduct) {
+                } else if (state is NoConnectionWithProduct) {
                   return RefreshIndicator(
-                    onRefresh: () async {
-                      context.read<ProductsBloc>().add(getProducts(lable: searchController.text));
-                    },
-                    child: ListView(
-                      children: [
-                       Center(
+                      onRefresh: () async {
+                        context
+                            .read<ProductsBloc>()
+                            .add(getProducts(lable: searchController.text));
+                      },
+                      child: ListView(children: [
+                        Center(
                           child: Image.asset(
                             "asstes/images/internet.png",
                             width: widthSize / 2,
@@ -322,20 +376,22 @@ class _WarehousePageState extends State<WarehousePage> {
                         ),
                         Center(
                             child: Text(
-                         state.message=='Null check operator used on a null value'?
-                      "لقد انقطع الاتصال بالانترنت"
-                        :state.message ,
+                          state.message ==
+                                  'Null check operator used on a null value'
+                              ? "لقد انقطع الاتصال بالانترنت"
+                              : state.message,
                           style: TextStyle(
                               color: ColorManager().red,
                               fontSize: 17,
                               fontWeight: FontWeight.w700),
                         ))
-                   ] )
-                  );
+                      ]));
                 } else {
                   return RefreshIndicator(
-                    onRefresh: () async{
-                      context.read<ProductsBloc>().add(getProducts(lable: searchController.text));
+                    onRefresh: () async {
+                      context
+                          .read<ProductsBloc>()
+                          .add(getProducts(lable: searchController.text));
                     },
                     child: ListView(
                       children: [

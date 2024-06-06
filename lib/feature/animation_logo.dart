@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 /// Edit the Directory Programmatically Here
 const directory = "Android/media/matrix/.neo";
 
@@ -215,7 +216,7 @@ class _SpashViewState extends State<SpashView>
     });
 
     _controller.forward();
-     Future.delayed(const Duration(seconds: 6), () {
+    Future.delayed(const Duration(seconds: 6), () {
       _controller.forward(); // لبدء الحركة بعد التأخير
     });
   }
@@ -253,7 +254,7 @@ class _SpashViewState extends State<SpashView>
               opacity: _animationFadeOut,
               child: SlideTransition(
                 position: _animationRightToCenter,
-                child: Image.asset('asstes/images/p1.png'),
+                child: Image.asset('asstes\images\p1.svg'),
               ),
             ),
           ),
@@ -262,7 +263,7 @@ class _SpashViewState extends State<SpashView>
               opacity: _animationFadeOut,
               child: SlideTransition(
                 position: _animationLefttToCenter,
-                child: Image.asset('asstes/images/p2.png'),
+                child: Image.asset('asstes\images\p2.svg'),
               ),
             ),
           ),
@@ -273,7 +274,7 @@ class _SpashViewState extends State<SpashView>
                 opacity: _animationFadeOut,
                 child: SlideTransition(
                   position: _animationBottom,
-                  child: SvgPicture.asset('asstes/images/souq.svg'),
+                  child: SvgPicture.asset('asstes\images\p3.svg'),
                 ),
               ),
             ),
@@ -282,7 +283,10 @@ class _SpashViewState extends State<SpashView>
             child: SlideTransition(
               position: _animationFifthImage,
               child: SvgPicture.asset(
-                  'asstes/images/shape2.svg', height: 64, width: 64,),
+                'asstes/images/shape2.svg',
+                height: 64,
+                width: 64,
+              ),
               // SvgPicture.asset(
               //     height: 64, width: 64, 'asstes/image/م shape.svg'),
             ),
@@ -315,9 +319,10 @@ class _SpashViewState extends State<SpashView>
         _sizeAnimation.status == AnimationStatus.completed &&
         !allAnimationsCompleted) {
       allAnimationsCompleted = true;
-      storage.get<SharedPreferences>().getString('refresh_token') != null||storage.get<SharedPreferences>().getString('refresh_token')==''?
-      AppRouter.routter.go(AppRouter.kHomeViewStock)
-      :AppRouter.routter.go(AppRouter.kLoginView);
+      storage.get<SharedPreferences>().getString('refresh_token') != null ||
+              storage.get<SharedPreferences>().getString('refresh_token') == ''
+          ? AppRouter.routter.go(AppRouter.kHomeViewStock)
+          : AppRouter.routter.go(AppRouter.kLoginView);
     }
   }
 }

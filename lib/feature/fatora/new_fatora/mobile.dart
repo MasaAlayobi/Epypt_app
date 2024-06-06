@@ -94,6 +94,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                       onChanged: (String? newValue) {
                                         if (newValue == "ملغي") {
                                           showModalBottomSheet(
+                                            isScrollControlled: true,
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return BlocProvider(
