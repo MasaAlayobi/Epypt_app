@@ -172,7 +172,7 @@ class _ReportsPageState extends State<ReportsPage> {
                             CustomListTile(
                                 icon: Icons.payments,
                                 iconColor: colorApp.greenColor,
-                                title: 'منوسط قيمة الفاتورة',
+                                title: 'متوسط قيمة الفاتورة',
                                 subtitle: '${state.report.averageBills}'),
                             CustomListTile(
                                 icon: Icons.event_available,
@@ -247,25 +247,29 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      
       elevation: 5,
-      child: ListTile(
-        leading: Icon(
-          icon,
-          size: 27,
-          color: iconColor,
+      child: Center(
+        child: ListTile(
+          minTileHeight: 85,
+          leading: Icon(
+            icon,
+            size: 30,
+            color: iconColor,
+          ),
+          title: CustomText(
+              text: title,
+              size: 16,
+              color: colorApp.greyColor,
+              fontWeight: FontWeight.bold,
+              maxLines: 1),
+          subtitle: CustomText(
+              text: subtitle,
+              size: 16,
+              color: colorApp.blackColor,
+              fontWeight: FontWeight.w700,
+              maxLines: 1),
         ),
-        title: CustomText(
-            text: title,
-            size: 12,
-            color: colorApp.greyColor,
-            fontWeight: FontWeight.bold,
-            maxLines: 1),
-        subtitle: CustomText(
-            text: subtitle,
-            size: 14,
-            color: colorApp.blackColor,
-            fontWeight: FontWeight.w700,
-            maxLines: 1),
       ),
     );
   }

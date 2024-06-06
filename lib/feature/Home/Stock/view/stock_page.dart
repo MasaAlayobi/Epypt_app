@@ -16,6 +16,7 @@ import 'package:mufraty_app/feature/Home/Stock/bloc/stock_bloc.dart';
 TextEditingController searchController = TextEditingController();
 
 class StockPage extends StatefulWidget {
+  int? ind=1;
   StockPage({super.key, this.storeName, this.isName});
   String? storeName;
   bool? isName = false;
@@ -25,18 +26,23 @@ class StockPage extends StatefulWidget {
 
 class _StockPageState extends State<StockPage> with SingleTickerProviderStateMixin {
   int index = 1;
- late TabController _tabController;
+  TabController? _tabController;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    
     _tabController = TabController(length: 3, vsync: this);
+    _tabController!.animateTo(widget.ind!);
     //  _tabcontroller.index=index;
   }
  @override
   void dispose() {
-    _tabController.dispose();
+    _tabController!.dispose();
     super.dispose();
+  }
+  void _goToTab(int index) {
+    // _tabController.animateTo(index);
   }
   String? search;
   @override
@@ -172,7 +178,7 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
             floatingActionButton:
             FloatingActionButton(
             onPressed: () {
-               _tabController.animateTo(_pageToNavigate);
+               _tabController!.animateTo(_pageToNavigate);
             },
             child: Icon(
               Icons.add,

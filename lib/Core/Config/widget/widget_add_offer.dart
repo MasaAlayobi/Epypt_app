@@ -144,28 +144,31 @@ class _WidgetAddOfferState extends State<WidgetAddOffer> {
                             maxLines: 1),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 8, right: 8),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width / 1,
-                          height: 40,
-                          color: colorApp.whiteColor,
-                          child: Center(
-                            child: InkWell(
-                              onTap: () => _selectDate(context),
-                              child: IgnorePointer(
-                                child: TextFormField(
-                                  controller: date,
-                                  decoration: InputDecoration(
-                                    // labelText: 'Date',
-                                    
-                                    hintText: 'أضغط لتحديد التاريخ',
+                          padding: const EdgeInsets.only(left: 8, right: 8),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 1,
+                            height: 40,
+                            color: colorApp.whiteColor,
+                            child: Center(
+                              child: InkWell(
+                                onTap: () => _selectDate(context),
+                                child: IgnorePointer(
+                                  child: Center(
+                                    child: TextFormField(
+                                      controller: date,
+                                      style: TextStyle(),
+                                      textAlign: TextAlign.center,
+                                      decoration: InputDecoration(
+                                        // labelText: 'Date',
+                                        hintText: 'أضغط لتحديد التاريخ',
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
                       BlocListener<AvailableProductsBloc, AvailableProductsState>(
                         listener: (context, state) {
                          if (state is successAddoffer) {
@@ -173,7 +176,7 @@ class _WidgetAddOfferState extends State<WidgetAddOffer> {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(new SnackBar(
                               content: Text(state.message),
-                              backgroundColor: colorApp.basicColor,
+                              backgroundColor: colorApp.greenColor,
                             ));
                            
                             GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
@@ -255,13 +258,13 @@ class _WidgetAddOfferState extends State<WidgetAddOffer> {
                                 left: 8, right: 8, top: 10),
                             child: Container(
                               width: MediaQuery.of(context).size.width / 1,
-                              height: 30,
-                              color: colorApp.whiteColor,
+                              height: 35,
+                              color: colorApp.greenColor,
                               child: Center(
                                   child: CustomText(
                                       text: 'تأكيد',
-                                      size: 14,
-                                      color: colorApp.blackColor,
+                                      size: 16,
+                                      color: colorApp.whiteColor,
                                       fontWeight: FontWeight.w700,
                                       maxLines: 1)),
                             ),

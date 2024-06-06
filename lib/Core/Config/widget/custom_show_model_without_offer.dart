@@ -38,7 +38,7 @@ class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffe
         return Directionality(
             textDirection: TextDirection.rtl,
             child: SizedBox(
-                height: 300,
+                height: 280,
                 width: double.infinity,
                 child: Directionality(
                   textDirection: TextDirection.rtl,
@@ -140,7 +140,7 @@ class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffe
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(new SnackBar(
                               content: Text(state.message),
-                              backgroundColor: colorApp.basicColor,
+                              backgroundColor: colorApp.greenColor,
                             ));
                             Navigator.pop(context);
                           } else if (state is InformationError) {
@@ -214,13 +214,14 @@ class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffe
                                 left: 8, right: 8, top: 10),
                             child: Container(
                               width: MediaQuery.of(context).size.width / 1,
-                              height: 30,
-                              color: colorApp.whiteColor,
+                              height: 35,
+                              
+                              color: colorApp.greenColor,
                               child: Center(
                                   child: CustomText(
                                       text: 'تأكيد',
-                                      size: 14,
-                                      color: colorApp.blackColor,
+                                      size: 16,
+                                      color: colorApp.whiteColor,
                                       fontWeight: FontWeight.w700,
                                       maxLines: 1)),
                             ),

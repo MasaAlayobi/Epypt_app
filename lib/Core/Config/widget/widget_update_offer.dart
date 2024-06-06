@@ -52,7 +52,7 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
         return Directionality(
             textDirection: TextDirection.rtl,
             child: SizedBox(
-                height: 400,
+                height: 370,
                 width: double.infinity,
                 child: Directionality(
                   textDirection: TextDirection.rtl,
@@ -231,7 +231,7 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(new SnackBar(
                               content: Text(state.message),
-                              backgroundColor: colorApp.basicColor,
+                              backgroundColor: colorApp.greenColor,
                             ));
                             GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
                           } else if (state is InformationError) {
@@ -310,13 +310,13 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                                 left: 8, right: 8, top: 10),
                             child: Container(
                               width: MediaQuery.of(context).size.width / 1,
-                              height: 30,
-                              color: colorApp.whiteColor,
+                              height: 35,
+                              color: colorApp.greenColor,
                               child: Center(
                                   child: CustomText(
                                       text: 'تأكيد',
                                       size: 14,
-                                      color: colorApp.blackColor,
+                                      color: colorApp.whiteColor,
                                       fontWeight: FontWeight.w700,
                                       maxLines: 1)),
                             ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_container_with_text.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_text.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
@@ -30,18 +32,18 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
               backgroundColor: colorApp.BackgroundColor,
               body: BlocConsumer<NotAvailableBloc, NotAvailableState>(
                 listener: (context, state) {
-                   if(state is successAddAvailable){
-                ScaffoldMessenger.of(context) .showSnackBar(new SnackBar(
-                            content: Text(state.message),
-                            backgroundColor: colorApp.basicColor,
-                          ));
-              }
-              else if (state is LoadingUpdate){
-                 ScaffoldMessenger.of(context) .showSnackBar(new SnackBar(
-                            content: Text(state.message),
-                            backgroundColor: colorApp.basicColor,
-                          ));
-              }
+              //      if(state is successAddAvailable){
+              //   ScaffoldMessenger.of(context) .showSnackBar(new SnackBar(
+              //               content: Text(state.message),
+              //               backgroundColor: colorApp.basicColor,
+              //             ));
+              // }
+              // else if (state is LoadingUpdate){
+              //    ScaffoldMessenger.of(context) .showSnackBar(new SnackBar(
+              //               content: Text(state.message),
+              //               backgroundColor: colorApp.basicColor,
+              //             ));
+              // }
                 },
                 builder: (context, state) {
                   if (state is SuccessGetNotAvailableProducts) {
@@ -60,7 +62,7 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                               color: colorApp.whiteColor,
                               elevation: 2,
                               child: Container(
-                                  height: 170,
+                                  height: 190,
                                   
                                   // color: Colors.blueGrey,
                                   child: Row(
@@ -77,14 +79,14 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                 errorBuilder: (context, error,
                                                     stackTrace) {
                                                   return Image.asset(
-                                                    'asstes/images/لقطة شاشة 2024-05-07 130659.png',
+                                                    'asstes/images/no_photo.jpg',
                                                      width: MediaQuery.of(context).size.width /3,
                                                 height:MediaQuery.of(context).size.height /4,
                                                   );
                                                 },
                                               )
                                             : Image.asset(
-                                                'asstes/images/لقطة شاشة 2024-05-07 130659.png',
+                                                'asstes/images/no_photo.jpg',
                                                 width: MediaQuery.of(context).size.width /3,
                                                 height:MediaQuery.of(context).size.height /4,
                                               ),
@@ -96,19 +98,25 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Container(
-                                                width: 210,
-                                                height: 30,
-                                                child: CustomText(
-                                                    text: state
-                                                        .allProduct[index].name,
-                                                    size: 13,
-                                                    color: colorApp.blackColor,
-                                                    fontWeight: FontWeight.w600,
-                                                    maxLines: 3)),
-                                            CustomContainerWithText(
-                                                text: state.allProduct[index]
-                                                    .discription),
+                                            // Container(
+                                            //     width: 210,
+                                            //     height: 50,
+                                            //     child: 
+                                                Padding(
+                                                  padding: const EdgeInsets.only(left: 6),
+                                                  child: CustomText(
+                                                      text: state
+                                                          .allProduct[index].name+' '+state.allProduct[index]
+                                                      .discription,
+                                                      size: 15,
+                                                      color: colorApp.blackColor,
+                                                      fontWeight: FontWeight.w600,
+                                                      maxLines: 3),
+                                                ),
+                                                    // ),
+                                            // CustomContainerWithText(
+                                            //     text: state.allProduct[index]
+                                            //         .discription),
                                             // CustomText(
                                             //     text: '${state.allProduct[index].size_of} x ' +
                                             //         '${state.allProduct[index].size}',
@@ -183,11 +191,115 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                     Center(
                                                       child: InkWell(
                                                         onTap: () {
-                                                          context.read<NotAvailableBloc>().add(AddToAvailable(id: state.allProduct[index].pivot.id, is_available: 1));
-                                                          // setState(() {
-                                                          //   isChecked2[index]!=
-                                                          //       isChecked2[index];
-                                                          // });
+                                                       showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return BlocProvider(
+                                                        create: (context) =>
+                                                            NotAvailableBloc(),
+                                                        child: Builder(
+                                                            builder: (context) {
+                                                          return Directionality(
+                                                            textDirection:
+                                                                TextDirection
+                                                                    .rtl,
+                                                            child: AlertDialog(
+                                                              content:
+                                                                  SingleChildScrollView(
+                                                                child: BlocListener<
+                                                                    NotAvailableBloc,
+                                                                    NotAvailableState>(
+                                                                  listener:
+                                                                      (context,
+                                                                          state) {
+                                                                    if (state
+                                                                        is successAddAvailable) {
+                                                                      ScaffoldMessenger.of(
+                                                                              context)
+                                                                          .showSnackBar(
+                                                                              new SnackBar(
+                                                                        content:
+                                                                            Text(state.message),
+                                                                        backgroundColor:
+                                                                            colorApp.greenColor,
+                                                                      ));
+                                                                      GoRouter.of(
+                                                                              context)
+                                                                          .pushReplacement(
+                                                                              AppRouter.kHomeViewStock);
+                                                                    } else if (state
+                                                                        is NoConnectionAddProduct) {
+                                                                      ScaffoldMessenger.of(
+                                                                              context)
+                                                                          .showSnackBar(
+                                                                              new SnackBar(
+                                                                        content:
+                                                                            Text(state.message),
+                                                                        backgroundColor:
+                                                                            colorApp.basicColor,
+                                                                      ));
+                                                                      GoRouter.of(
+                                                                              context)
+                                                                          .pushReplacement(
+                                                                              AppRouter.kHomeViewStock);
+                                                                    }
+                                                                  },
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceEvenly,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .all(
+                                                                            10.0),
+                                                                        child: Text(
+                                                                            'هل أنت متأكد من نقل المنتج إلى متاح؟',
+                                                                            style: TextStyle(
+                                                                                color: colorApp.blackColor,
+                                                                                fontSize: 15,
+                                                                                fontWeight: FontWeight.w700)),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              actions: <Widget>[
+                                                                TextButton(
+                                                                  child: Text(
+                                                                      'موافق',
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              colorApp.greenColor)),
+                                                                  onPressed:
+                                                                      () {
+                                                                  context.read<NotAvailableBloc>().add(AddToAvailable(id: state.allProduct[index].pivot.id, is_available: 1));
+                                                                  },
+                                                                ),
+                                                                TextButton(
+                                                                  child: Text(
+                                                                    'رجوع',
+                                                                    style: TextStyle(
+                                                                        color: colorApp
+                                                                            .basicColor),
+                                                                  ),
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        }),
+                                                      );
+                                                    },
+                                                  );
                                                         },
                                                         child: Container(
                                                           width: 18,

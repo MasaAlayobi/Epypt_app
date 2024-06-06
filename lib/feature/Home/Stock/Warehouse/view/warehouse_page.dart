@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_container_with_text.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_showModalBottomSheet.dart';
@@ -70,7 +71,7 @@ class _WarehousePageState extends State<WarehousePage> {
                                                 errorBuilder: (context, error,
                                                     stackTrace) {
                                                   return Image.asset(
-                                                    'asstes/images/لقطة شاشة 2024-05-07 130659.png',
+                                                    'asstes/images/no_photo.jpg',
                                                     width: MediaQuery.of(context).size.width /3,
                                                 height:MediaQuery.of(context).size.height /4,
                                                   );
@@ -78,7 +79,7 @@ class _WarehousePageState extends State<WarehousePage> {
                                               ),
                                             )
                                           : Image.asset(
-                                              'asstes/images/لقطة شاشة 2024-05-07 130659.png',
+                                              'asstes/images/no_photo.jpg',
                                                width: MediaQuery.of(context).size.width /3,
                                                 height:MediaQuery.of(context).size.height /4,
                                             ), // أو أي ويدجت بديلة عندما تكون القائمة فارغة
@@ -90,157 +91,174 @@ class _WarehousePageState extends State<WarehousePage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Container(
-                                              width: 210,
-                                              height: 50,
-                                              child: CustomText(
-                                                  text: state
-                                                      .allProduct[index].name,
-                                                  size: 13,
-                                                  color: colorApp.blackColor,
-                                                  fontWeight: FontWeight.w600,
-                                                  maxLines: 3)),
-                                          CustomContainerWithText(
-                                              text: state.allProduct[index]
-                                                  .discription),
-                                          CustomText(
-                                              text: '${state.allProduct[index].size_of}  x' +
-                                                  '${state.allProduct[index].size}',
-                                              size: 13,
-                                              color: colorApp.greyColor,
-                                              fontWeight: FontWeight.w600,
-                                              maxLines: 2),
-                                          Row(
-                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    
-                                            children: [
-                                              InkWell(
-                                                onTap: () {
-                                                  bool isImage;
-                                                  String image;
-                                                  if (state.allProduct[index]
-                                                      .image.isNotEmpty) {
-                                                    isImage = true;
-                                                    image = state
-                                                        .allProduct[index]
-                                                        .image[0];
-                                                  } else {
-                                                    isImage = false;
-                                                    image =
-                                                        'asstes/images/لقطة شاشة 2024-05-07 130659.png';
-                                                  }
-                                                  showModalBottomSheet(
-                                                    // isDismissible: false,
-                                                    backgroundColor:
-                                                        Color.fromARGB(
-                                                            255, 232, 232, 234),
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return CustomShowmodalbottomsheet(
-                                                          nameProduct: state
-                                                              .allProduct[index]
-                                                              .name,
-                                                          image: image,
-                                                          size_of: state
-                                                              .allProduct[index]
-                                                              .size_of,
-                                                          isImage: isImage,
-                                                          id: state
-                                                              .allProduct[index]
-                                                              .id);
-                                                    },
-                                                  );
-                                                },
-                                                child: Container(
-                                                  width: 80,
-                                                  height: 28,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4),
-                                                    color: colorApp.blueColor,
-                                                  ),
-                                                  child: Center(
-                                                      child: CustomText(
-                                                          text: '+ مع عرض',
-                                                          size: 13,
-                                                          color: colorApp
-                                                              .whiteColor,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          maxLines: 2)),
-                                                ),
+                                          // SizedBox(
+                                          //   height: 5,
+                                          // ),
+                                          // Container(
+                                          //     width: 210,
+                                          //     height: 50,
+                                              // child: 
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 6,bottom: 9),
+                                                child: CustomText(
+                                                    text: state
+                                                        .allProduct[index].name+" "+state.allProduct[index]
+                                                    .discription,
+                                                    size: 15,
+                                                    color: colorApp.blackColor,
+                                                    fontWeight: FontWeight.w600,
+                                                    maxLines: 3),
                                               ),
-                    
-                                              InkWell(
-                                                onTap: () {
-                                                  bool isImage;
-                                                  String image;
-                                                  if (state.allProduct[index]
-                                                      .image.isNotEmpty) {
-                                                    isImage = true;
-                                                    image = state
-                                                        .allProduct[index]
-                                                        .image[0];
-                                                  } else {
-                                                    isImage = false;
-                                                    image =
-                                                        'asstes/images/لقطة شاشة 2024-05-07 130659.png';
-                                                  }
-                                                  print(state.allProduct[index]
-                                                      .image[0]);
-                                                  showModalBottomSheet(
-                                                    // isDismissible: false,
-                    
-                                                    backgroundColor:
-                                                        Color.fromARGB(
-                                                            255, 232, 232, 234),
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return CustomShowModelWithoutOffer(
-                                                        isImage: isImage,
-                                                        id: state
+                                                  // ),
+                                          // CustomContainerWithText(
+                                          //     text: state.allProduct[index]
+                                          //         .discription),
+                                          // CustomText(
+                                          //     text: '${state.allProduct[index].size_of}  x' +
+                                          //         '${state.allProduct[index].size}',
+                                          //     size: 13,
+                                          //     color: colorApp.greyColor,
+                                          //     fontWeight: FontWeight.w600,
+                                          //     maxLines: 2),
+                                          Padding(
+                                            padding: const EdgeInsets.only(bottom: 0),
+                                            child: Row(
+                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    bool isImage;
+                                                    String image;
+                                                    if (state.allProduct[index]
+                                                        .image.isNotEmpty) {
+                                                      isImage = true;
+                                                      image = state
+                                                          .allProduct[index]
+                                                          .image[0];
+                                                    } else {
+                                                      isImage = false;
+                                                      image =
+                                                          'asstes/images/no_photo.jpg';
+                                                    }
+                                                    showModalBottomSheet(
+                                                      // isDismissible: false,
+                                                      backgroundColor:
+                                                          Color.fromARGB(
+                                                              255, 232, 232, 234),
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return CustomShowmodalbottomsheet(
+                                                            nameProduct: state
+                                                                .allProduct[index]
+                                                                .name,
+                                                            image: image,
+                                                            size_of: state
+                                                                .allProduct[index]
+                                                                .size_of,
+                                                            isImage: isImage,
+                                                            id: state
+                                                                .allProduct[index]
+                                                                .id);
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    width: 80,
+                                                    height: 28,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                      color: colorApp.blueColor,
+                                                    ),
+                                                    child: Center(
+                                                        child: CustomText(
+                                                            text: '+ مع عرض',
+                                                            size: 13,
+                                                            color: colorApp
+                                                                .whiteColor,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            maxLines: 2)),
+                                                  ),
+                                                ),
+                                                                
+                                                Align(
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      bool isImage;
+                                                      String image;
+                                                      if (state.allProduct[index]
+                                                          .image.isNotEmpty) {
+                                                        isImage = true;
+                                                        image = state
                                                             .allProduct[index]
-                                                            .id,
-                                                        nameProduct: state
-                                                            .allProduct[index]
-                                                            .name,
-                                                        image: image,
-                                                        size_of: state
-                                                            .allProduct[index]
-                                                            .size_of,
-                                                        // onTap: () {
-                                                        //   //  (context) => ProductsBloc().add(addProductWithoutOffer(id: , product: product));
-                                                        // },
+                                                            .image[0];
+                                                      } else {
+                                                        isImage = false;
+                                                        image =
+                                                            'asstes/images/no_photo.jpg';
+                                                      }
+                                                      print(state.allProduct[index]
+                                                          .image[0]);
+                                                      showModalBottomSheet(
+                                                        // isDismissible: false,
+                                                                      
+                                                        backgroundColor:
+                                                            Color.fromARGB(
+                                                                255, 232, 232, 234),
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return SingleChildScrollView(
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.only(bottom: 0
+                                                                   ),
+                                                              child: CustomShowModelWithoutOffer(
+                                                                isImage: isImage,
+                                                                id: state
+                                                                    .allProduct[index]
+                                                                    .id,
+                                                                nameProduct: state
+                                                                    .allProduct[index]
+                                                                    .name,
+                                                                image: image,
+                                                                size_of: state
+                                                                    .allProduct[index]
+                                                                    .size_of,
+                                                                // onTap: () {
+                                                                //   //  (context) => ProductsBloc().add(addProductWithoutOffer(id: , product: product));
+                                                                // },
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
                                                       );
                                                     },
-                                                  );
-                                                },
-                                                child: Container(
-                                                  width: 80,
-                                                  height: 28,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4),
-                                                    color: colorApp.greenColor,
+                                                    child: Container(
+                                                      width: 80,
+                                                      height: 28,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                4),
+                                                        color: colorApp.greenColor,
+                                                      ),
+                                                      child: Center(
+                                                          child: CustomText(
+                                                              text:
+                                                                  '+ بدون عرض',
+                                                              size: 13,
+                                                              color: colorApp
+                                                                  .whiteColor,
+                                                              fontWeight:
+                                                                  FontWeight.w700,
+                                                              maxLines: 2)),
+                                                    ),
                                                   ),
-                                                  child: Center(
-                                                      child: CustomText(
-                                                          text:
-                                                              '+ بدون عرض',
-                                                          size: 13,
-                                                          color: colorApp
-                                                              .whiteColor,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          maxLines: 2)),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
