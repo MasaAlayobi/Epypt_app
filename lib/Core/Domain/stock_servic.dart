@@ -284,7 +284,7 @@ class StockServicImp extends StockServic {
       print('**************************');
       return [];
     }}on DioException catch(e){
-      throw e.response!;
+      throw e.response!.data["message"];
    }on Error catch(e){
     throw e;
    }

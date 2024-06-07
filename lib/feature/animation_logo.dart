@@ -299,11 +299,11 @@ class _SpashViewState extends State<SpashView>
               position: _animationFifthImageee,
               child:
                   Padding(
-                    padding: const EdgeInsets.all(33.0),
-                    child: SvgPicture.asset(width:100, height: 100, 'asstes/images/Group 5 (2).svg'),
+                    padding: const EdgeInsets.only(top: 0),
+                    child: Image.asset(width:200, height: 200, 'asstes/images/p6 (2).png'),
                   ),
             ),
-          ),
+          )
         ],
       ),
     );

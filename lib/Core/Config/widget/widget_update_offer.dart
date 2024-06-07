@@ -31,7 +31,7 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
     if (picked != null && picked != DateTime.now()) {
@@ -195,28 +195,32 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                             fontWeight: FontWeight.bold,
                             maxLines: 1),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8, right: 8),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width / 1,
-                          height: 40,
-                          color: colorApp.whiteColor,
-                          child: Center(
-                            child: InkWell(
-                              onTap: () => _selectDate(context),
-                              child: IgnorePointer(
-                                child: TextFormField(
-                                  controller: date,
-                                  decoration: InputDecoration(
-                                    // labelText: 'Date',
-                                    hintText: 'أضغط لتحديد التاريخ',
+                     Padding(
+                          padding: const EdgeInsets.only(left: 8, right: 8),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 1,
+                            height: 40,
+                            color: colorApp.whiteColor,
+                            child: Center(
+                              child: InkWell(
+                                onTap: () => _selectDate(context),
+                                child: IgnorePointer(
+                                  child: Center(
+                                    child: TextFormField(
+                                      controller: date,
+                                      style: TextStyle(),
+                                      textAlign: TextAlign.center,
+                                      decoration: InputDecoration(
+                                        // labelText: 'Date',
+                                        hintText: 'أضغط لتحديد التاريخ',
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
                       BlocListener<AvailableProductsBloc,AvailableProductsState>(
                         listener: (context, state) {
                          if (state is successUpdateOffer) {

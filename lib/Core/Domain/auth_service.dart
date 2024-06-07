@@ -75,10 +75,23 @@ formData.files.addAll({
       } else if (response.statusCode == 422) {
         print(response.data);
       }
-    } on DioException catch(e ) {
-      print(e.response);
-    throw e.response!;
-    }
+    }on DioException catch(e){
+      print('____________________________');
+      // throw e.response!.data["message"][0];
+      var messages = e.response!.data['message'];
+            if (messages is List) {
+              // تحويل كل عنصر في القائمة إلى نص قبل الانضمام
+              String messageText = messages.map((m) => m.toString()).join('n');
+              
+             throw messageText;
+            } else {
+                print(messages);
+              // print('${response.data['message']}');
+              throw messages;
+              // إذا لم تكن الرسالة قائمة، فقط أظهر الرسالة كما هي
+             
+            }
+   }
   }
 
   @override
@@ -105,10 +118,25 @@ formData.files.addAll({
       storage.get<SharedPreferences>().setString('refresh_token', response.data['refresh_token']);
         return successModel;
       }else{print("object");}
-    } on DioException catch(e ) {
-      print(e.response);
-    throw e.response!;
-    }
+    } on DioException catch(e){
+      print('____________________________');
+      // throw e.response!.data["message"][0];
+      var messages = e.response!.data['message'];
+            if (messages is List) {
+              // تحويل كل عنصر في القائمة إلى نص قبل الانضمام
+              String messageText = messages.map((m) => m.toString()).join('n');
+              
+             throw messageText;
+            } else {
+                print(messages);
+              // print('${response.data['message']}');
+              throw messages;
+              // إذا لم تكن الرسالة قائمة، فقط أظهر الرسالة كما هي
+             
+            }
+   }on Error catch(e){
+    throw e;
+   }
   }
 
   @override
