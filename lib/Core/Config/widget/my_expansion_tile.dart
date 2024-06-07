@@ -14,7 +14,7 @@ class myExpansionTile extends StatefulWidget {
   String text1;
   // String text2;
   // String text3;
-  bool? variable=true;
+  // bool? variable=true;
   final Function(num) onDataChanged;
   Widget widget;
   myExpansionTile({
@@ -22,7 +22,7 @@ class myExpansionTile extends StatefulWidget {
     required this.text1,
     // required this.text2,
     // required this.text3,
-    this.variable,
+    // this.variable,
     required this.widget,
     required this.onDataChanged,
   }) : super(key: key);
@@ -45,20 +45,32 @@ class _myExpansionTileState extends State<myExpansionTile> {
   void someFunctionThatChangesData(num citieId) {
     widget.onDataChanged(citieId);
   }
-
+bool _isExpanded = false;
+ void _handleTap() {
+    setState(() {
+      _isExpanded = false;
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    
     return BlocProvider(
       create: (context) => RegisterBloc()..add(getCities())
       // ..add(getCities())
       ,
       child: ExpansionTile(
-        onExpansionChanged: (variable) {
+        initiallyExpanded: _isExpanded,
+        onExpansionChanged: (value) {
+          setState(() {
+            _isExpanded=value;
+            // variable=_isExpanded;
+          });
+          print(_isExpanded);
           //   if(variable == false){
           // //   context.read<RegisterBloc>().add(getCities());
           // // controller.collapse();
           //   }
-          print(variable);
+          // print(variable);
         },
         title: Text(
           selectedTitle!,
@@ -85,22 +97,37 @@ class _myExpansionTileState extends State<myExpansionTile> {
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, ind) => InkWell(
                     onTap: () {
-                      setState(() {
+                      // setState(() {
                         //  selectedTitle=state.Cities[ind].name;
                         if (state.Cities[ind].childrens.isEmpty) {
                          someFunctionThatChangesData(state.Cities[ind].id);
-                         variabl==false;
+                         _handleTap();
                           setState(() {
+                        //  variabl==false;
+                         
                               // تحديث الحالة بالقيمة الجديدة
                               selectedTitle = state.Cities[ind].name;
                             });
                          
                         }
                         print('dddddddddddddddddddddddddddddddddddddddddddd');
-                      });
+                      // });
                     },
                     child: ExpansionTile(
                       // controller: controller,
+                      initiallyExpanded: _isExpanded,
+        onExpansionChanged: (val) {
+          setState(() {
+            // variable=_isExpanded;
+            _isExpanded=val;
+          });
+          print(_isExpanded);
+          //   if(variable == false){
+          // //   context.read<RegisterBloc>().add(getCities());
+          // // controller.collapse();
+          //   }
+          // print(variable);
+        },
                       title: HeaderText(
                           text: state.Cities[ind].name,
                           fontSize: 16,
@@ -122,8 +149,10 @@ class _myExpansionTileState extends State<myExpansionTile> {
                           itemBuilder: (context, index) => InkWell(
                             onTap: () {
                              someFunctionThatChangesData(state.Cities[ind].childrens[index].id);
-                             variabl==false;
+                             _handleTap();
                               setState(() {
+                            //  variabl==false;
+                             print(_isExpanded);
                               // تحديث الحالة بالقيمة الجديدة
                               selectedTitle = state.Cities[ind].childrens[index].name;
                             });

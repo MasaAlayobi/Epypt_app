@@ -211,15 +211,21 @@ class _WarehousePageState extends State<WarehousePage> {
                                                               4),
                                                       color: colorApp.blueColor,
                                                     ),
-                                                    child: Center(
-                                                        child: CustomText(
-                                                            text: '+ مع عرض',
-                                                            size: 13,
-                                                            color: colorApp
-                                                                .whiteColor,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            maxLines: 2)),
+                                                    child: FittedBox(
+                                                      fit: BoxFit.contain,
+                                                      child: Center(
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(3),
+                                                            child: CustomText(
+                                                                text: '+ مع عرض',
+                                                                size: 12,
+                                                                color: colorApp
+                                                                    .whiteColor,
+                                                                fontWeight:
+                                                                    FontWeight.w700,
+                                                                maxLines: 2),
+                                                          )),
+                                                    ),
                                                   ),
                                                 ),
                                                 Align(
@@ -295,17 +301,23 @@ class _WarehousePageState extends State<WarehousePage> {
                                                         color:
                                                             colorApp.greenColor,
                                                       ),
-                                                      child: Center(
-                                                          child: CustomText(
-                                                              text:
-                                                                  '+ بدون عرض',
-                                                              size: 13,
-                                                              color: colorApp
-                                                                  .whiteColor,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              maxLines: 2)),
+                                                      child: FittedBox(
+                                                        fit: BoxFit.contain,
+                                                        child: Center(
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.all(2),
+                                                              child: CustomText(
+                                                                  text:
+                                                                      '+ بدون عرض',
+                                                                  size: 13,
+                                                                  color: colorApp
+                                                                      .whiteColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  maxLines: 2),
+                                                            )),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),

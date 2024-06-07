@@ -1,5 +1,6 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -291,12 +292,16 @@ class _SpashViewState extends State<SpashView>
               //     height: 64, width: 64, 'asstes/image/م shape.svg'),
             ),
           ),
+          
           FadeTransition(
             opacity: _animationScale,
             child: SlideTransition(
               position: _animationFifthImageee,
               child:
-                  Image.asset(width: 200, height: 200, 'asstes/images/p3.png'),
+                  Padding(
+                    padding: const EdgeInsets.all(33.0),
+                    child: SvgPicture.asset(width:100, height: 100, 'asstes/images/Group 5 (2).svg'),
+                  ),
             ),
           ),
         ],
@@ -319,10 +324,9 @@ class _SpashViewState extends State<SpashView>
         _sizeAnimation.status == AnimationStatus.completed &&
         !allAnimationsCompleted) {
       allAnimationsCompleted = true;
-      storage.get<SharedPreferences>().getString('refresh_token') != null ||
-              storage.get<SharedPreferences>().getString('refresh_token') == ''
-          ? AppRouter.routter.go(AppRouter.kHomeViewStock)
-          : AppRouter.routter.go(AppRouter.kLoginView);
+      storage.get<SharedPreferences>().getString('refresh_token')!=null 
+          ? GoRouter.of(context).go(AppRouter.kHomeViewStock)
+          : GoRouter.of(context).go(AppRouter.kLoginView);
     }
   }
 }

@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(new SnackBar(
                                       content: Text(state.message),
-                                      backgroundColor: colorApp.basicColor,
+                                      backgroundColor: colorApp.greenColor,
                                     ));
                                     Navigator.pushReplacement(
                                         context,

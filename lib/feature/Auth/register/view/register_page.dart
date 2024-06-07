@@ -49,7 +49,7 @@ class _SignUpState extends State<SignUp> {
   GlobalKey<FormState> formstate = GlobalKey<FormState>();
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
-  TextEditingController deliveryTime = TextEditingController();
+  TextEditingController location_details = TextEditingController();
   final TextEditingController _controller = TextEditingController();
   final imagePicker = ImagePicker();
   File? image;
@@ -395,28 +395,29 @@ class _SignUpState extends State<SignUp> {
                                 validatorText: "مطلوب",
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(9),
-                              child: myTextFieldName(
-                                readOnly: false,
-                                nameText: "مدة التوصيل",
-                                nameController: deliveryTime,
-                                validatorText: "مطلوب",
-                              ),
-                            ),
+                           
                             //////////
 
                             Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 18),
+                                    horizontal: 12),
                                 child: myExpansionTile(
                                   onDataChanged: updateDataCities,
-                                  variable: true,
+                                  // variable: true,
                                   widget: Text(""),
                                   text1: "اختر مدينتك",
                                   // text2: "دمشق",
                                   // text3: "ركن الدين",
                                 )),
+                                Padding(
+                              padding: const EdgeInsets.all(9),
+                              child: myTextFieldName(
+                                readOnly: false,
+                                nameText: "عنوانك",
+                                nameController: location_details,
+                                validatorText: "مطلوب",
+                              ),
+                            ),
                             Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 12),
@@ -445,6 +446,11 @@ class _SignUpState extends State<SignUp> {
                                       // text3: "ركن الدين",
                                       variable: isCheckedCheckBox2),
                                 )),
+                              //   StatefulBuilder(builder: (context, setState) {
+                                  
+                              //  return CityList();
+                              //   },),
+                                // ExpansionTileDemo(),
                             ChangeSign(
                               text: "لديك حساب؟",
                               textbutton: "تسجيل دخول",
@@ -491,7 +497,7 @@ class _SignUpState extends State<SignUp> {
                                       secondName.text.isNotEmpty &&
                                       password.text.isNotEmpty &&
                                       marketName.text.isNotEmpty &&
-                                      deliveryTime.text.isNotEmpty &&
+                                      location_details.text.isNotEmpty &&
                                       quantity.text.isNotEmpty &&
                                       priceBill.text.isNotEmpty &&
                                       // catorgy.text.isNotEmpty &&
@@ -512,7 +518,7 @@ class _SignUpState extends State<SignUp> {
                                             '+20${_controller.text.toString()}',
                                         store_name: marketName.text,
                                         password: password.text,
-                                        delivery_duration: deliveryTime.text,
+                                        location_details: location_details.text,
                                         min_selling_quantity:
                                             int.parse(quantity.text),
                                         min_bill_price:

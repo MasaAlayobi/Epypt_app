@@ -74,7 +74,7 @@ class _AvailablePageState extends State<AvailablePage> {
                           color: colorApp.whiteColor,
                           elevation: 2,
                           child: Container(
-                              height: 250,
+                              height: 260,
                               // color: Colors.blueGrey,
                               child: Row(
                                 children: [
@@ -658,7 +658,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                               .message),
                                                                       backgroundColor:
                                                                           colorApp
-                                                                              .basicColor,
+                                                                              .greenColor,
                                                                     ));
                                                                     GoRouter.of(
                                                                             context)

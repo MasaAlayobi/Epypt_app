@@ -187,8 +187,10 @@ class _ReportsPageState extends State<ReportsPage> {
                           ],
                         );
                       } else if (state is ReportLoading) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (state is ReportError) {
+                      return const Center(child: CircularProgressIndicator(
+                        color:colorApp.basicColor,
+                      ));
+                    } else if (state is ReportError) {
                         return RefreshIndicator(
                           onRefresh: () async {
                             context

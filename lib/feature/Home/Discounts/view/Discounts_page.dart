@@ -87,6 +87,7 @@ class _LogoState extends State<Logo> {
 
       if (response.statusCode == 200) {
         print('Success: ${response.data}');
+         _clearAllDiscounts();
         // Optionally show a success message to the user
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -103,7 +104,7 @@ class _LogoState extends State<Logo> {
       }
     } on DioException catch (e) {
       if (e.response != null) {
-        final response = e.response!.data["message"];
+        final response = e.response!;
         if (response.data != null && response.data is Map<String, dynamic>) {
           final Map<String, dynamic> data = response.data;
           if (data.containsKey('message') && data.containsKey('errors')) {
@@ -111,44 +112,62 @@ class _LogoState extends State<Logo> {
             final Map<String, dynamic> errors = data['errors'];
             final List errorMessages = errors.values.expand((v) => v).toList();
             final String errorMessage = errorMessages.join('\n');
-            print(' $message\n$errorMessage');
+            print('$message\n$errorMessage');
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                  backgroundColor: const Color(0xffE32020),
-                  content: Text(' $message\n$errorMessage')),
+                  backgroundColor: Colors.red,
+                  content: Text(' ${response.data['message'].toString()}')),
             );
           } else {
-            print('{response.statusMessage}');
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  backgroundColor: const Color(0xffE32020),
-                  content: Text('{response.statusMessage}')),
-            );
+            print('${response.data['message']}');
+            var messages = response.data['message'];
+            if (messages is List) {
+              // تحويل كل عنصر في القائمة إلى نص قبل الانضمام
+              var messageText = messages.map((m) => m.toString()).join('n');
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text(messageText),
+                ),
+              );
+            } else {
+              print('${response.data['message']}');
+              // إذا لم تكن الرسالة قائمة، فقط أظهر الرسالة كما هي
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text(messages.toString()),
+                ),
+              );
+            }
+            // print('${response.data['message']}');
+
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(
+            //       backgroundColor: Colors.red,
+            //       content: Text('${response.data['message'].join('\n')}')),
+            // );
           }
         } else {
-          print(' ${response.statusMessage}');
+          print('${response.statusMessage}');
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-                backgroundColor: const Color(0xffE32020),
-                content: Text(
-                  ' ${response.statusMessage}',
-                )),
+                backgroundColor: Colors.red,
+                content: Text('Error: ${response.data['message']}')),
           );
         }
       } else {
-        print(' ${e.message}');
+        print('${e.message}');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              backgroundColor: const Color(0xffE32020),
-              content: Text(' ${e.message}')),
+          const SnackBar(
+              backgroundColor: Color(0xffE32020),
+              content: Text('تحقق من الأتصال بالأنترنت')),
         );
       }
     } catch (e) {
-      print(' $e');
+      print('Unexpected error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            backgroundColor: const Color(0xffE32020),
-            content: Text(' $e')),
+        SnackBar(backgroundColor: const Color(0xffE32020), content: Text('$e')),
       );
     }
   }
@@ -158,7 +177,17 @@ class _LogoState extends State<Logo> {
       discounts.removeAt(index);
     });
   }
+void _clearAllDiscounts() {
+    setState(() {
+      discounts.clear();
+    });
+  }
 
+  @override
+  void initState() {
+    super.initState();
+    _addLogoBody();
+  }
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -335,7 +364,7 @@ class _RowWithTextState extends State<RowWithText> {
       children: [
         const Spacer(),
         Container(
-          width: 100,
+          width: 110,
           height: 46.2,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
@@ -364,7 +393,7 @@ class _RowWithTextState extends State<RowWithText> {
         ),
         const Spacer(),
         Container(
-          width: 100,
+          width: 110,
           height: 46.2,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
@@ -470,7 +499,7 @@ class MyCustomForm extends StatelessWidget {
         TextEditingController(text: initialDate);
     return Container(
       constraints: const BoxConstraints(
-        maxWidth: 100,
+        maxWidth: 115,
         maxHeight: 40,
       ),
       decoration: BoxDecoration(
@@ -499,7 +528,7 @@ class MyCustomForm extends StatelessWidget {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
+     firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
     if (picked != null) {

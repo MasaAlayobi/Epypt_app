@@ -253,7 +253,7 @@ class StockServicImp extends StockServic {
       
       print(response.data);
       await TokenStorage().clearTokens();
-      storage.get<SharedPreferences>().setString('refresh_token','');
+      storage.get<SharedPreferences>().remove('refresh_token');
       return response.data['message'];
     } else {
       print('**************************');

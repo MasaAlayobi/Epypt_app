@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,7 +89,9 @@ class _LoginViewState extends State<LoginView> {
                               cursorColor: ColorManager().red,
                               decoration: InputDecoration(
                                 errorStyle:
-                                    TextStyle(color: ColorManager().red),
+
+
+TextStyle(color: ColorManager().red),
                                 errorBorder: OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: ColorManager().red),
@@ -158,7 +161,9 @@ class _LoginViewState extends State<LoginView> {
                           //       focusedErrorBorder: OutlineInputBorder(
                           //           borderSide:
                           //               BorderSide(color: ColorManager().red),
-                          //           borderRadius: BorderRadius.circular(12)),
+
+
+//           borderRadius: BorderRadius.circular(12)),
                           //       fillColor: Colors.grey[200],
                           //       filled: true,
                           //       focusedBorder: OutlineInputBorder(
@@ -230,7 +235,9 @@ class _LoginViewState extends State<LoginView> {
                                         BorderSide(color: ColorManager().red),
                                     borderRadius: BorderRadius.circular(12)),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide:
+
+
+borderSide:
                                         BorderSide(color: ColorManager().red),
                                     borderRadius: BorderRadius.circular(12)),
                                 border: OutlineInputBorder(
@@ -242,35 +249,54 @@ class _LoginViewState extends State<LoginView> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 25),
-                            child: Text(
-                              'هل نسيت كلمة السر',
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500,
-                                color: const Color.fromARGB(255, 78, 75, 75),
-                              ),
+
+                          InkWell(
+                            onTap: () {
+                              GoRouter.of(context)
+                                  .pushReplacement(AppRouter.KforgetPassword);
+                            },
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 25,
+                                ),
+                                Text(
+                                  'هل نسيت كلمة السر',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w500,
+                                    color:
+                                        const Color.fromARGB(255, 78, 75, 75),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 8,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 25),
-                            child: ChangeSign(
-                              text: "ليس لديك حساب ؟",
-                              textbutton: "إنشاء حساب",
-                              onPress: () {
-                                // NavigatorKey.currentState!.pushNamed(
-                                //   AppRouter.KNotification
-                                // );
-                                GoRouter.of(context)
-                                    .pushReplacement(AppRouter.kRigesterView);
-                              },
-                            ),
+                          // SizedBox(
+                          //   height: 25,
+                          // ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 25,
+                                // height: 20,
+                              ),
+                              ChangeSign(
+                                text: "ليس لديك حساب ؟",
+                                textbutton: "إنشاء حساب",
+                                onPress: () {
+                                  // NavigatorKey.currentState!.pushNamed(
+                                  //   AppRouter.KNotification
+                                  // );
+                                  GoRouter.of(context)
+                                      .pushReplacement(AppRouter.kRigesterView);
+                                },
+                              ),
+                            ],
                           ),
-
                           BlocListener<LoginBloc, LoginState>(
                             listener: (context, state) {
                               if (state is successcreatedUser) {
@@ -292,7 +318,9 @@ class _LoginViewState extends State<LoginView> {
                                     .showSnackBar(new SnackBar(
                                   content: Text(
                                     state.message ==
-                                                'Null check operator used on a null value' ||
+
+
+'Null check operator used on a null value' ||
                                             state.message
                                                 .contains('403 Forbidden')
                                         ? "لقد انقطع الاتصال بالانترنت"
@@ -329,13 +357,6 @@ class _LoginViewState extends State<LoginView> {
                               radius: 33,
                               fontsize: 22,
                             ),
-                          ),
-
-                          InkWell(
-                            onTap: () {
-                              GoRouter.of(context)
-                                  .pushReplacement(AppRouter.KforgetPassword);
-                            },
                           ),
                         ],
                       ),
@@ -394,4 +415,3 @@ class _LoginViewState extends State<LoginView> {
 //     );
 //   }
 // }
-
