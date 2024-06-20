@@ -102,17 +102,37 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                             //     width: 210,
                                             //     height: 50,
                                             //     child: 
-                                                Padding(
-                                                  padding: const EdgeInsets.only(left: 6),
-                                                  child: CustomText(
-                                                      text: state
-                                                          .allProduct[index].name+' '+state.allProduct[index]
-                                                      .discription,
-                                                      size: 15,
-                                                      color: colorApp.blackColor,
-                                                      fontWeight: FontWeight.w600,
-                                                      maxLines: 3),
-                                                ),
+                                               Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 7, right: 0),
+                                              child: CustomText(
+                                                  text:
+                                                      state.allProduct[index].name
+                                                         
+                                                          ,
+                                                  size: 15,
+                                                  color: colorApp.blackColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  maxLines: 3),
+                                            ),
+                                             Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 7, right: 0),
+                                              child: CustomText(
+                                                  text:
+                                                      state.allProduct[index].discription
+                                                         
+                                                          ,
+                                                  size: 14,
+                                                  color: colorApp.blackColor,
+                                                  fontWeight: FontWeight.w500,
+                                                  maxLines: 3),
+                                            ),
+                                          ],
+                                        ),
                                                     // ),
                                             // CustomContainerWithText(
                                             //     text: state.allProduct[index]
@@ -128,7 +148,7 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                               children: [
                                                 CustomText(
                                                     text:
-                                                        'السعر ${state.allProduct[index].pivot.price} ج ',
+                                                        '${state.allProduct[index].pivot.price} ج ',
                                                     size: 15,
                                                     color: colorApp.greenColor,
                                                     fontWeight: FontWeight.w800,

@@ -15,8 +15,9 @@ class CustomShowModelWithoutOffer extends StatefulWidget {
       required this.image,
       required this.size_of,
       required this.isImage,
-      required this.id});
+      required this.id, required this.discription});
   final Function()? onTap;
+  final String discription;
   final String nameProduct;
   final String image;
   final String size_of;
@@ -73,7 +74,7 @@ class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffe
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CustomText(
-                            text: widget.size_of,
+                            text: widget.discription,
                             size: 13,
                             color: colorApp.blackColor,
                             fontWeight: FontWeight.bold,

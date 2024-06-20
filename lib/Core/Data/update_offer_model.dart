@@ -6,6 +6,7 @@ class UpdateOfferModel {
   num price;
   num max_offer_quantity;
   String offer_expires_at;
+  
   UpdateOfferModel({
     required this.offer_price,
     required this.price,

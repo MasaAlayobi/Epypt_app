@@ -122,19 +122,32 @@ class _WarehousePageState extends State<WarehousePage> {
                                           //     width: 210,
                                           //     height: 50,
                                           // child:
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 6, bottom: 9),
-                                            child: CustomText(
-                                                text: state.allProduct[index]
-                                                        .name +
-                                                    " " +
-                                                    state.allProduct[index]
-                                                        .discription,
-                                                size: 15,
-                                                color: colorApp.blackColor,
-                                                fontWeight: FontWeight.w600,
-                                                maxLines: 3),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 6, bottom: 2),
+                                                child: CustomText(
+                                                    text: state
+                                                        .allProduct[index].name,
+                                                    size: 15,
+                                                    color: colorApp.blackColor,
+                                                    fontWeight: FontWeight.w600,
+                                                    maxLines: 3),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 6, bottom: 6),
+                                                child: CustomText(
+                                                    text: state
+                                                        .allProduct[index].discription,
+                                                    size: 14,
+                                                    color: colorApp.blackColor,
+                                                    fontWeight: FontWeight.w500,
+                                                    maxLines: 3),
+                                              ),
+                                            ],
                                           ),
                                           // ),
                                           // CustomContainerWithText(
@@ -184,6 +197,10 @@ class _WarehousePageState extends State<WarehousePage> {
                                                                   .viewInsets
                                                                   .bottom),
                                                           child: CustomShowmodalbottomsheet(
+                                                              discription: state
+                                                                  .allProduct[
+                                                                      index]
+                                                                  .discription,
                                                               nameProduct: state
                                                                   .allProduct[
                                                                       index]
@@ -215,16 +232,18 @@ class _WarehousePageState extends State<WarehousePage> {
                                                       fit: BoxFit.contain,
                                                       child: Center(
                                                           child: Padding(
-                                                            padding: const EdgeInsets.all(3),
-                                                            child: CustomText(
-                                                                text: '+ مع عرض',
-                                                                size: 12,
-                                                                color: colorApp
-                                                                    .whiteColor,
-                                                                fontWeight:
-                                                                    FontWeight.w700,
-                                                                maxLines: 2),
-                                                          )),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(3),
+                                                        child: CustomText(
+                                                            text: '+ مع عرض',
+                                                            size: 12,
+                                                            color: colorApp
+                                                                .whiteColor,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            maxLines: 2),
+                                                      )),
                                                     ),
                                                   ),
                                                 ),
@@ -267,6 +286,10 @@ class _WarehousePageState extends State<WarehousePage> {
                                                                       .bottom),
                                                               child:
                                                                   CustomShowModelWithoutOffer(
+                                                                discription: state
+                                                                    .allProduct[
+                                                                        index]
+                                                                    .discription,
                                                                 isImage:
                                                                     isImage,
                                                                 id: state
@@ -305,18 +328,20 @@ class _WarehousePageState extends State<WarehousePage> {
                                                         fit: BoxFit.contain,
                                                         child: Center(
                                                             child: Padding(
-                                                              padding: const EdgeInsets.all(2),
-                                                              child: CustomText(
-                                                                  text:
-                                                                      '+ بدون عرض',
-                                                                  size: 13,
-                                                                  color: colorApp
-                                                                      .whiteColor,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  maxLines: 2),
-                                                            )),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(2),
+                                                          child: CustomText(
+                                                              text:
+                                                                  '+ بدون عرض',
+                                                              size: 13,
+                                                              color: colorApp
+                                                                  .whiteColor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              maxLines: 2),
+                                                        )),
                                                       ),
                                                     ),
                                                   ),

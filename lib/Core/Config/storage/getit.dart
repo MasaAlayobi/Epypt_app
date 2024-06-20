@@ -4,6 +4,5 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 GetIt storage = GetIt.instance;
 initial() async{
-  storage.registerSingleton(await SharedPreferences.getInstance());
-  
+  storage.registerSingleton(await SharedPreferences.getInstance()); 
 }

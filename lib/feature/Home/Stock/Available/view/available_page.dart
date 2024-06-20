@@ -130,19 +130,36 @@ class _AvailablePageState extends State<AvailablePage> {
                                         //     width: 210,
                                         //     height: 50,
                                         // child:
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 7, right: 0),
-                                          child: CustomText(
-                                              text:
-                                                  state.allProduct[index].name +
-                                                      " " +
-                                                      state.allProduct[index]
-                                                          .discription,
-                                              size: 15,
-                                              color: colorApp.blackColor,
-                                              fontWeight: FontWeight.w600,
-                                              maxLines: 3),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 7, right: 0),
+                                              child: CustomText(
+                                                  text:
+                                                      state.allProduct[index].name
+                                                         
+                                                          ,
+                                                  size: 15,
+                                                  color: colorApp.blackColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  maxLines: 3),
+                                            ),
+                                             Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 7, right: 0),
+                                              child: CustomText(
+                                                  text:
+                                                      state.allProduct[index].discription
+                                                         
+                                                          ,
+                                                  size: 14,
+                                                  color: colorApp.blackColor,
+                                                  fontWeight: FontWeight.w500,
+                                                  maxLines: 3),
+                                            ),
+                                          ],
                                         ),
                                         // ),
                                         // CustomContainerWithText(
@@ -162,13 +179,13 @@ class _AvailablePageState extends State<AvailablePage> {
                                                     0
                                                 ? CustomText(
                                                     text:
-                                                        'السعر  ${state.allProduct[index].pivot.price} ج ',
+                                                        ' ${state.allProduct[index].pivot.price} ج ',
                                                     size: 15,
                                                     color: colorApp.greenColor,
                                                     fontWeight: FontWeight.w600,
                                                     maxLines: 2)
                                                 : Text(
-                                                    ' السعر ${state.allProduct[index].pivot.price} ج ',
+                                                    ' ${state.allProduct[index].pivot.price} ج ',
                                                     style: TextStyle(
                                                       decoration: TextDecoration
                                                           .lineThrough,
@@ -209,6 +226,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                               )
                                           ],
                                         ),
+                                        if(state.allProduct[index].pivot.has_offer==1)
                                         Row(
                                           children: [
                                             CustomText(
@@ -219,8 +237,25 @@ class _AvailablePageState extends State<AvailablePage> {
                                                 maxLines: 2),
                                             Center(
                                                 child: CustomText(
-                                                    text: '${state.allProduct[index].pivot.max_offer_quantity}' +
-                                                        '${state.allProduct[index].size_of}',
+                                                    text: '${state.allProduct[index].pivot.max_offer_quantity}',
+                                                    size: 13,
+                                                    color: colorApp.blackColor,
+                                                    fontWeight: FontWeight.w600,
+                                                    maxLines: 2))
+                                          ],
+                                        ),
+                                         if(state.allProduct[index].pivot.has_offer==0)
+                                        Row(
+                                          children: [
+                                            CustomText(
+                                                text: 'أقصى كمية للطلب : ',
+                                                size: 13,
+                                                color: colorApp.greyColor,
+                                                fontWeight: FontWeight.w600,
+                                                maxLines: 2),
+                                            Center(
+                                                child: CustomText(
+                                                    text: '${state.allProduct[index].pivot.max_selling_quantity}',
                                                     size: 13,
                                                     color: colorApp.blackColor,
                                                     fontWeight: FontWeight.w600,
@@ -265,6 +300,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                   .viewInsets
                                                                   .bottom),
                                                           child: WidgetAddOffer(
+                                                            discription: state.allProduct[index].discription,
                                                               nameProduct: state
                                                                   .allProduct[
                                                                       index]
@@ -389,6 +425,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                     .viewInsets
                                                                     .bottom),
                                                             child: WidgetUpdateOffer(
+                                                              discription: state.allProduct[index].discription,
                                                                 nameProduct: state
                                                                     .allProduct[
                                                                         index]

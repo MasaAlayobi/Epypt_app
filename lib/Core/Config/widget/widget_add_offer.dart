@@ -10,12 +10,13 @@ import 'package:mufraty_app/feature/Home/Stock/Available/bloc/available_products
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 
 class WidgetAddOffer extends StatefulWidget {
-   WidgetAddOffer({super.key, required this.nameProduct, required this.image, required this.size_of, required this.isImage, required this.id});
+   WidgetAddOffer({super.key, required this.nameProduct, required this.image, required this.size_of, required this.isImage, required this.id, required this.discription});
   final String nameProduct;
   final String image;
   final String size_of;
   final bool isImage;
   final num id;
+  final String discription;
 
   @override
   State<WidgetAddOffer> createState() => _WidgetAddOfferState();
@@ -52,7 +53,7 @@ class _WidgetAddOfferState extends State<WidgetAddOffer> {
         return Directionality(
             textDirection: TextDirection.rtl,
             child: SizedBox(
-                height: 300,
+                height: 330,
                 width: double.infinity,
                 child: Directionality(
                   textDirection: TextDirection.rtl,
@@ -85,8 +86,14 @@ class _WidgetAddOfferState extends State<WidgetAddOffer> {
                       ),
                       Divider(),
                  
-                      SizedBox(
-                        height: 8,
+                       Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomText(
+                            text: widget.discription,
+                            size: 13,
+                            color: colorApp.blackColor,
+                            fontWeight: FontWeight.bold,
+                            maxLines: 1),
                       ),
                       Padding(
                         padding:

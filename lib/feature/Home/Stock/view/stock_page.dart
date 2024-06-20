@@ -175,18 +175,18 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
               ),
             ),
           
-            floatingActionButton:
-            FloatingActionButton(
-            onPressed: () {
-               _tabController!.animateTo(_pageToNavigate);
-            },
-            child: Icon(
-              Icons.add,
-              color: colorApp.whiteColor,
-              size: 28,
-            ),
-            backgroundColor: colorApp.basicColor,
-          ),
+          //   floatingActionButton:
+          //   FloatingActionButton(
+          //   onPressed: () {
+          //      _tabController!.animateTo(_pageToNavigate);
+          //   },
+          //   child: Icon(
+          //     Icons.add,
+          //     color: colorApp.whiteColor,
+          //     size: 28,
+          //   ),
+          //   backgroundColor: colorApp.basicColor,
+          // ),
           ),
         ),
       );

@@ -60,8 +60,9 @@ class _CustomCounterState extends State<CustomCounter> {
             child: SizedBox(
               height: 33,
               child: TextField(
+                textAlign: TextAlign.center,
                 controller: widget.controller,
-              
+              // dragStartBehavior:DragSta ,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: UnderlineInputBorder(

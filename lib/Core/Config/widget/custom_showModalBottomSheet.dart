@@ -7,6 +7,7 @@ import 'package:mufraty_app/Core/Data/add_product_with_offer_model.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Home/Discounts/view/Discounts_page.dart';
 import 'package:mufraty_app/feature/Home/Stock/Warehouse/bloc/products_bloc.dart';
+import 'package:mufraty_app/feature/animation_logo.dart';
 
 class CustomShowmodalbottomsheet extends StatefulWidget {
   CustomShowmodalbottomsheet(
@@ -16,9 +17,10 @@ class CustomShowmodalbottomsheet extends StatefulWidget {
       required this.image,
       required this.size_of,
       required this.isImage,
-      required this.id});
+      required this.id, required this.discription});
   final Function()? onTap;
   final String nameProduct;
+  final String discription;
   final String image;
   final String size_of;
   final bool isImage;
@@ -95,10 +97,11 @@ class _CustomShowmodalbottomsheetState
                           ],
                         ),
                         Divider(),
+
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CustomText(
-                              text: widget.size_of,
+                              text:widget.discription,
                               size: 13,
                               color: colorApp.blackColor,
                               fontWeight: FontWeight.bold,

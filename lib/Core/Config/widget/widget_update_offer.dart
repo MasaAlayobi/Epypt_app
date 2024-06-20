@@ -10,11 +10,11 @@ import 'package:mufraty_app/feature/Home/Stock/Available/bloc/available_products
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 
 class WidgetUpdateOffer extends StatefulWidget {
-   WidgetUpdateOffer({super.key, this.onTap, required this.nameProduct, required this.image, required this.isImage, required this.id});
+   WidgetUpdateOffer({super.key, this.onTap, required this.nameProduct, required this.image, required this.isImage, required this.id, required this.discription});
   final Function()? onTap;
   final String nameProduct;
   final String image;
-
+  final String discription;
   final bool isImage;
   final num id;
   @override
@@ -52,7 +52,7 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
         return Directionality(
             textDirection: TextDirection.rtl,
             child: SizedBox(
-                height: 370,
+                height: 415,
                 width: double.infinity,
                 child: Directionality(
                   textDirection: TextDirection.rtl,
@@ -84,15 +84,15 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                         ],
                       ),
                       Divider(),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: CustomText(
-                      //       text: widget.size_of,
-                      //       size: 13,
-                      //       color: colorApp.blackColor,
-                      //       fontWeight: FontWeight.bold,
-                      //       maxLines: 1),
-                      // ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomText(
+                            text: widget.discription,
+                            size: 13,
+                            color: colorApp.blackColor,
+                            fontWeight: FontWeight.bold,
+                            maxLines: 1),
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
