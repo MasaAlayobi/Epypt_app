@@ -38,9 +38,11 @@ class NotificationPage extends StatelessWidget {
                     return InkWell(
                       onTap: () {
                         if(state.notification[index].type=='preparing-bill'){
+                          context.read<NotificationBloc>().add(readNotification(id: state.notification[index].id));
                           GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
                         }
                         else {
+                          context.read<NotificationBloc>().add(readNotification(id: state.notification[index].id));
                           GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
                         }
                       },

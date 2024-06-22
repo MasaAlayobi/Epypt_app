@@ -25,5 +25,22 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         emit(NoConnectionWithNotification(message: e.toString()));
        }
     });
+    on<readNotification>((event, emit) async{
+      emit(LoadingNotification());
+      String temp;
+      try {
+     
+        temp = await StockServicImp().readNotification(event.id);
+        // print(temp);
+        
+        if (temp.isEmpty) {
+          emit(NotFound());
+        } else {
+          emit(SuccessReadNotification(message: temp));
+        }
+      } catch (e) {
+        emit(NoConnectionWithNotification(message: e.toString()));
+       }
+    });
   }
 }

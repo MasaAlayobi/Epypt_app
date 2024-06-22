@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'notification_bloc.dart';
 
 @immutable
@@ -19,3 +20,9 @@ class NoConnectionWithNotification extends NotificationState {
 }
 class LoadingNotification extends NotificationState{}
 class NotFound extends NotificationState{}
+class SuccessReadNotification extends NotificationState {
+  String message;
+  SuccessReadNotification({
+    required this.message,
+  });
+}

@@ -28,6 +28,7 @@ abstract class StockServic extends DioClient {
   updatePrice(num id ,num price);
   logout();
   Future<List<NotfiicationModel>> getNotification();
+  readNotification(String id);
 }
 
 class StockServicImp extends StockServic {
@@ -264,7 +265,7 @@ class StockServicImp extends StockServic {
     throw e;
    }
   }
-  
+  // https://backend.almowafraty.com/api/v1/notifications
   @override
   Future<List<NotfiicationModel>> getNotification() async{
  try{
@@ -284,6 +285,27 @@ class StockServicImp extends StockServic {
       print('**************************');
       return [];
     }}on DioException catch(e){
+      throw e.response!.data["message"];
+   }on Error catch(e){
+    throw e;
+   }
+  }
+  
+  @override
+  readNotification(String id) async{
+    try{
+    response = await dio.get('$baseUrl${entity = EndPoint.Notification}/$id',
+        // options: getHeader()
+        );
+    // print(response.data);
+    if (response.statusCode == 200) {
+      
+      return response.data["message"];
+    } else {
+      print('**************************');
+      return [];
+    }
+    }on DioException catch(e){
       throw e.response!.data["message"];
    }on Error catch(e){
     throw e;
