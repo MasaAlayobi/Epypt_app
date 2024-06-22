@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/imageProduct.dart';
@@ -17,6 +18,9 @@ import 'package:mufraty_app/feature/fatora/orderLayout.dart/with-time-bloc/updat
 class Order extends StatelessWidget {
   BillWithReason bill;
   List<int> counter = [];
+  int year = DateTime.now().year;
+  int month = DateTime.now().month;
+  int day = DateTime.now().day;
 
   Order({
     Key? key,
@@ -131,12 +135,12 @@ class Order extends StatelessWidget {
                                                 text:
                                                     bill.products[index].name),
                                             text2:
-                                                "العدد: ${bill.products[index].size}",
+                                                "العدد: ${bill.products[index].pivot.quantity}",
 
                                             text3:
-                                                "السعر الفردي: ${bill.products[index].price}",
+                                                "السعر الفردي: ${bill.products[index].pivot.buying_price}",
                                             text4:
-                                                "السعر الإجمالي:${bill.products[index].price * bill.products[index].size}",
+                                                "السعر الإجمالي:${bill.products[index].pivot.buying_price * bill.products[index].pivot.quantity}",
                                             // heightOfText1:
                                             //     MediaQuery.of(context)
                                             //             .size
@@ -345,7 +349,6 @@ class Order extends StatelessWidget {
                                                   onpress: () {
                                                     showModalBottomSheet(
                                                       enableDrag: true,
-                                                      
                                                       scrollControlDisabledMaxHeightRatio:
                                                           9,
                                                       context: context,
@@ -355,33 +358,32 @@ class Order extends StatelessWidget {
                                                             UpdateBillTimeBloc(),
                                                         child: Builder(
                                                             builder: (context) {
-                                                          return SizedBox(
-                                                            height: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .height /
-                                                                1.7,
+                                                          return Directionality(
+                                                            textDirection:
+                                                                TextDirection
+                                                                    .rtl,
                                                             child: SizedBox(
                                                               height: MediaQuery.of(
                                                                           context)
                                                                       .size
                                                                       .height /
-                                                                  2.2,
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        12.0),
-                                                                child: StatefulBuilder(
-                                                                    builder:
-                                                                        (context,
-                                                                            setState) {
-                                                                  return Directionality(
-                                                                    textDirection:
-                                                                        TextDirection
-                                                                            .rtl,
-                                                                    child:
-                                                                        Padding(
+                                                                  1.7,
+                                                              child: SizedBox(
+                                                                height: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height /
+                                                                    2.2,
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(
+                                                                          12.0),
+                                                                  child: StatefulBuilder(
+                                                                      builder:
+                                                                          (context,
+                                                                              setState) {
+                                                                    return Padding(
                                                                       padding: const EdgeInsets
                                                                           .all(
                                                                           12.0),
@@ -397,14 +399,12 @@ class Order extends StatelessWidget {
                                                                                 MainAxisAlignment.spaceBetween,
                                                                             children: [
                                                                               SubTitle2(
-                                                                                text: "تأكيد توصيل الفاتورة?",
+                                                                                text: "تأكيد توصيل الفاتورة؟",
                                                                               ),
                                                                             ],
                                                                           ),
                                                                           SubTitle2(
-                                                                            text:
-                                                                                "الأحد 2020",
-                                                                          ),
+                                                                              text: "${month.toString()}/${day.toString()}/ ${year.toString()}"),
                                                                           RadioListTile(
                                                                               activeColor: ColorManager().red,
                                                                               title: Text(
@@ -490,7 +490,7 @@ class Order extends StatelessWidget {
                                                                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                                               children: [
                                                                                 MyButton(
-                                                                                    title: "تأكيد معاد",
+                                                                                    title: " قبول الفاتورة",
                                                                                     onpress: () {
                                                                                       for (var i = 0; i < list.length; i++) {
                                                                                         list[i]['quantity'] = counter[i];
@@ -506,15 +506,9 @@ class Order extends StatelessWidget {
                                                                                     height: 55,
                                                                                     radius: 9),
                                                                                 MyButton(
-                                                                                    title: "بدون معاد",
+                                                                                    title: " الغاء",
                                                                                     onpress: () {
-                                                                                      for (var i = 0; i < list.length; i++) {
-                                                                                        list[i]['quantity'] = counter[i];
-                                                                                      }
-                                                                                      print("____________________________________________________");
-
-                                                                                      print(list);
-                                                                                      context.read<UpdateBillTimeBloc>().add(SendDataWithoutTime(id: bill.id, update: list));
+                                                                                      Navigator.of(context).pop();
                                                                                     },
                                                                                     colors: ColorManager().red,
                                                                                     width: MediaQuery.of(context).size.width / 3,
@@ -525,9 +519,9 @@ class Order extends StatelessWidget {
                                                                           ),
                                                                         ],
                                                                       ),
-                                                                    ),
-                                                                  );
-                                                                }),
+                                                                    );
+                                                                  }),
+                                                                ),
                                                               ),
                                                             ),
                                                           );

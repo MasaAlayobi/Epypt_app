@@ -15,7 +15,7 @@ class BillWithReason {
   String rejection_reason;
   int recieved_price;
   int goal_discount;
-  String created_at;
+  String created_at_formatted;
   String delivery_duration;
   bool updatable;
   String market_note;
@@ -32,7 +32,7 @@ class BillWithReason {
     required this.rejection_reason,
     required this.recieved_price,
     required this.goal_discount,
-    required this.created_at,
+    required this.created_at_formatted,
     required this.delivery_duration,
     required this.updatable,
     required this.market_note,
@@ -51,7 +51,7 @@ class BillWithReason {
     String? rejection_reason,
     int? recieved_price,
     int? goal_discount,
-    String? created_at,
+    String? created_at_formatted,
     String? delivery_duration,
     bool? updatable,
     String? market_note,
@@ -69,7 +69,7 @@ class BillWithReason {
       rejection_reason: rejection_reason ?? this.rejection_reason,
       recieved_price: recieved_price ?? this.recieved_price,
       goal_discount: goal_discount ?? this.goal_discount,
-      created_at: created_at ?? this.created_at,
+      created_at_formatted: created_at_formatted ?? this.created_at_formatted,
       delivery_duration: delivery_duration ?? this.delivery_duration,
       updatable: updatable ?? this.updatable,
       market_note: market_note ?? this.market_note,
@@ -90,7 +90,7 @@ class BillWithReason {
       'rejection_reason': rejection_reason,
       'recieved_price': recieved_price,
       'goal_discount': goal_discount,
-      'created_at': created_at,
+      'created_at_formatted': created_at_formatted,
       'delivery_duration': delivery_duration,
       'updatable': updatable,
       'market_note': market_note,
@@ -111,7 +111,7 @@ class BillWithReason {
       rejection_reason: map['rejection_reason'] as String,
       recieved_price: map['recieved_price'] as int,
       goal_discount: map['goal_discount'] as int,
-      created_at: map['created_at'] as String,
+      created_at_formatted: map['created_at_formatted'] as String,
       delivery_duration: map['delivery_duration'] as String,
       updatable: map['updatable'] as bool,
       market_note: map['market_note'] as String,
@@ -133,7 +133,7 @@ class BillWithReason {
 
   @override
   String toString() {
-    return 'BillWithReason(id: $id, market_id: $market_id, payment_method_id: $payment_method_id, supplier_id: $supplier_id, total_price: $total_price, rejection_reason: $rejection_reason, recieved_price: $recieved_price, goal_discount: $goal_discount, created_at: $created_at, delivery_duration: $delivery_duration, updatable: $updatable, market_note: $market_note, payment_method: $payment_method, products: $products, market: $market)';
+    return 'BillWithReason(id: $id, market_id: $market_id, payment_method_id: $payment_method_id, supplier_id: $supplier_id, total_price: $total_price, rejection_reason: $rejection_reason, recieved_price: $recieved_price, goal_discount: $goal_discount, created_at_formatted: $created_at_formatted, delivery_duration: $delivery_duration, updatable: $updatable, market_note: $market_note, payment_method: $payment_method, products: $products, market: $market)';
   }
 
   @override
@@ -148,7 +148,7 @@ class BillWithReason {
         other.rejection_reason == rejection_reason &&
         other.recieved_price == recieved_price &&
         other.goal_discount == goal_discount &&
-        other.created_at == created_at &&
+        other.created_at_formatted == created_at_formatted &&
         other.delivery_duration == delivery_duration &&
         other.updatable == updatable &&
         other.market_note == market_note &&
@@ -168,7 +168,7 @@ class BillWithReason {
         rejection_reason.hashCode ^
         recieved_price.hashCode ^
         goal_discount.hashCode ^
-        created_at.hashCode ^
+        created_at_formatted.hashCode ^
         delivery_duration.hashCode ^
         updatable.hashCode ^
         market_note.hashCode ^

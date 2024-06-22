@@ -4,14 +4,12 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:mufraty_app/Core/data/pivot.dart';
 
-
-
 class Products {
   int id;
   String name;
   int size;
   String size_of;
-  int price;
+
   List<dynamic> image;
   Pivot pivot;
   Products({
@@ -19,7 +17,6 @@ class Products {
     required this.name,
     required this.size,
     required this.size_of,
-    required this.price,
     required this.image,
     required this.pivot,
   });
@@ -38,7 +35,6 @@ class Products {
       name: name ?? this.name,
       size: size ?? this.size,
       size_of: size_of ?? this.size_of,
-      price: price ?? this.price,
       image: image ?? this.image,
       pivot: pivot ?? this.pivot,
     );
@@ -50,7 +46,6 @@ class Products {
       'name': name,
       'size': size,
       'size_of': size_of,
-      'price': price,
       'image': image,
       'pivot': pivot.toMap(),
     };
@@ -62,43 +57,42 @@ class Products {
       name: map['name'] as String,
       size: map['size'] as int,
       size_of: map['size_of'] as String,
-      price: map['price'] as int,
-      image: List<dynamic>.from((map['image'] as List<dynamic>),),
-      pivot: Pivot.fromMap(map['pivot'] as Map<String,dynamic>),
+      image: List<dynamic>.from(
+        (map['image'] as List<dynamic>),
+      ),
+      pivot: Pivot.fromMap(map['pivot'] as Map<String, dynamic>),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Products.fromJson(String source) => Products.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Products.fromJson(String source) =>
+      Products.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Products(id: $id, name: $name, size: $size, size_of: $size_of, price: $price, image: $image, pivot: $pivot)';
+    return 'Products(id: $id, name: $name, size: $size, size_of: $size_of, image: $image, pivot: $pivot)';
   }
 
   @override
   bool operator ==(covariant Products other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.name == name &&
-      other.size == size &&
-      other.size_of == size_of &&
-      other.price == price &&
-      listEquals(other.image, image) &&
-      other.pivot == pivot;
+
+    return other.id == id &&
+        other.name == name &&
+        other.size == size &&
+        other.size_of == size_of &&
+        listEquals(other.image, image) &&
+        other.pivot == pivot;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      name.hashCode ^
-      size.hashCode ^
-      size_of.hashCode ^
-      price.hashCode ^
-      image.hashCode ^
-      pivot.hashCode;
+        name.hashCode ^
+        size.hashCode ^
+        size_of.hashCode ^
+        image.hashCode ^
+        pivot.hashCode;
   }
 }

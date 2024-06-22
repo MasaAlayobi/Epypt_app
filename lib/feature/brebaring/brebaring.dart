@@ -401,7 +401,7 @@ class Brebaring extends StatelessWidget {
                                           "${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
                                       text2:
                                           state.oneBill[index].market.city_name,
-                                      text3: state.oneBill[index].created_at,
+                                      text3: state.oneBill[index].created_at_formatted,
                                       text4: state.oneBill[index].market
                                           .location_details,
                                       text5:

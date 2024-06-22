@@ -306,7 +306,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                     "${state.allBills[index].market.store_name}-${state.allBills[index].market.location_details}",
                                 text2:
                                     "${state.allBills[index].market.city_name}",
-                                text3: state.allBills[index].created_at,
+                                text3: state.allBills[index].created_at_formatted,
                                 text4:
                                     "${state.allBills[index].market.location_details}",
                                 text5: "عدد الأصناف: ${state.allBills.length}",

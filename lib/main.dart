@@ -19,9 +19,7 @@ import 'package:mufraty_app/firebaseApi.dart';
 import 'package:mufraty_app/firebase_options.dart';
 
 void main() async {
-  //  initial();
-
-  WidgetsFlutterBinding.ensureInitialized();
+     WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
