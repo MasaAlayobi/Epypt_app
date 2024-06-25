@@ -38,13 +38,15 @@ class BillServiceImpl extends BillService {
       );
 
       if (response.statusCode == 200) {
+        print("object");
         return response.data["body"];
       } else {
+        print("3ajeeeb");
         return "no connetion";
       }
     } on DioException catch (e) {
       print(response.data);
-      throw e.response!.data["message"];
+      throw e.response!.data;
     }
     //  on Error catch(e){
     //   throw e;
@@ -65,7 +67,7 @@ class BillServiceImpl extends BillService {
         return "false";
       }
     } on DioException catch (e) {
-      throw e.response!.data["message"];
+      throw e.response!.data;
     }
   }
 
@@ -136,14 +138,18 @@ class BillServiceImpl extends BillService {
       );
 
       if (response.statusCode == 200) {
+        print("offffffff");
         return response.data["body"];
       } else {
         print("object");
       }
     } on DioException catch (e) {
-          print(response.data);
+      print("d");
+      print(e.response!.data);
       throw e.response!.data["message"];
     } on Error catch (e) {
+         print("dddd");
+      print(e.toString());
       throw e;
     }
   }
@@ -257,7 +263,7 @@ class BillServiceImpl extends BillService {
         return "false";
       }
     } on DioException catch (e) {
-      print(e.response!.data["message"]);
+      print(e.response!.data);
     }
   }
 

@@ -94,7 +94,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                       onChanged: (String? newValue) {
                                         if (newValue == "ملغي") {
                                           showModalBottomSheet(
-                                            isScrollControlled: true,
+                                              isScrollControlled: true,
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return BlocProvider(
@@ -306,14 +306,15 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                     "${state.allBills[index].market.store_name}-${state.allBills[index].market.location_details}",
                                 text2:
                                     "${state.allBills[index].market.city_name}",
-                                text3: state.allBills[index].created_at_formatted,
+                                text3:
+                                    state.allBills[index].created_at_formatted,
                                 text4:
                                     "${state.allBills[index].market.location_details}",
                                 text5: "عدد الأصناف: ${state.allBills.length}",
                                 text6:
                                     "طريقة الدفع: ${state.allBills[index].payment_method}",
                                 text7:
-                                    "الإجمالي: ${state.allBills[index].total_price}",
+                                    "الإجمالي: ${state.allBills[index].additional_price + state.allBills[index].total_price_after_discount}",
                               );
                             },
                           )),
@@ -359,9 +360,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                   ),
                   Center(
                       child: Text(
-                    state.message == 'Null check operator used on a null value'
-                        ? "لقد انقطع الاتصال بالانترنت"
-                        : state.message,
+                    "لقد انقطع الاتصال بالانترنت",
                     style: TextStyle(
                         color: ColorManager().red,
                         fontSize: 17,

@@ -298,7 +298,7 @@ class Order extends StatelessWidget {
                                               ListOfOption(
                                                 widget1: SubTitle3(
                                                   text:
-                                                      "إجمالي الفاتورة:${bill.total_price}",
+                                                      "إجمالي الفاتورة:${bill.additional_price + bill.total_price_after_discount}",
                                                 ),
                                                 text2:
                                                     "طريقة الدفع:${bill.payment_method}",

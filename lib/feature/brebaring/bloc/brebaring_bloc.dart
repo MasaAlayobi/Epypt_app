@@ -24,6 +24,7 @@ class BrebaringBloc extends Bloc<BrebaringEvent, BrebaringState> {
           emit(FailedCancel());
         }
       } catch (e) {
+        print(e.toString);
         emit(NoConnectionWithGet(message: e.toString()));
       }
     });

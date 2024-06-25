@@ -131,29 +131,27 @@ class _AvailablePageState extends State<AvailablePage> {
                                         //     height: 50,
                                         // child:
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
+                                       Text(""),
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 7, right: 0),
                                               child: CustomText(
-                                                  text:
-                                                      state.allProduct[index].name
-                                                         
-                                                          ,
+                                                  text: state
+                                                      .allProduct[index].name,
                                                   size: 15,
                                                   color: colorApp.blackColor,
                                                   fontWeight: FontWeight.w600,
                                                   maxLines: 3),
                                             ),
-                                             Padding(
+                                            Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 7, right: 0),
                                               child: CustomText(
-                                                  text:
-                                                      state.allProduct[index].discription
-                                                         
-                                                          ,
+                                                  text: state.allProduct[index]
+                                                      .discription,
                                                   size: 14,
                                                   color: colorApp.blackColor,
                                                   fontWeight: FontWeight.w500,
@@ -226,42 +224,52 @@ class _AvailablePageState extends State<AvailablePage> {
                                               )
                                           ],
                                         ),
-                                        if(state.allProduct[index].pivot.has_offer==1)
-                                        Row(
-                                          children: [
-                                            CustomText(
-                                                text: 'أقصى كمية للعرض : ',
-                                                size: 13,
-                                                color: colorApp.greyColor,
-                                                fontWeight: FontWeight.w600,
-                                                maxLines: 2),
-                                            Center(
-                                                child: CustomText(
-                                                    text: '${state.allProduct[index].pivot.max_offer_quantity}',
-                                                    size: 13,
-                                                    color: colorApp.blackColor,
-                                                    fontWeight: FontWeight.w600,
-                                                    maxLines: 2))
-                                          ],
-                                        ),
-                                         if(state.allProduct[index].pivot.has_offer==0)
-                                        Row(
-                                          children: [
-                                            CustomText(
-                                                text: 'أقصى كمية للطلب : ',
-                                                size: 13,
-                                                color: colorApp.greyColor,
-                                                fontWeight: FontWeight.w600,
-                                                maxLines: 2),
-                                            Center(
-                                                child: CustomText(
-                                                    text: '${state.allProduct[index].pivot.max_selling_quantity}',
-                                                    size: 13,
-                                                    color: colorApp.blackColor,
-                                                    fontWeight: FontWeight.w600,
-                                                    maxLines: 2))
-                                          ],
-                                        ),
+                                        if (state.allProduct[index].pivot
+                                                .has_offer ==
+                                            1)
+                                          Row(
+                                            children: [
+                                              CustomText(
+                                                  text: 'أقصى كمية للعرض : ',
+                                                  size: 13,
+                                                  color: colorApp.greyColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  maxLines: 2),
+                                              Center(
+                                                  child: CustomText(
+                                                      text:
+                                                          '${state.allProduct[index].pivot.max_offer_quantity}',
+                                                      size: 13,
+                                                      color:
+                                                          colorApp.blackColor,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      maxLines: 2))
+                                            ],
+                                          ),
+                                        if (state.allProduct[index].pivot
+                                                .has_offer ==
+                                            0)
+                                          Row(
+                                            children: [
+                                              CustomText(
+                                                  text: 'أقصى كمية للطلب : ',
+                                                  size: 13,
+                                                  color: colorApp.greyColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  maxLines: 2),
+                                              Center(
+                                                  child: CustomText(
+                                                      text:
+                                                          '${state.allProduct[index].pivot.max_selling_quantity}',
+                                                      size: 13,
+                                                      color:
+                                                          colorApp.blackColor,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      maxLines: 2))
+                                            ],
+                                          ),
                                         Row(
                                           children: [
                                             // Checkbox(value: true, onChanged:),
@@ -300,7 +308,10 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                   .viewInsets
                                                                   .bottom),
                                                           child: WidgetAddOffer(
-                                                            discription: state.allProduct[index].discription,
+                                                              discription: state
+                                                                  .allProduct[
+                                                                      index]
+                                                                  .discription,
                                                               nameProduct: state
                                                                   .allProduct[
                                                                       index]
@@ -425,7 +436,10 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                     .viewInsets
                                                                     .bottom),
                                                             child: WidgetUpdateOffer(
-                                                              discription: state.allProduct[index].discription,
+                                                                discription: state
+                                                                    .allProduct[
+                                                                        index]
+                                                                    .discription,
                                                                 nameProduct: state
                                                                     .allProduct[
                                                                         index]

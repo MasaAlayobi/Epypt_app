@@ -32,7 +32,7 @@ class CombleteDelivery extends StatelessWidget {
                 if (state is SuccessGetData) {
                   print(state.oneBill);
                   return Scaffold(
-                        backgroundColor: ColorManager().background,
+                    backgroundColor: ColorManager().background,
                     body: SingleChildScrollView(
                       child: Wrap(
                         // mainAxisSize: MainAxisSize.min,
@@ -105,20 +105,22 @@ class CombleteDelivery extends StatelessWidget {
                                   itemCount: state.oneBill.length,
                                   itemBuilder: (context, index) {
                                     return CardOfFatora(
-                                      text1: "${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
+                                      text1:
+                                          "${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
                                       text2:
                                           state.oneBill[index].market.city_name,
-                                      text3: state.oneBill[index].created_at_formatted,
-                                      text4:
-                                          state.oneBill[index].market.location_details,
+                                      text3: state
+                                          .oneBill[index].created_at_formatted,
+                                      text4: state.oneBill[index].market
+                                          .location_details,
                                       text5:
                                           "عدد الأصناف: ${state.oneBill.length}",
                                       text6:
                                           "طريقة الدفع: ${state.oneBill[index].payment_method}",
                                       text7:
-                                          "المبلغ المدفوع: ${state.oneBill[index].recieved_price}",
+                                          "الإجمالي: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}",
                                       text8:
-                                          "سعر التسليم:  ${state.oneBill[index].total_price}",
+                                          "سعر التسليم:  ${state.oneBill[index].recieved_price}",
                                     );
                                   }))),
                         ],
@@ -156,10 +158,7 @@ class CombleteDelivery extends StatelessWidget {
                     ),
                     Center(
                         child: Text(
-                      state.message ==
-                              'Null check operator used on a null value'
-                          ? "لقد انقطع الاتصال بالانترنت"
-                          : state.message,
+                      "لقد انقطع الاتصال بالانترنت",
                       style: TextStyle(
                           color: ColorManager().red,
                           fontSize: 17,

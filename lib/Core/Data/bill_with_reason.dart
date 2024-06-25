@@ -19,7 +19,8 @@ class BillWithReason {
   String delivery_duration;
   bool updatable;
   String market_note;
-
+  num additional_price;
+  num total_price_after_discount;
   String payment_method;
   List<Products> products;
   Market market;
@@ -36,7 +37,8 @@ class BillWithReason {
     required this.delivery_duration,
     required this.updatable,
     required this.market_note,
-
+    required this.additional_price,
+    required this.total_price_after_discount,
     required this.payment_method,
     required this.products,
     required this.market,
@@ -61,6 +63,9 @@ class BillWithReason {
     Market? market,
   }) {
     return BillWithReason(
+      additional_price: additional_price ?? this.additional_price,
+      total_price_after_discount:
+          total_price_after_discount ?? this.total_price_after_discount,
       id: id ?? this.id,
       market_id: market_id ?? this.market_id,
       payment_method_id: payment_method_id ?? this.payment_method_id,
@@ -73,7 +78,6 @@ class BillWithReason {
       delivery_duration: delivery_duration ?? this.delivery_duration,
       updatable: updatable ?? this.updatable,
       market_note: market_note ?? this.market_note,
-
       payment_method: payment_method ?? this.payment_method,
       products: products ?? this.products,
       market: market ?? this.market,
@@ -94,7 +98,6 @@ class BillWithReason {
       'delivery_duration': delivery_duration,
       'updatable': updatable,
       'market_note': market_note,
-
       'payment_method': payment_method,
       'products': products.map((x) => x.toMap()).toList(),
       'market': market.toMap(),
@@ -115,7 +118,6 @@ class BillWithReason {
       delivery_duration: map['delivery_duration'] as String,
       updatable: map['updatable'] as bool,
       market_note: map['market_note'] as String,
-
       payment_method: map['payment_method'] as String,
       products: List<Products>.from(
         (map['products'] as List<dynamic>).map<Products>(
@@ -123,6 +125,8 @@ class BillWithReason {
         ),
       ),
       market: Market.fromMap(map['market'] as Map<String, dynamic>),
+      additional_price: map['additional_price'] as num,
+      total_price_after_discount: map['total_price_after_discount'] as num,
     );
   }
 
@@ -152,7 +156,6 @@ class BillWithReason {
         other.delivery_duration == delivery_duration &&
         other.updatable == updatable &&
         other.market_note == market_note &&
-
         other.payment_method == payment_method &&
         listEquals(other.products, products) &&
         other.market == market;
@@ -172,7 +175,6 @@ class BillWithReason {
         delivery_duration.hashCode ^
         updatable.hashCode ^
         market_note.hashCode ^
-
         payment_method.hashCode ^
         products.hashCode ^
         market.hashCode;

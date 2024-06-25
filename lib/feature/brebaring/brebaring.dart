@@ -234,7 +234,10 @@ class Brebaring extends StatelessWidget {
                                                                                     });
                                                                                     if (totalPrice.text.isEmpty) {
                                                                                       Navigator.of(context).pop();
-                                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().green, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
+                                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
+                                                                                    } else if (num.tryParse(totalPrice.text)! > state.oneBill[index].total_price_after_discount) {
+                                                                                      Navigator.of(context).pop();
+                                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "  لا يمكن ان يكون المبلغ المدفوع اعلى من السعر الإجمالي للفاتورة")))));
                                                                                     } else {
                                                                                       BlocProvider.of<BrebaringBloc>(context).add(CombleteReceive(reason: RecivePriceBill(recieved_price: int.parse(totalPrice.text)), id: state.oneBill[index].id));
                                                                                     }
@@ -351,7 +354,7 @@ class Brebaring extends StatelessWidget {
                                                                                     });
                                                                                     if (reasonOfCancel.text.isEmpty) {
                                                                                       Navigator.of(context).pop();
-                                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().green, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
+                                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
                                                                                     } else {
                                                                                       context.read<BrebaringBloc>().add(CancelRecieve(reason: Reason(rejection_reason: reasonOfCancel.text), id: state.oneBill[index].id));
                                                                                     }
@@ -401,7 +404,8 @@ class Brebaring extends StatelessWidget {
                                           "${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
                                       text2:
                                           state.oneBill[index].market.city_name,
-                                      text3: state.oneBill[index].created_at_formatted,
+                                      text3: state
+                                          .oneBill[index].created_at_formatted,
                                       text4: state.oneBill[index].market
                                           .location_details,
                                       text5:
@@ -409,7 +413,7 @@ class Brebaring extends StatelessWidget {
                                       text6:
                                           "طريقة الدفع: ${state.oneBill[index].payment_method}",
                                       text7:
-                                          "الإجمالي: ${state.oneBill[index].total_price}",
+                                          "الإجمالي: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}",
                                     );
                                   }))),
                         ],
