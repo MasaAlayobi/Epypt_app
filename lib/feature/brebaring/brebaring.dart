@@ -113,6 +113,7 @@ class Brebaring extends StatelessWidget {
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: state.oneBill.length,
                                   itemBuilder: (context, index) {
+                                    print("object");
                                     List<String?> dropdownValues =
                                         List.generate(
                                             state.oneBill.length, (_) => null);
@@ -409,7 +410,7 @@ class Brebaring extends StatelessWidget {
                                       text4: state.oneBill[index].market
                                           .location_details,
                                       text5:
-                                          "عدد الأصناف: ${state.oneBill.length}",
+                                          "عدد الأصناف: ${state.oneBill[index].products.length}",
                                       text6:
                                           "طريقة الدفع: ${state.oneBill[index].payment_method}",
                                       text7:

@@ -261,7 +261,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                             .pdf(state.allBills[index].id);
                                         saveFile(response,
                                             "${state.allBills[index].market.store_name}.pdf");
-
+                                        print(response);
                                         if (response != "false") {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
@@ -310,7 +310,8 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                     state.allBills[index].created_at_formatted,
                                 text4:
                                     "${state.allBills[index].market.location_details}",
-                                text5: "عدد الأصناف: ${state.allBills.length}",
+                                text5:
+                                    "عدد الأصناف: ${state.allBills[index].products.length}",
                                 text6:
                                     "طريقة الدفع: ${state.allBills[index].payment_method}",
                                 text7:

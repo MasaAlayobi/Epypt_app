@@ -104,10 +104,12 @@ class NotRecieved extends StatelessWidget {
                                   text1:
                                       "${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
                                   text2: state.oneBill[index].market.city_name,
-                                  text3: state.oneBill[index].created_at_formatted,
+                                  text3:
+                                      state.oneBill[index].created_at_formatted,
                                   text4: state
                                       .oneBill[index].market.location_details,
-                                  text5: "عدد الأصناف: ${state.oneBill.length}",
+                                  text5:
+                                      "عدد الأصناف: ${state.oneBill[index].products.length}",
                                   text6:
                                       "طريقة الدفع: ${state.oneBill[index].payment_method}",
                                   text7:

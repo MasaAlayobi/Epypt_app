@@ -115,7 +115,7 @@ class Cancel extends StatelessWidget {
                                       text4:
                                           state.oneBill[index].market.location_details,
                                       text5:
-                                          "عدد الأصناف: ${state.oneBill.length}",
+                                          "عدد الأصناف: ${state.oneBill[index].products.length}",
                                       text6:
                                           "طريقة الدفع: ${state.oneBill[index].payment_method}",
                                       text7:

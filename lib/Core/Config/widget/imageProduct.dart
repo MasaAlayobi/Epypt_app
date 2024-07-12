@@ -15,6 +15,17 @@ class ImageProduct extends StatelessWidget {
       width: MediaQuery.of(context).size.width / 3,
       height: MediaQuery.of(context).size.height / 4,
       fit: BoxFit.fill,
+      errorBuilder: (context, error, stackTrace) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Image.asset(
+              "assets/images/no_photo.jpg",
+              width: MediaQuery.of(context).size.width / 3,
+              height: MediaQuery.of(context).size.height / 4,
+              fit: BoxFit.fill,
+            )),
+      ),
     );
   }
 }
