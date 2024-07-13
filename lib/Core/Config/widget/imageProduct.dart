@@ -13,7 +13,7 @@ class ImageProduct extends StatelessWidget {
     return Image.network(
       image,
       width: MediaQuery.of(context).size.width / 3,
-      height: MediaQuery.of(context).size.height / 4,
+      height: MediaQuery.of(context).size.height / 5,
       fit: BoxFit.fill,
       errorBuilder: (context, error, stackTrace) => Padding(
         padding: const EdgeInsets.all(8.0),

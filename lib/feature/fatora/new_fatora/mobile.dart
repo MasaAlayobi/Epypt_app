@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
+import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
@@ -18,6 +19,7 @@ import 'package:mufraty_app/feature/fatora/new_fatora/bloc/new_bill_bloc.dart';
 import 'package:mufraty_app/feature/fatora/new_fatora/save_file_fun.dart';
 import 'package:mufraty_app/feature/fatora/orderLayout.dart/orderMobile.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Mobile_fatora extends StatefulWidget {
   Mobile_fatora({
@@ -254,46 +256,67 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                 print: MyButton(
                                     title: "تنزيل",
                                     onpress: () async {
-                                      if (await Permission.manageExternalStorage
-                                          .request()
-                                          .isGranted) {
-                                        var response = await BillServiceImpl()
-                                            .pdf(state.allBills[index].id);
-                                        saveFile(response,
-                                            "${state.allBills[index].market.store_name}.pdf");
-                                        print(response);
-                                        if (response != "false") {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              duration: Duration(seconds: 22),
-                                              backgroundColor:
-                                                  ColorManager().green,
-                                              content: SizedBox(
-                                                height: 50,
-                                                child: Center(
-                                                  child: SubTitle3(
-                                                      text:
-                                                          "تم تنزيل الملف بنجاح "),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        }
+                                      // Request storage permission
+                                      // var permissionStatus =
+                                      //     await Permission.storage.request();
+
+                                      // if (permissionStatus.isGranted) {
+                                      //   var response = await BillServiceImpl()
+                                      //       .pdf(state.allBills[index].id);
+                                      //   await saveFile(response,
+                                      //       "${state.allBills[index].market.store_name}.pdf");
+
+                                      //   if (response != "false") {
+                                      //     ScaffoldMessenger.of(context)
+                                      //         .showSnackBar(
+                                      //       SnackBar(
+                                      //         duration: Duration(seconds: 22),
+                                      //         backgroundColor:
+                                      //             ColorManager().green,
+                                      //         content: SizedBox(
+                                      //           height: 50,
+                                      //           child: Center(
+                                      //             child: SubTitle3(
+                                      //                 text:
+                                      //                     "تم تنزيل الملف بنجاح "),
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     );
+                                      //   }
+                                      // } else {
+                                      //   ScaffoldMessenger.of(context)
+                                      //       .showSnackBar(
+                                      //     SnackBar(
+                                      //       duration: Duration(seconds: 3),
+                                      //       backgroundColor:
+                                      //           ColorManager().green,
+                                      //       content: SizedBox(
+                                      //         height: 50,
+                                      //         child: Center(
+                                      //           child: SubTitle3(
+                                      //               text:
+                                      //                   "تم إلغاء إعطاء الإذن"),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //   );
+                                      //   print("Storage permission denied");
+                                      // }
+                                      var bill = state.allBills[index];
+                                      var storeName = bill.market.store_name;
+                                      var billID = bill.id;
+                                      var token = await TokenStorage()
+                                          .getAccessToken(); // Replace with your actual token dania
+
+                                      var url =
+                                          "https://almowafraty.com/#/bills/$storeName/$billID/$token";
+
+                                      // Navigate to the URL
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
                                       } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                duration: Duration(seconds: 3),
-                                                backgroundColor:
-                                                    ColorManager().green,
-                                                content: SizedBox(
-                                                  height: 50,
-                                                  child: Center(
-                                                      child: SubTitle3(
-                                                          text:
-                                                              "تم إلغاء إعطاء الإذن")),
-                                                )));
-                                        print("Storage permission denied");
+                                        throw 'Could not launch $url';
                                       }
                                     },
                                     colors: ColorManager().green,

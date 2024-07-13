@@ -163,123 +163,123 @@ class Order extends StatelessWidget {
                                           //             .height /
                                           //         29,
                                           // widthOfText5: 1,
-                                          myWidget: SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                3.2,
-                                            child: StatefulBuilder(
-                                                builder: (context, refresh) {
-                                              return Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              12,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              12,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            ColorManager().red,
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: FittedBox(
-                                                        fit: BoxFit.fitWidth,
-                                                        child: IconButton(
-                                                          onPressed: () {
-                                                            if (counter[
-                                                                    index] >=
-                                                                1) {
-                                                              refresh(
-                                                                () {
-                                                                  counter[
-                                                                      index]--;
-                                                                  print(counter[
-                                                                      index]);
+                                          // myWidget: SizedBox(
+                                          //   width: MediaQuery.of(context)
+                                          //           .size
+                                          //           .width /
+                                          //       3.2,
+                                          //   child: StatefulBuilder(
+                                          //       builder: (context, refresh) {
+                                          //     return Row(
+                                          //         mainAxisAlignment:
+                                          //             MainAxisAlignment
+                                          //                 .spaceBetween,
+                                          //         children: [
+                                          //           Container(
+                                          //             width:
+                                          //                 MediaQuery.of(context)
+                                          //                         .size
+                                          //                         .width /
+                                          //                     12,
+                                          //             height:
+                                          //                 MediaQuery.of(context)
+                                          //                         .size
+                                          //                         .height /
+                                          //                     12,
+                                          //             decoration: BoxDecoration(
+                                          //               color:
+                                          //                   ColorManager().red,
+                                          //               shape: BoxShape.circle,
+                                          //             ),
+                                          //             child: FittedBox(
+                                          //               fit: BoxFit.fitWidth,
+                                          //               child: IconButton(
+                                          //                 onPressed: () {
+                                          //                   // if (counter[
+                                          //                   //         index] >=
+                                          //                   //     1) {
+                                          //                   //   refresh(
+                                          //                   //     () {
+                                          //                   //       counter[
+                                          //                   //           index]--;
+                                          //                   //       print(counter[
+                                          //                   //           index]);
 
-                                                                  list[index][
-                                                                          'quantity'] =
-                                                                      counter[
-                                                                          index];
-                                                                },
-                                                              );
-                                                            }
-                                                          },
-                                                          icon: Icon(
-                                                            Icons.minimize,
-                                                            color:
-                                                                ColorManager()
-                                                                    .background,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      counter[index].toString(),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              12,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              12,
-                                                      decoration: BoxDecoration(
-                                                        color: ColorManager()
-                                                            .green,
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: FittedBox(
-                                                        fit: BoxFit.contain,
-                                                        child: IconButton(
-                                                          onPressed: () {
-                                                            if (counter[index] <
-                                                                bill
-                                                                    .products[
-                                                                        index]
-                                                                    .pivot
-                                                                    .quantity) {
-                                                              refresh(
-                                                                () {
-                                                                  counter[
-                                                                      index]++;
-                                                                  print(counter[
-                                                                      index]);
+                                          //                   //       list[index][
+                                          //                   //               'quantity'] =
+                                          //                   //           counter[
+                                          //                   //               index];
+                                          //                   //     },
+                                          //                   //   );
+                                          //                   // }
+                                          //                 },
+                                          //                 icon: Icon(
+                                          //                   Icons.minimize,
+                                          //                   color:
+                                          //                       ColorManager()
+                                          //                           .background,
+                                          //                 ),
+                                          //               ),
+                                          //             ),
+                                          //           ),
+                                          //           Text(
+                                          //             counter[index].toString(),
+                                          //             textAlign:
+                                          //                 TextAlign.center,
+                                          //           ),
+                                          //           Container(
+                                          //             width:
+                                          //                 MediaQuery.of(context)
+                                          //                         .size
+                                          //                         .width /
+                                          //                     12,
+                                          //             height:
+                                          //                 MediaQuery.of(context)
+                                          //                         .size
+                                          //                         .height /
+                                          //                     12,
+                                          //             decoration: BoxDecoration(
+                                          //               color: ColorManager()
+                                          //                   .green,
+                                          //               shape: BoxShape.circle,
+                                          //             ),
+                                          //             child: FittedBox(
+                                          //               fit: BoxFit.contain,
+                                          //               child: IconButton(
+                                          //                 onPressed: () {
+                                          //                   // if (counter[index] <
+                                          //                   //     bill
+                                          //                   //         .products[
+                                          //                   //             index]
+                                          //                   //         .pivot
+                                          //                   //         .quantity) {
+                                          //                   //   refresh(
+                                          //                   //     () {
+                                          //                   //       counter[
+                                          //                   //           index]++;
+                                          //                   //       print(counter[
+                                          //                   //           index]);
 
-                                                                  list[index][
-                                                                          'quantity'] =
-                                                                      counter[
-                                                                          index];
-                                                                },
-                                                              );
-                                                            }
-                                                          },
-                                                          icon: Icon(
-                                                            Icons.add,
-                                                            color:
-                                                                ColorManager()
-                                                                    .background,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ]);
-                                            }),
-                                          ),
+                                          //                   //       list[index][
+                                          //                   //               'quantity'] =
+                                          //                   //           counter[
+                                          //                   //               index];
+                                          //                   //     },
+                                          //                   //   );
+                                          //                   // }
+                                          //                 },
+                                          //                 icon: Icon(
+                                          //                   Icons.add,
+                                          //                   color:
+                                          //                       ColorManager()
+                                          //                           .background,
+                                          //                 ),
+                                          //               ),
+                                          //             ),
+                                          //           ),
+                                          //         ]);
+                                          //   }),
+                                          // ),
                                         ),
                                       ),
                                     ],
@@ -342,7 +342,7 @@ class Order extends StatelessWidget {
                                             ),
                                             MyButtonWidget(
                                                 widget: const Text(
-                                                  "حفظ التعديلات و قبول الفاتورة",
+                                                  "قبول الفاتورة",
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w500,
@@ -465,21 +465,21 @@ class Order extends StatelessWidget {
                                                                                 date = val;
                                                                               });
                                                                             }),
-                                                                        RadioListTile(
-                                                                            title: Text(
-                                                                                "موعد آخر"),
-                                                                            activeColor: ColorManager()
-                                                                                .red,
-                                                                            value:
-                                                                                "موعد آخر",
-                                                                            groupValue:
-                                                                                date,
-                                                                            onChanged:
-                                                                                (val) {
-                                                                              setState(() {
-                                                                                date = val;
-                                                                              });
-                                                                            }),
+                                                                        // RadioListTile(
+                                                                        //     title: Text(
+                                                                        //         "موعد آخر"),
+                                                                        //     activeColor: ColorManager()
+                                                                        //         .red,
+                                                                        //     value:
+                                                                        //         "موعد آخر",
+                                                                        //     groupValue:
+                                                                        //         date,
+                                                                        //     onChanged:
+                                                                        //         (val) {
+                                                                        //       setState(() {
+                                                                        //         date = val;
+                                                                        //       });
+                                                                        //     }),
                                                                         BlocListener<
                                                                             UpdateBillTimeBloc,
                                                                             UpdateBillTimeState>(
