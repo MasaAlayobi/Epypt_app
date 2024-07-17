@@ -224,6 +224,26 @@ class _AvailablePageState extends State<AvailablePage> {
                                               )
                                           ],
                                         ),
+                                         Row(
+                                            children: [
+                                              CustomText(
+                                                  text: 'الكمية المتاحة : ',
+                                                  size: 13,
+                                                  color: colorApp.greyColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  maxLines: 2),
+                                              Center(
+                                                  child: CustomText(
+                                                      text:
+                                                          '${state.allProduct[index].pivot.quantity}',
+                                                      size: 13,
+                                                      color:
+                                                          colorApp.blackColor,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      maxLines: 2))
+                                            ],
+                                          ),
                                         if (state.allProduct[index].pivot
                                                 .has_offer ==
                                             1)

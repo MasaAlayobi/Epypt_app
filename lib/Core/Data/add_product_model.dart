@@ -5,29 +5,34 @@ class AddProductModel {
   num max_selling_quantity;
   num product_id;
   num price;
+  num quantity;
   AddProductModel({
     required this.max_selling_quantity,
     required this.product_id,
     required this.price,
+    required this.quantity,
   });
 
   AddProductModel copyWith({
     num? max_selling_quantity,
     num? product_id,
     num? price,
+    num? quantity,
   }) {
     return AddProductModel(
       max_selling_quantity: max_selling_quantity ?? this.max_selling_quantity,
       product_id: product_id ?? this.product_id,
       price: price ?? this.price,
+      quantity: quantity ?? this.quantity,
     );
   }
 
-  Map<dynamic, dynamic> toMap() {
-    return <dynamic, dynamic>{
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
       'max_selling_quantity': max_selling_quantity,
       'product_id': product_id,
       'price': price,
+      'quantity': quantity,
     };
   }
 
@@ -36,6 +41,7 @@ class AddProductModel {
       max_selling_quantity: map['max_selling_quantity'] as num,
       product_id: map['product_id'] as num,
       price: map['price'] as num,
+      quantity: map['quantity'] as num,
     );
   }
 
@@ -44,7 +50,9 @@ class AddProductModel {
   factory AddProductModel.fromJson(String source) => AddProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'AddProductModel(max_selling_quantity: $max_selling_quantity, product_id: $product_id, price: $price)';
+  String toString() {
+    return 'AddProductModel(max_selling_quantity: $max_selling_quantity, product_id: $product_id, price: $price, quantity: $quantity)';
+  }
 
   @override
   bool operator ==(covariant AddProductModel other) {
@@ -53,9 +61,15 @@ class AddProductModel {
     return 
       other.max_selling_quantity == max_selling_quantity &&
       other.product_id == product_id &&
-      other.price == price;
+      other.price == price &&
+      other.quantity == quantity;
   }
 
   @override
-  int get hashCode => max_selling_quantity.hashCode ^ product_id.hashCode ^ price.hashCode;
+  int get hashCode {
+    return max_selling_quantity.hashCode ^
+      product_id.hashCode ^
+      price.hashCode ^
+      quantity.hashCode;
+  }
 }

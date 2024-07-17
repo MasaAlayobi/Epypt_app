@@ -430,7 +430,7 @@ class _SignUpState extends State<SignUp> {
                                   },
                                   child: MyExpansionTileCities(
                                       onDataChanged: updateData,
-                                      text1: "اختر المدن للتوصيل",
+                                      text1: "اختر مناطق التوصيل",
                                       widget: Text(""),
                                       // widget: StatefulBuilder(
                                       //   builder: (context, setState) => Checkbox(

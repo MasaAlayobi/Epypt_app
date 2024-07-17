@@ -31,6 +31,7 @@ class CustomShowModelWithoutOffer extends StatefulWidget {
 class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffer> {
     TextEditingController price = TextEditingController();
     TextEditingController quantity = TextEditingController();
+    TextEditingController totalQuantity = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -39,7 +40,7 @@ class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffe
         return Directionality(
             textDirection: TextDirection.rtl,
             child: SizedBox(
-                height: 280,
+                height: 330,
                 width: double.infinity,
                 child: Directionality(
                   textDirection: TextDirection.rtl,
@@ -127,6 +128,27 @@ class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffe
                       SizedBox(
                         height: 8,
                       ),
+                      Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: CustomText(
+                                      text: 'الكمية المتاحة',
+                                      size: 13,
+                                      color: colorApp.blackColor,
+                                      fontWeight: FontWeight.bold,
+                                      maxLines: 1),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Center(
+                                  child: CustomCounter(
+                                    controller: totalQuantity,
+                                  ),
+                                ),
+                              ],
+                            ),
                       BlocListener<ProductsBloc, ProductsState>(
                         listener: (context, state) {
                           if (state is successAddProduct) {
@@ -170,7 +192,8 @@ class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffe
                                       product: AddProductModel(
                                           price: int.parse(price.text),
                                           product_id: widget.id,
-                                          max_selling_quantity:
+                                          quantity: int.parse(totalQuantity.text),
+                                          max_selling_quantity: 
                                               int.parse(quantity.text))));}
                              else {
                               showDialog(

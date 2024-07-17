@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:mufraty_app/Core/Data/add_product_to_available.dart';
 import 'package:mufraty_app/Core/Data/available_products_model.dart';
 import 'package:mufraty_app/Core/Domain/stock_servic.dart';
 
@@ -31,7 +32,7 @@ class NotAvailableBloc extends Bloc<NotAvailableEvent, NotAvailableState> {
          emit(LoadingUpdate(message: 'جاري التحديث .....'));
         try {
           String message = await StockServicImp()
-              .addAvailableOrNot(event.id, event.is_available);
+              .addNotToAvailable(event.id, event.product);
           print(message);
           if (message == 'true') {
             // print('true');

@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
+import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/changeSign.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
@@ -14,6 +14,7 @@ import 'package:mufraty_app/feature/Auth/register/view/register_page.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/main.dart';
 import 'package:readmore/readmore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -89,9 +90,7 @@ class _LoginViewState extends State<LoginView> {
                               cursorColor: ColorManager().red,
                               decoration: InputDecoration(
                                 errorStyle:
-
-
-TextStyle(color: ColorManager().red),
+                                    TextStyle(color: ColorManager().red),
                                 errorBorder: OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: ColorManager().red),
@@ -161,7 +160,6 @@ TextStyle(color: ColorManager().red),
                           //       focusedErrorBorder: OutlineInputBorder(
                           //           borderSide:
                           //               BorderSide(color: ColorManager().red),
-
 
 //           borderRadius: BorderRadius.circular(12)),
                           //       fillColor: Colors.grey[200],
@@ -235,9 +233,7 @@ TextStyle(color: ColorManager().red),
                                         BorderSide(color: ColorManager().red),
                                     borderRadius: BorderRadius.circular(12)),
                                 enabledBorder: OutlineInputBorder(
-
-
-borderSide:
+                                    borderSide:
                                         BorderSide(color: ColorManager().red),
                                     borderRadius: BorderRadius.circular(12)),
                                 border: OutlineInputBorder(
@@ -318,9 +314,7 @@ borderSide:
                                     .showSnackBar(new SnackBar(
                                   content: Text(
                                     state.message ==
-
-
-'Null check operator used on a null value' ||
+                                                'Null check operator used on a null value' ||
                                             state.message
                                                 .contains('403 Forbidden')
                                         ? "لقد انقطع الاتصال بالانترنت"
@@ -337,8 +331,13 @@ borderSide:
                                     passwords.text.isNotEmpty) {
                                   print('00000000000000000000000');
                                   LoginModel user = LoginModel(
-                                      phone_number: '+20${_controller.text}',
-                                      password: passwords.text);
+                                    phone_number: '+20${_controller.text}',
+                                    password: passwords.text,
+                                    deviceToken: storage
+                                        .get<SharedPreferences>()
+                                        .getString('deviceToken')
+                                        .toString(),
+                                  );
                                   print(user);
                                   context
                                       .read<LoginBloc>()

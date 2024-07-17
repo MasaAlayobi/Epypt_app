@@ -6,6 +6,7 @@ import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/Core/Data/add_offer_model.dart';
 import 'package:mufraty_app/Core/Data/add_product_model.dart';
+import 'package:mufraty_app/Core/Data/add_product_to_available.dart';
 import 'package:mufraty_app/Core/Data/add_product_with_offer_model.dart';
 import 'package:mufraty_app/Core/Data/available_products_model.dart';
 import 'package:mufraty_app/Core/Data/notfiication_model.dart';
@@ -23,7 +24,8 @@ abstract class StockServic extends DioClient {
   addProductWithOffer(AddProductWithOfferModel product);
   addOffer(AddOfferModel offer, num id);
   updateOffer(UpdateOfferModel offer,num id);
-  addAvailableOrNot(num id,num is_available);
+  addAvailableToNot(num id,num is_available);
+  addNotToAvailable(num id,AddProductToAvailable product);
   deletProduct(int id);
   updatePrice(num id ,num price);
   logout();
@@ -59,12 +61,13 @@ class StockServicImp extends StockServic {
 
   @override
   Future<List<AvailableProductsModel>> getAvailableProduct(String label) async {
-   try{
+  //  try{
      response = await dio.get('$baseUrl${entity = EndPoint.getAvailableProduct}?search=$label',
         // options: getHeader()
         );
     // print(response.data);
     if (response.statusCode == 200) {
+      print(response.data["body"]);
       dynamic temp = response.data["body"];
       List<AvailableProductsModel> allAvailbaleProduct = List.generate(
           temp.length, (index) => AvailableProductsModel.fromMap(temp[index]));
@@ -74,11 +77,11 @@ class StockServicImp extends StockServic {
       print('**************************');
       return [];
     }
-   }on DioException catch(e){
-      throw e.response!.data["message"];
-   }on Error catch(e){
-    throw e;
-   }
+  //  }on DioException catch(e){
+  //     throw e.response!.data["message"];
+  //  }on Error catch(e){
+  //   throw e;
+  //  }
   }
 
   @override
@@ -186,7 +189,7 @@ class StockServicImp extends StockServic {
   }
   
   @override
-  addAvailableOrNot(num id, num is_available)async {
+  addAvailableToNot(num id, num is_available)async {
    try {
       response = await dio.post('$baseUrl${entity = EndPoint.addAvailableOrNot}$id',
           data:json.encode({"is_available":is_available}),
@@ -310,5 +313,25 @@ class StockServicImp extends StockServic {
    }on Error catch(e){
     throw e;
    }
+  }
+  
+  @override
+  addNotToAvailable(num id, AddProductToAvailable product) async{
+    try {
+      response = await dio.post('$baseUrl${entity = EndPoint.addAvailableOrNot}$id',
+          data:product.toJson(),
+          //  options: getHeader()
+           );
+          print(response.data);
+      if (response.statusCode == 200) {
+        // print(response.data["message"]);
+        return 'true';
+      }
+    } on DioException catch (e) {
+      print(e.response!.data["message"]);
+      return e.response!.data["message"];
+    } catch (e) {
+      throw e;
+    } 
   }
 }

@@ -38,6 +38,7 @@ class _CustomShowmodalbottomsheetState
   TextEditingController priceOffer = TextEditingController();
   TextEditingController quantityOffer = TextEditingController();
   TextEditingController date = TextEditingController();
+  TextEditingController totalQuantity = TextEditingController();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -65,7 +66,7 @@ class _CustomShowmodalbottomsheetState
           child: Directionality(
               textDirection: TextDirection.rtl,
               child: SizedBox(
-                  height: 400,
+                  height: 470,
                   width: double.infinity,
                   child: Directionality(
                     textDirection: TextDirection.rtl,
@@ -199,6 +200,33 @@ class _CustomShowmodalbottomsheetState
                             ],
                           ),
                         ),
+                         SizedBox(
+                                  height: 5,
+                                ),
+                         Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: CustomText(
+                                      text: 'الكمية المتاحة',
+                                      size: 13,
+                                      color: colorApp.blackColor,
+                                      fontWeight: FontWeight.bold,
+                                      maxLines: 1),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Center(
+                                  child: CustomCounter(
+                                    controller: totalQuantity,
+                                  ),
+                                ),
+                              ],
+                            ),
+                             SizedBox(
+                                  height: 5,
+                                ),
                         Padding(
                           padding:
                               const EdgeInsets.only(left: 8, right: 8, bottom: 5),
@@ -277,6 +305,7 @@ class _CustomShowmodalbottomsheetState
                                 BlocProvider.of<ProductsBloc>(context).add(
                                     addProductWithOffer(
                                         product: AddProductWithOfferModel(
+                                          quantity: int.parse(totalQuantity.text),
                                             max_offer_quantity:
                                                 int.parse(quantityOffer.text),
                                             offer_price:
