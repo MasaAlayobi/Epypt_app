@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomContainerWithText extends StatelessWidget {
   const CustomContainerWithText({super.key, required this.text});
@@ -18,7 +19,7 @@ class CustomContainerWithText extends StatelessWidget {
                   TextButton(
                     child: Text('إغلاق'),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      GoRouter.of(context).pop();
                     },
                   ),
                 ],

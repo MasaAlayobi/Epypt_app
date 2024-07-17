@@ -302,7 +302,7 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                                                     phoneController: quantity,
                                                                                     phoneText: 'الكمية المتاحة ',
                                                                                   )),
-                                                                                  SizedBox(
+                                                                              SizedBox(
                                                                                 height: 5,
                                                                               ),
                                                                               SizedBox(
@@ -312,7 +312,7 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                                                     phoneController: max_selling_quantity,
                                                                                     phoneText: 'أقصى كمية للطلب ',
                                                                                   )),
-                                                                                  SizedBox(
+                                                                              SizedBox(
                                                                                 height: 5,
                                                                               ),
                                                                               SizedBox(
@@ -322,7 +322,7 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                                                     phoneText: 'السعر ',
                                                                                     phoneController: price,
                                                                                   )),
-                                                                                  SizedBox(
+                                                                              SizedBox(
                                                                                 height: 5,
                                                                               ),
                                                                             ],
@@ -350,7 +350,7 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                                           ),
                                                                           onPressed:
                                                                               () {
-                                                                            Navigator.of(context).pop();
+                                                                            GoRouter.of(context).pop();
                                                                           },
                                                                         ),
                                                                       ],

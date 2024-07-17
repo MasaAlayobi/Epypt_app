@@ -185,7 +185,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                                                                 dropdownValues[index] = newValue;
                                                                               });
                                                                               if (cancelOfSend.text.isEmpty) {
-                                                                                Navigator.of(context).pop();
+                                                                                GoRouter.of(context).pop();
                                                                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().green, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
                                                                               } else {
                                                                                 context.read<NewBillBloc>().add(SendReason(idBill: state.allBills[index].id, reason: Reason(rejection_reason: cancelOfSend.text)));

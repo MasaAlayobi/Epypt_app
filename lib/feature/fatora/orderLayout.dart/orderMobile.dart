@@ -589,7 +589,7 @@ class _OrderState extends State<Order> {
                                                                               MyButton(
                                                                                   title: " الغاء",
                                                                                   onpress: () {
-                                                                                    Navigator.of(context).pop();
+                                                                                    GoRouter.of(context).pop();
                                                                                   },
                                                                                   colors: ColorManager().red,
                                                                                   width: MediaQuery.of(context).size.width / 3,

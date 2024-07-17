@@ -234,10 +234,10 @@ class Brebaring extends StatelessWidget {
                                                                                       dropdownValues[index] = newValue;
                                                                                     });
                                                                                     if (totalPrice.text.isEmpty) {
-                                                                                      Navigator.of(context).pop();
+                                                                                      GoRouter.of(context).pop();
                                                                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
                                                                                     } else if (num.tryParse(totalPrice.text)! > state.oneBill[index].total_price_after_discount) {
-                                                                                      Navigator.of(context).pop();
+                                                                                      GoRouter.of(context).pop();
                                                                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "  لا يمكن ان يكون المبلغ المدفوع اعلى من السعر الإجمالي للفاتورة")))));
                                                                                     } else {
                                                                                       BlocProvider.of<BrebaringBloc>(context).add(CombleteReceive(reason: RecivePriceBill(recieved_price: int.parse(totalPrice.text)), id: state.oneBill[index].id));
@@ -354,7 +354,7 @@ class Brebaring extends StatelessWidget {
                                                                                       dropdownValues[index] = newValue;
                                                                                     });
                                                                                     if (reasonOfCancel.text.isEmpty) {
-                                                                                      Navigator.of(context).pop();
+                                                                                      GoRouter.of(context).pop();
                                                                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
                                                                                     } else {
                                                                                       context.read<BrebaringBloc>().add(CancelRecieve(reason: Reason(rejection_reason: reasonOfCancel.text), id: state.oneBill[index].id));

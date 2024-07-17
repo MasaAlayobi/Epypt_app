@@ -72,7 +72,8 @@ class Pivot {
 
   String toJson() => json.encode(toMap());
 
-  factory Pivot.fromJson(String source) => Pivot.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Pivot.fromJson(String source) =>
+      Pivot.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -82,27 +83,26 @@ class Pivot {
   @override
   bool operator ==(covariant Pivot other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.bill_id == bill_id &&
-      other.product_id == product_id &&
-      other.quantity == quantity &&
-      other.buying_price == buying_price &&
-      other.max_selling_quantity == max_selling_quantity &&
-      other.max_offer_quantity == max_offer_quantity &&
-      other.offer_buying_price == offer_buying_price &&
-      other.has_offer == has_offer;
+
+    return other.bill_id == bill_id &&
+        other.product_id == product_id &&
+        other.quantity == quantity &&
+        other.buying_price == buying_price &&
+        other.max_selling_quantity == max_selling_quantity &&
+        other.max_offer_quantity == max_offer_quantity &&
+        other.offer_buying_price == offer_buying_price &&
+        other.has_offer == has_offer;
   }
 
   @override
   int get hashCode {
     return bill_id.hashCode ^
-      product_id.hashCode ^
-      quantity.hashCode ^
-      buying_price.hashCode ^
-      max_selling_quantity.hashCode ^
-      max_offer_quantity.hashCode ^
-      offer_buying_price.hashCode ^
-      has_offer.hashCode;
+        product_id.hashCode ^
+        quantity.hashCode ^
+        buying_price.hashCode ^
+        max_selling_quantity.hashCode ^
+        max_offer_quantity.hashCode ^
+        offer_buying_price.hashCode ^
+        has_offer.hashCode;
   }
 }
