@@ -10,42 +10,106 @@ import 'package:mufraty_app/Core/Config/widget/listOfOption.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
 import 'package:mufraty_app/Core/Config/widget/myButtonWidget.dart';
 import 'package:mufraty_app/Core/Data/bill_with_reason.dart';
+import 'package:mufraty_app/Core/Data/market.dart';
+import 'package:mufraty_app/Core/Data/product.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
 import 'package:mufraty_app/feature/fatora/orderLayout.dart/with-time-bloc/update_bill_time_bloc.dart';
 
 // ignore: must_be_immutable
-class Order extends StatelessWidget {
+class Order extends StatefulWidget {
   BillWithReason bill;
-  List<int> counter = [];
-  int year = DateTime.now().year;
-  int month = DateTime.now().month;
-  int day = DateTime.now().day;
 
   Order({
     Key? key,
     required this.bill,
   }) : super(key: key);
 
+  @override
+  State<Order> createState() => _OrderState();
+}
+
+class _OrderState extends State<Order> {
+  List<int> counter = [];
+  late num result;
+  int year = DateTime.now().year;
+
+  int month = DateTime.now().month;
+
+  int day = DateTime.now().day;
+
   List<Map<String, int>> list = [];
 
   String? selectedValue;
 
   String? date = "نفس اليوم";
+  @override
+  @override
+  void initState() {
+    super.initState();
+    counter = List.generate(widget.bill.products.length,
+        (ind) => widget.bill.products[ind].pivot.quantity);
+    result =
+        widget.bill.additional_price + widget.bill.total_price_after_discount;
+  }
 
   @override
   Widget build(BuildContext context) {
-    // int quantity;
-    counter = List.generate(
-        bill.products.length, (ind) => bill.products[ind].pivot.quantity);
+    Future getTotalToOneProduct(int index, int counter) async {
+      print(widget.bill.additional_price);
+      num total;
+      if (widget.bill.products[index].pivot.has_offer == 1) {
+        if (counter <= widget.bill.products[index].pivot.max_offer_quantity) {
+          print("offer smaller");
+          setState(() {
+            result =
+                result - widget.bill.products[index].pivot.offer_buying_price;
+          });
+        } else {
+          setState(() {
+            print("with offer bigger");
+            result = result - widget.bill.products[index].pivot.buying_price;
+          });
+        }
+      } else {
+        print("without offer");
+        setState(() {
+          result = result - widget.bill.products[index].pivot.buying_price;
+        });
+      }
+    }
 
-    print("before");
+    Future getTotalInIncrease(int index, int counter) async {
+      print(widget.bill.additional_price);
+
+      if (widget.bill.products[index].pivot.has_offer == 1) {
+        if (counter <= widget.bill.products[index].pivot.max_offer_quantity) {
+          print("offer smaller");
+          setState(() {
+            result =
+                result + widget.bill.products[index].pivot.offer_buying_price;
+          });
+        } else {
+          setState(() {
+            print("with offer bigger");
+            result = result + widget.bill.products[index].pivot.buying_price;
+          });
+        }
+      } else {
+        print("without offer");
+        setState(() {
+          result = result + widget.bill.products[index].pivot.buying_price;
+        });
+      }
+    }
+
     return BlocProvider(
       create: (context) => UpdateBillTimeBloc(),
       child: Builder(builder: (context) {
         return Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
+            backgroundColor: ColorManager().white,
             appBar: AppBar(
               actions: [
                 IconButton(
@@ -72,7 +136,7 @@ class Order extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListView.separated(
-                      itemCount: bill.products.length,
+                      itemCount: widget.bill.products.length,
                       separatorBuilder: (context, index) => Divider(
                         thickness: 0.4,
                         color: ColorManager().grey2,
@@ -81,9 +145,9 @@ class Order extends StatelessWidget {
                       ),
                       itemBuilder: (context, index) {
                         if (!list.any((element) =>
-                            element["id"] == bill.products[index].id)) {
+                            element["id"] == widget.bill.products[index].id)) {
                           list.add({
-                            "id": bill.products[index].id,
+                            "id": widget.bill.products[index].id,
                             "quantity": counter[index]
                           });
                         } else {
@@ -91,16 +155,19 @@ class Order extends StatelessWidget {
                         }
                         print("first add");
                         print(list);
-                        return bill.products.isNotEmpty
+                        return widget.bill.products.isNotEmpty
                             ? Column(
                                 children: [
                                   Row(
                                     children: [
-                                      bill.products[index].image.isNotEmpty
-                                          ? FittedBox(
-                                              fit: BoxFit.fitHeight,
+                                      widget.bill.products[index].image
+                                              .isNotEmpty
+                                          ? Padding(
+                                              padding: EdgeInsets.all(8),
                                               child: ImageProduct(
-                                                  image: bill.products[index]
+                                                  image: widget
+                                                      .bill
+                                                      .products[index]
                                                       .image[0]),
                                             )
                                           : Padding(
@@ -114,12 +181,12 @@ class Order extends StatelessWidget {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width /
-                                                            3,
+                                                            4,
                                                     height:
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .height /
-                                                            4,
+                                                            6,
                                                     fit: BoxFit.fill,
                                                   )),
                                             ),
@@ -129,162 +196,145 @@ class Order extends StatelessWidget {
                                       Flexible(
                                         child: ListOfOption(
                                           widget1: SubTitle2(
-                                              text: bill.products[index].name),
+                                              text: widget
+                                                  .bill.products[index].name),
                                           text2:
-                                              "العدد: ${bill.products[index].pivot.quantity}",
+                                              "العدد: ${widget.bill.products[index].pivot.quantity}",
+                                          text3: widget.bill.products[index]
+                                                      .pivot.has_offer ==
+                                                  1
+                                              ? "السعر الفردي للعرض:${widget.bill.products[index].pivot.offer_buying_price}"
+                                              : "السعر الفردي:${widget.bill.products[index].pivot.buying_price}",
+                                          text4: widget.bill.products[index]
+                                                      .pivot.has_offer ==
+                                                  1
+                                              ? "السعر الإجمالي للعرض:${widget.bill.products[index].pivot.offer_buying_price * counter[index]}"
+                                              : "السعر الإجمالي:${widget.bill.products[index].pivot.buying_price * counter[index]}",
+                                          myWidget: SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3.7,
+                                            child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            12,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            12,
+                                                    decoration: BoxDecoration(
+                                                      color: ColorManager().red,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: FittedBox(
+                                                      fit: BoxFit.fitWidth,
+                                                      child: IconButton(
+                                                        onPressed: () {
+                                                          if (counter[index] >=
+                                                              1) {
+                                                            setState(
+                                                              () {
+                                                                counter[
+                                                                    index]--;
+                                                                print(counter[
+                                                                    index]);
 
-                                          text3:
-                                              "السعر الفردي: ${bill.products[index].pivot.buying_price}",
-                                          text4:
-                                              "السعر الإجمالي:${bill.products[index].pivot.buying_price * bill.products[index].pivot.quantity}",
-                                          // heightOfText1:
-                                          //     MediaQuery.of(context)
-                                          //             .size
-                                          //             .height /
-                                          //         29,
-                                          // heightOfText2:
-                                          //     MediaQuery.of(context)
-                                          //             .size
-                                          //             .height /
-                                          //         29,
-                                          // // heightOfText3:
-                                          //     MediaQuery.of(context)
-                                          //             .size
-                                          //             .height /
-                                          //         29,
-                                          // heightOfText4:
-                                          //     MediaQuery.of(context)
-                                          //             .size
-                                          //             .height /
-                                          //         29,
-                                          // heightOfText5:
-                                          //     MediaQuery.of(context)
-                                          //             .size
-                                          //             .height /
-                                          //         29,
-                                          // widthOfText5: 1,
-                                          // myWidget: SizedBox(
-                                          //   width: MediaQuery.of(context)
-                                          //           .size
-                                          //           .width /
-                                          //       3.2,
-                                          //   child: StatefulBuilder(
-                                          //       builder: (context, refresh) {
-                                          //     return Row(
-                                          //         mainAxisAlignment:
-                                          //             MainAxisAlignment
-                                          //                 .spaceBetween,
-                                          //         children: [
-                                          //           Container(
-                                          //             width:
-                                          //                 MediaQuery.of(context)
-                                          //                         .size
-                                          //                         .width /
-                                          //                     12,
-                                          //             height:
-                                          //                 MediaQuery.of(context)
-                                          //                         .size
-                                          //                         .height /
-                                          //                     12,
-                                          //             decoration: BoxDecoration(
-                                          //               color:
-                                          //                   ColorManager().red,
-                                          //               shape: BoxShape.circle,
-                                          //             ),
-                                          //             child: FittedBox(
-                                          //               fit: BoxFit.fitWidth,
-                                          //               child: IconButton(
-                                          //                 onPressed: () {
-                                          //                   // if (counter[
-                                          //                   //         index] >=
-                                          //                   //     1) {
-                                          //                   //   refresh(
-                                          //                   //     () {
-                                          //                   //       counter[
-                                          //                   //           index]--;
-                                          //                   //       print(counter[
-                                          //                   //           index]);
+                                                                list[index][
+                                                                        'quantity'] =
+                                                                    counter[
+                                                                        index];
 
-                                          //                   //       list[index][
-                                          //                   //               'quantity'] =
-                                          //                   //           counter[
-                                          //                   //               index];
-                                          //                   //     },
-                                          //                   //   );
-                                          //                   // }
-                                          //                 },
-                                          //                 icon: Icon(
-                                          //                   Icons.minimize,
-                                          //                   color:
-                                          //                       ColorManager()
-                                          //                           .background,
-                                          //                 ),
-                                          //               ),
-                                          //             ),
-                                          //           ),
-                                          //           Text(
-                                          //             counter[index].toString(),
-                                          //             textAlign:
-                                          //                 TextAlign.center,
-                                          //           ),
-                                          //           Container(
-                                          //             width:
-                                          //                 MediaQuery.of(context)
-                                          //                         .size
-                                          //                         .width /
-                                          //                     12,
-                                          //             height:
-                                          //                 MediaQuery.of(context)
-                                          //                         .size
-                                          //                         .height /
-                                          //                     12,
-                                          //             decoration: BoxDecoration(
-                                          //               color: ColorManager()
-                                          //                   .green,
-                                          //               shape: BoxShape.circle,
-                                          //             ),
-                                          //             child: FittedBox(
-                                          //               fit: BoxFit.contain,
-                                          //               child: IconButton(
-                                          //                 onPressed: () {
-                                          //                   // if (counter[index] <
-                                          //                   //     bill
-                                          //                   //         .products[
-                                          //                   //             index]
-                                          //                   //         .pivot
-                                          //                   //         .quantity) {
-                                          //                   //   refresh(
-                                          //                   //     () {
-                                          //                   //       counter[
-                                          //                   //           index]++;
-                                          //                   //       print(counter[
-                                          //                   //           index]);
+                                                                getTotalToOneProduct(
+                                                                    index,
+                                                                    counter[
+                                                                        index]);
+                                                              },
+                                                            );
+                                                          }
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.minimize,
+                                                          color: ColorManager()
+                                                              .background,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    counter[index].toString(),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            12,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            12,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          ColorManager().green,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: FittedBox(
+                                                      fit: BoxFit.contain,
+                                                      child: IconButton(
+                                                        onPressed: () {
+                                                          if (counter[index] <
+                                                              widget
+                                                                  .bill
+                                                                  .products[
+                                                                      index]
+                                                                  .pivot
+                                                                  .quantity) {
+                                                            setState(
+                                                              () {
+                                                                counter[
+                                                                    index]++;
+                                                                print(counter[
+                                                                    index]);
 
-                                          //                   //       list[index][
-                                          //                   //               'quantity'] =
-                                          //                   //           counter[
-                                          //                   //               index];
-                                          //                   //     },
-                                          //                   //   );
-                                          //                   // }
-                                          //                 },
-                                          //                 icon: Icon(
-                                          //                   Icons.add,
-                                          //                   color:
-                                          //                       ColorManager()
-                                          //                           .background,
-                                          //                 ),
-                                          //               ),
-                                          //             ),
-                                          //           ),
-                                          //         ]);
-                                          //   }),
-                                          // ),
+                                                                list[index][
+                                                                        'quantity'] =
+                                                                    counter[
+                                                                        index];
+                                                                getTotalInIncrease(
+                                                                    index,
+                                                                    counter[
+                                                                        index]);
+                                                              },
+                                                            );
+                                                            ;
+                                                          }
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.add,
+                                                          color: ColorManager()
+                                                              .background,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ]),
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  if (index == bill.products.length - 1)
+                                  if (index == widget.bill.products.length - 1)
                                     SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
@@ -302,12 +352,13 @@ class Order extends StatelessWidget {
                                             ListOfOption(
                                               widget1: SubTitle3(
                                                 text:
-                                                    "إجمالي الفاتورة:${bill.additional_price + bill.total_price_after_discount}",
+                                                    // {bill.additional_price + bill.total_price_after_discount}
+                                                    "إجمالي الفاتورة:${result}",
                                               ),
                                               text2:
-                                                  "طريقة الدفع:${bill.payment_method}",
+                                                  "طريقة الدفع:${widget.bill.payment_method}",
                                               text3:
-                                                  "ملاحظات:${bill.market_note}",
+                                                  "ملاحظات:${widget.bill.market_note}",
                                               heightOfText1:
                                                   MediaQuery.of(context)
                                                           .size
@@ -529,7 +580,7 @@ class Order extends StatelessWidget {
 
                                                                                     print(list);
 
-                                                                                    context.read<UpdateBillTimeBloc>().add(SendDate(id: bill.id, update: list, delivery: date.toString()));
+                                                                                    context.read<UpdateBillTimeBloc>().add(SendDate(id: widget.bill.id, update: list, delivery: date.toString()));
                                                                                   },
                                                                                   colors: ColorManager().green,
                                                                                   width: MediaQuery.of(context).size.width / 3,

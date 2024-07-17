@@ -12,17 +12,17 @@ class ImageProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.network(
       image,
-      width: MediaQuery.of(context).size.width / 3,
-      height: MediaQuery.of(context).size.height / 5,
+      width: MediaQuery.of(context).size.width / 4,
+      height: MediaQuery.of(context).size.height / 6,
       fit: BoxFit.fill,
       errorBuilder: (context, error, stackTrace) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Image.asset(
-              "assets/images/no_photo.jpg",
-              width: MediaQuery.of(context).size.width / 3,
-              height: MediaQuery.of(context).size.height / 4,
+              "asstes/images/no_photo.jpg",
+              width: MediaQuery.of(context).size.width / 4,
+              height: MediaQuery.of(context).size.height / 6,
               fit: BoxFit.fill,
             )),
       ),

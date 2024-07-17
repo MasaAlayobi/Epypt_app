@@ -35,7 +35,9 @@ class postProductWithoutTime {
 
   String toJson() => json.encode(toMap());
 
-  factory postProductWithoutTime.fromJson(String source) => postProductWithoutTime.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory postProductWithoutTime.fromJson(String source) =>
+      postProductWithoutTime
+          .fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'postProductWithoutTime(id: $id, quantity: $quantity)';
@@ -43,10 +45,8 @@ class postProductWithoutTime {
   @override
   bool operator ==(covariant postProductWithoutTime other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.quantity == quantity;
+
+    return other.id == id && other.quantity == quantity;
   }
 
   @override

@@ -98,11 +98,11 @@ class BillServiceImpl extends BillService {
     );
     try {
       if (response.statusCode == 200) {
-        print("11111111111111111111111");
+    
         print(response.data["message"]);
         return "true";
       } else {
-        print(response.data);
+
         return "false";
       }
     } on DioException catch (e) {

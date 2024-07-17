@@ -19,12 +19,12 @@ import 'package:mufraty_app/firebaseApi.dart';
 import 'package:mufraty_app/firebase_options.dart';
 
 void main() async {
-     WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-   initial();
-     await FirebaseApi().initNotiification();
+  initial();
+  await FirebaseApi().initNotiification();
 //  await FirebaseMessaging.instance.setAutoInitEnabled(true);
   Bloc.observer = MyBlocObserver();
 
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => ReportCubit(),
             lazy: true,
           ),
-           BlocProvider<UserCubitCubit>(
+          BlocProvider<UserCubitCubit>(
             create: (BuildContext context) => UserCubitCubit(),
             lazy: true,
           ),
@@ -62,7 +62,6 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp.router(
           routerConfig: AppRouter.routter,
-
           theme: lightMode,
           debugShowCheckedModeBanner: false,
         ));

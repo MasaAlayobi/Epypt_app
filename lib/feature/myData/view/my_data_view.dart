@@ -131,14 +131,14 @@ class _MyDataViewState extends State<MyDataView> {
                                   CircleAvatar(
                                     maxRadius: 66,
                                     backgroundColor: Colors.grey[300],
-                                    backgroundImage:
-                                        state.response.supplier.image[0] == null
-                                            ? const AssetImage(
-                                                "asstes\images\no_photo.jpg")
-                                            : NetworkImage(
-                                                state
-                                                    .response.supplier.image[0],
-                                              ),
+                                    backgroundImage: state
+                                                .response.supplier.images[0] ==
+                                            null
+                                        ? const AssetImage(
+                                            "asstes/images/no_photo.jpg")
+                                        : NetworkImage(
+                                            state.response.supplier.images[0],
+                                          ),
                                   ),
 
                                   Align(

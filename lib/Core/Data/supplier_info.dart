@@ -19,7 +19,7 @@ class SupplierInfo {
   final num min_bill_price;
   final int min_selling_quantity;
   final String delivery_duration;
- final List<dynamic> image;
+ final List<dynamic> images;
   final CityOfMarket city;
   final SupplierCategory supplier_category;
 
@@ -35,7 +35,7 @@ class SupplierInfo {
     required this.min_bill_price,
     required this.min_selling_quantity,
     required this.delivery_duration,
-  required this.image,
+  required this.images,
     required this.city,
     required this.supplier_category,
   });
@@ -52,7 +52,7 @@ class SupplierInfo {
     num? min_bill_price,
     int? min_selling_quantity,
     String? delivery_duration,
-    List<dynamic>? image,
+    List<dynamic>? images,
     CityOfMarket? city,
     SupplierCategory? supplier_category,
   }) {
@@ -68,7 +68,7 @@ class SupplierInfo {
       min_bill_price: min_bill_price ?? this.min_bill_price,
       min_selling_quantity: min_selling_quantity ?? this.min_selling_quantity,
       delivery_duration: delivery_duration ?? this.delivery_duration,
-      image: image ?? this.image,
+      images: images ?? this.images,
       city: city ?? this.city,
       supplier_category: supplier_category ?? this.supplier_category,
     );
@@ -87,7 +87,7 @@ class SupplierInfo {
       'min_bill_price': min_bill_price,
       'min_selling_quantity': min_selling_quantity,
       'delivery_duration': delivery_duration,
-      'image': image,
+      'images': images,
       'city': city.toMap(),
       'supplier_category': supplier_category.toMap(),
     };
@@ -106,7 +106,7 @@ class SupplierInfo {
       min_bill_price: map['min_bill_price'] as num,
       min_selling_quantity: map['min_selling_quantity'] as int,
       delivery_duration: map['delivery_duration'] as String,
-      image: List<dynamic>.from((map['image'] as List<dynamic>)),
+      images: List<dynamic>.from((map['images'] as List<dynamic>)),
       city: CityOfMarket.fromMap(map['city'] as Map<String,dynamic>),
       supplier_category: SupplierCategory.fromMap(map['supplier_category'] as Map<String,dynamic>),
     );
@@ -118,7 +118,7 @@ class SupplierInfo {
 
   @override
   String toString() {
-    return 'SupplierInfo(id: $id, supplier_category_id: $supplier_category_id, city_id: $city_id, first_name: $first_name, middle_name: $middle_name, last_name: $last_name, store_name: $store_name, phone_number: $phone_number, min_bill_price: $min_bill_price, min_selling_quantity: $min_selling_quantity, delivery_duration: $delivery_duration, image: $image, city: $city, supplier_category: $supplier_category)';
+    return 'SupplierInfo(id: $id, supplier_category_id: $supplier_category_id, city_id: $city_id, first_name: $first_name, middle_name: $middle_name, last_name: $last_name, store_name: $store_name, phone_number: $phone_number, min_bill_price: $min_bill_price, min_selling_quantity: $min_selling_quantity, delivery_duration: $delivery_duration, images: $images, city: $city, supplier_category: $supplier_category)';
   }
 
   @override
@@ -137,7 +137,7 @@ class SupplierInfo {
       other.min_bill_price == min_bill_price &&
       other.min_selling_quantity == min_selling_quantity &&
       other.delivery_duration == delivery_duration &&
-      listEquals(other.image, image) &&
+      listEquals(other.images, images) &&
       other.city == city &&
       other.supplier_category == supplier_category;
   }
@@ -155,7 +155,7 @@ class SupplierInfo {
       min_bill_price.hashCode ^
       min_selling_quantity.hashCode ^
       delivery_duration.hashCode ^
-      image.hashCode ^
+      images.hashCode ^
       city.hashCode ^
       supplier_category.hashCode;
   }

@@ -238,7 +238,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                   ),
                                 ),
                                 fatora: MyButton(
-                                    title: "الفاتورة",
+                                    title: "فاتورة",
                                     onpress: () {
                                       Navigator.of(context)
                                           .push(MaterialPageRoute(
@@ -316,7 +316,18 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                       if (await canLaunch(url)) {
                                         await launch(url);
                                       } else {
-                                        throw 'Could not launch $url';
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                duration: Duration(seconds: 3),
+                                                backgroundColor:
+                                                    ColorManager().green,
+                                                content: SizedBox(
+                                                  height: 50,
+                                                  child: Center(
+                                                      child: SubTitle3(
+                                                          text:
+                                                              " لايمكن فتح الرابط")),
+                                                )));
                                       }
                                     },
                                     colors: ColorManager().green,
@@ -326,7 +337,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                         MediaQuery.of(context).size.height / 17,
                                     radius: 9),
                                 text1:
-                                    "${state.allBills[index].market.store_name}-${state.allBills[index].market.location_details}",
+                                    "${state.allBills[index].market.store_name}",
                                 text2:
                                     "${state.allBills[index].market.city_name}",
                                 text3:
