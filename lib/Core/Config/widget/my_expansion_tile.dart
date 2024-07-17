@@ -122,6 +122,9 @@ bool _isExpanded = false;
             _isExpanded=val;
           });
           print(_isExpanded);
+          return ExpansionTileController.of(
+                                                      context)
+                                                  .collapse();
           //   if(variable == false){
           // //   context.read<RegisterBloc>().add(getCities());
           // // controller.collapse();
@@ -155,7 +158,11 @@ bool _isExpanded = false;
                              print(_isExpanded);
                               // تحديث الحالة بالقيمة الجديدة
                               selectedTitle = state.Cities[ind].childrens[index].name;
+
                             });
+                             return ExpansionTileController.of(
+                                                      context)
+                                                  .collapse();
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(
