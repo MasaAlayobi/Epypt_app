@@ -39,6 +39,10 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
 
   @override
   Widget build(BuildContext context) {
+    
+    double heightSize = MediaQuery.of(context).size.height;
+
+    double widthSize = MediaQuery.of(context).size.width;
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -385,23 +389,36 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                   ],
                 );
               } else if (state is NoInternet) {
-                return Column(children: [
-                  Center(
-                    child: Image.asset(
-                      "asstes/images/internet.png",
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: MediaQuery.of(context).size.height / 2,
-                    ),
+                return  RefreshIndicator(
+                  onRefresh: () async {
+                    // NewBillBloc()..add(GetAllData()),
+                    context.read<NewBillBloc>().add(
+                        GetAllData());
+                  },
+                  child: ListView(
+                    children: [
+                      Center(
+                        child: Image.asset(
+                          "asstes/images/internet.png",
+                          width: widthSize / 2,
+                          height: heightSize / 2,
+                        ),
+                      ),
+                      Center(
+                          child: Text(
+                        state.message ==
+                                'Null check operator used on a null value'
+                            ? "لقد انقطع الاتصال بالانترنت"
+                            : state.message,
+                        style: TextStyle(
+                            color: ColorManager().red,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700),
+                      ))
+                    ],
                   ),
-                  Center(
-                      child: Text(
-                    "لقد انقطع الاتصال بالانترنت",
-                    style: TextStyle(
-                        color: ColorManager().red,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700),
-                  ))
-                ]);
+                );
+
               } else {
                 return Center(
                   child: CircularProgressIndicator(

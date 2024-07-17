@@ -61,7 +61,7 @@ class StockServicImp extends StockServic {
 
   @override
   Future<List<AvailableProductsModel>> getAvailableProduct(String label) async {
-  //  try{
+    try{
      response = await dio.get('$baseUrl${entity = EndPoint.getAvailableProduct}?search=$label',
         // options: getHeader()
         );
@@ -77,11 +77,11 @@ class StockServicImp extends StockServic {
       print('**************************');
       return [];
     }
-  //  }on DioException catch(e){
-  //     throw e.response!.data["message"];
-  //  }on Error catch(e){
-  //   throw e;
-  //  }
+   }on DioException catch(e){
+      throw e.response!.data["message"];
+   }on Error catch(e){
+    throw e;
+   }
   }
 
   @override

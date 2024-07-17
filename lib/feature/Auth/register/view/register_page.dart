@@ -500,7 +500,7 @@ class _SignUpState extends State<SignUp> {
                                       marketName.text.isNotEmpty &&
                                       location_details.text.isNotEmpty &&
                                       quantity.text.isNotEmpty &&
-                                      priceBill.text.isNotEmpty &&
+                                      // priceBill.text.isNotEmpty &&
                                       // catorgy.text.isNotEmpty &&
                                       cititesId1.isNotEmpty &&
                                       cityId != null &&
