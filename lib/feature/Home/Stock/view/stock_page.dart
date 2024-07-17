@@ -62,71 +62,74 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
               child: Column(
                 children: [
                   Container(
-                    height: 53,
+                    height: 60,
                     color: colorApp.basicColor,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                       child: Container(
                         width: double.infinity,
                         height: 40,
-                        child: TextField(
+                        child: Center(
                           
-                          controller: searchController,
-                          // controller: last_name,
-                          onSubmitted: (value) {
-                            searchController.text == value;
-                            context
-                                .read<ProductsBloc>()
-                                .add(getProducts(lable: value));
-                            print('****************************************');
-                              context.read<AvailableProductsBloc>().add(getAvailableProducts(label: value));
-                            print('____________________________________');
-                             context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: value));
-                            print(searchController.text);
-                          },
-                          // onChanged: (value) {
-                          //   searchController.text == value;
-                          //   context
-                          //       .read<ProductsBloc>()
-                          //       .add(getProducts(lable: value));
-                          //   print('****************************************');
-                          //     context.read<AvailableProductsBloc>().add(getAvailableProducts(label: value));
-                          //   print('____________________________________');
-                          //    context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: value));
-                          //   print(searchController.text);
-                          //   // context
-                          //   //     .read<ProductsBloc>()
-                          //   //     .add(getProducts(lable: searchController.text));
-                          //   // context.read<SearchBloc>().add(Search(word: searchModel(name: value)));
-                          // },
-                          // controller: search,
-                          decoration: InputDecoration(
-                            hintText: stringApp.search,
-                            fillColor: Colors.white,
-                            // labelText: stringApp.search,
-                            // label: Row(
-                            //   children: [
-                            //     Text(
-                            //       stringApp.search,
-                            //       // textDirection: TextDirection.ltr,
-                            //       style: TextStyle(
-                            //           color: colorApp.greyColor,
-                            //           fontSize: 16,
-                            //           fontWeight: FontWeight.w500),
-                            //     )
-                            //   ],
-                            // ),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  style: BorderStyle.solid,
-                                  color: colorApp.greyColor,
-                                ),
-                                borderRadius: BorderRadius.circular(7)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: colorApp.whiteColor,
-                                ),
-                                borderRadius: BorderRadius.circular(7)),
+                          child: TextField(
+                            
+                            controller: searchController,
+                            // controller: last_name,
+                            onSubmitted: (value) {
+                              searchController.text == value;
+                              context
+                                  .read<ProductsBloc>()
+                                  .add(getProducts(lable: value));
+                              print('****************************************');
+                                context.read<AvailableProductsBloc>().add(getAvailableProducts(label: value));
+                              print('____________________________________');
+                               context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: value));
+                              print(searchController.text);
+                            },
+                            // onChanged: (value) {
+                            //   searchController.text == value;
+                            //   context
+                            //       .read<ProductsBloc>()
+                            //       .add(getProducts(lable: value));
+                            //   print('****************************************');
+                            //     context.read<AvailableProductsBloc>().add(getAvailableProducts(label: value));
+                            //   print('____________________________________');
+                            //    context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: value));
+                            //   print(searchController.text);
+                            //   // context
+                            //   //     .read<ProductsBloc>()
+                            //   //     .add(getProducts(lable: searchController.text));
+                            //   // context.read<SearchBloc>().add(Search(word: searchModel(name: value)));
+                            // },
+                            // controller: search,
+                            decoration: InputDecoration(
+                              hintText: stringApp.search,
+                              fillColor: Colors.white,
+                              // labelText: stringApp.search,
+                              // label: Row(
+                              //   children: [
+                              //     Text(
+                              //       stringApp.search,
+                              //       // textDirection: TextDirection.ltr,
+                              //       style: TextStyle(
+                              //           color: colorApp.greyColor,
+                              //           fontSize: 16,
+                              //           fontWeight: FontWeight.w500),
+                              //     )
+                              //   ],
+                              // ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: colorApp.greyColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(7)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: colorApp.whiteColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(7)),
+                            ),
                           ),
                         ),
                       ),

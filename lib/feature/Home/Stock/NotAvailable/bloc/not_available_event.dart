@@ -11,9 +11,10 @@ class getNotAvailableProducts extends NotAvailableEvent {
 }
 class AddToAvailable extends NotAvailableEvent {
  num id;
- num is_available;
+ AddProductToAvailable product;
   AddToAvailable({
     required this.id,
-    required this.is_available,
+    required this.product,
   });
+ 
 }

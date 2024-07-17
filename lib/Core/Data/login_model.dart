@@ -4,25 +4,31 @@ import 'dart:convert';
 class LoginModel {
   String phone_number;
   String password;
+  String deviceToken;
   LoginModel({
     required this.phone_number,
     required this.password,
+    required this.deviceToken,
   });
+  
 
   LoginModel copyWith({
     String? phone_number,
     String? password,
+    String? deviceToken,
   }) {
     return LoginModel(
       phone_number: phone_number ?? this.phone_number,
       password: password ?? this.password,
+      deviceToken: deviceToken ?? this.deviceToken,
     );
   }
 
-  Map<dynamic, dynamic> toMap() {
-    return <dynamic, dynamic>{
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
       'phone_number': phone_number,
       'password': password,
+      'deviceToken': deviceToken,
     };
   }
 
@@ -30,6 +36,7 @@ class LoginModel {
     return LoginModel(
       phone_number: map['phone_number'] as String,
       password: map['password'] as String,
+      deviceToken: map['deviceToken'] as String,
     );
   }
 
@@ -38,7 +45,7 @@ class LoginModel {
   factory LoginModel.fromJson(String source) => LoginModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'LoginModel(phone_number: $phone_number, password: $password)';
+  String toString() => 'LoginModel(phone_number: $phone_number, password: $password, deviceToken: $deviceToken)';
 
   @override
   bool operator ==(covariant LoginModel other) {
@@ -46,9 +53,10 @@ class LoginModel {
   
     return 
       other.phone_number == phone_number &&
-      other.password == password;
+      other.password == password &&
+      other.deviceToken == deviceToken;
   }
 
   @override
-  int get hashCode => phone_number.hashCode ^ password.hashCode;
+  int get hashCode => phone_number.hashCode ^ password.hashCode ^ deviceToken.hashCode;
   }

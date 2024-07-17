@@ -1,10 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
+import 'package:mufraty_app/Core/Config/widget/customField.dart';
+import 'package:mufraty_app/Core/Config/widget/myTextFieldNumber.dart';
+import 'package:mufraty_app/Core/Data/sites_model.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
 import 'package:mufraty_app/feature/Auth/register/bloc/register_bloc.dart';
@@ -15,7 +18,7 @@ class MyExpansionTileCities extends StatefulWidget {
   // String text2;
   // String text3;
   bool? variable;
-  final Function(List<num>) onDataChanged;
+  final Function(List<Map>) onDataChanged;
   Widget widget;
   MyExpansionTileCities({
     Key? key,
@@ -31,10 +34,11 @@ class MyExpansionTileCities extends StatefulWidget {
 }
 
 class _myExpansionTileState extends State<MyExpansionTileCities> {
-  List<num> citiesId = [];
+  List<Map> citiesId = [];
   String? selectedTitle;
   ExpansionTileController controller = ExpansionTileController();
- void someFunctionThatChangesData(List<num> citiesId ) {
+  TextEditingController min_bill_price=TextEditingController();
+ void someFunctionThatChangesData(List<Map> citiesId ) {
     
       
     widget.onDataChanged(citiesId);
@@ -90,8 +94,9 @@ class _myExpansionTileState extends State<MyExpansionTileCities> {
                     onExpansionChanged: (value) {
                       print('*********************************');
                       print(value);
-                      if (state.Cities[ind].childrens.isEmpty) {
-                        citiesId.add(state.Cities[ind].id);
+                       if (state.Cities[ind].childrens.isEmpty) {
+                        // 4444444444444444444444444444444444444444444444444444444
+                       citiesId.add(SitesModel(id: state.Cities[ind].id, min_bill_price: 4).toMap());
                         print(citiesId);}
                     },
                     // controller: controller,
@@ -157,17 +162,72 @@ class _myExpansionTileState extends State<MyExpansionTileCities> {
                                       print('-------------------------');
                                       print(value);
                                       if(value==true){
-
-                                      citiesId.add(state.Cities[ind].childrens[index].id);
+                                            showDialog(
+                                              
+                  context: context,
+                  builder: (context) {
+                    return Builder(builder: (context) {
+                      return Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: AlertDialog(
+                          content: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text('أدخل أقل قيمة فاتورة لهذه المنطقة ',
+                                      style: TextStyle(
+                                          color: colorApp.basicColor,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w700)),
+                                ),
+                                SizedBox(
+                                  height: 70,
+                                  width: 200,
+                                  child: myTextFieldNumber(
+                                    phoneController:min_bill_price ))
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('إضافة',
+                                  style:
+                                      TextStyle(color: colorApp.blackColor)),
+                              onPressed: () {
+                                citiesId.add(SitesModel(id: state.Cities[ind].childrens[index].id, min_bill_price:int.parse(min_bill_price.text)).toMap());
                             print(citiesId);
                                       setState(() {
+                                      min_bill_price.clear();
                                         isCheckedCheckBox2[index]= value!;
                                         // isCheckedCheckBox2=
 
                                       });
+                                       Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: Text(
+                                'رجوع',
+                                style: TextStyle(color: colorApp.blackColor),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    });
+                  },
+                );
+                                      
                                       }
                                       else{ 
-                                        citiesId.remove(state.Cities[ind].childrens[index].id);
+                                        citiesId.remove(citiesId[index]);
                                         setState(() {
                                         isCheckedCheckBox2[index]= value!;
                                         // isCheckedCheckBox2=

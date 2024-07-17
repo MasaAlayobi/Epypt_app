@@ -80,6 +80,9 @@ class _CustomWidgetCategoriesState extends State<CustomWidgetCategories> {
                               // تحديث الحالة بالقيمة الجديدة
                               selectedTitle = state.Suppler[ind].type;
                             });
+                             return ExpansionTileController.of(
+                                                      context)
+                                                  .collapse();
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(

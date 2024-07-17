@@ -90,7 +90,7 @@ class AvailableProductsBloc extends Bloc<AvailableProductsEvent, AvailableProduc
          emit(LoadingUpdate(message: 'جاري التحديث .....'));
         try {
           String message = await StockServicImp()
-              .addAvailableOrNot(event.id, event.is_available);
+              .addAvailableToNot(event.id, event.is_available);
           print(message);
           if (message == 'true') {
             // print('true');

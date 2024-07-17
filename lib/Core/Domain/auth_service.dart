@@ -56,13 +56,15 @@ formData.files.addAll({
 }.entries);
   
     // print(body.files.first);
-     print(formData.fields);
-    try{
-       response = await dio.post('https://backend.almowafraty.com/api/v1/suppliers/register',
+    //  print(formData.fields);
+     try{
+       response = await dio.post('$baseUrl${entity = EndPoint.register}',
           options: Options(
             // contentType: 'multipart/form-data',
           ),
-          data: formData);
+          data: formData
+          // user.toJson()
+          );
       if (response.statusCode == 200) {
         // final expiryTime = DateTime.now().millisecondsSinceEpoch + (response.data['expiresIn'] * 1000);
         await TokenStorage().saveTokens(response.data['access_token'], response.data['refresh_token']);
@@ -76,7 +78,7 @@ formData.files.addAll({
         print(response.data);
       }
     }on DioException catch(e){
-      print('____________________________');
+      print( e.response!.data);
       // throw e.response!.data["message"][0];
       var messages = e.response!.data['message'];
             if (messages is List) {
@@ -97,7 +99,7 @@ formData.files.addAll({
   @override
   login(LoginModel user) async {
     print(user.toJson());
-     try {
+      try {
       response = await dio.post('$baseUrl${entity = EndPoint.login}',
           options: Options(headers: {
             // 'Content-Type':'multipart/form-data',

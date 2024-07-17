@@ -16,6 +16,7 @@ import 'package:mufraty_app/Core/Config/widget/myTextFieldNumber.dart';
 import 'package:mufraty_app/Core/Config/widget/my_expansion_tile.dart';
 import 'package:mufraty_app/Core/Config/widget/my_expansion_tile_cities.dart';
 import 'package:mufraty_app/Core/Data/register_model.dart';
+import 'package:mufraty_app/Core/Data/sites_model.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
 import 'package:mufraty_app/feature/Auth/register/bloc/register_bloc.dart';
@@ -79,7 +80,7 @@ class _SignUpState extends State<SignUp> {
     });
   }
 
-  List<num> cititesId1 = [];
+  List<Map> cititesId1 = [];
   num? cityId;
   num? categoryId;
   void updateDataCities(num citiesId) {
@@ -94,7 +95,7 @@ class _SignUpState extends State<SignUp> {
     });
   }
 
-  void updateData(List<num> citiesId) {
+  void updateData(List<Map> citiesId) {
     setState(() {
       cititesId1 = citiesId;
     });
@@ -382,11 +383,11 @@ class _SignUpState extends State<SignUp> {
                                   // text2: "دمشق",
                                   // text3: "ركن الدين",
                                 )),
-                            myTextFieldNumber(
-                              phoneController: priceBill,
-                              phoneText: "أقل سعر للفاتورة",
-                              validatorText: "مطلوب",
-                            ),
+                            // myTextFieldNumber(
+                            //   phoneController: priceBill,
+                            //   phoneText: "أقل سعر للفاتورة",
+                            //   validatorText: "مطلوب",
+                            // ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 14),
                               child: myTextFieldNumber(
@@ -429,7 +430,7 @@ class _SignUpState extends State<SignUp> {
                                   },
                                   child: MyExpansionTileCities(
                                       onDataChanged: updateData,
-                                      text1: "اختر المدن للتوصيل",
+                                      text1: "اختر مناطق التوصيل",
                                       widget: Text(""),
                                       // widget: StatefulBuilder(
                                       //   builder: (context, setState) => Checkbox(
@@ -521,8 +522,8 @@ class _SignUpState extends State<SignUp> {
                                         location_details: location_details.text,
                                         min_selling_quantity:
                                             int.parse(quantity.text),
-                                        min_bill_price:
-                                            int.parse(priceBill.text),
+                                        // min_bill_price:
+                                        //     int.parse(priceBill.text),
                                         city_id: cityId!,
                                         supplier_category_id: categoryId!,
                                         deviceToken: storage
@@ -530,22 +531,23 @@ class _SignUpState extends State<SignUp> {
                                             .getString('deviceToken')
                                             .toString(),
                                         to_sites: cititesId1);
-                                    //   RegisterModel user = RegisterModel(
+                                    //  RegisterModel user = RegisterModel(
                                     //   first_name:'fhdb',
                                     //   middle_name: 'gdnb',
                                     //   last_name: 'dnbg',
-                                    //   phone_number: '+201383456768',
+                                    //   phone_number: '+201383456168',
                                     //   store_name: 'rtsbhntr',
                                     //   password:'123456788',
-                                    //   delivery_duration:'657',
+                                    //   location_details: 'location_details.text',
                                     //   min_selling_quantity:
                                     //       77,
-                                    //   min_bill_price: 888,
+                                    //   // min_bill_price: 888,
                                     //   city_id: 1,
                                     //   supplier_category_id:
                                     //       1,
-                                    //       deviceToken:storage.get<SharedPreferences>().getString('deviceToken')!,
-                                    //   to_sites: [1]);
+                                    //       deviceToken:storage.get<SharedPreferences>().getString('deviceToken').toString(),
+                                    //   to_sites: cititesId1);
+                                      print(user);
                                     context.read<RegisterBloc>().add(
                                         CreateUser(User: user, image: image!));
                                   } else {
