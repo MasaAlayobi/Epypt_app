@@ -29,6 +29,7 @@ List<bool> isChecked2 = [];
 class _AvailablePageState extends State<AvailablePage> {
   TextEditingController _controller = TextEditingController();
   TextEditingController _updateOffer = TextEditingController();
+  TextEditingController quantity = TextEditingController();
   int number = 0;
   @override
   Widget build(BuildContext context) {
@@ -731,11 +732,13 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                           colorApp
                                                                               .greenColor,
                                                                     ));
+                                                                    
                                                                     GoRouter.of(
                                                                             context)
                                                                         .pushReplacement(
                                                                             AppRouter.kHomeViewStock);
-                                                                  } else if (state
+                                                                  } 
+                                                                  else if (state
                                                                       is NoConnectionupdate) {
                                                                     ScaffoldMessenger.of(
                                                                             context)
@@ -784,6 +787,21 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                               _updateOffer,
                                                                           phoneText:
                                                                               'ادخل السعر الجديد',
+                                                                        )),
+                                                                        SizedBox(
+                                                                          height: 5,
+                                                                        ),
+                                                                        Container(
+                                                                        width:
+                                                                            200,
+                                                                        height:
+                                                                            50,
+                                                                        child:
+                                                                            myTextFieldNumber(
+                                                                          phoneController:
+                                                                              quantity,
+                                                                          phoneText:
+                                                                              'ادخل الكمية المتاحة',
                                                                         ))
                                                                   ],
                                                                 ),
@@ -799,13 +817,14 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                 onPressed: () {
                                                                   if (_updateOffer
                                                                       .text
-                                                                      .isNotEmpty) {
+                                                                      .isNotEmpty&&quantity.text.isNotEmpty) {
                                                                     context.read<AvailableProductsBloc>().add(UpdatePraice(
                                                                         id: state
                                                                             .allProduct[
                                                                                 index]
                                                                             .pivot
                                                                             .id,
+                                                                            quantity: int.parse(quantity.text),
                                                                         price: int.parse(
                                                                             _updateOffer.text)));
                                                                   }

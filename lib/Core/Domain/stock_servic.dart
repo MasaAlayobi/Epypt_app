@@ -27,7 +27,7 @@ abstract class StockServic extends DioClient {
   addAvailableToNot(num id,num is_available);
   addNotToAvailable(num id,AddProductToAvailable product);
   deletProduct(int id);
-  updatePrice(num id ,num price);
+  updatePrice(num id ,num price,num quantity);
   logout();
   Future<List<NotfiicationModel>> getNotification();
   readNotification(String id);
@@ -227,11 +227,12 @@ class StockServicImp extends StockServic {
   }
   
   @override
-  updatePrice(num id, num price) async{
+  updatePrice(num id, num price,num quantity) async{
     try{
 
    response= await dio.post('$baseUrl${entity=EndPoint.updatePrice}$id',
-   data: jsonEncode({"price":price}));
+   data: jsonEncode({"price":price,
+   "quantity":quantity}));
    if(response.statusCode==200){
     print(response.data["message"]);
      return response.data["message"];
