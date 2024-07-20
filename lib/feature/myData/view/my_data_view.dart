@@ -216,13 +216,13 @@ class _MyDataViewState extends State<MyDataView> {
                                       validatorText: "مطلوب",
                                     ),
                                   ),
-                                  myTextFieldNumber(
-                                    ReadeOnly: true,
-                                    phoneController: priceBill,
-                                    phoneText:
-                                        ' ${state.response.supplier.min_bill_price}',
-                                    validatorText: "مطلوب",
-                                  ),
+                                  // myTextFieldNumber(
+                                  //   ReadeOnly: true,
+                                  //   phoneController: priceBill,
+                                  //   phoneText:
+                                  //       ' ${state.response.supplier.min_bill_price}',
+                                  //   validatorText: "مطلوب",
+                                  // ),
 
                                   Padding(
                                     padding: const EdgeInsets.symmetric(

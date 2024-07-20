@@ -26,13 +26,15 @@ class AvailablePage extends StatefulWidget {
 bool isChecked = false;
 List<bool> isChecked2 = [];
 
-class _AvailablePageState extends State<AvailablePage> {
+class _AvailablePageState extends State<AvailablePage>  {
+  // bool get wantKeepAlive => true;
   TextEditingController _controller = TextEditingController();
   TextEditingController _updateOffer = TextEditingController();
   TextEditingController quantity = TextEditingController();
   int number = 0;
   @override
   Widget build(BuildContext context) {
+    // super.build(context);
     void increment() {
       setState(() {
         number++;
@@ -51,6 +53,7 @@ class _AvailablePageState extends State<AvailablePage> {
 
     double widthSize = MediaQuery.of(context).size.width;
     return Directionality(
+      // key: PageStorageKey('available_page'),
       textDirection: TextDirection.rtl,
       child: Builder(builder: (context) {
         context
@@ -700,6 +703,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                             InkWell(
                                               onTap: () {
                                                 showDialog(
+                                                
                                                   context: context,
                                                   builder: (context) {
                                                     return BlocProvider(
@@ -770,7 +774,7 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                           .all(
                                                                           10.0),
                                                                       child: Text(
-                                                                          'تعديل سعر المنتج',
+                                                                          'تعديل معلومات المنتج',
                                                                           style: TextStyle(
                                                                               color: colorApp.basicColor,
                                                                               fontSize: 15,
