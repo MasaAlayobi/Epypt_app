@@ -43,8 +43,11 @@ class deleteProduct extends AvailableProductsEvent {
 class UpdatePraice extends AvailableProductsEvent {
   num id ;
   num price;
+  num quantity;
   UpdatePraice({
     required this.id,
     required this.price,
+    required this.quantity,
   });
+ 
 }

@@ -251,7 +251,8 @@ class _myExpansionTileState extends State<MyExpansionTileCities> {
                                             },
                                           );
                                         } else {
-                                          citiesId.remove(citiesId[index]);
+                                          citiesId.removeWhere((element) => element["id"] == state.Cities[ind].childrens[index].id);
+                                        print(citiesId);
                                           setState(() {
                                             isCheckedCheckBox2[index] = value!;
                                             // isCheckedCheckBox2=

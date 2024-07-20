@@ -10,7 +10,14 @@ import 'package:mufraty_app/feature/Home/Stock/Available/bloc/available_products
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 
 class WidgetUpdateOffer extends StatefulWidget {
-   WidgetUpdateOffer({super.key, this.onTap, required this.nameProduct, required this.image, required this.isImage, required this.id, required this.discription});
+  WidgetUpdateOffer(
+      {super.key,
+      this.onTap,
+      required this.nameProduct,
+      required this.image,
+      required this.isImage,
+      required this.id,
+      required this.discription});
   final Function()? onTap;
   final String nameProduct;
   final String image;
@@ -22,8 +29,8 @@ class WidgetUpdateOffer extends StatefulWidget {
 }
 
 class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
-   TextEditingController price = TextEditingController();
-  
+  TextEditingController price = TextEditingController();
+  TextEditingController quantity = TextEditingController();
   TextEditingController priceOffer = TextEditingController();
   TextEditingController quantityOffer = TextEditingController();
   TextEditingController date = TextEditingController();
@@ -44,6 +51,7 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -117,23 +125,23 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                             Spacer(
                               flex: 1,
                             ),
-                            // Column(
-                            //   crossAxisAlignment: CrossAxisAlignment.start,
-                            //   children: [
-                            //     CustomText(
-                            //         text: 'أقصى كمية للطلب',
-                            //         size: 13,
-                            //         color: colorApp.blackColor,
-                            //         fontWeight: FontWeight.bold,
-                            //         maxLines: 1),
-                            //     SizedBox(
-                            //       height: 5,
-                            //     ),
-                            //     CustomCounter(
-                            //       controller: quantity,
-                            //     ),
-                            //   ],
-                            // )
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomText(
+                                    text: 'الكمية المتاحة',
+                                    size: 13,
+                                    color: colorApp.blackColor,
+                                    fontWeight: FontWeight.bold,
+                                    maxLines: 1),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                CustomCounter(
+                                  controller: quantity,
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       ),
@@ -195,25 +203,24 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                             fontWeight: FontWeight.bold,
                             maxLines: 1),
                       ),
-                     Padding(
-                          padding: const EdgeInsets.only(left: 8, right: 8),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 1,
-                            height: 40,
-                            color: colorApp.whiteColor,
-                            child: Center(
-                              child: InkWell(
-                                onTap: () => _selectDate(context),
-                                child: IgnorePointer(
-                                  child: Center(
-                                    child: TextFormField(
-                                      controller: date,
-                                      style: TextStyle(),
-                                      textAlign: TextAlign.center,
-                                      decoration: InputDecoration(
-                                        // labelText: 'Date',
-                                        hintText: 'أضغط لتحديد التاريخ',
-                                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 8),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width / 1,
+                          height: 40,
+                          color: colorApp.whiteColor,
+                          child: Center(
+                            child: InkWell(
+                              onTap: () => _selectDate(context),
+                              child: IgnorePointer(
+                                child: Center(
+                                  child: TextFormField(
+                                    controller: date,
+                                    style: TextStyle(),
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                      // labelText: 'Date',
+                                      hintText: 'أضغط لتحديد التاريخ',
                                     ),
                                   ),
                                 ),
@@ -221,9 +228,11 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                             ),
                           ),
                         ),
-                      BlocListener<AvailableProductsBloc,AvailableProductsState>(
+                      ),
+                      BlocListener<AvailableProductsBloc,
+                          AvailableProductsState>(
                         listener: (context, state) {
-                         if (state is successUpdateOffer) {
+                          if (state is successUpdateOffer) {
                             // Navigator.push(
                             //   context,
                             //   MaterialPageRoute(
@@ -237,7 +246,8 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                               content: Text(state.message),
                               backgroundColor: colorApp.greenColor,
                             ));
-                            GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
+                            GoRouter.of(context)
+                                .pushReplacement(AppRouter.kHomeViewStock);
                           } else if (state is InformationError) {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(new SnackBar(
@@ -259,8 +269,22 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                             // print(
                             //     '${price.text}+${widget.id}');
 
-                            if ( price.text != ""&&quantityOffer.text!=""&&priceOffer.text!=""&&date.text!="") {
-                              BlocProvider.of<AvailableProductsBloc>(context).add(updateOffer(id: widget.id, offer: UpdateOfferModel(price: int.parse(price.text), offer_price: int.parse(priceOffer.text), max_offer_quantity: int.parse(quantityOffer.text), offer_expires_at: date.text)));
+                            if (price.text != "" &&
+                                quantityOffer.text != "" &&
+                                priceOffer.text != "" &&
+                                date.text != ""&&
+                                quantity.text != "") {
+                              BlocProvider.of<AvailableProductsBloc>(context)
+                                  .add(updateOffer(
+                                      id: widget.id,
+                                      offer: UpdateOfferModel(
+                                          price: int.parse(price.text),
+                                          offer_price:
+                                              int.parse(priceOffer.text),
+                                          max_offer_quantity:
+                                              int.parse(quantityOffer.text),
+                                          offer_expires_at: date.text,
+                                          quantity: int.parse(quantity.text))));
                             } else {
                               showDialog(
                                 context: context,

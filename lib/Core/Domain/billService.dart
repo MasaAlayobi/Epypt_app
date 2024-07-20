@@ -44,13 +44,11 @@ class BillServiceImpl extends BillService {
         print("3ajeeeb");
         return "no connetion";
       }
-    } on DioException catch (e) {
-      print(response.data);
-      throw e.response!.data;
-    }
-    //  on Error catch(e){
-    //   throw e;
-    //  }
+    }on DioException catch(e){
+      throw e.response!.data["message"];
+   }on Error catch(e){
+    throw e;
+   }
   }
 
   @override
