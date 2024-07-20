@@ -111,7 +111,10 @@ class SupplierInfo {
 
   factory SupplierInfo.fromJson(String source) =>
       SupplierInfo.fromMap(json.decode(source) as Map<String, dynamic>);
-      @override
+
+
+  @override
+
   String toString() {
     return 'SupplierInfo(id: $id, supplier_category_id: $supplier_category_id, city_id: $city_id, first_name: $first_name, middle_name: $middle_name, last_name: $last_name, store_name: $store_name, phone_number: $phone_number,min_selling_quantity: $min_selling_quantity, delivery_duration: $delivery_duration, images: $images, city: $city, supplier_category: $supplier_category)';
   }

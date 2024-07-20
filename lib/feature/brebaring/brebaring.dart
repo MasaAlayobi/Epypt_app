@@ -236,7 +236,9 @@ class Brebaring extends StatelessWidget {
                                                                                     if (totalPrice.text.isEmpty) {
                                                                                       GoRouter.of(context).pop();
                                                                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
+
                                                                                    } else if (num.tryParse(totalPrice.text)! >( state.oneBill[index].total_price_after_discount+ state.oneBill[index].additional_price)) {
+
                                                                                       GoRouter.of(context).pop();
                                                                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "  لا يمكن ان يكون المبلغ المدفوع اعلى من السعر الإجمالي للفاتورة")))));
                                                                                     } else {

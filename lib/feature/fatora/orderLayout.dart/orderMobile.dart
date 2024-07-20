@@ -33,7 +33,7 @@ class _OrderState extends State<Order> {
   List<int> counter = [];
   late num result;
   int year = DateTime.now().year;
-
+  num quantityWithoutOffer = 0;
   int month = DateTime.now().month;
 
   int day = DateTime.now().day;
@@ -55,7 +55,7 @@ class _OrderState extends State<Order> {
 
   @override
   Widget build(BuildContext context) {
-    Future getTotalToOneProduct(int index, int counter) async {
+    Future getTotalInDecrease(int index, int counter) async {
       print(widget.bill.additional_price);
       num total;
       if (widget.bill.products[index].pivot.has_offer == 1) {
@@ -78,6 +78,7 @@ class _OrderState extends State<Order> {
         });
       }
     }
+    // Future getTotalToEachOrder(int index){}
 
     Future getTotalInIncrease(int index, int counter) async {
       print(widget.bill.additional_price);
@@ -203,13 +204,20 @@ class _OrderState extends State<Order> {
                                           text3: widget.bill.products[index]
                                                       .pivot.has_offer ==
                                                   1
-                                              ? "السعر الفردي للعرض:${widget.bill.products[index].pivot.offer_buying_price}"
-                                              : "السعر الفردي:${widget.bill.products[index].pivot.buying_price}",
+                                              ? "سعر المنتج مع العرض: ${widget.bill.products[index].pivot.offer_buying_price} \nكمية العرض: ${widget.bill.products[index].pivot.max_offer_quantity}"
+                                              : "السعر المنتج بدون عرض: ${widget.bill.products[index].pivot.buying_price}",
                                           text4: widget.bill.products[index]
                                                       .pivot.has_offer ==
                                                   1
-                                              ? "السعر الإجمالي للعرض:${widget.bill.products[index].pivot.offer_buying_price * counter[index]}"
-                                              : "السعر الإجمالي:${widget.bill.products[index].pivot.buying_price * counter[index]}",
+                                              ? counter[index] <
+                                                      widget
+                                                          .bill
+                                                          .products[index]
+                                                          .pivot
+                                                          .max_offer_quantity
+                                                  ? "السعر الإجمالي للعرض: ${widget.bill.products[index].pivot.offer_buying_price * counter[index]}"
+                                                  : "السعر الإجمالي للعرض: ${widget.bill.products[index].pivot.offer_buying_price * widget.bill.products[index].pivot.max_offer_quantity + (counter[index] - widget.bill.products[index].pivot.max_offer_quantity) * widget.bill.products[index].pivot.buying_price}"
+                                              : "السعر الإجمالي بدون عرض: ${widget.bill.products[index].pivot.buying_price * counter[index]}",
                                           myWidget: SizedBox(
                                             width: MediaQuery.of(context)
                                                     .size
@@ -253,7 +261,7 @@ class _OrderState extends State<Order> {
                                                                     counter[
                                                                         index];
 
-                                                                getTotalToOneProduct(
+                                                                getTotalInDecrease(
                                                                     index,
                                                                     counter[
                                                                         index]);
