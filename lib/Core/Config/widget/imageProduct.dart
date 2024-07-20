@@ -12,8 +12,8 @@ class ImageProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.network(
       image,
-      width: MediaQuery.of(context).size.width / 4,
-      height: MediaQuery.of(context).size.height / 6,
+      width: MediaQuery.of(context).size.width / 5,
+      height: MediaQuery.of(context).size.height / 7,
       fit: BoxFit.fill,
       errorBuilder: (context, error, stackTrace) => Padding(
         padding: const EdgeInsets.all(8.0),
@@ -21,8 +21,8 @@ class ImageProduct extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: Image.asset(
               "asstes/images/no_photo.jpg",
-              width: MediaQuery.of(context).size.width / 4,
-              height: MediaQuery.of(context).size.height / 6,
+              width: MediaQuery.of(context).size.width / 5,
+              height: MediaQuery.of(context).size.height / 7,
               fit: BoxFit.fill,
             )),
       ),
