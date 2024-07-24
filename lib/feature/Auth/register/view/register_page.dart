@@ -466,7 +466,7 @@ class _SignUpState extends State<SignUp> {
                             SizedBox(
                               height: 11,
                             ),
-                            BlocListener<RegisterBloc, RegisterState>(
+                            BlocConsumer<RegisterBloc, RegisterState>(
                               listener: (context, state) {
                                 if (state is successcreatedUser) {
                                   GoRouter.of(context).pushReplacement(
@@ -476,7 +476,8 @@ class _SignUpState extends State<SignUp> {
                                     content: Text(state.message),
                                     backgroundColor: colorApp.basicColor,
                                   ));
-                                } else if (state is NoConnection) {
+                                } 
+                                else if (state is NoConnection) {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(new SnackBar(
                                     content: Text(
@@ -489,82 +490,99 @@ class _SignUpState extends State<SignUp> {
                                   ));
                                 }
                               },
-                              child: MyButton(
-                                title: "إنشاء حساب",
-                                onpress: () async {
-                                  print('+20${_controller.text.toString()}');
-                                  if (firstName.text.isNotEmpty &&
-                                      lastName.text.isNotEmpty &&
-                                      secondName.text.isNotEmpty &&
-                                      password.text.isNotEmpty &&
-                                      marketName.text.isNotEmpty &&
-                                      location_details.text.isNotEmpty &&
-                                      quantity.text.isNotEmpty &&
-                                      // priceBill.text.isNotEmpty &&
-                                      // catorgy.text.isNotEmpty &&
-                                      cititesId1.isNotEmpty &&
-                                      cityId != null &&
-                                      image != null &&
-                                      categoryId != null &&
-                                      storage
-                                          .get<SharedPreferences>()
-                                          .getString('deviceToken')
-                                          .toString()
-                                          .isNotEmpty) {
-                                    RegisterModel user = RegisterModel(
-                                        first_name: firstName.text,
-                                        middle_name: secondName.text,
-                                        last_name: lastName.text,
-                                        phone_number:
-                                            '+20${_controller.text.toString()}',
-                                        store_name: marketName.text,
-                                        password: password.text,
-                                        location_details: location_details.text,
-                                        min_selling_quantity:
-                                            int.parse(quantity.text),
-                                        // min_bill_price:
-                                        //     int.parse(priceBill.text),
-                                        city_id: cityId!,
-                                        supplier_category_id: categoryId!,
-                                        deviceToken: storage
-                                            .get<SharedPreferences>()
-                                            .getString('deviceToken')
-                                            .toString(),
-                                        to_sites: cititesId1);
-                                    //  RegisterModel user = RegisterModel(
-                                    //   first_name:'fhdb',
-                                    //   middle_name: 'gdnb',
-                                    //   last_name: 'dnbg',
-                                    //   phone_number: '+201383456168',
-                                    //   store_name: 'rtsbhntr',
-                                    //   password:'123456788',
-                                    //   location_details: 'location_details.text',
-                                    //   min_selling_quantity:
-                                    //       77,
-                                    //   // min_bill_price: 888,
-                                    //   city_id: 1,
-                                    //   supplier_category_id:
-                                    //       1,
-                                    //       deviceToken:storage.get<SharedPreferences>().getString('deviceToken').toString(),
-                                    //   to_sites: cititesId1);
-                                      print(user);
-                                    context.read<RegisterBloc>().add(
-                                        CreateUser(User: user, image: image!));
-                                  } else {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(new SnackBar(
-                                      content: Text('إملاء كامل الحقول'),
-                                      backgroundColor: colorApp.basicColor,
-                                    ));
+                              
+                                builder: (context,state) {
+                                  if(state is loading){
+                                    return CircularProgressIndicator(
+                                      color: colorApp.basicColor,
+                                    );
                                   }
-                                },
-                                colors: ColorManager().red,
-                                width: 333,
-                                height: 55,
-                                radius: 33,
-                                fontsize: 22,
+                                  
+                                  else {
+                                  return MyButton(
+                                    title: "إنشاء حساب",
+                                    onpress: () async {
+                                      print('+20${_controller.text.toString()}');
+                                      if (firstName.text.isNotEmpty &&
+                                          lastName.text.isNotEmpty &&
+                                          secondName.text.isNotEmpty &&
+                                          password.text.isNotEmpty &&
+                                          marketName.text.isNotEmpty &&
+                                          location_details.text.isNotEmpty &&
+                                          quantity.text.isNotEmpty &&
+                                          // priceBill.text.isNotEmpty &&
+                                          // catorgy.text.isNotEmpty &&
+                                          cititesId1.isNotEmpty &&
+                                          cityId != null &&
+                                          image != null &&
+                                          categoryId != null &&
+                                          storage
+                                              .get<SharedPreferences>()
+                                              .getString('deviceToken')
+                                              .toString()
+                                              .isNotEmpty) {
+                                        RegisterModel user = RegisterModel(
+                                            first_name: firstName.text,
+                                            middle_name: secondName.text,
+                                            last_name: lastName.text,
+                                            phone_number:
+                                                '+20${_controller.text.toString()}',
+                                            store_name: marketName.text,
+                                            password: password.text,
+                                            location_details: location_details.text,
+                                            min_selling_quantity:
+                                                int.parse(quantity.text),
+                                            // min_bill_price:
+                                            //     int.parse(priceBill.text),
+                                            city_id: cityId!,
+                                            supplier_category_id: categoryId!,
+                                            deviceToken: storage
+                                                .get<SharedPreferences>()
+                                                .getString('deviceToken')
+                                                .toString(),
+                                            to_sites: cititesId1);
+                                        //  RegisterModel user = RegisterModel(
+                                        //   first_name:'fhdb',
+                                        //   middle_name: 'gdnb',
+                                        //   last_name: 'dnbg',
+                                        //   phone_number: '+201383456168',
+                                        //   store_name: 'rtsbhntr',
+                                        //   password:'123456788',
+                                        //   location_details: 'location_details.text',
+                                        //   min_selling_quantity:
+                                        //       77,
+                                        //   // min_bill_price: 888,
+                                        //   city_id: 1,
+                                        //   supplier_category_id:
+                                        //       1,
+                                        //       deviceToken:storage.get<SharedPreferences>().getString('deviceToken').toString(),
+                                        //   to_sites: cititesId1);
+                                          print(user);
+                                        context.read<RegisterBloc>().add(
+                                            CreateUser(User: user, image: image!));
+                                      } 
+                                      else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(new SnackBar(
+                                          content: Text('إملاء كامل الحقول'),
+                                          backgroundColor: colorApp.basicColor,
+                                        ));
+                                      }
+                                    },
+                                    colors: ColorManager().red,
+                                    width: 333,
+                                    height: 55,
+                                    radius: 33,
+                                    fontsize: 22,
+                                  );
+
+                                  }
+                                  // else{
+
+                                  }
+                                // }
                               ),
-                            )
+                            
                           ],
                         ),
                       ),

@@ -68,10 +68,10 @@ class MyApp extends StatelessWidget {
   }
 }
 // Copyright 2013 The Flutter Authors. All rights reserved.
-// // Use of this source code is governed by a BSD-style license that can be
-// // found in the LICENSE file.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
-// // ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs
 
 // import 'dart:async';
 
@@ -323,161 +323,6 @@ class MyApp extends StatelessWidget {
 //             ],
 //           ),
 //         ],
-//       ),
-//     );
-//   }
-// }
-// import 'package:flutter/material.dart';
-// import 'package:flutter/material.dart';
-// import 'package:webview_flutter/webview_flutter.dart';
-
-// void main() {
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'WebView Example',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: MyHomePage(),
-//     );
-//   }
-// }
-
-// class MyHomePage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('WebView Example'),
-//       ),
-//       body: Center(
-//         child: ElevatedButton(
-//           onPressed: () {
-//             Navigator.push(
-//               context,
-//               MaterialPageRoute(builder: (context) => WebViewPage()),
-//             );
-//           },
-//           child: Text('Open WebView'),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class WebViewPage extends StatefulWidget {
-//   @override
-//   _WebViewPageState createState() => _WebViewPageState();
-// }
-
-// class _WebViewPageState extends State<WebViewPage> {
-//   WebViewController controller = WebViewController()
-//     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-//     ..setBackgroundColor(const Color(0x00000000))
-//     ..setNavigationDelegate(
-//       NavigationDelegate(
-//         onProgress: (int progress) {
-//           // Update loading bar.
-//         },
-//         onPageStarted: (String url) {},
-//         onPageFinished: (String url) {},
-//         onHttpError: (HttpResponseError error) {},
-//         onWebResourceError: (WebResourceError error) {},
-//         onNavigationRequest: (NavigationRequest request) {
-//           if (request.url.startsWith('https://www.youtube.com/')) {
-//             return NavigationDecision.prevent;
-//           }
-//           return NavigationDecision.navigate;
-//         },
-//       ),
-//     )
-//     ..loadRequest(Uri.parse('https://flutter.dev'));
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     // Enable hybrid composition for Android (if needed)
-//     //  WebView.platform = SurfaceAndroidWebView();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('WebView Example'),
-//       ),
-//       body: WebViewWidget(
-//         controller: controller,
-//       ),
-//     );
-//   }
-// }
-// import 'package:flutter/material.dart';
-// import 'package:webview_flutter/webview_flutter.dart';
-
-// void main() {
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: WebViewExample(),
-//     );
-//   }
-// }
-
-// class WebViewExample extends StatefulWidget {
-//   @override
-//   WebViewExampleState createState() => WebViewExampleState();
-// }
-
-// class WebViewExampleState extends State<WebViewExample> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     // Enabling hybrid composition.
-//     // if (Platform.isAndroid) {
-//     //   WebView.platform = SurfaceAndroidWebView();
-//     // }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//      WebViewController controller = WebViewController()
-//     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-//     ..setBackgroundColor(const Color(0x00000000))
-//     ..setNavigationDelegate(
-//       NavigationDelegate(
-//         onProgress: (int progress) {
-//           // Update loading bar.
-//         },
-//         onPageStarted: (String url) {},
-//         onPageFinished: (String url) {},
-//         onHttpError: (HttpResponseError error) {},
-//         onWebResourceError: (WebResourceError error) {},
-//         onNavigationRequest: (NavigationRequest request) {
-//           if (request.url.startsWith('https://www.youtube.com/')) {
-//             return NavigationDecision.prevent;
-//           }
-//           return NavigationDecision.navigate;
-//         },
-//       ),
-//     )
-//     ..loadRequest(Uri.parse('https://flutter.dev'));
-
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('WebView Example'),
-//       ),
-//       body: WebViewWidget(
-//      controller: controller,
 //       ),
 //     );
 //   }
