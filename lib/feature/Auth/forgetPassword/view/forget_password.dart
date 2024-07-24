@@ -331,7 +331,7 @@ final class ForgetSuccess extends UserCubitState {
   ForgetSuccess({required this.message});
 }
 
-final class ForgetFailure extends UserCubitState {
+final class  ForgetFailure extends UserCubitState {
   final String errorMessage;
   ForgetFailure({required this.errorMessage});
 }

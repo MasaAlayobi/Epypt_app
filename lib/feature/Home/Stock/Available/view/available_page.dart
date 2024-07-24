@@ -817,7 +817,7 @@ class _AvailablePageState extends State<AvailablePage>  {
                                                                     'تعديل',
                                                                     style: TextStyle(
                                                                         color: colorApp
-                                                                            .basicColor)),
+                                                                            .greenColor)),
                                                                 onPressed: () {
                                                                   if (_updateOffer
                                                                       .text

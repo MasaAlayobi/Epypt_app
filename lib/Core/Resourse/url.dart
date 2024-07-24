@@ -1,7 +1,7 @@
 
 
 abstract class Url{
-  static String url='https://backend.almowafraty.com/api/v1/';
+  static String url='https://backendtest.almowafraty.com/api/v1/';
  
 }
 abstract class EndPoint{

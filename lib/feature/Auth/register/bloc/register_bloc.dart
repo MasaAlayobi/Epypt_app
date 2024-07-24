@@ -16,16 +16,16 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<CreateUser>((event, emit) async{
      List<String> temp;
          emit(loading());
-          // try{
+           try{
 
        temp = await AuthServiceTmp().createNewAcouunt(event.User,event.image);
       if(temp.isNotEmpty){
         emit(successcreatedUser(message: temp[0], storeName: temp[1]));
       }
-        //  }catch(e){
+         }catch(e){
 
-        // emit (NoConnection(message:e.toString()));
-        //  }
+        emit (NoConnection(message:e.toString()));
+         }
       
     });
     List<CitiesModel> temp;
