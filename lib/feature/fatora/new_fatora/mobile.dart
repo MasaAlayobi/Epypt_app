@@ -39,7 +39,15 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
 
   @override
   Widget build(BuildContext context) {
-    
+    Future<void> _launchInBrowser(Uri url) async {
+      if (!await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      )) {
+        throw Exception('Could not launch $url');
+      }
+    }
+
     double heightSize = MediaQuery.of(context).size.height;
 
     double widthSize = MediaQuery.of(context).size.width;
@@ -312,27 +320,33 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                       var billID = bill.id;
                                       var token = await TokenStorage()
                                           .getAccessToken(); // Replace with your actual token dania
-
+                                      final Uri toLaunch = Uri(
+                                          scheme: 'https',
+                                          host: 'www.cylog.org',
+                                          path: 'headers/');
                                       var url =
                                           "https://almowafraty.com/#/bills/$storeName/$billID/$token";
-
+                                      Uri urll = Uri.parse(url);
+                                      await _launchInBrowser(urll);
                                       // Navigate to the URL
-                                      if (await canLaunch(url)) {
-                                        await launch(url);
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                duration: Duration(seconds: 3),
-                                                backgroundColor:
-                                                    ColorManager().green,
-                                                content: SizedBox(
-                                                  height: 50,
-                                                  child: Center(
-                                                      child: SubTitle3(
-                                                          text:
-                                                              " لايمكن فتح الرابط")),
-                                                )));
-                                      }
+                                      // if (await canLaunch(url)) {
+                                      //   await launch(url);
+                                      // }
+
+                                      //  else {
+                                      //   ScaffoldMessenger.of(context)
+                                      //       .showSnackBar(SnackBar(
+                                      //           duration: Duration(seconds: 3),
+                                      //           backgroundColor:
+                                      //               ColorManager().green,
+                                      //           content: SizedBox(
+                                      //             height: 50,
+                                      //             child: Center(
+                                      //                 child: SubTitle3(
+                                      //                     text:
+                                      //                         " لايمكن فتح الرابط")),
+                                      //           )));
+                                      // }
                                     },
                                     colors: ColorManager().green,
                                     width:
@@ -389,11 +403,10 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                   ],
                 );
               } else if (state is NoInternet) {
-                return  RefreshIndicator(
+                return RefreshIndicator(
                   onRefresh: () async {
                     // NewBillBloc()..add(GetAllData()),
-                    context.read<NewBillBloc>().add(
-                        GetAllData());
+                    context.read<NewBillBloc>().add(GetAllData());
                   },
                   child: ListView(
                     children: [
@@ -418,7 +431,6 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                     ],
                   ),
                 );
-
               } else {
                 return Center(
                   child: CircularProgressIndicator(
