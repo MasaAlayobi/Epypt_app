@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Home/Notification/bloc/notification_bloc.dart';
@@ -111,9 +112,8 @@ class NotificationPage extends StatelessWidget {
                }
                else if(state is LoadingNotification){
                  return Center(
-                    child: CircularProgressIndicator(
-                      color: colorApp.basicColor,
-                    ),
+                    child: Lottie.asset("asstes/lottie/loading.json",
+                          fit: BoxFit.contain, width: 144, height: 144),
                   );
                }
                else if (state is NoConnectionWithNotification){

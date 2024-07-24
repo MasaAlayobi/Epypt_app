@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
@@ -202,12 +203,8 @@ bool _isExpanded = false;
                 );
               } else if (state is loading) {
                 return Center(
-                    child: CircularProgressIndicator(
-                  // strokeAlign: 0.1,
-                  color: colorApp.basicColor,
-                  strokeWidth: 3,
-                  // strokeCap: ,
-                ));
+                    child: Lottie.asset("asstes/lottie/loading.json",
+                          fit: BoxFit.contain, width: 144, height: 144),);
               } else if (state is NotFound) {
                 return Center(
                   child: Text('لا يوجد مدن لعرضها '),

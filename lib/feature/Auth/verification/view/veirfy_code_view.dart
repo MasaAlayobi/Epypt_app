@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Auth/forgetPassword/view/forget_password.dart';
@@ -51,10 +52,9 @@ class _VerifyCodeViewBodyState extends State<VerifyCodeViewBody> {
       },
       builder: (context, state) {
         if (state is VerifyCodeLoading) {
-          return const Center(
-              child: CircularProgressIndicator(
-            color: Colors.red,
-          ));
+          return  Center(
+              child: Lottie.asset("asstes/lottie/loading.json",
+                          fit: BoxFit.contain, width: 144, height: 144),);
         }
         return buildBody(context);
       },

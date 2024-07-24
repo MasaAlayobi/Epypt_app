@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_listTile.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_text.dart';
@@ -187,9 +188,8 @@ class _ReportsPageState extends State<ReportsPage> {
                           ],
                         );
                       } else if (state is ReportLoading) {
-                      return const Center(child: CircularProgressIndicator(
-                        color:colorApp.basicColor,
-                      ));
+                      return  Center(child: Lottie.asset("asstes/lottie/loading.json",
+                          fit: BoxFit.contain, width: 144, height: 144),);
                     } else if (state is ReportError) {
                         return RefreshIndicator(
                           onRefresh: () async {

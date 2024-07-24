@@ -238,10 +238,10 @@ class _OrderState extends State<Order> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .height /
-                                                            12,
+                                                            22,
                                                     decoration: BoxDecoration(
                                                       color: ColorManager().red,
-                                                      shape: BoxShape.circle,
+                                                      // shape: BoxShape.circle,
                                                     ),
                                                     child: FittedBox(
                                                       fit: BoxFit.fitWidth,
@@ -291,11 +291,10 @@ class _OrderState extends State<Order> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .height /
-                                                            12,
+                                                            22,
                                                     decoration: BoxDecoration(
                                                       color:
                                                           ColorManager().green,
-                                                      shape: BoxShape.circle,
                                                     ),
                                                     child: FittedBox(
                                                       fit: BoxFit.contain,
@@ -524,28 +523,15 @@ class _OrderState extends State<Order> {
                                                                                 date = val;
                                                                               });
                                                                             }),
-                                                                        // RadioListTile(
-                                                                        //     title: Text(
-                                                                        //         "موعد آخر"),
-                                                                        //     activeColor: ColorManager()
-                                                                        //         .red,
-                                                                        //     value:
-                                                                        //         "موعد آخر",
-                                                                        //     groupValue:
-                                                                        //         date,
-                                                                        //     onChanged:
-                                                                        //         (val) {
-                                                                        //       setState(() {
-                                                                        //         date = val;
-                                                                        //       });
-                                                                        //     }),
                                                                         BlocListener<
                                                                             UpdateBillTimeBloc,
                                                                             UpdateBillTimeState>(
                                                                           listener:
                                                                               (context, state) {
-                                                                            if (state
-                                                                                is SuccessSendUpdateWithTime) {
+                                                                            if (state is SuccessSendUpdateWithTime &&
+                                                                                state.message == "تم تحديث الفاتورة بنجاح") {
+                                                                              print("update fatora");
+                                                                              print(state.message);
                                                                               GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
 
                                                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -555,8 +541,18 @@ class _OrderState extends State<Order> {
                                                                                     height: 50,
                                                                                     child: Center(child: SubTitle3(text: "تم تحديث الفاتورة")),
                                                                                   )));
-                                                                            } else if (state
-                                                                                is FailedSendUpdateWithTime) {
+                                                                            } else if (state is SuccessSendUpdateWithTime && state.message != "تم تحديث الفاتورة بنجاح") {
+                                                                              print("not update fatora");
+                                                                              print(state.message);
+                                                                              GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
+                                                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                  duration: Duration(seconds: 3),
+                                                                                  backgroundColor: ColorManager().red,
+                                                                                  content: SizedBox(
+                                                                                    height: 50,
+                                                                                    child: Center(child: SubTitle3(text: state.message)),
+                                                                                  )));
+                                                                            } else if (state is FailedSendUpdateWithTime) {
                                                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                                                                   duration: Duration(seconds: 3),
                                                                                   backgroundColor: ColorManager().green,

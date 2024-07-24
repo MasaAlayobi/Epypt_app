@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/error_handler.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/customField.dart';
@@ -19,12 +20,12 @@ class ResetpasswordView extends StatelessWidget {
       create: (context) => UserCubit(),
       child: const SafeArea(
           child: Directionality(
-            textDirection: TextDirection.rtl,
-            child: Scaffold(
-              backgroundColor: colorApp.BackgroundColor2,
-              body: ResetpasswordViewBody(),
-            ),
-          )),
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          backgroundColor: colorApp.BackgroundColor2,
+          body: ResetpasswordViewBody(),
+        ),
+      )),
     );
   }
 }
@@ -69,16 +70,20 @@ class _ResetpasswordViewBodyState extends State<ResetpasswordViewBody> {
         child: ListView(
           children: [
             Align(
-              alignment: Alignment.centerLeft,
-              child: Directionality(
-                textDirection: TextDirection.ltr,
-                child: InkWell(
-                  onTap: () {
-                    GoRouter.of(context).pushReplacement(AppRouter.KforgetPassword);
-                  },
-                  child: Icon(Icons.arrow_back,color: colorApp.basicColor,
-                  size: 40,),
-                ))),
+                alignment: Alignment.centerLeft,
+                child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: InkWell(
+                      onTap: () {
+                        GoRouter.of(context)
+                            .pushReplacement(AppRouter.KforgetPassword);
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: colorApp.basicColor,
+                        size: 40,
+                      ),
+                    ))),
             const SizedBox(
               height: 32,
             ),
@@ -100,20 +105,18 @@ class _ResetpasswordViewBodyState extends State<ResetpasswordViewBody> {
             SizedBox(
               height: spaceHeight,
             ),
-             Padding(
-                            padding: const EdgeInsets.all(11),
-                            child:Image.asset(
-              width: 150,
-              height: 150,
-              'asstes/images/newLogooooooooo.png'),
-                            //  CircleAvatar(
-                            //   maxRadius: 76,
-                            //   backgroundColor: colorApp.BackgroundColor2,
-                            //   // backgroundImage: AssetImage('asstes/images/logooooooo.png'),
-                            //   child:
-                            //       Image.asset('asstes/images/logooooooo.png',width: 100,),
-                            // ),
-                          ),
+            Padding(
+              padding: const EdgeInsets.all(11),
+              child: Image.asset(
+                  width: 150, height: 150, 'asstes/images/newLogooooooooo.png'),
+              //  CircleAvatar(
+              //   maxRadius: 76,
+              //   backgroundColor: colorApp.BackgroundColor2,
+              //   // backgroundImage: AssetImage('asstes/images/logooooooo.png'),
+              //   child:
+              //       Image.asset('asstes/images/logooooooo.png',width: 100,),
+              // ),
+            ),
             SizedBox(
               height: spaceHeight,
             ),
@@ -145,7 +148,7 @@ class _ResetpasswordViewBodyState extends State<ResetpasswordViewBody> {
               hintText: 'رقم الهاتف ',
               suffixText: '20+',
               labelStyle: TextStyle(fontSize: 14, color: ColorManager().red),
-    
+
               // prefixIcon: const Icon(Icons.lock),
               // hint: 'رقمك ',
               // hintText: '* * * * * * *',
@@ -230,9 +233,8 @@ class _ResetpasswordViewBodyState extends State<ResetpasswordViewBody> {
               },
               builder: (BuildContext context, UserState state) {
                 if (state is ResetLoading) {
-                  return CircularProgressIndicator(
-                    color: colorApp.basicColor,
-                  );
+                  return Lottie.asset("asstes/lottie/loading.json",
+                      fit: BoxFit.contain, width: 144, height: 144);
                 } else {
                   return CustomButton(
                     text: 'تأكيد',
@@ -272,21 +274,18 @@ class UserCubit extends Cubit<UserState> {
         'https://backend.almowafraty.com/api/v1/reset/password',
         data: {
           'password': resetpass.text,
-          'phone_number':int.parse('+20${phone.text}'),
+          'phone_number': int.parse('+20${phone.text}'),
         },
       );
       // final user = SignInModel.fromJson(response);
-      if(response.statusCode==200){
+      if (response.statusCode == 200) {
         String successMessage = response.data["message"];
-      emit(ResetSuccess(message: successMessage));
-
+        emit(ResetSuccess(message: successMessage));
       }
-    } 
-    on DioException catch (e) {
+    } on DioException catch (e) {
       String errorMessage = ErrorHandler.handleDioError(e);
       emit(ResetFailure(errorMessage: errorMessage));
-    } 
-    catch (e) {
+    } catch (e) {
       emit(ResetFailure(
           errorMessage: "An unexpected error occurred: ${e.toString()}"));
     }

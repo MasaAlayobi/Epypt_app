@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
@@ -20,6 +21,7 @@ import 'package:mufraty_app/feature/fatora/new_fatora/save_file_fun.dart';
 import 'package:mufraty_app/feature/fatora/orderLayout.dart/orderMobile.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class Mobile_fatora extends StatefulWidget {
   Mobile_fatora({
@@ -46,6 +48,15 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
       )) {
         throw Exception('Could not launch $url');
       }
+      // else {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //       duration: Duration(seconds: 3),
+      //       backgroundColor: ColorManager().green,
+      //       content: SizedBox(
+      //         height: 50,
+      //         child: Center(child: SubTitle3(text: " لايمكن فتح الرابط")),
+      //       )));
+      // }
     }
 
     double heightSize = MediaQuery.of(context).size.height;
@@ -318,34 +329,19 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                       var bill = state.allBills[index];
                                       var storeName = bill.market.store_name;
                                       var billID = bill.id;
-                                      var token = await TokenStorage()
-                                          .getAccessToken(); // Replace with your actual token dania
-                                      final Uri toLaunch = Uri(
-                                          scheme: 'https',
-                                          host: 'www.cylog.org',
-                                          path: 'headers/');
+                                      var token =
+                                          await TokenStorage().getAccessToken();
+
                                       var url =
                                           "https://almowafraty.com/#/bills/$storeName/$billID/$token";
-                                      Uri urll = Uri.parse(url);
-                                      await _launchInBrowser(urll);
+                                      Uri launcher = Uri.parse(url);
+                                      _launchInBrowser(launcher);
+
+                                      // Uri urll = Uri.parse(url);
+                                      // await _launchInBrowser(urll);
                                       // Navigate to the URL
                                       // if (await canLaunch(url)) {
                                       //   await launch(url);
-                                      // }
-
-                                      //  else {
-                                      //   ScaffoldMessenger.of(context)
-                                      //       .showSnackBar(SnackBar(
-                                      //           duration: Duration(seconds: 3),
-                                      //           backgroundColor:
-                                      //               ColorManager().green,
-                                      //           content: SizedBox(
-                                      //             height: 50,
-                                      //             child: Center(
-                                      //                 child: SubTitle3(
-                                      //                     text:
-                                      //                         " لايمكن فتح الرابط")),
-                                      //           )));
                                       // }
                                     },
                                     colors: ColorManager().green,
@@ -433,9 +429,8 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                 );
               } else {
                 return Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager().red,
-                  ),
+                  child: Lottie.asset("asstes/lottie/loading.json",
+                      fit: BoxFit.contain, width: 144, height: 144),
                 );
               }
               // return FlutterLogo();

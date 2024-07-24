@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_container_with_text.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_showModalBottomSheet.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_show_model_without_offer.dart';
@@ -365,9 +366,8 @@ class _WarehousePageState extends State<WarehousePage> {
                 // }
                 else if (state is LoadingProduct) {
                   return Center(
-                    child: CircularProgressIndicator(
-                      color: colorApp.basicColor,
-                    ),
+                    child: Lottie.asset("asstes/lottie/loading.json",
+                          fit: BoxFit.contain, width: 144, height: 144),
                   );
                 } else if (state is NotFound) {
                   return RefreshIndicator(

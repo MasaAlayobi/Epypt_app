@@ -17,10 +17,10 @@ abstract class BillService extends DioClient {
   refuseRecive();
   updateBillTime(
       int idBill, List<Map<String, dynamic>> update, String delivery);
-  updateBillWithoutTimee(int idBill, List<Map<String, dynamic>> update);
+  // updateBillWithoutTimee(int idBill, List<Map<String, dynamic>> update);
 
   rejectBill(int idBill, Reason reason);
-  updateProductInBill(int idProduct, postProductWithoutTime updateProduct);
+  // updateProductInBill(int idProduct, postProductWithoutTime updateProduct);
   cancelRecieve(int idBill, Reason reason);
   combleteRecieve(int idBill, RecivePriceBill reason);
   myData();
@@ -44,11 +44,11 @@ class BillServiceImpl extends BillService {
         print("3ajeeeb");
         return "no connetion";
       }
-    }on DioException catch(e){
+    } on DioException catch (e) {
       throw e.response!.data["message"];
-   }on Error catch(e){
-    throw e;
-   }
+    } on Error catch (e) {
+      throw e;
+    }
   }
 
   @override
@@ -70,23 +70,26 @@ class BillServiceImpl extends BillService {
   }
 
   @override
-  updateProductInBill(
-      int idProduct, postProductWithoutTime updateProduct) async {
-    response = await dio.post(
-      "${baseUrl}update/bill/$idProduct",
-      data: updateProduct.toMap(),
-    );
-    print(response);
-    try {
-      if (response.statusCode == 200) {
-        return "true";
-      } else {
-        return "false";
-      }
-    } on DioException catch (e) {
-      throw e.response!.data["message"];
-    }
-  }
+  // updateProductInBill(
+  //     int idProduct, postProductWithoutTime updateProduct) async {
+  //   response = await dio.post(
+  //     "${baseUrl}update/bill/$idProduct",
+  //     data: updateProduct.toMap(),
+  //   );
+  //   print(response);
+  //   try {
+  //     if (response.statusCode == 200 &&
+  //         response.data['message'] == "تم تحديث الفاتورة بنجاح") {
+  //       return "تم تحديث الفاتورة بنجاح";
+  //     } else if (response.statusCode == 200) {
+  //       return "";
+  //     } else {
+  //       return response.data;
+  //     }
+  //   } on DioException catch (e) {
+  //     throw e.response!.data["message"];
+  //   }
+  // }
 
   @override
   cancelRecieve(int idBill, Reason reason) async {
@@ -96,11 +99,9 @@ class BillServiceImpl extends BillService {
     );
     try {
       if (response.statusCode == 200) {
-    
         print(response.data["message"]);
         return "true";
       } else {
-
         return "false";
       }
     } on DioException catch (e) {
@@ -146,7 +147,7 @@ class BillServiceImpl extends BillService {
       print(e.response!.data);
       throw e.response!.data["message"];
     } on Error catch (e) {
-         print("dddd");
+      print("dddd");
       print(e.toString());
       throw e;
     }
@@ -213,7 +214,6 @@ class BillServiceImpl extends BillService {
   @override
   updateBillTime(
       int idBill, List<Map<String, dynamic>> update, String delivery) async {
-    print("cccccccccccccccccccccccccccccccccccccccccccccc");
     print(
       {
         "delivery_duration": delivery,
@@ -230,40 +230,39 @@ class BillServiceImpl extends BillService {
 
     try {
       if (response.statusCode == 200) {
-        print("11111111111111111111111");
-        // print(response.data["message"]);
-        return "true";
+        print("success in update ");
+        return response.data["message"];
       } else {
-        print("2222222222222222222222");
-        return "false";
+        print("error in update");
+        return response.data["message"];
       }
     } on DioException catch (e) {
       print(e.response!.data["message"]);
     }
   }
 
-  @override
-  updateBillWithoutTimee(int idBill, List<Map<String, dynamic>> update) async {
-    response = await dio.post(
-      "${baseUrl}update/bill/${idBill}",
-      data: {
-        "products": update,
-      },
-    );
+  // @override
+  // updateBillWithoutTimee(int idBill, List<Map<String, dynamic>> update) async {
+  //   response = await dio.post(
+  //     "${baseUrl}update/bill/${idBill}",
+  //     data: {
+  //       "products": update,
+  //     },
+  //   );
 
-    try {
-      if (response.statusCode == 200) {
-        print("11111111111111111111111");
-        // print(response.data["message"]);
-        return "true";
-      } else {
-        print("2222222222222222222222");
-        return "false";
-      }
-    } on DioException catch (e) {
-      print(e.response!.data);
-    }
-  }
+  //   try {
+  //     if (response.statusCode == 200) {
+  //       print("11111111111111111111111");
+  //       // print(response.data["message"]);
+  //       return "true";
+  //     } else {
+  //       print("2222222222222222222222");
+  //       return "false";
+  //     }
+  //   } on DioException catch (e) {
+  //     print(e.response!.data);
+  //   }
+  // }
 
   @override
   myData() async {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myContainer.dart';
@@ -163,9 +164,8 @@ class NotRecieved extends StatelessWidget {
                 ]);
               } else {
                 return Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager().red,
-                  ),
+                  child: Lottie.asset("asstes/lottie/loading.json",
+                          fit: BoxFit.contain, width: 144, height: 144),
                 );
               }
             }),

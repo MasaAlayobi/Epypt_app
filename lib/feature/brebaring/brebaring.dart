@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
@@ -236,7 +237,7 @@ class Brebaring extends StatelessWidget {
                                                                                     if (totalPrice.text.isEmpty) {
                                                                                       GoRouter.of(context).pop();
                                                                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
-                                                                                    } else if (num.tryParse(totalPrice.text)! >( state.oneBill[index].total_price_after_discount+ state.oneBill[index].additional_price)) {
+                                                                                    } else if (num.tryParse(totalPrice.text)! > (state.oneBill[index].total_price_after_discount + state.oneBill[index].additional_price)) {
                                                                                       GoRouter.of(context).pop();
                                                                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "  لا يمكن ان يكون المبلغ المدفوع اعلى من السعر الإجمالي للفاتورة")))));
                                                                                     } else {
@@ -486,9 +487,8 @@ class Brebaring extends StatelessWidget {
                     );
                   } else {
                     return Center(
-                      child: CircularProgressIndicator(
-                        color: ColorManager().red,
-                      ),
+                      child: Lottie.asset("asstes/lottie/loading.json",
+                          fit: BoxFit.contain, width: 144, height: 144),
                     );
                   }
                 },
