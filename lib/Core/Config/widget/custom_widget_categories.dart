@@ -45,89 +45,94 @@ class _CustomWidgetCategoriesState extends State<CustomWidgetCategories> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RegisterBloc()..add(getCategoriesSuppler()),
-      child: ExpansionTile(
-        onExpansionChanged: (value) {
-          print(value);
-        },
-        title: Text(
-          selectedTitle!,
-          style: TextStyle(
-              color: ColorManager().grey1,
-              fontSize: 16,
-              fontWeight: FontWeight.w600),
-        ),
-        backgroundColor: Colors.grey[200],
-        collapsedShape: ContinuousRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        shape: ContinuousRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        collapsedBackgroundColor: Colors.grey[200],
-        textColor: ColorManager().red,
-        iconColor: ColorManager().red,
-        children: [
-          BlocBuilder<RegisterBloc, RegisterState>(
-            builder: (context, state) {
-              if (state is successFetchCategories) {
-                return ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: state.Suppler.length,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, ind) =>InkWell(
-                            onTap: () {
-                             someFunctionThatChangesData(state.Suppler[ind].id);
-                            //  print(widget.onDataChanged.toString());
-                              setState(() {
-                              // تحديث الحالة بالقيمة الجديدة
-                              selectedTitle = state.Suppler[ind].type;
-                            });
-                             return ExpansionTileController.of(
-                                                      context)
-                                                  .collapse();
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 33, vertical: 11),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      child: HeaderText(
-                                        text: state.Suppler[ind].type,
-                                        fontSize: 16,
-                                        textcolor: ColorManager().grey1,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                  widget.widget
-                                ],
-                              ),
-                            ),
-                          ),
-                  separatorBuilder: (context, index) => Divider(
-                            indent: 22,
-                            endIndent: 22,
-                          ),
-                );
-              } else if (state is loading) {
-                return Center(
-                    child:  Lottie.asset("asstes/lottie/loading.json",
-                          fit: BoxFit.contain, width: 144, height: 144),);
-              } else if (state is NotFound) {
-                return Center(
-                  child: Text('لا يوجد مدن لعرضها '),
-                );
-              } else {
-                return Center(
-                  child: Text('خطأ في الاتصال '),
-                );
-              }
+      create: (context) => RegisterBloc(),
+      child: Builder(
+        builder: (context) {
+          context.read<RegisterBloc>().add(getCategoriesSuppler());
+          return ExpansionTile(
+            onExpansionChanged: (value) {
+              print(value);
             },
-          )
-        ],
+            title: Text(
+              selectedTitle!,
+              style: TextStyle(
+                  color: ColorManager().grey1,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600),
+            ),
+            backgroundColor: Colors.grey[200],
+            collapsedShape: ContinuousRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            shape: ContinuousRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            collapsedBackgroundColor: Colors.grey[200],
+            textColor: ColorManager().red,
+            iconColor: ColorManager().red,
+            children: [
+              BlocBuilder<RegisterBloc, RegisterState>(
+                builder: (context, state) {
+                  if (state is successFetchCategories) {
+                    return ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: state.Suppler.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, ind) =>InkWell(
+                                onTap: () {
+                                 someFunctionThatChangesData(state.Suppler[ind].id);
+                                //  print(widget.onDataChanged.toString());
+                                  setState(() {
+                                  // تحديث الحالة بالقيمة الجديدة
+                                  selectedTitle = state.Suppler[ind].type;
+                                });
+                                 return ExpansionTileController.of(
+                                                          context)
+                                                      .collapse();
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 33, vertical: 11),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          child: HeaderText(
+                                            text: state.Suppler[ind].type,
+                                            fontSize: 16,
+                                            textcolor: ColorManager().grey1,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                      widget.widget
+                                    ],
+                                  ),
+                                ),
+                              ),
+                      separatorBuilder: (context, index) => Divider(
+                                indent: 22,
+                                endIndent: 22,
+                              ),
+                    );
+                  } else if (state is loading) {
+                    return Center(
+                        child:  Lottie.asset("asstes/lottie/loading.json",
+                              fit: BoxFit.contain, width: 144, height: 144),);
+                  } else if (state is NotFound) {
+                    return Center(
+                      child: Text('لا يوجد مدن لعرضها '),
+                    );
+                  } else {
+                    return Center(
+                      child: Text('خطأ في الاتصال '),
+                    );
+                  }
+                },
+              )
+            ],
+          );
+        }
       ),
     );
   }

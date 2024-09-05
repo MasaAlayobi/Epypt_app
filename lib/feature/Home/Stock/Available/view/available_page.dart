@@ -79,7 +79,7 @@ class _AvailablePageState extends State<AvailablePage>  {
                           color: colorApp.whiteColor,
                           elevation: 2,
                           child: Container(
-                              height: 260,
+                              height: 275,
                               // color: Colors.blueGrey,
                               child: Row(
                                 children: [

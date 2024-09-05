@@ -50,6 +50,7 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
     final int _pageToNavigate = 0;
      final int _targetPageIndex = 1;
     return Builder(builder: (context) {
+      
       return DefaultTabController(
         length: 3,
         initialIndex: 1,

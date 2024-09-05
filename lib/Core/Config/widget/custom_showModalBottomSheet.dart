@@ -66,7 +66,7 @@ class _CustomShowmodalbottomsheetState
           child: Directionality(
               textDirection: TextDirection.rtl,
               child: SizedBox(
-                  height: 470,
+                  height: 485,
                   width: double.infinity,
                   child: Directionality(
                     textDirection: TextDirection.rtl,
