@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: HeaderText(
-            text: storage.get<SharedPreferences>().getString('store_name')!,
+            text: '${storage.get<SharedPreferences>().getString('store_name')!}',
             fontWeight: FontWeight.w600,
             fontSize: 22,
             textcolor: ColorManager().white,
