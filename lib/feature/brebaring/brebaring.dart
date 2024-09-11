@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
+import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
@@ -16,6 +17,7 @@ import 'package:mufraty_app/Core/data/recivePrice.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/brebaring/bloc/brebaring_bloc.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Brebaring extends StatelessWidget {
   Brebaring({super.key});
@@ -24,6 +26,24 @@ class Brebaring extends StatelessWidget {
   @override
   String? selectedValue;
   Widget build(BuildContext context) {
+    Future<void> _launchInBrowser(Uri url) async {
+      if (!await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      )) {
+        throw Exception('Could not launch $url');
+      }
+      // else {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //       duration: Duration(seconds: 3),
+      //       backgroundColor: ColorManager().green,
+      //       content: SizedBox(
+      //         height: 50,
+      //         child: Center(child: SubTitle3(text: " لايمكن فتح الرابط")),
+      //       )));
+      // }
+    }
+
     double heightSize = MediaQuery.of(context).size.height;
 
     double widthSize = MediaQuery.of(context).size.width;
@@ -120,6 +140,31 @@ class Brebaring extends StatelessWidget {
                                             state.oneBill.length, (_) => null);
 
                                     return CardOfFatora(
+                                      print: MyButton(
+                                          title: "طباعة",
+                                          onpress: () async {
+                                            var bill = state.oneBill[index];
+                                            var storeName =
+                                                bill.market.store_name;
+                                            var billID = bill.id;
+                                            var token = await TokenStorage()
+                                                .getAccessToken();
+
+                                            var url =
+                                                "https://almowafraty.com/#/bills/$storeName/$billID/$token";
+                                            Uri launcher = Uri.parse(url);
+                                            _launchInBrowser(launcher);
+                                          },
+                                          colors: ColorManager().green,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4.5,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              17,
+                                          radius: 9),
                                       myDropdownMenu: DecoratedBox(
                                         decoration: BoxDecoration(
                                             color: const Color.fromARGB(
@@ -403,7 +448,7 @@ class Brebaring extends StatelessWidget {
                                         ),
                                       ),
                                       text1:
-                                          "${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
+                                          "${state.oneBill[index].market.store_name}",
                                       text2:
                                           state.oneBill[index].market.city_name,
                                       text3: state

@@ -277,55 +277,9 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                         MediaQuery.of(context).size.height / 17,
                                     radius: 9),
                                 print: MyButton(
-                                    title: "تنزيل",
+                                    title: "طباعة",
                                     onpress: () async {
-                                      // Request storage permission
-                                      // var permissionStatus =
-                                      //     await Permission.storage.request();
-
-                                      // if (permissionStatus.isGranted) {
-                                      //   var response = await BillServiceImpl()
-                                      //       .pdf(state.allBills[index].id);
-                                      //   await saveFile(response,
-                                      //       "${state.allBills[index].market.store_name}.pdf");
-
-                                      //   if (response != "false") {
-                                      //     ScaffoldMessenger.of(context)
-                                      //         .showSnackBar(
-                                      //       SnackBar(
-                                      //         duration: Duration(seconds: 22),
-                                      //         backgroundColor:
-                                      //             ColorManager().green,
-                                      //         content: SizedBox(
-                                      //           height: 50,
-                                      //           child: Center(
-                                      //             child: SubTitle3(
-                                      //                 text:
-                                      //                     "تم تنزيل الملف بنجاح "),
-                                      //           ),
-                                      //         ),
-                                      //       ),
-                                      //     );
-                                      //   }
-                                      // } else {
-                                      //   ScaffoldMessenger.of(context)
-                                      //       .showSnackBar(
-                                      //     SnackBar(
-                                      //       duration: Duration(seconds: 3),
-                                      //       backgroundColor:
-                                      //           ColorManager().green,
-                                      //       content: SizedBox(
-                                      //         height: 50,
-                                      //         child: Center(
-                                      //           child: SubTitle3(
-                                      //               text:
-                                      //                   "تم إلغاء إعطاء الإذن"),
-                                      //         ),
-                                      //       ),
-                                      //     ),
-                                      //   );
-                                      //   print("Storage permission denied");
-                                      // }
+                                  
                                       var bill = state.allBills[index];
                                       var storeName = bill.market.store_name;
                                       var billID = bill.id;
@@ -337,12 +291,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                       Uri launcher = Uri.parse(url);
                                       _launchInBrowser(launcher);
 
-                                      // Uri urll = Uri.parse(url);
-                                      // await _launchInBrowser(urll);
-                                      // Navigate to the URL
-                                      // if (await canLaunch(url)) {
-                                      //   await launch(url);
-                                      // }
+                            
                                     },
                                     colors: ColorManager().green,
                                     width:
@@ -441,3 +390,50 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
     );
   }
 }
+    // Request storage permission
+                                      // var permissionStatus =
+                                      //     await Permission.storage.request();
+
+                                      // if (permissionStatus.isGranted) {
+                                      //   var response = await BillServiceImpl()
+                                      //       .pdf(state.allBills[index].id);
+                                      //   await saveFile(response,
+                                      //       "${state.allBills[index].market.store_name}.pdf");
+
+                                      //   if (response != "false") {
+                                      //     ScaffoldMessenger.of(context)
+                                      //         .showSnackBar(
+                                      //       SnackBar(
+                                      //         duration: Duration(seconds: 22),
+                                      //         backgroundColor:
+                                      //             ColorManager().green,
+                                      //         content: SizedBox(
+                                      //           height: 50,
+                                      //           child: Center(
+                                      //             child: SubTitle3(
+                                      //                 text:
+                                      //                     "تم تنزيل الملف بنجاح "),
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     );
+                                      //   }
+                                      // } else {
+                                      //   ScaffoldMessenger.of(context)
+                                      //       .showSnackBar(
+                                      //     SnackBar(
+                                      //       duration: Duration(seconds: 3),
+                                      //       backgroundColor:
+                                      //           ColorManager().green,
+                                      //       content: SizedBox(
+                                      //         height: 50,
+                                      //         child: Center(
+                                      //           child: SubTitle3(
+                                      //               text:
+                                      //                   "تم إلغاء إعطاء الإذن"),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //   );
+                                      //   print("Storage permission denied");
+                                      // }
