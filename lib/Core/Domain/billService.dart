@@ -137,7 +137,7 @@ class BillServiceImpl extends BillService {
       );
 
       if (response.statusCode == 200) {
-        print("offffffff");
+
         return response.data["body"];
       } else {
         print("object");

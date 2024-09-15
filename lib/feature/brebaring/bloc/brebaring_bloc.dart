@@ -29,20 +29,18 @@ class BrebaringBloc extends Bloc<BrebaringEvent, BrebaringState> {
       }
     });
     on<CombleteReceive>((event, emit) async {
-      // try {
-      var response =
-          await BillServiceImpl().combleteRecieve(event.id, event.reason);
-      print(response);
-      if (response == "تم بنجاح") {
-        emit(SuccessCombleteRecieve());
-      } else if (response == "unknown query exception") {
-        emit(FailedCombleteRecieve());
-      } else {
-        // emit
+      try {
+        var response =
+            await BillServiceImpl().combleteRecieve(event.id, event.reason);
+        print(response);
+        if (response == "تم بنجاح") {
+          emit(SuccessCombleteRecieve());
+        } else if (response == "unknown query exception") {
+          emit(FailedCombleteRecieve());
+        } else {}
+      } catch (e) {
+        emit(NoConnection());
       }
-      // } catch (e) {
-      //   emit(NoConnection());
-      // }
     });
     on<GetAllDataBrebaring>((event, emit) async {
       try {

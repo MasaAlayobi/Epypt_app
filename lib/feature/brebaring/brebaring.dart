@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/shared_preferences.dart';
+import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
@@ -12,11 +13,10 @@ import 'package:mufraty_app/Core/Config/widget/myContainer.dart';
 import 'package:mufraty_app/Core/Config/widget/myTextField.dart';
 import 'package:mufraty_app/Core/Config/widget/myTextFieldNumber.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mufraty_app/Core/data/reasonReject.dart';
 import 'package:mufraty_app/Core/data/recivePrice.dart';
-import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/brebaring/bloc/brebaring_bloc.dart';
-import 'package:mufraty_app/feature/fatora/fatora.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Brebaring extends StatelessWidget {
@@ -33,15 +33,21 @@ class Brebaring extends StatelessWidget {
       )) {
         throw Exception('Could not launch $url');
       }
-      // else {
-      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //       duration: Duration(seconds: 3),
-      //       backgroundColor: ColorManager().green,
-      //       content: SizedBox(
-      //         height: 50,
-      //         child: Center(child: SubTitle3(text: " لايمكن فتح الرابط")),
-      //       )));
-      // }
+    }
+
+    void sendWhatsAppMessage(String storeName, int billID, String? token,
+        String? phoneNumber) async {
+      String message =
+          "https://almowafraty.com/#/bills/$storeName/$billID/$token";
+      String url =
+          "https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}";
+      Uri launcher = Uri.parse(url);
+      // _launchInBrowser(launcher);
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
     }
 
     double heightSize = MediaQuery.of(context).size.height;
@@ -149,11 +155,11 @@ class Brebaring extends StatelessWidget {
                                             var billID = bill.id;
                                             var token = await TokenStorage()
                                                 .getAccessToken();
-
-                                            var url =
-                                                "https://almowafraty.com/#/bills/$storeName/$billID/$token";
-                                            Uri launcher = Uri.parse(url);
-                                            _launchInBrowser(launcher);
+                                            var phoneNumber = storage
+                                                .get<SharedPreferences>()
+                                                .getString("phoneNumber");
+                                            sendWhatsAppMessage(storeName,
+                                                billID, token, phoneNumber);
                                           },
                                           colors: ColorManager().green,
                                           width: MediaQuery.of(context)
