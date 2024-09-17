@@ -69,7 +69,7 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
                       padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                       child: Container(
                         width: double.infinity,
-                        height: 40,
+                        height: 60,
                         child: Center(
                           
                           child: TextField(

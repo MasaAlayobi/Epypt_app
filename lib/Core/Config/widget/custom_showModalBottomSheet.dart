@@ -305,16 +305,16 @@ class _CustomShowmodalbottomsheetState
                                 BlocProvider.of<ProductsBloc>(context).add(
                                     addProductWithOffer(
                                         product: AddProductWithOfferModel(
-                                          quantity: int.parse(totalQuantity.text),
+                                          quantity: num.parse(totalQuantity.text),
                                             max_offer_quantity:
-                                                int.parse(quantityOffer.text),
+                                                num.parse(quantityOffer.text),
                                             offer_price:
-                                                int.parse(priceOffer.text),
+                                                num.parse(priceOffer.text),
                                             has_offer: 1,
                                             max_selling_quantity:
-                                                int.parse(quantity.text),
+                                                num.parse(quantity.text),
                                             product_id: widget.id,
-                                            price: int.parse(price.text),
+                                            price: num.parse(price.text),
                                             offer_expires_at: date.text)));
                               } else {
                                 showDialog(

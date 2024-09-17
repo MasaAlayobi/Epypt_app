@@ -53,308 +53,324 @@ class _WarehousePageState extends State<WarehousePage> {
                     child: ListView.builder(
                         itemCount: state.allProduct.length,
                         itemBuilder: (context, index) {
-                          return Card(
-                            color: colorApp.whiteColor,
-                            elevation: 2,
-                            child: Container(
-                                height: 170,
-                                // color: Colors.blueGrey,
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8),
-                                      child: state.allProduct[index].image
-                                              .isNotEmpty
-                                          ? FittedBox(
-                                              fit: BoxFit.fitHeight,
-                                              child: Image.network(
-                                                state
-                                                    .allProduct[index].image[0],
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    4,
-                                                fit: BoxFit.scaleDown,
-                                                errorBuilder: (context, error,
-                                                    stackTrace) {
-                                                  return Image.asset(
-                                                    'asstes/images/no_photo.jpg',
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            3,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            4,
-                                                  );
-                                                },
-                                              ),
-                                            )
-                                          : Image.asset(
-                                              'asstes/images/no_photo.jpg',
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  3,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height /
-                                                  4,
-                                            ), // أو أي ويدجت بديلة عندما تكون القائمة فارغة
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          // SizedBox(
-                                          //   height: 5,
-                                          // ),
-                                          // Container(
-                                          //     width: 210,
-                                          //     height: 50,
-                                          // child:
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                               if (index == 0)
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(
+                                    'عدد المنتجات  : ${state.allProduct.length}',
+                                    style: TextStyle(
+                                        color: colorApp.blackColor,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700)),
+                              ),
+                              Card(
+                                
+                                color: colorApp.whiteColor,
+                                elevation: 2,
+                                child: Container(
+                                    height: 170,
+                                    // color: Colors.blueGrey,
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 8),
+                                          child: state.allProduct[index].image
+                                                  .isNotEmpty
+                                              ? FittedBox(
+                                                  fit: BoxFit.fitHeight,
+                                                  child: Image.network(
+                                                    state
+                                                        .allProduct[index].image[0],
+                                                    width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        3,
+                                                    height: MediaQuery.of(context)
+                                                            .size
+                                                            .height /
+                                                        4,
+                                                    fit: BoxFit.scaleDown,
+                                                    errorBuilder: (context, error,
+                                                        stackTrace) {
+                                                      return Image.asset(
+                                                        'asstes/images/no_photo.jpg',
+                                                        width:
+                                                            MediaQuery.of(context)
+                                                                    .size
+                                                                    .width /
+                                                                3,
+                                                        height:
+                                                            MediaQuery.of(context)
+                                                                    .size
+                                                                    .height /
+                                                                4,
+                                                      );
+                                                    },
+                                                  ),
+                                                )
+                                              : Image.asset(
+                                                  'asstes/images/no_photo.jpg',
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      3,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      4,
+                                                ), // أو أي ويدجت بديلة عندما تكون القائمة فارغة
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 6, bottom: 2),
-                                                child: CustomText(
-                                                    text: state
-                                                        .allProduct[index].name,
-                                                    size: 15,
-                                                    color: colorApp.blackColor,
-                                                    fontWeight: FontWeight.w600,
-                                                    maxLines: 3),
+                                              // SizedBox(
+                                              //   height: 5,
+                                              // ),
+                                              // Container(
+                                              //     width: 210,
+                                              //     height: 50,
+                                              // child:
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 6, bottom: 2),
+                                                    child: CustomText(
+                                                        text: state
+                                                            .allProduct[index].name,
+                                                        size: 15,
+                                                        color: colorApp.blackColor,
+                                                        fontWeight: FontWeight.w600,
+                                                        maxLines: 3),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 6, bottom: 6),
+                                                    child: CustomText(
+                                                        text: state
+                                                            .allProduct[index].discription,
+                                                        size: 14,
+                                                        color: colorApp.blackColor,
+                                                        fontWeight: FontWeight.w500,
+                                                        maxLines: 3),
+                                                  ),
+                                                ],
                                               ),
+                                              // ),
+                                              // CustomContainerWithText(
+                                              //     text: state.allProduct[index]
+                                              //         .discription),
+                                              // CustomText(
+                                              //     text: '${state.allProduct[index].size_of}  x' +
+                                              //         '${state.allProduct[index].size}',
+                                              //     size: 13,
+                                              //     color: colorApp.greyColor,
+                                              //     fontWeight: FontWeight.w600,
+                                              //     maxLines: 2),
                                               Padding(
                                                 padding: const EdgeInsets.only(
-                                                    left: 6, bottom: 6),
-                                                child: CustomText(
-                                                    text: state
-                                                        .allProduct[index].discription,
-                                                    size: 14,
-                                                    color: colorApp.blackColor,
-                                                    fontWeight: FontWeight.w500,
-                                                    maxLines: 3),
+                                                    bottom: 0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.spaceEvenly,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        bool isImage;
+                                                        String image;
+                                                        if (state.allProduct[index]
+                                                            .image.isNotEmpty) {
+                                                          isImage = true;
+                                                          image = state
+                                                              .allProduct[index]
+                                                              .image[0];
+                                                        } else {
+                                                          isImage = false;
+                                                          image =
+                                                              'asstes/images/no_photo.jpg';
+                                                        }
+                                                        showModalBottomSheet(
+                                                          // isDismissible: false,
+                                                          isScrollControlled: true,
+                                                          backgroundColor:
+                                                              Color.fromARGB(255,
+                                                                  232, 232, 234),
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return Padding(
+                                                              padding: EdgeInsets.only(
+                                                                  bottom: MediaQuery
+                                                                          .of(context)
+                                                                      .viewInsets
+                                                                      .bottom),
+                                                              child: CustomShowmodalbottomsheet(
+                                                                  discription: state
+                                                                      .allProduct[
+                                                                          index]
+                                                                      .discription,
+                                                                  nameProduct: state
+                                                                      .allProduct[
+                                                                          index]
+                                                                      .name,
+                                                                  image: image,
+                                                                  size_of: state
+                                                                      .allProduct[
+                                                                          index]
+                                                                      .size_of,
+                                                                  isImage: isImage,
+                                                                  id: state
+                                                                      .allProduct[
+                                                                          index]
+                                                                      .id),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        width: 80,
+                                                        height: 28,
+                                                        decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  4),
+                                                          color: colorApp.blueColor,
+                                                        ),
+                                                        child: FittedBox(
+                                                          fit: BoxFit.contain,
+                                                          child: Center(
+                                                              child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(3),
+                                                            child: CustomText(
+                                                                text: '+ مع عرض',
+                                                                size: 12,
+                                                                color: colorApp
+                                                                    .whiteColor,
+                                                                fontWeight:
+                                                                    FontWeight.w700,
+                                                                maxLines: 2),
+                                                          )),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          bool isImage;
+                                                          String image;
+                                                          if (state
+                                                              .allProduct[index]
+                                                              .image
+                                                              .isNotEmpty) {
+                                                            isImage = true;
+                                                            image = state
+                                                                .allProduct[index]
+                                                                .image[0];
+                                                          } else {
+                                                            isImage = false;
+                                                            image =
+                                                                'asstes/images/no_photo.jpg';
+                                                          }
+                                                          print(state
+                                                              .allProduct[index]
+                                                              .image[0]);
+                                                          showModalBottomSheet(
+                                                            // isDismissible: false,
+                                                            isScrollControlled:
+                                                                true,
+                                                            backgroundColor:
+                                                                Color.fromARGB(255,
+                                                                    232, 232, 234),
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return SingleChildScrollView(
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      bottom: MediaQuery.of(
+                                                                              context)
+                                                                          .viewInsets
+                                                                          .bottom),
+                                                                  child:
+                                                                      CustomShowModelWithoutOffer(
+                                                                    discription: state
+                                                                        .allProduct[
+                                                                            index]
+                                                                        .discription,
+                                                                    isImage:
+                                                                        isImage,
+                                                                    id: state
+                                                                        .allProduct[
+                                                                            index]
+                                                                        .id,
+                                                                    nameProduct: state
+                                                                        .allProduct[
+                                                                            index]
+                                                                        .name,
+                                                                    image: image,
+                                                                    size_of: state
+                                                                        .allProduct[
+                                                                            index]
+                                                                        .size_of,
+                                                                    // onTap: () {
+                                                                    //   //  (context) => ProductsBloc().add(addProductWithoutOffer(id: , product: product));
+                                                                    // },
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                        child: Container(
+                                                          width: 80,
+                                                          height: 28,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(4),
+                                                            color:
+                                                                colorApp.greenColor,
+                                                          ),
+                                                          child: FittedBox(
+                                                            fit: BoxFit.contain,
+                                                            child: Center(
+                                                                child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(2),
+                                                              child: CustomText(
+                                                                  text:
+                                                                      '+ بدون عرض',
+                                                                  size: 13,
+                                                                  color: colorApp
+                                                                      .whiteColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  maxLines: 2),
+                                                            )),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
-                                          // ),
-                                          // CustomContainerWithText(
-                                          //     text: state.allProduct[index]
-                                          //         .discription),
-                                          // CustomText(
-                                          //     text: '${state.allProduct[index].size_of}  x' +
-                                          //         '${state.allProduct[index].size}',
-                                          //     size: 13,
-                                          //     color: colorApp.greyColor,
-                                          //     fontWeight: FontWeight.w600,
-                                          //     maxLines: 2),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                InkWell(
-                                                  onTap: () {
-                                                    bool isImage;
-                                                    String image;
-                                                    if (state.allProduct[index]
-                                                        .image.isNotEmpty) {
-                                                      isImage = true;
-                                                      image = state
-                                                          .allProduct[index]
-                                                          .image[0];
-                                                    } else {
-                                                      isImage = false;
-                                                      image =
-                                                          'asstes/images/no_photo.jpg';
-                                                    }
-                                                    showModalBottomSheet(
-                                                      // isDismissible: false,
-                                                      isScrollControlled: true,
-                                                      backgroundColor:
-                                                          Color.fromARGB(255,
-                                                              232, 232, 234),
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return Padding(
-                                                          padding: EdgeInsets.only(
-                                                              bottom: MediaQuery
-                                                                      .of(context)
-                                                                  .viewInsets
-                                                                  .bottom),
-                                                          child: CustomShowmodalbottomsheet(
-                                                              discription: state
-                                                                  .allProduct[
-                                                                      index]
-                                                                  .discription,
-                                                              nameProduct: state
-                                                                  .allProduct[
-                                                                      index]
-                                                                  .name,
-                                                              image: image,
-                                                              size_of: state
-                                                                  .allProduct[
-                                                                      index]
-                                                                  .size_of,
-                                                              isImage: isImage,
-                                                              id: state
-                                                                  .allProduct[
-                                                                      index]
-                                                                  .id),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    width: 80,
-                                                    height: 28,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4),
-                                                      color: colorApp.blueColor,
-                                                    ),
-                                                    child: FittedBox(
-                                                      fit: BoxFit.contain,
-                                                      child: Center(
-                                                          child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(3),
-                                                        child: CustomText(
-                                                            text: '+ مع عرض',
-                                                            size: 12,
-                                                            color: colorApp
-                                                                .whiteColor,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            maxLines: 2),
-                                                      )),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Align(
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      bool isImage;
-                                                      String image;
-                                                      if (state
-                                                          .allProduct[index]
-                                                          .image
-                                                          .isNotEmpty) {
-                                                        isImage = true;
-                                                        image = state
-                                                            .allProduct[index]
-                                                            .image[0];
-                                                      } else {
-                                                        isImage = false;
-                                                        image =
-                                                            'asstes/images/no_photo.jpg';
-                                                      }
-                                                      print(state
-                                                          .allProduct[index]
-                                                          .image[0]);
-                                                      showModalBottomSheet(
-                                                        // isDismissible: false,
-                                                        isScrollControlled:
-                                                            true,
-                                                        backgroundColor:
-                                                            Color.fromARGB(255,
-                                                                232, 232, 234),
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return SingleChildScrollView(
-                                                            child: Padding(
-                                                              padding: EdgeInsets.only(
-                                                                  bottom: MediaQuery.of(
-                                                                          context)
-                                                                      .viewInsets
-                                                                      .bottom),
-                                                              child:
-                                                                  CustomShowModelWithoutOffer(
-                                                                discription: state
-                                                                    .allProduct[
-                                                                        index]
-                                                                    .discription,
-                                                                isImage:
-                                                                    isImage,
-                                                                id: state
-                                                                    .allProduct[
-                                                                        index]
-                                                                    .id,
-                                                                nameProduct: state
-                                                                    .allProduct[
-                                                                        index]
-                                                                    .name,
-                                                                image: image,
-                                                                size_of: state
-                                                                    .allProduct[
-                                                                        index]
-                                                                    .size_of,
-                                                                // onTap: () {
-                                                                //   //  (context) => ProductsBloc().add(addProductWithoutOffer(id: , product: product));
-                                                                // },
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                    child: Container(
-                                                      width: 80,
-                                                      height: 28,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4),
-                                                        color:
-                                                            colorApp.greenColor,
-                                                      ),
-                                                      child: FittedBox(
-                                                        fit: BoxFit.contain,
-                                                        child: Center(
-                                                            child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(2),
-                                                          child: CustomText(
-                                                              text:
-                                                                  '+ بدون عرض',
-                                                              size: 13,
-                                                              color: colorApp
-                                                                  .whiteColor,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              maxLines: 2),
-                                                        )),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                )),
+                                        )
+                                      ],
+                                    )),
+                              ),
+                            ],
                           );
                         }),
                   );

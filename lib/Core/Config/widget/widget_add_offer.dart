@@ -185,8 +185,8 @@ class _WidgetAddOfferState extends State<WidgetAddOffer> {
                               content: Text(state.message),
                               backgroundColor: colorApp.greenColor,
                             ));
-                           
-                            GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
+                             Navigator.pop(context);
+                          //  GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
                           } else if (state is InformationError) {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(new SnackBar(
@@ -210,7 +210,7 @@ class _WidgetAddOfferState extends State<WidgetAddOffer> {
 
                             if (quantityOffer.text!=""&&priceOffer.text!=""&&date.text!="") {
                               BlocProvider.of<AvailableProductsBloc>(context).add(
-                                 addOffer(id: widget.id, offer: AddOfferModel(has_offer: 1, offer_price: int.parse(priceOffer.text), max_offer_quantity: int.parse(quantityOffer.text), offer_expires_at: date.text)));
+                                 addOffer(id: widget.id, offer: AddOfferModel(has_offer: 1, offer_price: num.parse(priceOffer.text), max_offer_quantity: num.parse(quantityOffer.text), offer_expires_at: date.text)));
                             } else {
                               showDialog(
                                 context: context,
