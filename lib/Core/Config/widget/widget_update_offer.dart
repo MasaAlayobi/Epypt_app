@@ -246,8 +246,9 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                               content: Text(state.message),
                               backgroundColor: colorApp.greenColor,
                             ));
-                            GoRouter.of(context)
-                                .pushReplacement(AppRouter.kHomeViewStock);
+                             Navigator.pop(context);
+                            // GoRouter.of(context)
+                            //     .pushReplacement(AppRouter.kHomeViewStock);
                           } else if (state is InformationError) {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(new SnackBar(
@@ -278,13 +279,13 @@ class _WidgetUpdateOfferState extends State<WidgetUpdateOffer> {
                                   .add(updateOffer(
                                       id: widget.id,
                                       offer: UpdateOfferModel(
-                                          price: int.parse(price.text),
+                                          price: num.parse(price.text),
                                           offer_price:
-                                              int.parse(priceOffer.text),
+                                              num.parse(priceOffer.text),
                                           max_offer_quantity:
-                                              int.parse(quantityOffer.text),
+                                              num.parse(quantityOffer.text),
                                           offer_expires_at: date.text,
-                                          quantity: int.parse(quantity.text))));
+                                          quantity: num.parse(quantity.text))));
                             } else {
                               showDialog(
                                 context: context,

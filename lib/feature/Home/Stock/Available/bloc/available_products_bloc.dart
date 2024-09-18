@@ -131,7 +131,7 @@ class AvailableProductsBloc extends Bloc<AvailableProductsEvent, AvailableProduc
          emit(LoadingUpdatePrice());
           try{
 
-        String message = await StockServicImp().updatePrice(event.id, event.price,event.quantity);
+        String message = await StockServicImp().updatePrice(event.id, event.price);
             print(message);
             if(message.isNotEmpty){
               // print('true');

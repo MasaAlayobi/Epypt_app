@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                               TextButton(
                                 child: Text(
                                   'رجوع',
-                                  style: TextStyle(color: colorApp.basicColor),
+                                  style: TextStyle(color: colorApp.greenColor),
                                 ),
                                 onPressed: () {
                                   GoRouter.of(context).pop();

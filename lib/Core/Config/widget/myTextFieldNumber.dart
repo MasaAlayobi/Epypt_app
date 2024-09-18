@@ -26,7 +26,7 @@ class myTextFieldNumber extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 9),
       child: TextFormField(
         inputFormatters: [
-             FilteringTextInputFormatter.digitsOnly,
+            // FilteringTextInputFormatter.digitsOnly,
             // LengthLimitingTextInputFormatter(10), // +20 و 10 أرقام
           ],
         readOnly: ReadeOnly??false,

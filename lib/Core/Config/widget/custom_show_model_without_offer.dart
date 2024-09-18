@@ -40,7 +40,7 @@ class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffe
         return Directionality(
             textDirection: TextDirection.rtl,
             child: SizedBox(
-                height: 330,
+                height: 350,
                 width: double.infinity,
                 child: Directionality(
                   textDirection: TextDirection.rtl,
@@ -190,11 +190,11 @@ class _CustomShowModelWithoutOfferState extends State<CustomShowModelWithoutOffe
                               BlocProvider.of<ProductsBloc>(context).add(
                                   addProductWithoutOffer(
                                       product: AddProductModel(
-                                          price: int.parse(price.text),
+                                          price: num.parse(price.text),
                                           product_id: widget.id,
-                                          quantity: int.parse(totalQuantity.text),
+                                          quantity: num.parse(totalQuantity.text),
                                           max_selling_quantity: 
-                                              int.parse(quantity.text))));}
+                                              num.parse(quantity.text))));}
                              else {
                               showDialog(
                                 context: context,
