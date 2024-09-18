@@ -26,27 +26,24 @@ class Brebaring extends StatelessWidget {
   @override
   String? selectedValue;
   Widget build(BuildContext context) {
-    Future<void> _launchInBrowser(Uri url) async {
-      if (!await launchUrl(
-        url,
-        mode: LaunchMode.externalApplication,
-      )) {
-        throw Exception('Could not launch $url');
-      }
-    }
-
     void sendWhatsAppMessage(String storeName, int billID, String? token,
         String? phoneNumber) async {
       String message =
           "https://almowafraty.com/#/bills/$storeName/$billID/$token";
-      String url =
-          "https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}";
+      String url = "whatsapp://send?phone=$phoneNumber" +
+          "&text=${Uri.encodeComponent(message)}";
       Uri launcher = Uri.parse(url);
-      // _launchInBrowser(launcher);
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
+      try {
+        if (phoneNumber == null ||
+            phoneNumber.isEmpty ||
+            phoneNumber.length < 10) {
+          debugPrint("Invalid phone number");
+          return;
+        } else {
+          launchUrl(launcher);
+        }
+      } catch (e) {
+        debugPrint(e.toString());
       }
     }
 
@@ -158,8 +155,27 @@ class Brebaring extends StatelessWidget {
                                             var phoneNumber = storage
                                                 .get<SharedPreferences>()
                                                 .getString("phoneNumber");
+
                                             sendWhatsAppMessage(storeName,
                                                 billID, token, phoneNumber);
+                                            // final url = 'https://wa.me/967$phone?text=$message';
+                                            // var whatsappUrl = Uri.parse(
+                                            //     "'https://wa.me/phone=+201013244640?text=hellvbo");
+                                            // try {
+                                            //   launchUrl(whatsappUrl);
+                                            // } catch (e) {
+                                            //   debugPrint(e.toString());
+                                            // }
+                                            // String message =
+                                            //     "Hello, I am from $storeName with ID  and token $token";
+                                            // String url =
+                                            //     "https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}";
+
+                                            // try {
+                                            //   launchUrl(Uri.parse(url));
+                                            // } catch (e) {
+                                            //   debugPrint(e.toString());
+                                            // }
                                           },
                                           colors: ColorManager().green,
                                           width: MediaQuery.of(context)

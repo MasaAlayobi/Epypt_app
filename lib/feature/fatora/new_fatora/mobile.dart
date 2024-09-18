@@ -52,18 +52,24 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
       }
     }
 
-    void sendWhatsAppMessage(
-        String storeName, int billID, String? token, String? phoneNumber) async {
+    void sendWhatsAppMessage(String storeName, int billID, String? token,
+        String? phoneNumber) async {
       String message =
           "https://almowafraty.com/#/bills/$storeName/$billID/$token";
-      String url =
-          "https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}";
+      String url = "whatsapp://send?phone=$phoneNumber" +
+          "&text=${Uri.encodeComponent(message)}";
       Uri launcher = Uri.parse(url);
-      // _launchInBrowser(launcher);
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
+      try {
+        if (phoneNumber == null ||
+            phoneNumber.isEmpty ||
+            phoneNumber.length < 10) {
+          debugPrint("Invalid phone number");
+          return;
+        } else {
+          launchUrl(launcher);
+        }
+      } catch (e) {
+        debugPrint(e.toString());
       }
     }
 
@@ -293,7 +299,9 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                       var token =
                                           await TokenStorage().getAccessToken();
 
-                                      var phoneNumber = storage.get<SharedPreferences>().getString("phoneNumber");
+                                      var phoneNumber = storage
+                                          .get<SharedPreferences>()
+                                          .getString("phoneNumber");
                                       sendWhatsAppMessage(storeName, billID,
                                           token, phoneNumber);
                                     },
