@@ -43,19 +43,11 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _launchInBrowser(Uri url) async {
-      if (!await launchUrl(
-        url,
-        mode: LaunchMode.externalApplication,
-      )) {
-        throw Exception('Could not launch $url');
-      }
-    }
-
     void sendWhatsAppMessage(String storeName, int billID, String? token,
         String? phoneNumber) async {
+      String NewStoreName = storeName.replaceAll(" ", "-");
       String message =
-          "https://almowafraty.com/#/bills/$storeName/$billID/$token";
+          "https://almowafraty.com/#/bills/$NewStoreName/$billID/$token";
       String url = "whatsapp://send?phone=$phoneNumber" +
           "&text=${Uri.encodeComponent(message)}";
       Uri launcher = Uri.parse(url);

@@ -28,8 +28,14 @@ class Brebaring extends StatelessWidget {
   Widget build(BuildContext context) {
     void sendWhatsAppMessage(String storeName, int billID, String? token,
         String? phoneNumber) async {
+      String NewStoreName = storeName.replaceAll(" ", "-");
       String message =
-          "https://almowafraty.com/#/bills/$storeName/$billID/$token";
+          "https://almowafraty.com/#/bills/$NewStoreName/$billID/$token";
+      print(message);
+      print(billID);
+      print(storeName);
+      print(NewStoreName);
+      print(token);
       String url = "whatsapp://send?phone=$phoneNumber" +
           "&text=${Uri.encodeComponent(message)}";
       Uri launcher = Uri.parse(url);

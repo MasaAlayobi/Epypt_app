@@ -2,13 +2,10 @@
 
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
-
 import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Resourse/URL.dart';
-import 'package:mufraty_app/feature/Auth/login/view/login_view.dart';
-import 'package:mufraty_app/main.dart';
+
 
 abstract class BaseService { 
   String? entity;
