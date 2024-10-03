@@ -109,7 +109,7 @@ class Cancel extends StatelessWidget {
                                   itemCount: state.oneBill.length,
                                   itemBuilder: (context, index) {
                                     return CardOfFatora(
-                                      text1:"${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
+                                      text1:"${state.oneBill[index].market.store_name}",
                                       text2:
                                           state.oneBill[index].market.city_name,
                                       text3: state.oneBill[index].created_at_formatted,

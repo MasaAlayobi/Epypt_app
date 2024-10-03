@@ -13,7 +13,10 @@ import 'package:mufraty_app/Core/Config/widget/Titles.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
 import 'package:mufraty_app/Core/Config/widget/myTextField.dart';
+import 'package:mufraty_app/Core/Config/widget/state_manage_element.dart';
 import 'package:mufraty_app/Core/Domain/billService.dart';
+import 'package:mufraty_app/Core/functions/send_whatsapp_message.dart';
+import 'package:mufraty_app/Core/functions/show_snack_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/Core/data/reasonReject.dart';
@@ -43,28 +46,6 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
 
   @override
   Widget build(BuildContext context) {
-    void sendWhatsAppMessage(String storeName, int billID, String? token,
-        String? phoneNumber) async {
-      String NewStoreName = storeName.replaceAll(" ", "-");
-      String message =
-          "https://almowafraty.com/#/bills/$NewStoreName/$billID/$token";
-      String url = "whatsapp://send?phone=$phoneNumber" +
-          "&text=${Uri.encodeComponent(message)}";
-      Uri launcher = Uri.parse(url);
-      try {
-        if (phoneNumber == null ||
-            phoneNumber.isEmpty ||
-            phoneNumber.length < 10) {
-          debugPrint("Invalid phone number");
-          return;
-        } else {
-          launchUrl(launcher);
-        }
-      } catch (e) {
-        debugPrint(e.toString());
-      }
-    }
-
     double heightSize = MediaQuery.of(context).size.height;
 
     double widthSize = MediaQuery.of(context).size.width;
@@ -198,13 +179,10 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                                                                 )));
                                                                           } else if (state
                                                                               is FaildSendBill) {
-                                                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                                duration: Duration(seconds: 3),
-                                                                                backgroundColor: ColorManager().green,
-                                                                                content: SizedBox(
-                                                                                  height: 50,
-                                                                                  child: Center(child: SubTitle3(text: " حقل سبب الإلغاء مطلوب")),
-                                                                                )));
+                                                                            showSnackBar(
+                                                                                context,
+                                                                                " حقل سبب الإلغاء مطلوب",
+                                                                                ColorManager().red);
                                                                           }
                                                                         },
                                                                         child: MyButton(
@@ -215,7 +193,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                                                               });
                                                                               if (cancelOfSend.text.isEmpty) {
                                                                                 GoRouter.of(context).pop();
-                                                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().green, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
+                                                                                showSnackBar(context, "لا يمكن ترك الحقل فارغ", ColorManager().red);
                                                                               } else {
                                                                                 context.read<NewBillBloc>().add(SendReason(idBill: state.allBills[index].id, reason: Reason(rejection_reason: cancelOfSend.text)));
                                                                               }
@@ -315,78 +293,31 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                     "عدد الأصناف: ${state.allBills[index].products.length}",
                                 text6:
                                     "طريقة الدفع: ${state.allBills[index].payment_method}",
-                                text7:
-                                    "الإجمالي: ${state.allBills[index].additional_price + state.allBills[index].total_price_after_discount}",
+                                text7: state.allBills[index].has_coupon == true
+                                    ? "السعر بعد الخصم: ${state.allBills[index].total_price}\n السعر قبل الخصم: ${state.allBills[index].additional_price + state.allBills[index].total_price_after_discount}\n كود الخصم: ${state.allBills[index].coupon_code}"
+                                    : "الإجمالي: ${state.allBills[index].additional_price + state.allBills[index].total_price_after_discount}",
                               );
                             },
                           )),
                     ),
                   ),
                 );
-              }
-              //  else if (state is SuccessRejectBill) {
-              //   context.read<NewBillBloc>().add(GetAllData());
-              //   return Container(
-              //     child: FlutterLogo(),
-              //   );
-              // }
-              // asstes\images\no_photo.jpg
-              else if (state is NoData) {
-                return Column(
-                  children: [
-                    Center(
-                        child: Image.asset(
-                      "asstes/images/empty.png",
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: MediaQuery.of(context).size.height / 2,
-                    )),
-                    Center(
-                      child: Text(
-                        "فارغ",
-                        style: TextStyle(
-                            color: ColorManager().red,
-                            fontSize: 33,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    )
-                  ],
-                );
+              } else if (state is NoData) {
+                return NoDataElement();
               } else if (state is NoInternet) {
-                return RefreshIndicator(
-                  onRefresh: () async {
-                    // NewBillBloc()..add(GetAllData()),
-                    context.read<NewBillBloc>().add(GetAllData());
-                  },
-                  child: ListView(
-                    children: [
-                      Center(
-                        child: Image.asset(
-                          "asstes/images/internet.png",
-                          width: widthSize / 2,
-                          height: heightSize / 2,
-                        ),
-                      ),
-                      Center(
-                          child: Text(
-                        state.message ==
-                                'Null check operator used on a null value'
-                            ? "لقد انقطع الاتصال بالانترنت"
-                            : state.message,
-                        style: TextStyle(
-                            color: ColorManager().red,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700),
-                      ))
-                    ],
-                  ),
-                );
+                return noInterentElement(
+                    messageFromState: state.message,
+                    onRefresh: () async {
+                      context.read<NewBillBloc>().add(GetAllData());
+                    },
+                    widthSize: widthSize,
+                    heightSize: heightSize);
               } else {
                 return Center(
                   child: Lottie.asset("asstes/lottie/loading.json",
                       fit: BoxFit.contain, width: 144, height: 144),
                 );
               }
-              // return FlutterLogo();
             },
           ),
         );
@@ -394,6 +325,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
     );
   }
 }
+
     // Request storage permission
                                       // var permissionStatus =
                                       //     await Permission.storage.request();

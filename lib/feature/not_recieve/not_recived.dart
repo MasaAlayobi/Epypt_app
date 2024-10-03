@@ -103,7 +103,7 @@ class NotRecieved extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return CardOfFatora(
                                   text1:
-                                      "${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
+                                      "${state.oneBill[index].market.store_name}",
                                   text2: state.oneBill[index].market.city_name,
                                   text3:
                                       state.oneBill[index].created_at_formatted,
@@ -165,7 +165,7 @@ class NotRecieved extends StatelessWidget {
               } else {
                 return Center(
                   child: Lottie.asset("asstes/lottie/loading.json",
-                          fit: BoxFit.contain, width: 144, height: 144),
+                      fit: BoxFit.contain, width: 144, height: 144),
                 );
               }
             }),

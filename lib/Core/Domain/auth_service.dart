@@ -3,9 +3,7 @@ import 'dart:io';
 // import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:mufraty_app/Core/Config/getHeader.dart';
+
 import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/Core/Data/cities_model.dart';
 import 'package:mufraty_app/Core/Data/login_model.dart';

@@ -358,9 +358,12 @@ class _OrderState extends State<Order> {
                                             ),
                                             ListOfOption(
                                               widget1: SubTitle3(
-                                                text:
-                                                    // {bill.additional_price + bill.total_price_after_discount}
-                                                    "إجمالي الفاتورة:${result}",
+                                                text: widget.bill.has_coupon ==
+                                                        true
+                                                    ? "السعر بعد الخصم: ${result - widget.bill.coupon_discount_value}\n السعر قبل الخصم: $result\n كود الخصم: ${widget.bill.coupon_code}"
+                                                    : "الإجمالي: $result",
+                                                // {bill.additional_price + bill.total_price_after_discount}
+                                                // "إجمالي الفاتورة:${result}",
                                               ),
                                               text2:
                                                   "طريقة الدفع:${widget.bill.payment_method}",

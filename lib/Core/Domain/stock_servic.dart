@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:mufraty_app/Core/Config/getHeader.dart';
+
 import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/Core/Data/add_offer_model.dart';
@@ -14,7 +14,6 @@ import 'package:mufraty_app/Core/Data/products_model.dart';
 import 'package:mufraty_app/Core/Data/update_offer_model.dart';
 import 'package:mufraty_app/Core/Domain/base_service.dart';
 import 'package:mufraty_app/Core/Resourse/URL.dart';
-import 'package:mufraty_app/feature/Home/Stock/Warehouse/bloc/products_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 abstract class StockServic extends DioClient {
   Future<List<ProductsModel>> getAllProduct(String lable);

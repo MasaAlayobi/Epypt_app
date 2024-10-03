@@ -12,12 +12,16 @@ import 'package:mufraty_app/Core/Config/widget/myButton.dart';
 import 'package:mufraty_app/Core/Config/widget/myContainer.dart';
 import 'package:mufraty_app/Core/Config/widget/myTextField.dart';
 import 'package:mufraty_app/Core/Config/widget/myTextFieldNumber.dart';
+import 'package:mufraty_app/Core/Config/widget/state_manage_element.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
+import 'package:mufraty_app/Core/functions/send_whatsapp_message.dart';
+import 'package:mufraty_app/Core/functions/show_snack_bar.dart';
+import 'package:mufraty_app/feature/brebaring/widgets/container_of_count_of_new_bill.dart';
+import 'package:mufraty_app/feature/fatora/new_fatora/mobile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mufraty_app/Core/data/reasonReject.dart';
 import 'package:mufraty_app/Core/data/recivePrice.dart';
 import 'package:mufraty_app/feature/brebaring/bloc/brebaring_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Brebaring extends StatelessWidget {
   Brebaring({super.key});
@@ -26,33 +30,6 @@ class Brebaring extends StatelessWidget {
   @override
   String? selectedValue;
   Widget build(BuildContext context) {
-    void sendWhatsAppMessage(String storeName, int billID, String? token,
-        String? phoneNumber) async {
-      String NewStoreName = storeName.replaceAll(" ", "-");
-      String message =
-          "https://almowafraty.com/#/bills/$NewStoreName/$billID/$token";
-      print(message);
-      print(billID);
-      print(storeName);
-      print(NewStoreName);
-      print(token);
-      String url = "whatsapp://send?phone=$phoneNumber" +
-          "&text=${Uri.encodeComponent(message)}";
-      Uri launcher = Uri.parse(url);
-      try {
-        if (phoneNumber == null ||
-            phoneNumber.isEmpty ||
-            phoneNumber.length < 10) {
-          debugPrint("Invalid phone number");
-          return;
-        } else {
-          launchUrl(launcher);
-        }
-      } catch (e) {
-        debugPrint(e.toString());
-      }
-    }
-
     double heightSize = MediaQuery.of(context).size.height;
 
     double widthSize = MediaQuery.of(context).size.width;
@@ -83,54 +60,10 @@ class Brebaring extends StatelessWidget {
                                   height: 77,
                                   color: Color.fromARGB(255, 247, 196, 192),
                                   borderRaduis: BorderRadius.circular(12),
-                                  myWidget: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Center(
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.question_mark_sharp,
-                                            color: ColorManager().red,
-                                            size: 40,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              RichText(
-                                                  text: TextSpan(children: [
-                                                TextSpan(
-                                                    text: " لديك ",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 19)),
-                                                TextSpan(
-                                                    text: state
-                                                        .allBills.New_bill_count
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        color:
-                                                            ColorManager().red,
-                                                        fontSize: 19,
-                                                        fontWeight:
-                                                            FontWeight.w700)),
-                                                TextSpan(
-                                                    text: " فاتورة في النظام ",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 19)),
-                                              ])),
-                                              Text(
-                                                " قم بمراجعة فواتيرك ",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 19),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                                  myWidget: ContainerOfCountOfNewBill(
+                                    countOfNewBill: state
+                                        .allBills.New_bill_count
+                                        .toString(),
                                   ),
                                   border:
                                       Border.all(color: ColorManager().grey2),
@@ -164,24 +97,6 @@ class Brebaring extends StatelessWidget {
 
                                             sendWhatsAppMessage(storeName,
                                                 billID, token, phoneNumber);
-                                            // final url = 'https://wa.me/967$phone?text=$message';
-                                            // var whatsappUrl = Uri.parse(
-                                            //     "'https://wa.me/phone=+201013244640?text=hellvbo");
-                                            // try {
-                                            //   launchUrl(whatsappUrl);
-                                            // } catch (e) {
-                                            //   debugPrint(e.toString());
-                                            // }
-                                            // String message =
-                                            //     "Hello, I am from $storeName with ID  and token $token";
-                                            // String url =
-                                            //     "https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}";
-
-                                            // try {
-                                            //   launchUrl(Uri.parse(url));
-                                            // } catch (e) {
-                                            //   debugPrint(e.toString());
-                                            // }
                                           },
                                           colors: ColorManager().green,
                                           width: MediaQuery.of(context)
@@ -283,22 +198,10 @@ class Brebaring extends StatelessWidget {
                                                                                 BrebaringState>(
                                                                               listener: (context, state) {
                                                                                 if (state is SuccessCombleteRecieve) {
-                                                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                                      duration: Duration(seconds: 3),
-                                                                                      backgroundColor: ColorManager().green,
-                                                                                      content: SizedBox(
-                                                                                        height: 50,
-                                                                                        child: Center(child: SubTitle3(text: "تم استلام الفاتورة ")),
-                                                                                      )));
+                                                                                  showSnackBar(context, "تم استلام الفاتورة ", ColorManager().green);
                                                                                   GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
                                                                                 } else if (state is FailedCombleteRecieve) {
-                                                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                                      duration: Duration(seconds: 3),
-                                                                                      backgroundColor: ColorManager().red,
-                                                                                      content: SizedBox(
-                                                                                        height: 50,
-                                                                                        child: Center(child: SubTitle3(text: "تحقق من صحة المعلومات المدخلة")),
-                                                                                      )));
+                                                                                  showSnackBar(context, "تحقق من صحة المعلومات المدخلة", ColorManager().red);
                                                                                 }
                                                                               },
                                                                               child: MyButton(
@@ -309,10 +212,10 @@ class Brebaring extends StatelessWidget {
                                                                                     });
                                                                                     if (totalPrice.text.isEmpty) {
                                                                                       GoRouter.of(context).pop();
-                                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
+                                                                                      showSnackBar(context, "لا يمكن ترك الحقل فارغ", ColorManager().red);
                                                                                     } else if (num.tryParse(totalPrice.text)! > (state.oneBill[index].total_price_after_discount + state.oneBill[index].additional_price)) {
                                                                                       GoRouter.of(context).pop();
-                                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "  لا يمكن ان يكون المبلغ المدفوع اعلى من السعر الإجمالي للفاتورة")))));
+                                                                                      showSnackBar(context, "  لا يمكن ان يكون المبلغ المدفوع اعلى من السعر الإجمالي للفاتورة", ColorManager().red);
                                                                                     } else {
                                                                                       BlocProvider.of<BrebaringBloc>(context).add(CombleteReceive(reason: RecivePriceBill(recieved_price: int.parse(totalPrice.text)), id: state.oneBill[index].id));
                                                                                     }
@@ -429,7 +332,7 @@ class Brebaring extends StatelessWidget {
                                                                                     });
                                                                                     if (reasonOfCancel.text.isEmpty) {
                                                                                       GoRouter.of(context).pop();
-                                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: Duration(seconds: 3), backgroundColor: ColorManager().red, content: SizedBox(height: 50, child: Center(child: SubTitle3(text: "لا يمكن ترك الحقل فارغ")))));
+                                                                                      showSnackBar(context, "لا يمكن ترك الحقل فارغ", ColorManager().red);
                                                                                     } else {
                                                                                       context.read<BrebaringBloc>().add(CancelRecieve(reason: Reason(rejection_reason: reasonOfCancel.text), id: state.oneBill[index].id));
                                                                                     }
@@ -487,8 +390,10 @@ class Brebaring extends StatelessWidget {
                                           "عدد الأصناف: ${state.oneBill[index].products.length}",
                                       text6:
                                           "طريقة الدفع: ${state.oneBill[index].payment_method}",
-                                      text7:
-                                          "الإجمالي: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}",
+                                      text7: state.oneBill[index].has_coupon ==
+                                              true
+                                          ? "السعر بعد الخصم: ${state.oneBill[index].total_price}\n السعر قبل الخصم: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}\n كود الخصم: ${state.oneBill[index].coupon_code}"
+                                          : "الإجمالي: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}",
                                     );
                                   }))),
                         ],
@@ -536,28 +441,15 @@ class Brebaring extends StatelessWidget {
                       ],
                     );
                   } else if (state is NoConnectionWithGet) {
-                    return Column(
-                      children: [
-                        Center(
-                          child: Image.asset(
-                            "asstes/images/internet.png",
-                            width: widthSize / 2,
-                            height: heightSize / 2,
-                          ),
-                        ),
-                        Center(
-                            child: Text(
-                          state.message ==
-                                  'Null check operator used on a null value'
-                              ? "لقد انقطع الاتصال بالانترنت"
-                              : state.message,
-                          style: TextStyle(
-                              color: ColorManager().red,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700),
-                        ))
-                      ],
-                    );
+                    return noInterentElement(
+                        onRefresh: () async {
+                          context
+                              .read<BrebaringBloc>()
+                              .add(GetAllDataBrebaring());
+                        },
+                        messageFromState: state.message,
+                        widthSize: widthSize,
+                        heightSize: heightSize);
                   } else {
                     return Center(
                       child: Lottie.asset("asstes/lottie/loading.json",
@@ -573,3 +465,23 @@ class Brebaring extends StatelessWidget {
     );
   }
 }
+
+
+ // final url = 'https://wa.me/967$phone?text=$message';
+                                            // var whatsappUrl = Uri.parse(
+                                            //     "'https://wa.me/phone=+201013244640?text=hellvbo");
+                                            // try {
+                                            //   launchUrl(whatsappUrl);
+                                            // } catch (e) {
+                                            //   debugPrint(e.toString());
+                                            // }
+                                            // String message =
+                                            //     "Hello, I am from $storeName with ID  and token $token";
+                                            // String url =
+                                            //     "https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}";
+
+                                            // try {
+                                            //   launchUrl(Uri.parse(url));
+                                            // } catch (e) {
+                                            //   debugPrint(e.toString());
+                                            // }

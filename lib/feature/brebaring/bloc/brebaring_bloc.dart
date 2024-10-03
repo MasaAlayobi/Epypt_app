@@ -48,7 +48,7 @@ class BrebaringBloc extends Bloc<BrebaringEvent, BrebaringState> {
         var data = AllBillsWithReason.fromMap(response);
         List<BillWithReason> listbill = List.generate(response["bills"].length,
             (index) => BillWithReason.fromMap(response["bills"][index]));
-        // List<PaymentMethod> payment= List.generate(listbill.length, (index) => );
+       
 
         if (listbill.isNotEmpty) {
           emit(SuccessGetData(allBills: data, oneBill: listbill));

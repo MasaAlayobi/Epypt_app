@@ -107,7 +107,7 @@ class CombleteDelivery extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     return CardOfFatora(
                                       text1:
-                                          "${state.oneBill[index].market.store_name}-${state.oneBill[index].market.location_details}",
+                                          "${state.oneBill[index].market.store_name}",
                                       text2:
                                           state.oneBill[index].market.city_name,
                                       text3: state
@@ -119,7 +119,9 @@ class CombleteDelivery extends StatelessWidget {
                                       text6:
                                           "طريقة الدفع: ${state.oneBill[index].payment_method}",
                                       text7:
-                                          "الإجمالي: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}",
+                                          state.oneBill[index].has_coupon == true
+                                    ? "السعر بعد الخصم: ${state.oneBill[index].total_price}\n السعر قبل الخصم: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}\n كود الخصم: ${state.oneBill[index].coupon_code}"
+                                    : "الإجمالي: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}",
                                       text8:
                                           "سعر التسليم:  ${state.oneBill[index].recieved_price}",
                                     );

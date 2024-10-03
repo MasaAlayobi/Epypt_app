@@ -35,7 +35,7 @@ class SubTitle3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      maxLines: 4,
+      maxLines: 8,
       // softWrap: true,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: color),
