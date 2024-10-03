@@ -453,6 +453,161 @@ class _AvailablePageState extends State<AvailablePage> {
                                                           FontWeight.w700,
                                                       maxLines: 2),
                                                 ),
+                                                Expanded(child: SizedBox()),
+                                                Center(
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return BlocProvider(
+                                                            create: (context) =>
+                                                                AvailableProductsBloc(),
+                                                            child: Builder(
+                                                                builder:
+                                                                    (context) {
+                                                              return Directionality(
+                                                                textDirection:
+                                                                    TextDirection
+                                                                        .rtl,
+                                                                child:
+                                                                    AlertDialog(
+                                                                  content:
+                                                                      SingleChildScrollView(
+                                                                    child: BlocListener<
+                                                                        AvailableProductsBloc,
+                                                                        AvailableProductsState>(
+                                                                      listener:
+                                                                          (context,
+                                                                              state) {
+                                                                        if (state
+                                                                            is successAddNotAvailable) {
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(new SnackBar(
+                                                                            content:
+                                                                                Text(state.message),
+                                                                            backgroundColor:
+                                                                                colorApp.greenColor,
+                                                                          ));
+                                                                          GoRouter.of(context)
+                                                                              .pushReplacement(AppRouter.kHomeViewStock);
+                                                                        } else if (state
+                                                                            is NoConnectionAddProduct) {
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(new SnackBar(
+                                                                            content:
+                                                                                Text(state.message),
+                                                                            backgroundColor:
+                                                                                colorApp.basicColor,
+                                                                          ));
+                                                                          GoRouter.of(context)
+                                                                              .pushReplacement(AppRouter.kHomeViewStock);
+                                                                        }
+                                                                      },
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(10.0),
+                                                                            child:
+                                                                                Text('هل أنت متأكد من نقل المنتج إلى الغير متاح؟', style: TextStyle(color: colorApp.blackColor, fontSize: 15, fontWeight: FontWeight.w700)),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  actions: <Widget>[
+                                                                    TextButton(
+                                                                      child: Text(
+                                                                          'موافق',
+                                                                          style:
+                                                                              TextStyle(color: colorApp.greenColor)),
+                                                                      onPressed:
+                                                                          () {
+                                                                        context.read<AvailableProductsBloc>().add(AddNotAvailable(
+                                                                            id: state.allProduct[index].pivot.id,
+                                                                            is_available: 0));
+                                                                      },
+                                                                    ),
+                                                                    TextButton(
+                                                                      child:
+                                                                          Text(
+                                                                        'رجوع',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                colorApp.basicColor),
+                                                                      ),
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                      },
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            }),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      width: 18,
+                                                      height: 18,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    252,
+                                                                    227,
+                                                                    5),
+                                                            width: 1.8),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2),
+                                                        color: state
+                                                                    .allProduct[
+                                                                        index]
+                                                                    .pivot
+                                                                    .is_available ==
+                                                                0
+                                                            ? colorApp
+                                                                .basicColor
+                                                            : colorApp
+                                                                .whiteColor,
+                                                      ),
+                                                      child: state
+                                                                  .allProduct[
+                                                                      index]
+                                                                  .pivot
+                                                                  .is_available ==
+                                                              0
+                                                          ? Icon(Icons.check,
+                                                              size: 16,
+                                                              color:
+                                                                  Colors.white)
+                                                          : null,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 5,left: 8),
+                                                  child: CustomText(
+                                                      text: ' غير متاح',
+                                                      size: 13,
+                                                      color: colorApp.blackColor,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      maxLines: 2),
+                                                ),
                                               ],
                                             ),
                                             if (state.allProduct[index].pivot
@@ -766,168 +921,15 @@ class _AvailablePageState extends State<AvailablePage> {
                                             // SizedBox(
                                             //   height: 0,
                                             // ),
-                                            Row(
-                                              children: [
-                                                // Checkbox(value: true, onChanged:),
-                                                Center(
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return BlocProvider(
-                                                            create: (context) =>
-                                                                AvailableProductsBloc(),
-                                                            child: Builder(
-                                                                builder:
-                                                                    (context) {
-                                                              return Directionality(
-                                                                textDirection:
-                                                                    TextDirection
-                                                                        .rtl,
-                                                                child:
-                                                                    AlertDialog(
-                                                                  content:
-                                                                      SingleChildScrollView(
-                                                                    child: BlocListener<
-                                                                        AvailableProductsBloc,
-                                                                        AvailableProductsState>(
-                                                                      listener:
-                                                                          (context,
-                                                                              state) {
-                                                                        if (state
-                                                                            is successAddNotAvailable) {
-                                                                          ScaffoldMessenger.of(context)
-                                                                              .showSnackBar(new SnackBar(
-                                                                            content:
-                                                                                Text(state.message),
-                                                                            backgroundColor:
-                                                                                colorApp.greenColor,
-                                                                          ));
-                                                                          GoRouter.of(context)
-                                                                              .pushReplacement(AppRouter.kHomeViewStock);
-                                                                        } else if (state
-                                                                            is NoConnectionAddProduct) {
-                                                                          ScaffoldMessenger.of(context)
-                                                                              .showSnackBar(new SnackBar(
-                                                                            content:
-                                                                                Text(state.message),
-                                                                            backgroundColor:
-                                                                                colorApp.basicColor,
-                                                                          ));
-                                                                          GoRouter.of(context)
-                                                                              .pushReplacement(AppRouter.kHomeViewStock);
-                                                                        }
-                                                                      },
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceEvenly,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(10.0),
-                                                                            child:
-                                                                                Text('هل أنت متأكد من نقل المنتج إلى الغير متاح؟', style: TextStyle(color: colorApp.blackColor, fontSize: 15, fontWeight: FontWeight.w700)),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  actions: <Widget>[
-                                                                    TextButton(
-                                                                      child: Text(
-                                                                          'موافق',
-                                                                          style:
-                                                                              TextStyle(color: colorApp.greenColor)),
-                                                                      onPressed:
-                                                                          () {
-                                                                        context.read<AvailableProductsBloc>().add(AddNotAvailable(
-                                                                            id: state.allProduct[index].pivot.id,
-                                                                            is_available: 0));
-                                                                      },
-                                                                    ),
-                                                                    TextButton(
-                                                                      child:
-                                                                          Text(
-                                                                        'رجوع',
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                colorApp.basicColor),
-                                                                      ),
-                                                                      onPressed:
-                                                                          () {
-                                                                        Navigator.of(context)
-                                                                            .pop();
-                                                                      },
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            }),
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                    child: Container(
-                                                      width: 18,
-                                                      height: 18,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    252,
-                                                                    227,
-                                                                    5),
-                                                            width: 1.8),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(2),
-                                                        color: state
-                                                                    .allProduct[
-                                                                        index]
-                                                                    .pivot
-                                                                    .is_available ==
-                                                                0
-                                                            ? colorApp
-                                                                .basicColor
-                                                            : colorApp
-                                                                .whiteColor,
-                                                      ),
-                                                      child: state
-                                                                  .allProduct[
-                                                                      index]
-                                                                  .pivot
-                                                                  .is_available ==
-                                                              0
-                                                          ? Icon(Icons.check,
-                                                              size: 16,
-                                                              color:
-                                                                  Colors.white)
-                                                          : null,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 10),
-                                                  child: CustomText(
-                                                      text: 'منتج غير متاح',
-                                                      size: 13,
-                                                      color: colorApp.greyColor,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      maxLines: 2),
-                                                ),
-                                                Expanded(child: SizedBox()),
+                                            // Row(
+                                            //   children: [
+                                            //     // Checkbox(value: true, onChanged:),
+                                                
+                                            //     Expanded(child: SizedBox()),
 
                                                
-                                              ],
-                                            ),
+                                            //   ],
+                                            // ),
                                           ],
                                         ),
                                       )
