@@ -21,7 +21,6 @@ class Fatora extends StatelessWidget {
         initialIndex: initIndex,
         length: 5,
         child: Scaffold(
-      
           body: Column(
             children: [
               Container(

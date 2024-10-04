@@ -294,8 +294,8 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                 text6:
                                     "طريقة الدفع: ${state.allBills[index].payment_method}",
                                 text7: state.allBills[index].has_coupon == true
-                                    ? "السعر بعد الخصم: ${state.allBills[index].total_price}\n السعر قبل الخصم: ${state.allBills[index].additional_price + state.allBills[index].total_price_after_discount}\n كود الخصم: ${state.allBills[index].coupon_code}"
-                                    : "الإجمالي: ${state.allBills[index].additional_price + state.allBills[index].total_price_after_discount}",
+                                    ? "الإجمالي: ${state.allBills[index].total_price}\nقيمة الخصم: ${state.allBills[index].coupon_discount_value}\nالإجمالي بعد الخصم: ${state.allBills[index].additional_price + state.allBills[index].total_price_after_discount}"
+                                    : "الإجمالي: ${state.allBills[index].total_price}",
                               );
                             },
                           )),

@@ -119,9 +119,9 @@ class CombleteDelivery extends StatelessWidget {
                                       text6:
                                           "طريقة الدفع: ${state.oneBill[index].payment_method}",
                                       text7:
-                                          state.oneBill[index].has_coupon == true
-                                    ? "السعر بعد الخصم: ${state.oneBill[index].total_price}\n السعر قبل الخصم: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}\n كود الخصم: ${state.oneBill[index].coupon_code}"
-                                    : "الإجمالي: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}",
+                                       state.oneBill[index].has_coupon == true
+                                    ? "الإجمالي: ${state.oneBill[index].total_price}\nقيمة الخصم: ${state.oneBill[index].coupon_discount_value}\nالإجمالي بعد الخصم: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}"
+                                    : "الإجمالي: ${state.oneBill[index].total_price}",
                                       text8:
                                           "سعر التسليم:  ${state.oneBill[index].recieved_price}",
                                     );

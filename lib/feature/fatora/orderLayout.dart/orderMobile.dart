@@ -342,293 +342,268 @@ class _OrderState extends State<Order> {
                                     ],
                                   ),
                                   if (index == widget.bill.products.length - 1)
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              3.3,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: [
-                                            Divider(
-                                              thickness: 0.4,
-                                              color: ColorManager().grey2,
-                                              indent: 33,
-                                              endIndent: 33,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          Divider(
+                                            thickness: 0.4,
+                                            color: ColorManager().grey2,
+                                            indent: 33,
+                                            endIndent: 33,
+                                          ),
+                                          ListOfOption(
+                                            widget1: SubTitle3(
+                                              text: widget.bill.has_coupon ==
+                                                      true
+                                                  ? "الإجمالي: $result\nقيمة الخصم: ${widget.bill.coupon_discount_value}\nالإجمالي بعد الخصم: ${result - widget.bill.coupon_discount_value}"
+                                                  : "الإجمالي: $result",
+                                              // {bill.additional_price + bill.total_price_after_discount}
+                                              // "إجمالي الفاتورة:${result}",
                                             ),
-                                            ListOfOption(
-                                              widget1: SubTitle3(
-                                                text: widget.bill.has_coupon ==
-                                                        true
-                                                    ? "السعر بعد الخصم: ${result - widget.bill.coupon_discount_value}\n السعر قبل الخصم: $result\n كود الخصم: ${widget.bill.coupon_code}"
-                                                    : "الإجمالي: $result",
-                                                // {bill.additional_price + bill.total_price_after_discount}
-                                                // "إجمالي الفاتورة:${result}",
-                                              ),
-                                              text2:
-                                                  "طريقة الدفع:${widget.bill.payment_method}",
-                                              text3:
-                                                  "ملاحظات:${widget.bill.market_note}",
-                                              heightOfText1:
-                                                  MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      25,
-                                              widthOfText1:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                              widthOfText2:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                              heightOfText2:
-                                                  MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      25,
-                                              widthOfText3:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                              heightOfText3:
-                                                  MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      25,
-                                              heightOfText4: 1,
-                                              widthOfText4: 1,
-                                              heightOfText5: 1,
-                                              widthOfText5: 1,
-                                            ),
-                                            MyButtonWidget(
-                                                widget: const Text(
-                                                  "قبول الفاتورة",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 16,
-                                                  ),
+                                            text2:
+                                                "طريقة الدفع: ${widget.bill.payment_method}",
+                                            text3:
+                                                "ملاحظات: ${widget.bill.market_note}",
+                                            heightOfText4: 1,
+                                            widthOfText4: 1,
+                                            heightOfText5: 1,
+                                            widthOfText5: 1,
+                                          ),
+                                          MyButtonWidget(
+                                              widget: const Text(
+                                                "قبول الفاتورة",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16,
                                                 ),
-                                                onpress: () {
-                                                  showModalBottomSheet(
-                                                    enableDrag: true,
-                                                    scrollControlDisabledMaxHeightRatio:
-                                                        9,
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        BlocProvider(
-                                                      create: (context) =>
-                                                          UpdateBillTimeBloc(),
-                                                      child: Builder(
-                                                          builder: (context) {
-                                                        return Directionality(
-                                                          textDirection:
-                                                              TextDirection.rtl,
+                                              ),
+                                              onpress: () {
+                                                showModalBottomSheet(
+                                                  enableDrag: true,
+                                                  scrollControlDisabledMaxHeightRatio:
+                                                      9,
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      BlocProvider(
+                                                    create: (context) =>
+                                                        UpdateBillTimeBloc(),
+                                                    child: Builder(
+                                                        builder: (context) {
+                                                      return Directionality(
+                                                        textDirection:
+                                                            TextDirection.rtl,
+                                                        child: SizedBox(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height /
+                                                              1.7,
                                                           child: SizedBox(
                                                             height: MediaQuery.of(
                                                                         context)
                                                                     .size
                                                                     .height /
-                                                                1.7,
-                                                            child: SizedBox(
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height /
-                                                                  2.2,
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        12.0),
-                                                                child: StatefulBuilder(
-                                                                    builder:
-                                                                        (context,
-                                                                            setState) {
-                                                                  return Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(
-                                                                            12.0),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceAround,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        Row(
+                                                                2.2,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(
+                                                                      12.0),
+                                                              child: StatefulBuilder(
+                                                                  builder: (context,
+                                                                      setState) {
+                                                                return Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(
+                                                                          12.0),
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceAround,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          SubTitle2(
+                                                                            text:
+                                                                                "تأكيد توصيل الفاتورة؟",
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      SubTitle2(
+                                                                          text:
+                                                                              "${month.toString()}/${day.toString()}/ ${year.toString()}"),
+                                                                      RadioListTile(
+                                                                          activeColor: ColorManager()
+                                                                              .red,
+                                                                          title:
+                                                                              Text(
+                                                                            "نفس اليوم",
+                                                                            style:
+                                                                                TextStyle(color: ColorManager().grey1),
+                                                                          ),
+                                                                          value:
+                                                                              "نفس اليوم",
+                                                                          groupValue:
+                                                                              date,
+                                                                          onChanged:
+                                                                              (val) {
+                                                                            setState(() {
+                                                                              date = val;
+                                                                            });
+                                                                          }),
+                                                                      RadioListTile(
+                                                                          activeColor: ColorManager()
+                                                                              .red,
+                                                                          title:
+                                                                              Text(
+                                                                            "خلال 24 ساعة",
+                                                                            style:
+                                                                                TextStyle(color: ColorManager().grey1),
+                                                                          ),
+                                                                          value:
+                                                                              "خلال 24 ساعة",
+                                                                          groupValue:
+                                                                              date,
+                                                                          onChanged:
+                                                                              (val) {
+                                                                            setState(() {
+                                                                              date = val;
+                                                                            });
+                                                                          }),
+                                                                      RadioListTile(
+                                                                          activeColor: ColorManager()
+                                                                              .red,
+                                                                          title:
+                                                                              Text(
+                                                                            "خلال 48 ساعة",
+                                                                            style:
+                                                                                TextStyle(color: ColorManager().grey1),
+                                                                          ),
+                                                                          value:
+                                                                              "خلال 48 ساعة",
+                                                                          groupValue:
+                                                                              date,
+                                                                          onChanged:
+                                                                              (val) {
+                                                                            setState(() {
+                                                                              date = val;
+                                                                            });
+                                                                          }),
+                                                                      BlocListener<
+                                                                          UpdateBillTimeBloc,
+                                                                          UpdateBillTimeState>(
+                                                                        listener:
+                                                                            (context,
+                                                                                state) {
+                                                                          if (state is SuccessSendUpdateWithTime &&
+                                                                              state.message ==
+                                                                                  "تم تحديث الفاتورة بنجاح") {
+                                                                            print("update fatora");
+                                                                            print(state.message);
+                                                                            GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
+
+                                                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                duration: Duration(seconds: 3),
+                                                                                backgroundColor: ColorManager().green,
+                                                                                content: SizedBox(
+                                                                                  height: 50,
+                                                                                  child: Center(child: SubTitle3(text: "تم تحديث الفاتورة")),
+                                                                                )));
+                                                                          } else if (state is SuccessSendUpdateWithTime &&
+                                                                              state.message !=
+                                                                                  "تم تحديث الفاتورة بنجاح") {
+                                                                            print("not update fatora");
+                                                                            print(state.message);
+                                                                            GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
+                                                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                duration: Duration(seconds: 3),
+                                                                                backgroundColor: ColorManager().red,
+                                                                                content: SizedBox(
+                                                                                  height: 50,
+                                                                                  child: Center(child: SubTitle3(text: state.message)),
+                                                                                )));
+                                                                          } else if (state
+                                                                              is FailedSendUpdateWithTime) {
+                                                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                duration: Duration(seconds: 3),
+                                                                                backgroundColor: ColorManager().green,
+                                                                                content: SizedBox(
+                                                                                  height: 50,
+                                                                                  child: Center(child: SubTitle3(text: "لم يتم تحديث الفاتورة")),
+                                                                                )));
+                                                                            Navigator.pushReplacement(
+                                                                              context,
+                                                                              MaterialPageRoute(
+                                                                                builder: (context) => Fatora(initIndex: 0),
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                        },
+                                                                        child:
+                                                                            Row(
                                                                           mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceBetween,
+                                                                              MainAxisAlignment.spaceAround,
                                                                           children: [
-                                                                            SubTitle2(
-                                                                              text: "تأكيد توصيل الفاتورة؟",
-                                                                            ),
+                                                                            MyButton(
+                                                                                title: "قبول الفاتورة",
+                                                                                onpress: () {
+                                                                                  for (var i = 0; i < counter.length; i++) {
+                                                                                    list[i]['quantity'] = counter[i];
+                                                                                    print(counter[i]);
+                                                                                  }
+                                                                                  print("____________________________________________________");
+
+                                                                                  print(list);
+
+                                                                                  context.read<UpdateBillTimeBloc>().add(SendDate(id: widget.bill.id, update: list, delivery: date.toString()));
+                                                                                },
+                                                                                colors: ColorManager().green,
+                                                                                width: MediaQuery.of(context).size.width / 3,
+                                                                                height: 55,
+                                                                                radius: 9),
+                                                                            MyButton(
+                                                                                title: " الغاء",
+                                                                                onpress: () {
+                                                                                  GoRouter.of(context).pop();
+                                                                                },
+                                                                                colors: ColorManager().red,
+                                                                                width: MediaQuery.of(context).size.width / 3,
+                                                                                height: 55,
+                                                                                radius: 9),
                                                                           ],
                                                                         ),
-                                                                        SubTitle2(
-                                                                            text:
-                                                                                "${month.toString()}/${day.toString()}/ ${year.toString()}"),
-                                                                        RadioListTile(
-                                                                            activeColor: ColorManager()
-                                                                                .red,
-                                                                            title:
-                                                                                Text(
-                                                                              "نفس اليوم",
-                                                                              style: TextStyle(color: ColorManager().grey1),
-                                                                            ),
-                                                                            value:
-                                                                                "نفس اليوم",
-                                                                            groupValue:
-                                                                                date,
-                                                                            onChanged:
-                                                                                (val) {
-                                                                              setState(() {
-                                                                                date = val;
-                                                                              });
-                                                                            }),
-                                                                        RadioListTile(
-                                                                            activeColor: ColorManager()
-                                                                                .red,
-                                                                            title:
-                                                                                Text(
-                                                                              "خلال 24 ساعة",
-                                                                              style: TextStyle(color: ColorManager().grey1),
-                                                                            ),
-                                                                            value:
-                                                                                "خلال 24 ساعة",
-                                                                            groupValue:
-                                                                                date,
-                                                                            onChanged:
-                                                                                (val) {
-                                                                              setState(() {
-                                                                                date = val;
-                                                                              });
-                                                                            }),
-                                                                        RadioListTile(
-                                                                            activeColor: ColorManager()
-                                                                                .red,
-                                                                            title:
-                                                                                Text(
-                                                                              "خلال 48 ساعة",
-                                                                              style: TextStyle(color: ColorManager().grey1),
-                                                                            ),
-                                                                            value:
-                                                                                "خلال 48 ساعة",
-                                                                            groupValue:
-                                                                                date,
-                                                                            onChanged:
-                                                                                (val) {
-                                                                              setState(() {
-                                                                                date = val;
-                                                                              });
-                                                                            }),
-                                                                        BlocListener<
-                                                                            UpdateBillTimeBloc,
-                                                                            UpdateBillTimeState>(
-                                                                          listener:
-                                                                              (context, state) {
-                                                                            if (state is SuccessSendUpdateWithTime &&
-                                                                                state.message == "تم تحديث الفاتورة بنجاح") {
-                                                                              print("update fatora");
-                                                                              print(state.message);
-                                                                              GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
-
-                                                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                                  duration: Duration(seconds: 3),
-                                                                                  backgroundColor: ColorManager().green,
-                                                                                  content: SizedBox(
-                                                                                    height: 50,
-                                                                                    child: Center(child: SubTitle3(text: "تم تحديث الفاتورة")),
-                                                                                  )));
-                                                                            } else if (state is SuccessSendUpdateWithTime && state.message != "تم تحديث الفاتورة بنجاح") {
-                                                                              print("not update fatora");
-                                                                              print(state.message);
-                                                                              GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
-                                                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                                  duration: Duration(seconds: 3),
-                                                                                  backgroundColor: ColorManager().red,
-                                                                                  content: SizedBox(
-                                                                                    height: 50,
-                                                                                    child: Center(child: SubTitle3(text: state.message)),
-                                                                                  )));
-                                                                            } else if (state is FailedSendUpdateWithTime) {
-                                                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                                  duration: Duration(seconds: 3),
-                                                                                  backgroundColor: ColorManager().green,
-                                                                                  content: SizedBox(
-                                                                                    height: 50,
-                                                                                    child: Center(child: SubTitle3(text: "لم يتم تحديث الفاتورة")),
-                                                                                  )));
-                                                                              Navigator.pushReplacement(
-                                                                                context,
-                                                                                MaterialPageRoute(
-                                                                                  builder: (context) => Fatora(initIndex: 0),
-                                                                                ),
-                                                                              );
-                                                                            }
-                                                                          },
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceAround,
-                                                                            children: [
-                                                                              MyButton(
-                                                                                  title: "قبول الفاتورة",
-                                                                                  onpress: () {
-                                                                                    for (var i = 0; i < counter.length; i++) {
-                                                                                      list[i]['quantity'] = counter[i];
-                                                                                      print(counter[i]);
-                                                                                    }
-                                                                                    print("____________________________________________________");
-
-                                                                                    print(list);
-
-                                                                                    context.read<UpdateBillTimeBloc>().add(SendDate(id: widget.bill.id, update: list, delivery: date.toString()));
-                                                                                  },
-                                                                                  colors: ColorManager().green,
-                                                                                  width: MediaQuery.of(context).size.width / 3,
-                                                                                  height: 55,
-                                                                                  radius: 9),
-                                                                              MyButton(
-                                                                                  title: " الغاء",
-                                                                                  onpress: () {
-                                                                                    GoRouter.of(context).pop();
-                                                                                  },
-                                                                                  colors: ColorManager().red,
-                                                                                  width: MediaQuery.of(context).size.width / 3,
-                                                                                  height: 55,
-                                                                                  radius: 9),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  );
-                                                                }),
-                                                              ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                );
+                                                              }),
                                                             ),
                                                           ),
-                                                        );
-                                                      }),
-                                                    ),
-                                                  );
-                                                },
-                                                colors: ColorManager().green,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.8,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    16,
-                                                radius: 7),
-                                          ],
-                                        ),
+                                                        ),
+                                                      );
+                                                    }),
+                                                  ),
+                                                );
+                                              },
+                                              colors: ColorManager().green,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  1.8,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  16,
+                                              radius: 7),
+                                        ],
                                       ),
                                     ),
                                 ],
