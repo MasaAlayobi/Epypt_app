@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -14,7 +15,6 @@ import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
 import 'package:mufraty_app/Core/Config/widget/myButton.dart';
 import 'package:mufraty_app/Core/Config/widget/myTextField.dart';
 import 'package:mufraty_app/Core/Config/widget/state_manage_element.dart';
-import 'package:mufraty_app/Core/Domain/billService.dart';
 import 'package:mufraty_app/Core/functions/send_whatsapp_message.dart';
 import 'package:mufraty_app/Core/functions/show_snack_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,11 +22,8 @@ import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/Core/data/reasonReject.dart';
 
 import 'package:mufraty_app/feature/fatora/new_fatora/bloc/new_bill_bloc.dart';
-import 'package:mufraty_app/feature/fatora/new_fatora/save_file_fun.dart';
+
 import 'package:mufraty_app/feature/fatora/orderLayout.dart/orderMobile.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class Mobile_fatora extends StatefulWidget {
   Mobile_fatora({
@@ -195,7 +192,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                                                                 GoRouter.of(context).pop();
                                                                                 showSnackBar(context, "لا يمكن ترك الحقل فارغ", ColorManager().red);
                                                                               } else {
-                                                                                context.read<NewBillBloc>().add(SendReason(idBill: state.allBills[index].id, reason: Reason(rejection_reason: cancelOfSend.text)));
+                                                                                context.read<NewBillBloc>().add(SendReason(idBill: state.allBills[index].id.toInt(), reason: Reason(rejection_reason: cancelOfSend.text)));
                                                                               }
                                                                             },
                                                                             colors: ColorManager().green,
@@ -272,8 +269,8 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                       var phoneNumber = storage
                                           .get<SharedPreferences>()
                                           .getString("phoneNumber");
-                                      sendWhatsAppMessage(storeName, billID,
-                                          token, phoneNumber);
+                                      sendWhatsAppMessage(storeName,
+                                          billID.toInt(), token, phoneNumber);
                                     },
                                     colors: ColorManager().green,
                                     width:
@@ -296,7 +293,10 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                 text7: state.allBills[index].has_coupon == true
                                     ? "الإجمالي: ${state.allBills[index].total_price}\nقيمة الخصم: ${state.allBills[index].coupon_discount_value}\nالإجمالي بعد الخصم: ${state.allBills[index].additional_price + state.allBills[index].total_price_after_discount}"
                                     : "الإجمالي: ${state.allBills[index].total_price}",
-                              );
+                              ).animate().scaleXY(
+                                  delay: 500.milliseconds,
+                                  duration: (0.2 * index).seconds);
+                              ;
                             },
                           )),
                     ),

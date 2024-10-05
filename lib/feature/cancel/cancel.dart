@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -109,12 +110,14 @@ class Cancel extends StatelessWidget {
                                   itemCount: state.oneBill.length,
                                   itemBuilder: (context, index) {
                                     return CardOfFatora(
-                                      text1:"${state.oneBill[index].market.store_name}",
+                                      text1:
+                                          "${state.oneBill[index].market.store_name}",
                                       text2:
                                           state.oneBill[index].market.city_name,
-                                      text3: state.oneBill[index].created_at_formatted,
-                                      text4:
-                                          state.oneBill[index].market.location_details,
+                                      text3: state
+                                          .oneBill[index].created_at_formatted,
+                                      text4: state.oneBill[index].market
+                                          .location_details,
                                       text5:
                                           "عدد الأصناف: ${state.oneBill[index].products.length}",
                                       text6:
@@ -123,7 +126,9 @@ class Cancel extends StatelessWidget {
                                           "المبلغ المدفوع: ${state.oneBill[index].recieved_price}",
                                       text8:
                                           "سبب رفض الاستلام:${state.oneBill[index].rejection_reason}",
-                                    );
+                                    ).animate().scaleXY(
+                                        delay: 500.milliseconds,
+                                        duration: (0.2 * index).seconds);
                                   }))),
                         ],
                       ),

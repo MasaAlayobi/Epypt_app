@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +18,6 @@ import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/Core/functions/send_whatsapp_message.dart';
 import 'package:mufraty_app/Core/functions/show_snack_bar.dart';
 import 'package:mufraty_app/feature/brebaring/widgets/container_of_count_of_new_bill.dart';
-import 'package:mufraty_app/feature/fatora/new_fatora/mobile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mufraty_app/Core/data/reasonReject.dart';
 import 'package:mufraty_app/Core/data/recivePrice.dart';
@@ -95,8 +95,11 @@ class Brebaring extends StatelessWidget {
                                                 .get<SharedPreferences>()
                                                 .getString("phoneNumber");
 
-                                            sendWhatsAppMessage(storeName,
-                                                billID, token, phoneNumber);
+                                            sendWhatsAppMessage(
+                                                storeName,
+                                                billID.toInt(),
+                                                token,
+                                                phoneNumber);
                                           },
                                           colors: ColorManager().green,
                                           width: MediaQuery.of(context)
@@ -217,7 +220,7 @@ class Brebaring extends StatelessWidget {
                                                                                       GoRouter.of(context).pop();
                                                                                       showSnackBar(context, "  لا يمكن ان يكون المبلغ المدفوع اعلى من السعر الإجمالي للفاتورة", ColorManager().red);
                                                                                     } else {
-                                                                                      BlocProvider.of<BrebaringBloc>(context).add(CombleteReceive(reason: RecivePriceBill(recieved_price: int.parse(totalPrice.text)), id: state.oneBill[index].id));
+                                                                                      BlocProvider.of<BrebaringBloc>(context).add(CombleteReceive(reason: RecivePriceBill(recieved_price: int.parse(totalPrice.text)), id: state.oneBill[index].id.toInt()));
                                                                                     }
                                                                                   },
                                                                                   colors: ColorManager().green,
@@ -334,7 +337,7 @@ class Brebaring extends StatelessWidget {
                                                                                       GoRouter.of(context).pop();
                                                                                       showSnackBar(context, "لا يمكن ترك الحقل فارغ", ColorManager().red);
                                                                                     } else {
-                                                                                      context.read<BrebaringBloc>().add(CancelRecieve(reason: Reason(rejection_reason: reasonOfCancel.text), id: state.oneBill[index].id));
+                                                                                      context.read<BrebaringBloc>().add(CancelRecieve(reason: Reason(rejection_reason: reasonOfCancel.text), id: state.oneBill[index].id.toInt()));
                                                                                     }
                                                                                   },
                                                                                   colors: ColorManager().green,
@@ -390,10 +393,13 @@ class Brebaring extends StatelessWidget {
                                           "عدد الأصناف: ${state.oneBill[index].products.length}",
                                       text6:
                                           "طريقة الدفع: ${state.oneBill[index].payment_method}",
-                                      text7:  state.oneBill[index].has_coupon == true
-                                    ? "الإجمالي: ${state.oneBill[index].total_price}\nقيمة الخصم: ${state.oneBill[index].coupon_discount_value}\nالإجمالي بعد الخصم: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}"
-                                    : "الإجمالي: ${state.oneBill[index].total_price}",
-                                    );
+                                      text7: state.oneBill[index].has_coupon ==
+                                              true
+                                          ? "الإجمالي: ${state.oneBill[index].total_price}\nقيمة الخصم: ${state.oneBill[index].coupon_discount_value}\nالإجمالي بعد الخصم: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}"
+                                          : "الإجمالي: ${state.oneBill[index].total_price}",
+                                    ).animate().scaleXY(
+                                        delay: 500.milliseconds,
+                                        duration: (0.2 * index).seconds);
                                   }))),
                         ],
                       ),

@@ -7,17 +7,17 @@ import 'package:mufraty_app/Core/data/market.dart';
 import 'package:mufraty_app/Core/data/product.dart';
 
 class BillWithReason {
-  int id;
-  int market_id;
-  int payment_method_id;
-  int supplier_id;
-  int total_price;
+  num id;
+  num market_id;
+  num payment_method_id;
+  num supplier_id;
+  num total_price;
   bool has_coupon;
   String coupon_code;
   num coupon_discount_value;
   String rejection_reason;
-  int recieved_price;
-  int goal_discount;
+  num recieved_price;
+  num goal_discount;
   String created_at_formatted;
   String delivery_duration;
   bool updatable;
@@ -51,14 +51,14 @@ class BillWithReason {
   });
 
   BillWithReason copyWith({
-    int? id,
-    int? market_id,
-    int? payment_method_id,
-    int? supplier_id,
-    int? total_price,
+    num? id,
+    num? market_id,
+    num? payment_method_id,
+    num? supplier_id,
+    num? total_price,
     String? rejection_reason,
-    int? recieved_price,
-    int? goal_discount,
+    num? recieved_price,
+    num? goal_discount,
     String? created_at_formatted,
     String? delivery_duration,
     bool? updatable,
@@ -121,14 +121,14 @@ class BillWithReason {
 
   factory BillWithReason.fromMap(Map<dynamic, dynamic> map) {
     return BillWithReason(
-      id: map['id'] as int,
-      market_id: map['market_id'] as int,
-      payment_method_id: map['payment_method_id'] as int,
-      supplier_id: map['supplier_id'] as int,
-      total_price: map['total_price'] as int,
+      id: map['id'] as num,
+      market_id: map['market_id'] as num,
+      payment_method_id: map['payment_method_id'] as num,
+      supplier_id: map['supplier_id'] as num,
+      total_price: map['total_price'] as num,
       rejection_reason: map['rejection_reason'] as String,
-      recieved_price: map['recieved_price'] as int,
-      goal_discount: map['goal_discount'] as int,
+      recieved_price: map['recieved_price'] as num,
+      goal_discount: map['goal_discount'] as num,
       created_at_formatted: map['created_at_formatted'] as String,
       delivery_duration: map['delivery_duration'] as String,
       updatable: map['updatable'] as bool,

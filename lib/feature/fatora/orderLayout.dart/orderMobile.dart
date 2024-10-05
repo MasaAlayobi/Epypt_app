@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -563,7 +564,7 @@ class _OrderState extends State<Order> {
 
                                                                                   print(list);
 
-                                                                                  context.read<UpdateBillTimeBloc>().add(SendDate(id: widget.bill.id, update: list, delivery: date.toString()));
+                                                                                  context.read<UpdateBillTimeBloc>().add(SendDate(id: widget.bill.id.toInt(), update: list, delivery: date.toString()));
                                                                                 },
                                                                                 colors: ColorManager().green,
                                                                                 width: MediaQuery.of(context).size.width / 3,
@@ -608,6 +609,12 @@ class _OrderState extends State<Order> {
                                     ),
                                 ],
                               )
+                                .animate(
+                                  onInit: (controller) => controller.reset(),
+                                )
+                                .shimmer(
+                                    delay: 500.milliseconds,
+                                    duration: (0.2 * index).seconds)
                             : Text("no internet");
                       },
                     ),
