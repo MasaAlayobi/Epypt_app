@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -117,7 +118,9 @@ class NotRecieved extends StatelessWidget {
                                       "المبلغ المدفوع: ${state.oneBill[index].recieved_price}",
                                   text8:
                                       "سبب رفض الاستلام:${state.oneBill[index].rejection_reason}",
-                                );
+                                ).animate().scaleXY(
+                                    delay: 500.milliseconds,
+                                    duration: (0.2 * index).seconds);
                               }))),
                     ],
                   ),

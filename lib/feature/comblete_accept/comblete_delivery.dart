@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -118,13 +119,15 @@ class CombleteDelivery extends StatelessWidget {
                                           "عدد الأصناف: ${state.oneBill[index].products.length}",
                                       text6:
                                           "طريقة الدفع: ${state.oneBill[index].payment_method}",
-                                      text7:
-                                       state.oneBill[index].has_coupon == true
-                                    ? "الإجمالي: ${state.oneBill[index].total_price}\nقيمة الخصم: ${state.oneBill[index].coupon_discount_value}\nالإجمالي بعد الخصم: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}"
-                                    : "الإجمالي: ${state.oneBill[index].total_price}",
+                                      text7: state.oneBill[index].has_coupon ==
+                                              true
+                                          ? "الإجمالي: ${state.oneBill[index].total_price}\nقيمة الخصم: ${state.oneBill[index].coupon_discount_value}\nالإجمالي بعد الخصم: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}"
+                                          : "الإجمالي: ${state.oneBill[index].total_price}",
                                       text8:
                                           "سعر التسليم:  ${state.oneBill[index].recieved_price}",
-                                    );
+                                    ).animate().scaleXY(
+                                        delay: 500.milliseconds,
+                                        duration: (0.2 * index).seconds);
                                   }))),
                         ],
                       ),
@@ -170,8 +173,8 @@ class CombleteDelivery extends StatelessWidget {
                   ]);
                 } else {
                   return Center(
-                    child:  Lottie.asset("asstes/lottie/loading.json",
-                          fit: BoxFit.contain, width: 144, height: 144),
+                    child: Lottie.asset("asstes/lottie/loading.json",
+                        fit: BoxFit.contain, width: 144, height: 144),
                   );
                 }
               },
