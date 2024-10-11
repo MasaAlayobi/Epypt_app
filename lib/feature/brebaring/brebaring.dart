@@ -287,6 +287,9 @@ class Brebaring extends StatelessWidget {
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
                                                                               .center,
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .min,
                                                                       children: <Widget>[
                                                                         SubTitle2(
                                                                             text:
