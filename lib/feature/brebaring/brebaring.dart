@@ -183,7 +183,36 @@ class Brebaring extends StatelessWidget {
                                                                       children: <Widget>[
                                                                         SubTitle2(
                                                                             text:
-                                                                                "هل تريد تأكيد الاختيار؟"),
+                                                                                "هل تريد تأكيد الاختيار من ${state.oneBill[index].market.store_name}؟"),
+                                                                        SizedBox(
+                                                                          height:
+                                                                              6,
+                                                                        ),
+                                                                        state.oneBill[index].has_coupon ==
+                                                                                true
+                                                                            ? Column(
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                children: [
+                                                                                  HeaderText(
+                                                                                    text: "الإجمالي قبل الخصم: ${state.oneBill[index].total_price}",
+                                                                                    textcolor: Colors.grey[700],
+                                                                                    fontWeight: FontWeight.w300,
+                                                                                    fontSize: 15,
+                                                                                  ),
+                                                                                  HeaderText(
+                                                                                    text: "الإجمالي بعد الخصم: ${state.oneBill[index].additional_price + state.oneBill[index].total_price_after_discount}",
+                                                                                    textcolor: Colors.grey[700],
+                                                                                    fontWeight: FontWeight.w300,
+                                                                                    fontSize: 15,
+                                                                                  ),
+                                                                                ],
+                                                                              )
+                                                                            : HeaderText(
+                                                                                text: "الإجمالي: ${state.oneBill[index].total_price}",
+                                                                                textcolor: Colors.grey[700],
+                                                                                fontWeight: FontWeight.w300,
+                                                                                fontSize: 15,
+                                                                              ),
                                                                         Padding(
                                                                           padding: const EdgeInsets
                                                                               .all(
@@ -287,6 +316,9 @@ class Brebaring extends StatelessWidget {
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
                                                                               .center,
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .min,
                                                                       children: <Widget>[
                                                                         SubTitle2(
                                                                             text:
