@@ -146,6 +146,7 @@ class Brebaring extends StatelessWidget {
                                               if (newValue == "تم التوصيل") {
                                                 showModalBottomSheet(
                                                     context: context,
+                                                    isScrollControlled: true,
                                                     builder:
                                                         (BuildContext context) {
                                                       return BlocProvider(
