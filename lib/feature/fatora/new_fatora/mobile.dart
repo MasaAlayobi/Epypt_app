@@ -296,7 +296,7 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                               ).animate().scaleXY(
                                   delay: 500.milliseconds,
                                   duration: (0.2 * index).seconds);
-                              ;
+                              
                             },
                           )),
                     ),

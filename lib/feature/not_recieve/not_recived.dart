@@ -5,10 +5,12 @@ import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
 import 'package:mufraty_app/Core/Config/widget/cardOfFatora.dart';
+import 'package:mufraty_app/Core/Config/widget/myButton.dart';
 import 'package:mufraty_app/Core/Config/widget/myContainer.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
+import 'package:mufraty_app/feature/fatora/orderLayout.dart/orderMobile.dart';
 import 'package:mufraty_app/feature/not_recieve/bloc/refuse_recive_bloc.dart';
 
 class NotRecieved extends StatelessWidget {
@@ -103,6 +105,23 @@ class NotRecieved extends StatelessWidget {
                               itemCount: state.oneBill.length,
                               itemBuilder: (context, index) {
                                 return CardOfFatora(
+                                  fatora: MyButton(
+                                      title: "فاتورة",
+                                      onpress: () {
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                          builder: (context) => Order(
+                                            bill: state.oneBill[index],
+                                          ),
+                                        ));
+                                      },
+                                      colors: ColorManager().blue,
+                                      width: MediaQuery.of(context).size.width /
+                                          4.5,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              17,
+                                      radius: 9),
                                   text1:
                                       "${state.oneBill[index].market.store_name}",
                                   text2: state.oneBill[index].market.city_name,
