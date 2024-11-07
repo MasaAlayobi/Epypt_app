@@ -6,6 +6,7 @@ import 'package:mufraty_app/Core/Config/shared_preferences.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_listTile.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_text.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
+import 'package:mufraty_app/Core/Resourse/url.dart';
 import 'package:mufraty_app/feature/Home/Discounts/view/Discounts_page.dart';
 
 //
@@ -417,7 +418,7 @@ class ReportCubit extends Cubit<ReportState> {
     try {
       dio!.options.headers['Authorization'] = 'Bearer $accessToken';
       final response = await dio!.get(
-        'https://backend.almowafraty.com/api/v1/reports',
+        '${Url.url}reports',
         queryParameters: {
           'start_date': startDate,
           'end_date': endDate,
@@ -433,12 +434,12 @@ class ReportCubit extends Cubit<ReportState> {
 }
 
 class Report {
-  final int? paidBill;
-  final int? marketsCount;
-  final int? averageBills;
-  final int? totalPrice;
-  final int? wastedBill;
-  final int? receivedBill;
+  final num? paidBill;
+  final num? marketsCount;
+  final num? averageBills;
+  final num? totalPrice;
+  final num? wastedBill;
+  final num? receivedBill;
 
   Report({
     required this.paidBill,

@@ -73,10 +73,10 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
                         child: Center(
                           
                           child: TextField(
-                            
+                            style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),
                             controller: searchController,
                             // controller: last_name,
-                            onSubmitted: (value) {
+                            onChanged: (value) {
                               searchController.text == value;
                               context
                                   .read<ProductsBloc>()
@@ -104,6 +104,7 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
                             // },
                             // controller: search,
                             decoration: InputDecoration(
+                              
                               hintText: stringApp.search,
                               fillColor: Colors.white,
                               // labelText: stringApp.search,
@@ -119,9 +120,11 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
                               //     )
                               //   ],
                               // ),
+                              
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     style: BorderStyle.solid,
+                                    
                                     color: colorApp.greyColor,
                                   ),
                                   borderRadius: BorderRadius.circular(7)),
