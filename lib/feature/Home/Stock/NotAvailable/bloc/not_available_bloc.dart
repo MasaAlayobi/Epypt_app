@@ -13,7 +13,7 @@ class NotAvailableBloc extends Bloc<NotAvailableEvent, NotAvailableState> {
        late List<AvailableProductsModel> temp;
       emit(LoadingProduct());
         try {
-         temp = await StockServicImp().getNotAvailableProduct(event.label);
+         temp = await StockServicImp().getNotAvailableProduct(event.label,event.page);
         print(temp);
         if (temp.isEmpty) {
           emit(NotFound());

@@ -17,7 +17,7 @@ class AvailableProductsBloc extends Bloc<AvailableProductsEvent, AvailableProduc
     on<getAvailableProducts>((event, emit) async{
       emit(LoadingProduct());
          try {
-         temp = await StockServicImp().getAvailableProduct(event.label);
+         temp = await StockServicImp().getAvailableProduct(event.label,event.page);
         print(temp);
         if (temp.isEmpty) {
           emit(NotFound());

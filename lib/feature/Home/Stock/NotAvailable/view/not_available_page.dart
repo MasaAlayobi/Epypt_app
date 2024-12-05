@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mufraty_app/Core/Config/router/app_router.dart';
+import 'package:mufraty_app/Core/Config/storage/getit.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_container_with_text.dart';
 import 'package:mufraty_app/Core/Config/widget/custom_text.dart';
 import 'package:mufraty_app/Core/Config/widget/myTextFieldNumber.dart';
@@ -10,6 +11,7 @@ import 'package:mufraty_app/Core/Data/add_product_to_available.dart';
 import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Home/Stock/NotAvailable/bloc/not_available_bloc.dart';
 import 'package:mufraty_app/feature/Home/Stock/view/stock_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotAvailablePage extends StatefulWidget {
   const NotAvailablePage({super.key});
@@ -25,15 +27,89 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
   TextEditingController max_selling_quantity = TextEditingController();
   TextEditingController price = TextEditingController();
   TextEditingController quantity = TextEditingController();
+  late int currentPage = 1;
+  List<dynamic> items =
+      []; // القائمة الرئيسية للعناصر // لصفحة الحالية // عدد العناصر لكل صفحة
+  bool isLoading = false; // لمعرفة إذا كان يتم تحميل بيانات
+  bool hasMore = true; // لمعرفة إذا كانت هناك صفحات إضافية
+  final int limit = 10;
+  ScrollController _controller = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    _controller = ScrollController();
+    _controller.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_controller.position.atEdge &&
+        _controller.position.pixels != 0 &&
+        currentPage <
+            storage
+                .get<SharedPreferences>()
+                .getInt("last_page_Not_available")!) {
+      if (isLoading || !hasMore) return;
+
+      setState(() {
+        isLoading = true; // بدء التحميل
+      });
+
+      try {
+        // إرسال الحدث إلى الـ Bloc لتحميل المزيد من البيانات
+        setState(() {
+          currentPage++; // الانتقال إلى الصفحة التالية
+        });
+        context.read<NotAvailableBloc>().add(getNotAvailableProducts(
+            label: searchController.text, page: currentPage));
+
+        print("------------------${currentPage}");
+      } catch (e) {
+        print('Error: $e'); // معالجة الأخطاء
+      } finally {
+        setState(() {
+          isLoading = false; // انتهاء التحميل
+        });
+      }
+    } else if (_controller.position.atEdge &&
+        _controller.position.pixels == 0 &&
+        currentPage > 1) {
+      if (isLoading || !hasMore) return;
+
+      setState(() {
+        isLoading = true; // بدء التحميل
+      });
+
+      try {
+        setState(() {
+          currentPage--; // الانتقال إلى الصفحة التالية
+        });
+        // إرسال الحدث إلى الـ Bloc لتحميل المزيد من البيانات
+        context.read<NotAvailableBloc>().add(getNotAvailableProducts(
+            label: searchController.text, page: currentPage));
+      } catch (e) {
+        print('Error: $e'); // معالجة الأخطاء
+      } finally {
+        setState(() {
+          isLoading = false; // انتهاء التحميل
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double heightSize = MediaQuery.of(context).size.height;
 
     double widthSize = MediaQuery.of(context).size.width;
     return Builder(builder: (context) {
-      context
-          .read<NotAvailableBloc>()
-          .add(getNotAvailableProducts(label: searchController.text));
+      context.read<NotAvailableBloc>().add(getNotAvailableProducts(
+          label: searchController.text, page: currentPage));
       return Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
@@ -56,35 +132,31 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                 builder: (context, state) {
                   if (state is SuccessGetNotAvailableProducts) {
                     // List<bool?> isChecked2=List.generate(state.allProduct.length, (_)=> true);
-                    return RefreshIndicator(
-                      onRefresh: () async {
-                        context.read<NotAvailableBloc>().add(
-                            getNotAvailableProducts(
-                                label: searchController.text));
-                      },
+                    return SizedBox(
                       child: ListView.builder(
                           itemCount: state.allProduct.length,
+                          controller: _controller,
                           itemBuilder: (context, index) {
                             isChecked2.add(true);
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 if (index == 0)
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                    'عدد المنتجات  : ${state.allProduct.length}',
-                                    style: TextStyle(
-                                        color: colorApp.blackColor,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w700)),
-                              ),
+                                if (index == 0)
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                        'عدد المنتجات  : ${storage.get<SharedPreferences>().getInt('total_all_proudacts_not_available')}',
+                                        style: TextStyle(
+                                            color: colorApp.blackColor,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w700)),
+                                  ),
                                 Card(
                                   color: colorApp.whiteColor,
                                   elevation: 2,
                                   child: Container(
                                       height: 190,
-                                
+
                                       // color: Colors.blueGrey,
                                       child: Row(
                                         children: [
@@ -93,43 +165,47 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                             child: state.allProduct[index].image
                                                     .isNotEmpty
                                                 ? Image.network(
-                                                    state
-                                                        .allProduct[index].image[0],
-                                                    width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        4,
-                                                    height: MediaQuery.of(context)
-                                                            .size
-                                                            .height /
-                                                        2,
-                                                    errorBuilder: (context, error,
-                                                        stackTrace) {
+                                                    state.allProduct[index]
+                                                        .image[0],
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            4,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            2,
+                                                    errorBuilder: (context,
+                                                        error, stackTrace) {
                                                       return Image.asset(
                                                         'asstes/images/no_photo.jpg',
-                                                        width:
-                                                            MediaQuery.of(context)
-                                                                    .size
-                                                                    .width /
-                                                                3,
-                                                        height:
-                                                            MediaQuery.of(context)
-                                                                    .size
-                                                                    .height /
-                                                                4,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            3,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height /
+                                                            4,
                                                       );
                                                     },
                                                   )
                                                 : Image.asset(
                                                     'asstes/images/no_photo.jpg',
-                                                    width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        3,
-                                                    height: MediaQuery.of(context)
-                                                            .size
-                                                            .height /
-                                                        4,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            3,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            4,
                                                   ),
                                           ),
                                           Expanded(
@@ -150,14 +226,15 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 7, right: 0),
+                                                              left: 7,
+                                                              right: 0),
                                                       child: CustomText(
                                                           text: state
                                                               .allProduct[index]
                                                               .name,
                                                           size: 15,
-                                                          color:
-                                                              colorApp.blackColor,
+                                                          color: colorApp
+                                                              .blackColor,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           maxLines: 3),
@@ -165,14 +242,15 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 7, right: 0),
+                                                              left: 7,
+                                                              right: 0),
                                                       child: CustomText(
                                                           text: state
                                                               .allProduct[index]
                                                               .discription,
                                                           size: 14,
-                                                          color:
-                                                              colorApp.blackColor,
+                                                          color: colorApp
+                                                              .blackColor,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           maxLines: 3),
@@ -196,8 +274,10 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                         text:
                                                             '${state.allProduct[index].pivot.price} ج ',
                                                         size: 15,
-                                                        color: colorApp.greenColor,
-                                                        fontWeight: FontWeight.w800,
+                                                        color:
+                                                            colorApp.greenColor,
+                                                        fontWeight:
+                                                            FontWeight.w800,
                                                         maxLines: 2),
                                                     // Expanded(
                                                     //   child: Padding(
@@ -225,7 +305,7 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                 ),
                                                 Row(
                                                   // mainAxisAlignment: MainAxisAlignment.center,
-                                
+
                                                   children: [
                                                     // Expanded(
                                                     //   child: Container(
@@ -258,8 +338,10 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                           child: InkWell(
                                                             onTap: () {
                                                               showDialog(
-                                                                context: context,
-                                                                builder: (context) {
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
                                                                   return BlocProvider(
                                                                     create: (context) =>
                                                                         NotAvailableBloc(),
@@ -268,26 +350,21 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                                             (context) {
                                                                       return Directionality(
                                                                         textDirection:
-                                                                            TextDirection
-                                                                                .rtl,
+                                                                            TextDirection.rtl,
                                                                         child:
                                                                             AlertDialog(
                                                                           content:
                                                                               SingleChildScrollView(
-                                                                            child: BlocListener<
-                                                                                NotAvailableBloc,
-                                                                                NotAvailableState>(
-                                                                              listener:
-                                                                                  (context, state) {
-                                                                                if (state
-                                                                                    is successAddAvailable) {
+                                                                            child:
+                                                                                BlocListener<NotAvailableBloc, NotAvailableState>(
+                                                                              listener: (context, state) {
+                                                                                if (state is successAddAvailable) {
                                                                                   ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
                                                                                     content: Text(state.message),
                                                                                     backgroundColor: colorApp.greenColor,
                                                                                   ));
                                                                                   GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
-                                                                                } else if (state
-                                                                                    is NoConnectionAddProduct) {
+                                                                                } else if (state is NoConnectionAddProduct) {
                                                                                   ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
                                                                                     content: Text(state.message),
                                                                                     backgroundColor: colorApp.basicColor,
@@ -295,12 +372,9 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                                                   GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
                                                                                 }
                                                                               },
-                                                                              child:
-                                                                                  Column(
-                                                                                mainAxisAlignment:
-                                                                                    MainAxisAlignment.spaceEvenly,
-                                                                                crossAxisAlignment:
-                                                                                    CrossAxisAlignment.start,
+                                                                              child: Column(
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                                                 children: [
                                                                                   Padding(
                                                                                     padding: const EdgeInsets.all(10.0),
@@ -357,25 +431,17 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                                           ),
                                                                           actions: <Widget>[
                                                                             TextButton(
-                                                                              child: Text(
-                                                                                  'موافق',
-                                                                                  style: TextStyle(color: colorApp.greenColor)),
-                                                                              onPressed:
-                                                                                  () {
-                                                                                context.read<NotAvailableBloc>().add(AddToAvailable(
-                                                                                    id: state.allProduct[index].pivot.id,
-                                                                                    product: AddProductToAvailable(is_available: 1, quantity: num.parse(quantity.text), price: num.parse(price.text), max_selling_quantity: num.parse(max_selling_quantity.text))));
+                                                                              child: Text('موافق', style: TextStyle(color: colorApp.greenColor)),
+                                                                              onPressed: () {
+                                                                                context.read<NotAvailableBloc>().add(AddToAvailable(id: state.allProduct[index].pivot.id, product: AddProductToAvailable(is_available: 1, quantity: num.parse(quantity.text), price: num.parse(price.text), max_selling_quantity: num.parse(max_selling_quantity.text))));
                                                                               },
                                                                             ),
                                                                             TextButton(
-                                                                              child:
-                                                                                  Text(
+                                                                              child: Text(
                                                                                 'رجوع',
-                                                                                style:
-                                                                                    TextStyle(color: colorApp.basicColor),
+                                                                                style: TextStyle(color: colorApp.basicColor),
                                                                               ),
-                                                                              onPressed:
-                                                                                  () {
+                                                                              onPressed: () {
                                                                                 price.clear();
                                                                                 quantity.clear();
                                                                                 max_selling_quantity.clear();
@@ -425,7 +491,8 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                                           .is_available ==
                                                                       0
                                                                   ? Icon(
-                                                                      Icons.check,
+                                                                      Icons
+                                                                          .check,
                                                                       size: 16,
                                                                       color: Colors
                                                                           .white)
@@ -435,15 +502,18 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              const EdgeInsets.only(
+                                                              const EdgeInsets
+                                                                  .only(
                                                                   right: 10),
                                                           child: CustomText(
-                                                              text: 'منتج غير متاح',
+                                                              text:
+                                                                  'منتج غير متاح',
                                                               size: 13,
                                                               color: colorApp
                                                                   .greyColor,
                                                               fontWeight:
-                                                                  FontWeight.w700,
+                                                                  FontWeight
+                                                                      .w700,
                                                               maxLines: 2),
                                                         ),
                                                       ],
@@ -456,6 +526,13 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                         ],
                                       )),
                                 ),
+                                if (index == state.allProduct.length - 1)
+                                  Container(
+                                    height: MediaQuery.of(context).size.height /
+                                        2.5,
+                                    width: 10,
+                                    child: Text(""),
+                                  )
                               ],
                             );
                           }),
@@ -468,9 +545,14 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                   } else if (state is NoConnectionWithProduct) {
                     return RefreshIndicator(
                       onRefresh: () async {
+                        setState(() {
+                          currentPage = 1; // الانتقال إلى الصفحة التالية
+                        });
+                        // إرسال الحدث إلى الـ Bloc لتحميل المزيد من البيانات
                         context.read<NotAvailableBloc>().add(
                             getNotAvailableProducts(
-                                label: searchController.text));
+                                label: searchController.text,
+                                page: currentPage));
                       },
                       child: ListView(
                         children: [
@@ -498,9 +580,14 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                   } else if (state is NotFound) {
                     return RefreshIndicator(
                       onRefresh: () async {
+                        setState(() {
+                          currentPage = 1; // الانتقال إلى الصفحة التالية
+                        });
+                        // إرسال الحدث إلى الـ Bloc لتحميل المزيد من البيانات
                         context.read<NotAvailableBloc>().add(
                             getNotAvailableProducts(
-                                label: searchController.text));
+                                label: searchController.text,
+                                page: currentPage));
                       },
                       child: ListView(
                         children: [
@@ -523,17 +610,27 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                       ),
                     );
                   } else if (state is successAddAvailable) {
+                    setState(() {
+                      currentPage = 1; // الانتقال إلى الصفحة التالية
+                    });
+                    // إرسال الحدث إلى الـ Bloc لتحميل المزيد من البيانات
                     context.read<NotAvailableBloc>().add(
-                        getNotAvailableProducts(label: searchController.text));
+                        getNotAvailableProducts(
+                            label: searchController.text, page: currentPage));
                     return SizedBox();
                   } else if (state is LoadingUpdate) {
                     return SizedBox();
                   } else {
                     return RefreshIndicator(
                       onRefresh: () async {
+                        setState(() {
+                          currentPage = 1; // الانتقال إلى الصفحة التالية
+                        });
+                        // إرسال الحدث إلى الـ Bloc لتحميل المزيد من البيانات
                         context.read<NotAvailableBloc>().add(
                             getNotAvailableProducts(
-                                label: searchController.text));
+                                label: searchController.text,
+                                page: currentPage));
                       },
                       child: ListView(
                         children: [

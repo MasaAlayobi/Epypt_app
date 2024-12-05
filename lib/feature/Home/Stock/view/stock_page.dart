@@ -44,6 +44,7 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
   void _goToTab(int index) {
     // _tabController.animateTo(index);
   }
+
   String? search;
   @override
   Widget build(BuildContext context) {
@@ -56,144 +57,153 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
         initialIndex: 1,
         child: Directionality(
           textDirection: TextDirection.rtl,
-          child: Scaffold(
-           
-            body: Directionality(
-              textDirection: TextDirection.rtl,
-              child: Column(
-                children: [
-                  Container(
-                    height: 60,
-                    color: colorApp.basicColor,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                      child: Container(
-                        width: double.infinity,
-                        height: 60,
-                        child: Center(
-                          
-                          child: TextField(
-                            style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),
-                            controller: searchController,
-                            // controller: last_name,
-                            onChanged: (value) {
-                              searchController.text == value;
-                              context
-                                  .read<ProductsBloc>()
-                                  .add(getProducts(lable: value));
-                              print('****************************************');
-                                context.read<AvailableProductsBloc>().add(getAvailableProducts(label: value));
-                              print('____________________________________');
-                               context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: value));
-                              print(searchController.text);
-                            },
-                            // onChanged: (value) {
-                            //   searchController.text == value;
-                            //   context
-                            //       .read<ProductsBloc>()
-                            //       .add(getProducts(lable: value));
-                            //   print('****************************************');
-                            //     context.read<AvailableProductsBloc>().add(getAvailableProducts(label: value));
-                            //   print('____________________________________');
-                            //    context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: value));
-                            //   print(searchController.text);
-                            //   // context
-                            //   //     .read<ProductsBloc>()
-                            //   //     .add(getProducts(lable: searchController.text));
-                            //   // context.read<SearchBloc>().add(Search(word: searchModel(name: value)));
-                            // },
-                            // controller: search,
-                            decoration: InputDecoration(
-                              
-                              hintText: stringApp.search,
-                              fillColor: Colors.white,
-                              // labelText: stringApp.search,
-                              // label: Row(
-                              //   children: [
-                              //     Text(
-                              //       stringApp.search,
-                              //       // textDirection: TextDirection.ltr,
-                              //       style: TextStyle(
-                              //           color: colorApp.greyColor,
-                              //           fontSize: 16,
-                              //           fontWeight: FontWeight.w500),
-                              //     )
-                              //   ],
-                              // ),
-                              
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    style: BorderStyle.solid,
-                                    
-                                    color: colorApp.greyColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(7)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: colorApp.whiteColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(7)),
+          child: SafeArea(
+            child: Scaffold(
+             
+              body: Directionality(
+                textDirection: TextDirection.rtl,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 60,
+                      color: colorApp.basicColor,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 60,
+                          child: Center(
+                            
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.center,
+            
+                              selectionControls:DesktopTextSelectionControls(),
+                               maxLines: 1, // تحديد سطر واحد
+              minLines: 1,
+               textAlign: TextAlign.start,
+                              style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,
+                              fontFamily: 'Roboto',),
+                              controller: searchController,
+                              // controller: last_name,
+                              onChanged: (value) {
+                                searchController.text == value;
+                                context
+                                    .read<ProductsBloc>()
+                                    .add(getProducts(lable: value,page: 1));
+                                print('****************************************');
+                                  context.read<AvailableProductsBloc>().add(getAvailableProducts(label: value,page: 1));
+                                print('____________________________________');
+                                 context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: value,page: 1));
+                                print(searchController.text);
+                              },
+                              // onChanged: (value) {
+                              //   searchController.text == value;
+                              //   context
+                              //       .read<ProductsBloc>()
+                              //       .add(getProducts(lable: value));
+                              //   print('****************************************');
+                              //     context.read<AvailableProductsBloc>().add(getAvailableProducts(label: value));
+                              //   print('____________________________________');
+                              //    context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: value));
+                              //   print(searchController.text);
+                              //   // context
+                              //   //     .read<ProductsBloc>()
+                              //   //     .add(getProducts(lable: searchController.text));
+                              //   // context.read<SearchBloc>().add(Search(word: searchModel(name: value)));
+                              // },
+                              // controller: search,
+                              decoration: InputDecoration(
+                                
+                                hintText: stringApp.search,
+                                fillColor: Colors.white,
+                                // labelText: stringApp.search,
+                                // label: Row(
+                                //   children: [
+                                //     Text(
+                                //       stringApp.search,
+                                //       // textDirection: TextDirection.ltr,
+                                //       style: TextStyle(
+                                //           color: colorApp.greyColor,
+                                //           fontSize: 16,
+                                //           fontWeight: FontWeight.w500),
+                                //     )
+                                //   ],
+                                // ),
+                                
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      style: BorderStyle.solid,
+                                      
+                                      color: colorApp.greyColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(7)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: colorApp.whiteColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(7)),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    // width: double.infinity,
-                    // color: Colors.orange,
-                    // width: 30,
-                    // height: 40,
-                    child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: TabBar(
-                         controller: _tabController,
-                          // controller: _tabcontroller,
-                          indicator: UnderlineTabIndicator(
-                              borderSide: BorderSide(
-                                  width: 2.0, color: colorApp.basicColor)),
-                          // padding:,
-                          indicatorWeight: 3,
-                          indicatorColor: colorApp.basicColor,
-                          isScrollable: false,
-                          tabs: [
-                            Tab(
-                              text: stringApp.warehouse,
-                            ),
-                            Tab(
-                              text: stringApp.available,
-                            ),
-                            Tab(
-                              text: stringApp.notAvailable,
-                            )
-                          ]),
+                    Container(
+                      // width: double.infinity,
+                      // color: Colors.orange,
+                      // width: 30,
+                      // height: 40,
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: TabBar(
+                           controller: _tabController,
+                            // controller: _tabcontroller,
+                            indicator: UnderlineTabIndicator(
+                                borderSide: BorderSide(
+                                    width: 2.0, color: colorApp.basicColor)),
+                            // padding:,
+                            indicatorWeight: 3,
+                            indicatorColor: colorApp.basicColor,
+                            isScrollable: false,
+                            tabs: [
+                              Tab(
+                                text: stringApp.warehouse,
+                              ),
+                              Tab(
+                                text: stringApp.available,
+                              ),
+                              Tab(
+                                text: stringApp.notAvailable,
+                              )
+                            ]),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                      child: TabBarView(
-                         controller: _tabController,
-                          // controller: _tabcontroller,
-                          children: [
-                        WarehousePage(),
-                        AvailablePage(),
-                        NotAvailablePage()
-                      ]))
-                ],
+                    Expanded(
+                        child: TabBarView(
+                           controller: _tabController,
+                            // controller: _tabcontroller,
+                            children: [
+                          WarehousePage(),
+                          AvailablePage(),
+                          NotAvailablePage()
+                        ]))
+                  ],
+                ),
               ),
+            
+            //   floatingActionButton:
+            //   FloatingActionButton(
+            //   onPressed: () {
+            //      _tabController!.animateTo(_pageToNavigate);
+            //   },
+            //   child: Icon(
+            //     Icons.add,
+            //     color: colorApp.whiteColor,
+            //     size: 28,
+            //   ),
+            //   backgroundColor: colorApp.basicColor,
+            // ),
             ),
-          
-          //   floatingActionButton:
-          //   FloatingActionButton(
-          //   onPressed: () {
-          //      _tabController!.animateTo(_pageToNavigate);
-          //   },
-          //   child: Icon(
-          //     Icons.add,
-          //     color: colorApp.whiteColor,
-          //     size: 28,
-          //   ),
-          //   backgroundColor: colorApp.basicColor,
-          // ),
           ),
         ),
       );

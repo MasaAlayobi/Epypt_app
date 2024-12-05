@@ -5,8 +5,10 @@ part of 'products_bloc.dart';
 sealed class ProductsEvent {}
 class getProducts extends ProductsEvent {
   String lable;
+  int page;
   getProducts({
     required this.lable,
+    required this.page,
   });
 }
 class addProductWithoutOffer extends ProductsEvent {

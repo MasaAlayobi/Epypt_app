@@ -16,9 +16,9 @@ import 'package:mufraty_app/Core/Domain/base_service.dart';
 import 'package:mufraty_app/Core/Resourse/URL.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 abstract class StockServic extends DioClient {
-  Future<List<ProductsModel>> getAllProduct(String lable);
-  Future<List<AvailableProductsModel>> getAvailableProduct(String label);
-  Future<List<AvailableProductsModel>> getNotAvailableProduct(String label);
+  Future<List<ProductsModel>> getAllProduct(String lable,int page);
+  Future<List<AvailableProductsModel>> getAvailableProduct(String label,int page);
+  Future<List<AvailableProductsModel>> getNotAvailableProduct(String label,int page);
   addProductWithoutOffer(AddProductModel product);
   addProductWithOffer(AddProductWithOfferModel product);
   addOffer(AddOfferModel offer, num id);
@@ -34,15 +34,21 @@ abstract class StockServic extends DioClient {
 
 class StockServicImp extends StockServic {
   @override
-  Future<List<ProductsModel>> getAllProduct(String label) async {
+  Future<List<ProductsModel>> getAllProduct(String label,int page) async {
     // print('$baseUrl${entity=EndPoint.getProducts}');
     try{
-    response = await dio.get('$baseUrl${entity = EndPoint.getProducts}?search=$label',
+    response = await dio.get('$baseUrl${entity = EndPoint.getProducts}?search=$label&page=$page',
         // options: getHeader()
         );
     // print(response.data);
     if (response.statusCode == 200) {
-      dynamic temp = response.data["products"];
+      storage
+            .get<SharedPreferences>()
+            .setInt('last_page', response.data["products"]["last_page"]);
+       storage
+            .get<SharedPreferences>()
+            .setInt('total_all_proudacts', response.data["products"]["total"]);
+      dynamic temp = response.data["products"]["data"];
 
       List<ProductsModel> allProduct = List.generate(
           temp.length, (index) => ProductsModel.fromMap(temp[index]));
@@ -59,15 +65,21 @@ class StockServicImp extends StockServic {
   }
 
   @override
-  Future<List<AvailableProductsModel>> getAvailableProduct(String label) async {
+  Future<List<AvailableProductsModel>> getAvailableProduct(String label,int page) async {
     try{
-     response = await dio.get('$baseUrl${entity = EndPoint.getAvailableProduct}?search=$label',
+     response = await dio.get('$baseUrl${entity = EndPoint.getAvailableProduct}?search=$label&page=$page',
         // options: getHeader()
         );
     // print(response.data);
     if (response.statusCode == 200) {
-      print(response.data["body"]);
-      dynamic temp = response.data["body"];
+       storage
+            .get<SharedPreferences>()
+            .setInt('last_page_available', response.data["data"]["last_page"]);
+              storage
+            .get<SharedPreferences>()
+            .setInt('total_all_proudacts_available', response.data["data"]["total"]);
+      print(response.data["data"]);
+      dynamic temp = response.data["data"]["data"];
       List<AvailableProductsModel> allAvailbaleProduct = List.generate(
           temp.length, (index) => AvailableProductsModel.fromMap(temp[index]));
       // print(allAvailbaleProduct);
@@ -84,16 +96,23 @@ class StockServicImp extends StockServic {
   }
 
   @override
-  Future<List<AvailableProductsModel>> getNotAvailableProduct(String label) async {
+  Future<List<AvailableProductsModel>> getNotAvailableProduct(String label,int page) async {
     try{
     response = await dio.get(
-        '$baseUrl${entity = EndPoint.getNotAvailableProduct}?search=$label',
+        '$baseUrl${entity = EndPoint.getNotAvailableProduct}?search=$label&page=$page',
         
         // options: getHeader()
         );
     print(response.data);
     if (response.statusCode == 200) {
-      dynamic temp = response.data["body"];
+      storage
+            .get<SharedPreferences>()
+            .setInt('last_page_Not_available', response.data["data"]["last_page"]);
+             storage
+            .get<SharedPreferences>()
+            .setInt('total_all_proudacts_not_available', response.data["data"]["total"]);
+      print(response.data["data"]);
+      dynamic temp = response.data["data"]["data"];
 
       List<AvailableProductsModel> allNotAvailbaleProduct = List.generate(
           temp.length, (index) => AvailableProductsModel.fromMap(temp[index]));

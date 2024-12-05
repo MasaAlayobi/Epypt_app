@@ -17,7 +17,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       emit(LoadingProduct());
       try {
      
-        temp = await StockServicImp().getAllProduct(event.lable);
+        temp = await StockServicImp().getAllProduct(event.lable,event.page);
         // print(temp);
         
         if (temp.isEmpty) {
