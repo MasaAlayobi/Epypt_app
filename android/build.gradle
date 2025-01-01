@@ -1,11 +1,11 @@
 buildscript {
-    ext.kotlin_version = '1.7.10' // اختر الإصدار المناسب لـ Kotlin
+    ext.kotlin_version = '1.9.0' // اختر الإصدار المناسب لـ Kotlin
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath 'com.android.tools.build:gradle:8.1.0'  // أو أي نسخة أحدث تدعم compileSdk 34
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.14' // تأكد من أن هذا هو الإصدار المناسب
     }
