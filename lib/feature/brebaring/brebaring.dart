@@ -18,6 +18,7 @@ import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/Core/functions/send_whatsapp_message.dart';
 import 'package:mufraty_app/Core/functions/show_snack_bar.dart';
 import 'package:mufraty_app/feature/brebaring/widgets/container_of_count_of_new_bill.dart';
+import 'package:mufraty_app/feature/fatora/orderLayout.dart/order_without_edit/order_mobile_without_edit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mufraty_app/Core/data/reasonReject.dart';
 import 'package:mufraty_app/Core/data/recivePrice.dart';
@@ -48,6 +49,7 @@ class Brebaring extends StatelessWidget {
               body: BlocBuilder<BrebaringBloc, BrebaringState>(
                 builder: (context, state) {
                   if (state is SuccessGetData) {
+                    print(state.allBills.bills[0].market);
                     return SingleChildScrollView(
                       child: Wrap(
                         // mainAxisSize: MainAxisSize.min,
@@ -82,6 +84,27 @@ class Brebaring extends StatelessWidget {
                                             state.oneBill.length, (_) => null);
 
                                     return CardOfFatora(
+                                      fatora: MyButton(
+                                          title: "فاتورة",
+                                          onpress: () {
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  OrderMobileWithoutEdit(
+                                                bill: state.oneBill[index],
+                                              ),
+                                            ));
+                                          },
+                                          colors: ColorManager().blue,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4.5,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              17,
+                                          radius: 9),
                                       print: MyButton(
                                           title: "طباعة",
                                           onpress: () async {
@@ -422,6 +445,8 @@ class Brebaring extends StatelessWidget {
                                           .oneBill[index].created_at_formatted,
                                       text4: state.oneBill[index].market
                                           .location_details,
+                                      phoneText: state
+                                          .oneBill[index].market.phone_number .substring(3),
                                       text5:
                                           "عدد الأصناف: ${state.oneBill[index].products.length}",
                                       text6:

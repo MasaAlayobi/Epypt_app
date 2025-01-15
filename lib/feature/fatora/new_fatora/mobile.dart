@@ -23,7 +23,7 @@ import 'package:mufraty_app/Core/data/reasonReject.dart';
 
 import 'package:mufraty_app/feature/fatora/new_fatora/bloc/new_bill_bloc.dart';
 
-import 'package:mufraty_app/feature/fatora/orderLayout.dart/orderMobile.dart';
+import 'package:mufraty_app/feature/fatora/orderLayout.dart/order_with_edit/orderMobile.dart';
 
 class Mobile_fatora extends StatefulWidget {
   Mobile_fatora({
@@ -284,6 +284,9 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                     "${state.allBills[index].market.city_name}",
                                 text3:
                                     state.allBills[index].created_at_formatted,
+                                phoneText: state
+                                    .allBills[index].market.phone_number .substring(3),
+                                 
                                 text4:
                                     "${state.allBills[index].market.location_details}",
                                 text5:
@@ -296,7 +299,6 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                               ).animate().scaleXY(
                                   delay: 500.milliseconds,
                                   duration: (0.2 * index).seconds);
-                              
                             },
                           )),
                     ),

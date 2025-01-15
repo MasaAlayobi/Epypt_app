@@ -11,7 +11,8 @@ import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/cancel/bloc/cancel_from_supply_bloc.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
-import 'package:mufraty_app/feature/fatora/orderLayout.dart/orderMobile.dart';
+import 'package:mufraty_app/feature/fatora/orderLayout.dart/order_with_edit/orderMobile.dart';
+import 'package:mufraty_app/feature/fatora/orderLayout.dart/order_without_edit/order_mobile_without_edit.dart';
 
 class Cancel extends StatelessWidget {
   Cancel({super.key});
@@ -110,23 +111,28 @@ class Cancel extends StatelessWidget {
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: state.oneBill.length,
                                   itemBuilder: (context, index) {
-                                    return CardOfFatora( 
-                                        fatora: MyButton(
-                                    title: "فاتورة",
-                                    onpress: () {
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (context) => Order(
-                                          bill: state.oneBill[index],
-                                        ),
-                                      ));
-                                    },
-                                    colors: ColorManager().blue,
-                                    width:
-                                        MediaQuery.of(context).size.width / 4.5,
-                                    height:
-                                        MediaQuery.of(context).size.height / 17,
-                                    radius: 9),
+                                    return CardOfFatora(
+                                      fatora: MyButton(
+                                          title: "فاتورة",
+                                          onpress: () {
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  OrderMobileWithoutEdit(
+                                                bill: state.oneBill[index],
+                                              ),
+                                            ));
+                                          },
+                                          colors: ColorManager().blue,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4.5,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              17,
+                                          radius: 9),
                                       text1:
                                           "${state.oneBill[index].market.store_name}",
                                       text2:
@@ -135,6 +141,8 @@ class Cancel extends StatelessWidget {
                                           .oneBill[index].created_at_formatted,
                                       text4: state.oneBill[index].market
                                           .location_details,
+                                      phoneText: state
+                                          .oneBill[index].market.phone_number .substring(3),
                                       text5:
                                           "عدد الأصناف: ${state.oneBill[index].products.length}",
                                       text6:

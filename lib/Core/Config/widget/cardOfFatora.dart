@@ -17,6 +17,7 @@ class CardOfFatora extends StatelessWidget {
   final String? text5;
   final String? text6;
   final String? text7;
+  final String? phoneText;
   final String? text8;
   CardOfFatora({
     Key? key,
@@ -27,6 +28,7 @@ class CardOfFatora extends StatelessWidget {
     this.text5,
     this.text6,
     this.text7,
+    this.phoneText,
     this.text8,
     this.myDropdownMenu,
     this.fatora,
@@ -82,6 +84,34 @@ class CardOfFatora extends StatelessWidget {
                       ],
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 99,
+                ),
+                Flexible(
+                  child: Container(
+                    // height: MediaQuery.of(context).size.height / 23,
+                    alignment: Alignment.topRight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.phone_in_talk_rounded,
+                          color: ColorManager().grey2,
+                          size: 20,
+                        ),
+                        Flexible(
+                          child: SubTitle3(
+                            text: phoneText ?? "",
+                            color: ColorManager().grey1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 99,
                 ),
                 Flexible(
                   child: SubTitle3(

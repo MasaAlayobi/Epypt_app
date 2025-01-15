@@ -10,7 +10,8 @@ import 'package:mufraty_app/Core/Config/widget/myContainer.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/comblete_accept/bloc/comblete_delivery_bloc.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
-import 'package:mufraty_app/feature/fatora/orderLayout.dart/orderMobile.dart';
+import 'package:mufraty_app/feature/fatora/orderLayout.dart/order_with_edit/orderMobile.dart';
+import 'package:mufraty_app/feature/fatora/orderLayout.dart/order_without_edit/order_mobile_without_edit.dart';
 
 import '../../Core/Resourse/color.dart';
 
@@ -113,7 +114,7 @@ class CombleteDelivery extends StatelessWidget {
                                     onpress: () {
                                       Navigator.of(context)
                                           .push(MaterialPageRoute(
-                                        builder: (context) => Order(
+                                        builder: (context) => OrderMobileWithoutEdit(
                                           bill: state.oneBill[index],
                                         ),
                                       ));
@@ -128,6 +129,7 @@ class CombleteDelivery extends StatelessWidget {
                                           "${state.oneBill[index].market.store_name}",
                                       text2:
                                           state.oneBill[index].market.city_name,
+                                          phoneText: state.oneBill[index].market.phone_number .substring(3),
                                       text3: state
                                           .oneBill[index].created_at_formatted,
                                       text4: state.oneBill[index].market
