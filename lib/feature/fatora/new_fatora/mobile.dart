@@ -285,8 +285,8 @@ class _Mobile_fatoraState extends State<Mobile_fatora> {
                                 text3:
                                     state.allBills[index].created_at_formatted,
                                 phoneText: state
-                                    .allBills[index].market.phone_number .substring(3),
-                                 
+                                    .allBills[index].market.phone_number
+                                    .substring(2),
                                 text4:
                                     "${state.allBills[index].market.location_details}",
                                 text5:
