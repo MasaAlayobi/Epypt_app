@@ -528,8 +528,11 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                           backgroundColor:
                                                                               colorApp.greenColor,
                                                                         ));
-                                                                        GoRouter.of(context)
-                                                                            .pushReplacement(AppRouter.kHomeViewStock);
+                                                                        // GoRouter.of(context)
+                                                                        //     .pushReplacement(AppRouter.kHomeViewStock);
+                                                                         Navigator.of(
+                                                                              context)
+                                                                          .pop();
                                                                       } else if (state
                                                                           is NoConnectionAddProduct) {
                                                                         ScaffoldMessenger.of(context)
@@ -539,8 +542,11 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                           backgroundColor:
                                                                               colorApp.basicColor,
                                                                         ));
-                                                                        GoRouter.of(context)
-                                                                            .pushReplacement(AppRouter.kHomeViewStock);
+                                                                        // GoRouter.of(context)
+                                                                            // .pushReplacement(AppRouter.kHomeViewStock);
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
                                                                       }
                                                                     },
                                                                     child:
@@ -581,6 +587,9 @@ class _AvailablePageState extends State<AvailablePage> {
                                                                               .id,
                                                                           is_available:
                                                                               0));
+                                                                          //      Navigator.of(
+                                                                          //     context)
+                                                                          // .pop();
                                                                     },
                                                                   ),
                                                                   TextButton(

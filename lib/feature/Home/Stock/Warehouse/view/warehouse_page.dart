@@ -464,6 +464,12 @@ class _WarehousePageState extends State<WarehousePage> {
                                     ],
                                   )),
                             ),
+                           if (index == state.allProduct.length - 1)
+                            Container(
+                              height: MediaQuery.of(context).size.height / 6,
+                              width: 10,
+                              child: Text(""),
+                            )
                           ],
                         );
                       });

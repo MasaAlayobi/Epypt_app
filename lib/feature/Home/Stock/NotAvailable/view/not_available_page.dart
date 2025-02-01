@@ -363,13 +363,29 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                                                     content: Text(state.message),
                                                                                     backgroundColor: colorApp.greenColor,
                                                                                   ));
-                                                                                  GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
+                                                                                 // GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
+                                                                                  Navigator.of(
+                                                                              context)
+                                                                          .pop();
                                                                                 } else if (state is NoConnectionAddProduct) {
                                                                                   ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
                                                                                     content: Text(state.message),
                                                                                     backgroundColor: colorApp.basicColor,
                                                                                   ));
-                                                                                  GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
+                                                                                 // GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
+                                                                                  Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                                }
+                                                                                  else if (state is InformationError) {
+                                                                                  ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+                                                                                    content: Text(state.message),
+                                                                                    backgroundColor: colorApp.basicColor,
+                                                                                  ));
+                                                                                 // GoRouter.of(context).pushReplacement(AppRouter.kHomeViewStock);
+                                                                                  Navigator.of(
+                                                                              context)
+                                                                          .pop();
                                                                                 }
                                                                               },
                                                                               child: Column(
@@ -433,7 +449,9 @@ class _NotAvailablePageState extends State<NotAvailablePage> {
                                                                             TextButton(
                                                                               child: Text('موافق', style: TextStyle(color: colorApp.greenColor)),
                                                                               onPressed: () {
+                                                                                if( quantity.text.isNotEmpty){
                                                                                 context.read<NotAvailableBloc>().add(AddToAvailable(id: state.allProduct[index].pivot.id, product: AddProductToAvailable(is_available: 1, quantity: num.parse(quantity.text), price: num.parse(price.text), max_selling_quantity: num.parse(max_selling_quantity.text))));
+                                                                                }
                                                                               },
                                                                             ),
                                                                             TextButton(
