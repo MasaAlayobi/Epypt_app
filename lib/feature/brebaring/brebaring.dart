@@ -445,9 +445,9 @@ class Brebaring extends StatelessWidget {
                                           .oneBill[index].created_at_formatted,
                                       text4: state.oneBill[index].market
                                           .location_details,
-                                        
                                       phoneText: state
-                                          .oneBill[index].market.phone_number.substring(3),
+                                          .oneBill[index].market.phone_number
+                                          .substring(2),
                                       text5:
                                           "عدد الأصناف: ${state.oneBill[index].products.length}",
                                       text6:

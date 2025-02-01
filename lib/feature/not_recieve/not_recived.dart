@@ -125,8 +125,9 @@ class NotRecieved extends StatelessWidget {
                                   text1:
                                       "${state.oneBill[index].market.store_name}",
                                   text2: state.oneBill[index].market.city_name,
-                                  phoneText:
-                                      state.oneBill[index].market.phone_number .substring(3),
+                                  phoneText: state
+                                      .oneBill[index]. market.phone_number
+                                      .substring(2),
                                   text3:
                                       state.oneBill[index].created_at_formatted,
                                   text4: state
