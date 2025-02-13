@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,12 +41,28 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
  @override
   void dispose() {
     _tabController!.dispose();
+     _debounce?.cancel();
     super.dispose();
   }
   void _goToTab(int index) {
     // _tabController.animateTo(index);
   }
-
+   Timer? _debounce;
+    void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+       print(searchController.text+")))))))))))))))))))))))))))))))))))))))");
+                                context
+                                    .read<ProductsBloc>()
+                                    .add(getProducts(lable: query,page: 1));
+                                print('****************************************');
+                                  context.read<AvailableProductsBloc>().add(getAvailableProducts(label: query,page: 1));
+                                print('____________________________________');
+                                 context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: query,page: 1));
+                                print(searchController.text);
+      print('Searching for: $query');
+    });
+  }
   String? search;
   @override
   Widget build(BuildContext context) {
@@ -87,14 +105,7 @@ class _StockPageState extends State<StockPage> with SingleTickerProviderStateMix
                               // controller: last_name,
                               onChanged: (value) {
                                 searchController.text == value;
-                                context
-                                    .read<ProductsBloc>()
-                                    .add(getProducts(lable: value,page: 1));
-                                print('****************************************');
-                                  context.read<AvailableProductsBloc>().add(getAvailableProducts(label: value,page: 1));
-                                print('____________________________________');
-                                 context.read<NotAvailableBloc>().add(getNotAvailableProducts(label: value,page: 1));
-                                print(searchController.text);
+                               _onSearchChanged(value);
                               },
                               // onChanged: (value) {
                               //   searchController.text == value;

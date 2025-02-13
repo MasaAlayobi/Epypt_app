@@ -12,18 +12,37 @@ part 'available_products_event.dart';
 part 'available_products_state.dart';
 
 class AvailableProductsBloc extends Bloc<AvailableProductsEvent, AvailableProductsState> {
+   List<AvailableProductsModel> allProducts = [];
   AvailableProductsBloc() : super(AvailableProductsInitial()) {
-      late List<AvailableProductsModel> temp;
+     
     on<getAvailableProducts>((event, emit) async{
-      emit(LoadingProduct());
+       late List<AvailableProductsModel> temp;
+       
+     if(event.page==1){
+      allProducts.clear();
+      print("11111111111111111111111111111111111111111111");
+     }
+      if(allProducts.isEmpty){
+
+      emit(LoadingProduct());}
          try {
          temp = await StockServicImp().getAvailableProduct(event.label,event.page);
-        print(temp);
+       if(event.page==1){
+         for (var product in temp) {
+          if (!allProducts.any((existingProduct) =>
+              existingProduct.id == product.id)) { // استبدل id بالخاصية الفريدة
+            allProducts.add(product);
+          }
+        }
+       }else{
+
+        allProducts.addAll(temp);
+       }
         if (temp.isEmpty) {
           emit(NotFound());
         }
           else {
-           emit(SuccessFetchAvailableProducts(allProduct: temp));
+           emit(SuccessFetchAvailableProducts(allProduct: allProducts));
          }
               } 
             // on DioException catch(e){
@@ -34,6 +53,12 @@ class AvailableProductsBloc extends Bloc<AvailableProductsEvent, AvailableProduc
       
     }
     });
+     @override
+     Future<void> close() {
+    // تفريغ المصفوفة عند إغلاق الـ Bloc
+      allProducts.clear();
+      return super.close();
+     }
       on<addOffer>(
       (event, emit) async {
          emit(LoadingProduct());
