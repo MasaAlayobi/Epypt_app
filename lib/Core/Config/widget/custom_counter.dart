@@ -28,7 +28,7 @@ class _CustomCounterState extends State<CustomCounter> {
 
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width /2.5,
+      width: MediaQuery.of(context).size.width /2.8,
       height: 40,
       color: colorApp.whiteColor,
       child: Row(
