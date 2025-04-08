@@ -116,7 +116,7 @@ class _OrderState extends State<OrderMobileWithoutEdit> {
                   icon: Icon(Icons.arrow_forward),
                   onPressed: () {
                     GoRouter.of(context)
-                        .pushReplacement(AppRouter.KHomeViewFatoraNew);
+                        .pop();
                   },
                   color: ColorManager().white,
                 )

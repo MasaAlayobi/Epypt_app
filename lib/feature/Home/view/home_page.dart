@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  GoRouter.of(context).pushReplacement(AppRouter.KMyDataView);
+                  GoRouter.of(context).push(AppRouter.KMyDataView);
                 },
                 icon: const Icon(
                   color: Colors.white,

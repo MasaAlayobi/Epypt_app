@@ -18,6 +18,7 @@ class MyDataBloc extends Bloc<MyDataEvent, MyDataState> {
 
         emit(SupplierLoaded(data));
         if (response == "false") {
+          print("dddd");
           emit(SupplierError());
         }
       } catch (e) {
@@ -55,7 +56,7 @@ class MyDataBloc extends Bloc<MyDataEvent, MyDataState> {
         }
       } catch (e) {
         print(e);
-        emit(NoInternet());
+        emit(NoInternet(message:  e.toString()));
       }
     });
   }
