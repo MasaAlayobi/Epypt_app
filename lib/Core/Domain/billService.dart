@@ -286,6 +286,7 @@ class BillServiceImpl extends BillService {
         .post("${baseUrl}update-Distribution", data: {"to_sites_id": cities});
 
     try {
+     
       if (response.statusCode == 200) {
         print("success edit cities in service");
         return response.data["message"];

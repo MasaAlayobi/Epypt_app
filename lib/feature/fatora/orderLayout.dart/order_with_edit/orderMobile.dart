@@ -116,8 +116,7 @@ class _OrderState extends State<Order> {
                 IconButton(
                   icon: Icon(Icons.arrow_forward),
                   onPressed: () {
-                    GoRouter.of(context)
-                        .pushReplacement(AppRouter.KHomeViewFatoraNew);
+                    GoRouter.of(context).pop();
                   },
                   color: ColorManager().white,
                 )
@@ -508,7 +507,7 @@ class _OrderState extends State<Order> {
                                                                                   "تم تحديث الفاتورة بنجاح") {
                                                                             print("update fatora");
                                                                             print(state.message);
-                                                                            GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
+                                                                            GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
 
                                                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                                                                 duration: Duration(seconds: 3),
@@ -522,7 +521,7 @@ class _OrderState extends State<Order> {
                                                                                   "تم تحديث الفاتورة بنجاح") {
                                                                             print("not update fatora");
                                                                             print(state.message);
-                                                                            GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraNew);
+                                                                            GoRouter.of(context).pushReplacement(AppRouter.KHomeViewFatoraBrebaring);
                                                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                                                                 duration: Duration(seconds: 3),
                                                                                 backgroundColor: ColorManager().red,

@@ -11,6 +11,7 @@ import 'package:mufraty_app/Core/Resourse/color.dart';
 import 'package:mufraty_app/feature/Home/view/home_page.dart';
 import 'package:mufraty_app/feature/fatora/fatora.dart';
 import 'package:mufraty_app/feature/fatora/orderLayout.dart/order_with_edit/orderMobile.dart';
+import 'package:mufraty_app/feature/fatora/orderLayout.dart/order_without_edit/order_mobile_without_edit.dart';
 import 'package:mufraty_app/feature/not_recieve/bloc/refuse_recive_bloc.dart';
 
 class NotRecieved extends StatelessWidget {
@@ -110,7 +111,7 @@ class NotRecieved extends StatelessWidget {
                                       onpress: () {
                                         Navigator.of(context)
                                             .push(MaterialPageRoute(
-                                          builder: (context) => Order(
+                                          builder: (context) => OrderMobileWithoutEdit(
                                             bill: state.oneBill[index],
                                           ),
                                         ));

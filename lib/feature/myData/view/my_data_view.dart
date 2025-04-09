@@ -60,8 +60,7 @@ class _MyDataViewState extends State<MyDataView> {
                 IconButton(
                   icon: Icon(Icons.arrow_forward),
                   onPressed: () {
-                    GoRouter.of(context)
-                        .pushReplacement(AppRouter.KHomeViewFatoraNew);
+                    GoRouter.of(context).pop();
                   },
                   color: ColorManager().white,
                 )
@@ -92,8 +91,8 @@ class _MyDataViewState extends State<MyDataView> {
                         ),
                       ),
                     );
-
-                    GoRouter.of(context).pushReplacement(AppRouter.KMyDataView);
+                    context.read<MyDataBloc>().add(GetAllData());
+                    // context.push(AppRouter.KMyDataView);
                   }
                   if (state is SuccessEditCity) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -106,9 +105,17 @@ class _MyDataViewState extends State<MyDataView> {
                         ),
                       ),
                     ));
-
-                    GoRouter.of(context).pushReplacement(AppRouter.KMyDataView);
+                    context.read<MyDataBloc>().add(GetAllData());
                   } else if (state is FailedEditName) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        duration: Duration(seconds: 3),
+                        backgroundColor: ColorManager().red,
+                        content: SizedBox(
+                            height: 50,
+                            child:
+                                Center(child: SubTitle3(text: "حدث خطأ ما")))));
+                  }
+                  else if (state is FailedEditCity) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: Duration(seconds: 3),
                         backgroundColor: ColorManager().red,
@@ -404,28 +411,31 @@ class _MyDataViewState extends State<MyDataView> {
                       );
                     });
                   } else if (state is NoInternet) {
-                    return Column(children: [
-                      Center(
-                        child: Image.asset(
-                          "asstes/images/internet.png",
-                          width: MediaQuery.of(context).size.width / 2,
-                          height: MediaQuery.of(context).size.height / 2,
+                    return SingleChildScrollView(
+                      child: Column(children: [
+                        Center(
+                          child: Image.asset(
+                            "asstes/images/internet.png",
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: MediaQuery.of(context).size.height / 2,
+                          ),
                         ),
-                      ),
-                      Center(
-                          child: Text(
-                        "لقد انقطع الاتصال بالانترنت",
-                        style: TextStyle(
-                            color: ColorManager().red,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700),
-                      ))
-                    ]);
+                        Center(
+                            child: Text(
+                          state.message,
+                          style: TextStyle(
+                              color: ColorManager().red,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700),
+                        ))
+                      ]),
+                    );
                   }
 
                   return Center(
-                      child:  Lottie.asset("asstes/lottie/loading.json",
-                          fit: BoxFit.contain, width: 144, height: 144),);
+                    child: Lottie.asset("asstes/lottie/loading.json",
+                        fit: BoxFit.contain, width: 144, height: 144),
+                  );
                 }),
           ))),
     );
