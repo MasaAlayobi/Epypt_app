@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
             setState(() {
               if (index == 2) {
                 BlocProvider.of<ReportCubit>(context)
-                    .getReport('1-1-2024', '31-12-2024');
+                    .getReport('2024-1-1', '2025-4-9');
               }
               widget.currentIndex = index;
             });

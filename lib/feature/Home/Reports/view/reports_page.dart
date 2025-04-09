@@ -18,8 +18,8 @@ class ReportsPage extends StatefulWidget {
 }
 
 class _ReportsPageState extends State<ReportsPage> {
-  String startDate = '';
-  String endDate = '';
+  String startDate = '2024-1-1';
+  String endDate = '2024-12-31';
 
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
@@ -29,6 +29,8 @@ class _ReportsPageState extends State<ReportsPage> {
     super.initState();
     _startDateController.addListener(_onStartDateChanged);
     _endDateController.addListener(_onEndDateChanged);
+   // context.read<ReportCubit>().getReport('2023-1-1', '2024-1-1');
+
   }
 
   @override
@@ -49,7 +51,9 @@ class _ReportsPageState extends State<ReportsPage> {
   }
 
   void _getReportData() {
-    if (startDate.isNotEmpty && endDate.isNotEmpty) {
+    print(startDate+'------'+endDate);
+    if (startDate.isNotEmpty  && endDate.isNotEmpty) {
+
       //  BlocProvider.of<ReportCubit>(context).getReport(startDate, endDate);
       context.read<ReportCubit>().getReport(startDate, endDate);
     }
@@ -278,40 +282,6 @@ class CustomListTile extends StatelessWidget {
   }
 }
 
-// class colorApp {
-//   static const Color basicColor = Color(0xffE32020);
-//   static const Color blackColor = Colors.black;
-//   static const Color whiteColor = Colors.white;
-//   static const Color greyColor = Color.fromARGB(255, 138, 138, 138);
-//   static const Color greyLightColor = Color.fromARGB(255, 201, 195, 195);
-//   static const Color greenColor = Colors.green;
-//   static const Color blueColor = Colors.blue;
-//   static const Color yellowColor = Color.fromARGB(255, 252, 227, 3);
-//   static const Color BackgroundColor = Color.fromARGB(136, 224, 214, 214);
-// }
-
-// class CustomText extends StatelessWidget {
-//   const CustomText(
-//       {super.key,
-//       required this.text,
-//       required this.size,
-//       required this.color,
-//       required this.fontWeight,
-//       required this.maxLines});
-//   final String text;
-//   final double size;
-//   final Color color;
-//   final FontWeight fontWeight;
-//   final int maxLines;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text(text,
-//         style: TextStyle(fontSize: size, fontWeight: fontWeight, color: color),
-//         maxLines: maxLines,
-//         overflow: TextOverflow.ellipsis);
-//   }
-// }
 
 class MyCustomForm extends StatefulWidget {
   final TextEditingController controller;
@@ -335,9 +305,10 @@ class _MyCustomFormState extends State<MyCustomForm> {
     );
     if (picked != null && picked != DateTime.now()) {
       setState(() {
-        String formattedDate =
-            '${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}';
-        widget.controller.text = formattedDate;
+       String formattedDate =
+    '${picked.year}-${picked.month}-${picked.day}';
+widget.controller.text = formattedDate;
+
       });
     }
   }
@@ -414,10 +385,13 @@ class ReportCubit extends Cubit<ReportState> {
   Future<void> getReport(String startDate, String endDate) async {
     final accessToken = await TokenStorage().getAccessToken();
     print(accessToken);
+    //DateTime
     emit(ReportLoading());
     try {
-      dio!.options.headers['Authorization'] = 'Bearer $accessToken';
-      final response = await dio!.get(
+          print(' in dataتاريخ البداية: $startDate');
+    print(' in data تاريخ النهاية: $endDate');
+      dio.options.headers['Authorization'] = 'Bearer $accessToken';
+      final response = await dio.get(
         '${Url.url}reports',
         queryParameters: {
           'start_date': startDate,
@@ -428,6 +402,7 @@ class ReportCubit extends Cubit<ReportState> {
       final report = Report.fromJson(response.data['body']);
       emit(ReportLoaded(report));
     } on DioException catch (e) {
+      print(e.response.toString());
       emit(ReportError(e.response.toString()));
     }
   }

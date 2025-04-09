@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace = "com.example.mufraty_app"
+    namespace = "com.almufraty.mufraty_app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -41,20 +41,31 @@ android {
     } 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.mufraty_app"
+        applicationId = "com.almufraty.mufraty_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk = 21
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0.0"
+        targetSdk = 34
+        versionCode = 3
+        versionName = "1.1.0"
         }
-
+    signingConfigs {
+        release {
+            storeFile file("C:/Epypt_app/my-release-key.keystore") // مسار ملف keystore
+            storePassword "123456789"  // كلمة المرور للـ keystore
+            keyAlias "my-key-alias"                 // الاسم المستعار للمفتاح
+            keyPassword "123456789"         // كلمة مرور المفتاح
+        }
+    }
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            signingConfig signingConfigs.release  // استخدام التوقيع الصحيح
+            minifyEnabled false  // يمكنك ضبطه على true عند الحاجة
+            shrinkResources false // تقليل حجم التطبيق عند الحاجة
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk {
+                     debugSymbolLevel 'FULL'
+                 }
         }
     }
 }

@@ -12,15 +12,6 @@ class TokenStorage {
     // await prefs.setInt(_expiryTimeKey, expiryTime);
   }
 
-  // Future<bool> isTokenExpired() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final expiryTime = prefs.getInt(_expiryTimeKey);
-  //   if (expiryTime == null) return true;
-
-  //   return DateTime.now().millisecondsSinceEpoch > expiryTime;
-  // }
-
-
   Future<String?> getAccessToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('accessToken');

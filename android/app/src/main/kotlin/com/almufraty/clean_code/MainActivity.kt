@@ -1,4 +1,4 @@
-package com.example.mufraty_app
+package com.almufraty.clean_code
 
 import io.flutter.embedding.android.FlutterActivity
 

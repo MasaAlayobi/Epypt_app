@@ -17,19 +17,11 @@ DioClient? fff;
 abstract class DioClient {
    String? entity;
     String baseUrl =Url.url;
-  final Dio dio = Dio(
-    // BaseOptions( 
-    //    baseUrl: 'https://backend.almowafraty.com/api/v1',
-    //   connectTimeout:Duration(seconds:  15),
-    // receiveTimeout: Duration(seconds:  15), 
-    // ),
-  );
+  final Dio dio = Dio();
   late Response response;
   final TokenStorage tokenStorage = TokenStorage();
 
-  DioClient(
-   
-  ) {
+  DioClient() {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -88,7 +80,7 @@ abstract class DioClient {
    
   try {
     final response = await dIo.get(
-      'https://backend.almowafraty.com/api/v1/suppliers/refresh-token', // استبدل بالـ URL الصحيح لتجديد التوكين
+      'https://backend.almowafraty.com/api/v1/suppliers/refresh-token',
       options: Options(
         headers: {
           'Authorization': 'Bearer $refreshToken',

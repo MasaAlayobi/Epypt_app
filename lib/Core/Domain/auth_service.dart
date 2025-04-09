@@ -120,7 +120,7 @@ class AuthServiceTmp extends AuthService {
         print("200");
         await TokenStorage().saveTokens(
             response.data['access_token'], response.data['refresh_token']);
-               await storage.get<SharedPreferences>().setString(
+        await storage.get<SharedPreferences>().setString(
             "phoneNumber", response.data["supplier"]["phone_number"]);
         print(response.data["access_token"]);
         print('-------------------------------------');
